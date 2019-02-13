@@ -25,15 +25,28 @@ ui+1+ui−1=2ui+Δx2∂2u∂x2∣∣∣i+O(Δx4)
 
 Then rearrange to solve for (∂2/u∂x2)∣∣∣i and the result is:
 
-∂2u∂x2=ui+1−2ui+ui−1Δx2+O(Δx2)
+∂2u/∂x2=ui+1−2ui+ui−1Δx2+O(Δx2)
 """
 
-nx = 41
+nx = 42
 dx = 2 / (nx - 1)
 nt = 20    # number of timesteps
 nu = 0.3   # viscosity value
 sigma = .2
 dt = sigma * dx**2 / nu
+
+"""
+We can now write the discretized version of the diffusion equation in 1D:
+
+un+1i−uniΔt=νuni+1−2uni+uni−1Δx2
+As before, we notice that once we have an initial condition, the only unknown is un+1i, so we
+re-arrange the equation solving for our unknown:
+
+un+1i=uni+νΔtΔx2(uni+1−2uni+uni−1)
+The above discrete equation allows us to write a program to advance a solution in time. But we need
+an initial condition. Let's continue using our favorite: the hat function. So, at t=0, u=2 in the
+interval 0.5≤x≤1 and u=1 everywhere else. We are ready to number-crunch!
+"""
 
 
 u = numpy.ones(nx)
