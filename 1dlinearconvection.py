@@ -34,3 +34,25 @@ dx = 2 / (nx-1)
 nt = 25    # number of timesteps
 dt = .025  # amount of time for each step
 c = 1      # assume wavespeed of c = 1
+
+u = numpy.ones(nx)
+u[int(.5 / dx):int(1 / dx + 1)] = 2
+
+"""
+For every element of our array u, we need to perform the operation un+1i=uni−cΔtΔx(uni−uni−1)
+We'll store the result in a new (temporary) array un, which will be the solution u for the next
+time-step. We will repeat this operation for as many time-steps as we specify and then we can see how
+far the wave has convected.
+
+We first initialize our placeholder array un to hold the values we calculate for the n+1 timestep,
+using once again the NumPy function ones().
+"""
+
+un = numpy.ones(nx)
+
+for n in range(nt):
+    un = u.copy()
+    for i in range(1, nx):
+        u[i] = un[i] - c * dt / dx * (un[i] - un[i-1])
+
+pyplot.plot(numpy.linspace(0, 2, nx), u);
