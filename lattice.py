@@ -36,5 +36,24 @@ for ix = 0:L-1
 # Generate velocities
 for i = 1:ip
     v(i,:) = v0*randn(1,3);
+
+def writelammps(filename,Lx,Ly,Lz,r,v)
+# WRITELAMMPS Write data to lammps file
+    fp = open(filename,’w’)
+    s = size(r)
+    ip = s(1)
+    fp.write(fp,’ITEM: TIMESTEP\n’)
+    fp.write(fp,’0\n’)
+    fp.write(fp,’ITEM: NUMBER OF ATOMS\n’)
+    fp.write(fp,’%d\n’,ip); % Nr of atoms
+    fp.write(fp,’ITEM: BOX BOUNDS pp pp pp\n’)
+    fp.write(fp,’%f %f\n’,0.0,Lx); # box size, x
+    fp.write(fp,’%f %f\n’,0.0,Ly); # box size, y
+    fp.write(fp,’%f %f\n’,0.0,Lz); # box size, z
+    fp.write(fp,’ITEM: ATOMS id type x y z vx vy vz\n’)
+    for i = 1:ip
+        fprintf(fp,’%d %d %f %f %f %f %f %f \n’, i,1,r(i,:),v(i,:))
+    fp.close()
+
 # Output to file
 writelammps(’mymdinit.lammpstrj’,L*b,L*b,L*b,r,v);
