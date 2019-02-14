@@ -19,3 +19,22 @@ b = 2.0; % Size of unit cell (units of sigma)
 v0 = 1.0; % Initial kinetic energy scale
 N = 4*L^3; % Nr of atoms
 r = zeros(N,3);
+
+v = zeros(N,3);
+bvec = [0 0 0; b/2 b/2 0; b/2 0 b/2; 0 b/2 b/2];
+ip = 0;
+
+# Generate positions
+for ix = 0:L-1
+    for iy = 0:L-1
+        for iz = 0:L-1
+            r0 = b*[ix iy iz]; % Unit cell base position
+            for k = 1:4
+                ip = ip + 1; % Add particle
+                r(ip,:) = r0 + bvec(k,:);
+
+# Generate velocities
+for i = 1:ip
+    v(i,:) = v0*randn(1,3);
+# Output to file
+writelammps(’mymdinit.lammpstrj’,L*b,L*b,L*b,r,v);
