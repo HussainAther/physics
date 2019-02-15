@@ -9,10 +9,10 @@ nleft = zeros(nt,float) # Store number of particles
 # halfsize = 0.5*box[3]
 # Box size in x-dir
 for it in range(nt):
-   xit = array(data.vecs(it,"x"))
+   xit = np.array(data.vecs(it,"x"))
    jj = find(xit<halfsize)
    numx = size(jj)
    nleft[it] = numx
 plt(t,nleft, xlabel="t" ylabel="n")
 plt.show()
-np.savetxt(’ndata.d’,(t,nleft))
+np.savetxt("ndata.d",(t, nleft))
