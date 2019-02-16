@@ -1,5 +1,6 @@
 from qutip import *
 from scipy import *
+import matplotlib.pyplot as plt
 
 """
 The QuTiP function qutip.floquet.fmmesolve implements the Floquet-Markov master equation. It calculates
@@ -47,10 +48,9 @@ output = mesolve(H, psi0, tlist, [sqrt(gamma1) * sigmax()], [num(2)], args)
 p_ex_ref = output.expect[0]
 
 # plot the results
-from pylab import *
-plot(tlist, real(p_ex), 'r--', tlist, 1-real(p_ex), 'b--')
-plot(tlist, real(p_ex_ref), 'r', tlist, 1-real(p_ex_ref), 'b')
-xlabel('Time')
-ylabel('Occupation probability')
-legend(("Floquet $P_1$", "Floquet $P_0$", "Lindblad $P_1$", "Lindblad $P_0$"))
-show()
+plt(tlist, real(p_ex), 'r--', tlist, 1-real(p_ex), 'b--')
+plt(tlist, real(p_ex_ref), 'r', tlist, 1-real(p_ex_ref), 'b')
+plt.xlabel('Time')
+plt.ylabel('Occupation probability')
+plt.legend(("Floquet $P_1$", "Floquet $P_0$", "Lindblad $P_1$", "Lindblad $P_0$"))
+plt.show()
