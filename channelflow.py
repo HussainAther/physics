@@ -2,6 +2,10 @@ import numpy
 from matplotlib import pyplot, cm
 from mpl_toolkits.mplot3d import Axes3D
 
+"""
+Channel flow with Navier-Stokes
+"""
+
 
 def build_up_b(rho, dt, dx, dy, u, v):
     b = numpy.zeros_like(u)
