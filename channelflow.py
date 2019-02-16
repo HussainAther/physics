@@ -4,6 +4,8 @@ from mpl_toolkits.mplot3d import Axes3D
 
 """
 Channel flow with Navier-Stokes
+
+Using the discretized equations of u-momentum, v-momentum, and pressure.
 """
 
 
