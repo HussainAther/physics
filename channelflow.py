@@ -57,3 +57,34 @@ def pressure_poisson_periodic(p, dx, dy):
         p[0, :] = p[1, :]  # dp/dy = 0 at y = 0
     
     return p
+
+##variable declarations
+nx = 41
+ny = 41
+nt = 10
+nit = 50
+c = 1
+dx = 2 / (nx - 1)
+dy = 2 / (ny - 1)
+x = numpy.linspace(0, 2, nx)
+y = numpy.linspace(0, 2, ny)
+X, Y = numpy.meshgrid(x, y)
+
+
+##physical variables
+rho = 1
+nu = .1
+F = 1
+dt = .01
+
+#initial conditions
+u = numpy.zeros((ny, nx))
+un = numpy.zeros((ny, nx))
+
+v = numpy.zeros((ny, nx))
+vn = numpy.zeros((ny, nx))
+
+p = numpy.ones((ny, nx))
+pn = numpy.ones((ny, nx))
+
+b = numpy.zeros((ny, nx))
