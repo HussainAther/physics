@@ -181,3 +181,6 @@ while udiff > .001:
     
     udiff = (numpy.sum(u) - numpy.sum(un)) / numpy.sum(u)
     stepcount += 1
+
+fig = pyplot.figure(figsize = (11,7), dpi=100)
+pyplot.quiver(X[::3, ::3], Y[::3, ::3], u[::3, ::3], v[::3, ::3]);
