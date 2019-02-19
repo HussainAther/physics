@@ -1,0 +1,107 @@
+\documentclass[aps,prd,reprint]{revtex4-1}
+
+\usepackage{graphicx}
+
+\begin{document}
+
+\title{NEAT Project: Tetris}
+
+\author{Hussain Ather, Jon Vo}
+\affiliation{Indiana University, Bloomington, IN  47405}
+
+\date{\today}
+
+\begin{abstract}
+Neural networks have been used for simulating 
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+Usually the first section of your paper will be titled ``Introduction" or ``Motivation."  It will provide background material related to your research topic.  You should discuss what questions your research will try to answer and why they are interesting.  Even though you are writing reports for a laboratory class, try to write them in the style of an actual research project.  Instead of saying, ``the purpose of this lab exercise is to become familiar with vacuum systems by measuring the conductance of an orifice," say something like ``the conductance of an orifice is measured for two different gasses at a variety of pressures in order to study molecular and viscous flow."  Likewise avoid conclusions like: ``this lab taught me how to use a diffusion pump."  That is not a conclusion of a research investigation.
+
+In your introduction, you may choose to provide derivations of key equations and concepts:
+\begin{equation}\label{eq:newt2nd}
+\mathbf{F} = \frac{d\mathbf{p}}{dt}.
+\end{equation}
+Be sure to punctuate properly around equations and label them in your \LaTeX{} file so that you can easily refer back to them.  (See Equation~\ref{eq:newt2nd}.)  In addition to equations you will probably have several citations~\cite{ref:apaper} that provide more detailed information about topics.  Cite all sources used in developing your paper.
+
+At the end of the introduction it is helpful to provide a brief outline in words of what the reader can expect to see in the following sections.
+
+\section{Experimental method}
+
+The organization of the method and results sections of the paper is somewhat flexible.  Depending on how many distinct results you have you may choose to organize this in a variety of different ways or group these into major sections according to different measurements where each has subsections that discuss the method and results.  There is no one-size-fits-all recipe for organization.  Make use of sections and subsections in order to provide a clear outline to your paper.  Sometimes it is helpful to start writing a paper by writing the section headings and inserting the figures and tables.  Then you can go back and write text around that outline.
+
+If you have a common method that applies to all results, it might make most sense to break this out into a major section by itself.  Here you should include a description of the apparatus and technique.  It is important to provide the reader with some intuition of how you are utilizing the equipment to achieve your goals.  State not just what you did but why you did it.  For example, don't say:  we recorded the values gauges 1, 2, and 3 every 20 seconds for 2 minutes.  First explain what gauges 1, 2, and 3 measure and how studying their time dependence allows you to determine some quantity of interest.
+
+It is important that the experimental method not be a historical account of your work.  For many labs you are likely to have false starts where you try to make a measurement and realize that for some reason the technique doesn't work.  Do not include a discussion of these attempts and why they don't work in the experimental method.  This only confuses the reader since he or she spends effort trying to understand a description that ultimately doesn't produce the final results.
+
+\section{Results}
+
+Here you present the results of your work.  In many cases you'll have multiple results to present.  It might be helpful to give an overview of the results in the opening paragraph and then break this up into subsections.
+
+%the \boldmath is needed if you have math mode letters in order to get them to appear in the same font as the 
+%other characters
+
+\subsection{\boldmath Measurement of $A$}
+
+
+\begin{table}
+\begin{center}
+\caption{\label{tab:example}Place a descriptive caption above the table. }
+\begin{tabular}{cc} \hline\hline
+Quantity & Value \\ \hline 
+A & $2.31\pm0.24$ \\
+B & $0.27 \pm 0.01$ \\
+C & $3.26 \pm 0.22$  \\ \hline\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table*}
+\begin{center}
+\caption{\label{tab:wide_table}This table is very wide table that will not fit in one column.  Looking at the \LaTeX{} file you will see that I've also added some space between the column headings with the $\sim$ character to make the numbers easier to read.}
+\begin{tabular}{cccccc}\hline\hline
+Measurement Number & ~~Value $A$~~ & ~~Value $B$~~ & ~~Value $C$ ~~& ~~Value $D$~~ &~~ Value $E$~~ \\ \hline
+1 & $0.1 \pm 0.2$ & $0.3 \pm 0.4$ & $0.5 \pm 0.6$ & $0.7\pm 0.8$ & $0.9 \pm 1.0$ \\
+2 & $0.1 \pm 0.2$ & $0.3 \pm 0.4$ & $0.5 \pm 0.6$ & $0.7\pm 0.8$ & $0.9 \pm 1.0$ \\ \hline\hline
+\end{tabular}
+\end{center}
+\end{table*}
+
+Briefly discuss how measurement $A$ is preformed.  Discuss the result along with the uncertainties associated with it.  In general, most every measured quantity should have an associated uncertainty.  You may find it helpful to put information in a table such as Table~\ref{tab:example}.  If you need a wider table you can use the table environment shown in Table~\ref{tab:wide_table}.
+
+\subsection{\boldmath Measurement of $B$}
+
+
+
+%for double-column figure use the figure* environment (just like tables)
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.9\linewidth]{stat_contrib.pdf}
+\caption{\label{fig:sample}This is a figure that I copied from a research paper~\cite{Bennett:2010nf}.  Data points are shown with error bars.  The line is actually a fit to a predicted mathematical form.  (The fit parameters appear in the original paper.)}
+\end{center}
+\end{figure}
+
+You can also create double-column figures by using the {\tt figure*} environment in your \LaTeX{} file.  \LaTeX{} will typically allow figures to float in the document so do not expect the figure to appear at the same place it appears in the source file.
+
+Finally, there are several things to note when presenting measurements in the text.  When reporting values with errors both numbers should be reported to the same precision, {\it e.g.}, 0.023 $\pm$ 0.010~m/s is correct 0.023 $\pm$ 0.01~m/s is not correct.  When expressing numbers with errors in scientific notation, proper use of parentheses enhances clarity:  $(2.99\pm0.02)\times 10^8$~m/s.  Include a single space between the number and unit.  In \LaTeX{} this should be done with a tilde $\sim$ to avoid a line break between the number and unit.  Units are written upright (not italic) characters:  m/s, kJ, etc.  Physical constants and variables are written in italic (math mode in \LaTeX{}):  $c$, $P$, $T$, $\hbar$, etc.
+
+\section{Conclusions}
+
+This section may also be titled ``interpretation" or ``discussion."  As the name suggests, you should present conclusions and an interpretation of your results.  First summarize the key results with uncertainties.  You may also briefly discuss the dominant uncertainties or limitations of the experimental technique.  You should compare your results to those of others.  For example, if you have measured the lifetime of the muon, how does it compare with the accepted value?  The conclusion needs to be well thought out and carefully written.  In the haste of writing a report at the last minute it is easy to overlook the conclusion or make conclusions that are not sound or logically correct.  The conclusion represents the final thoughts you leave the reader with.  It should clearly and concisely bring the presentation of your research to a close.
+
+\begin{thebibliography}{99}
+
+\bibitem{ref:apaper} A.~N.~Author {\it et al.}, Some Journal {\bf 5}, 24 (2011).
+\bibitem{Bennett:2010nf}
+  J.~V.~Bennett, M.~Kornicer, M.~R.~Shepherd, and M.~M.~Ito,
+  %``Precision timing measurement of phototube pulses using a flash analog-to-digital converter,''
+  Nucl.\ Instrum.\ Meth.\  {\bf A622}, 225-230 (2010).
+
+\end{thebibliography}
+
+
+\end{document}
