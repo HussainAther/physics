@@ -101,3 +101,41 @@ class QubitRegister:
 
         normalize(mapTensorX)
         normalize(mapTensorY, True)
+
+        # Entangle the registers
+        for x, yStates in mapTensorX.items():
+            for y, element in yStates.items():
+                amplitude = element.amplitude
+                toState = toRegister.states[y]
+                fromState = self.states[x]
+                toState.entangle(fromState, amplitude)
+                fromState.entangle(toState, amplitude.conjugate())
+
+        if propagate:
+            toRegister.propagate(self)
+
+    def measure(self):
+        measure = random.random()
+        sumProb = 0.0
+
+        # Pick a state
+        finalX = None
+        finalState = None
+        for x, state in enumerate(self.states):
+            amplitude = state.amplitude
+            sumProb += (amplitude * amplitude.conjugate()).real
+
+            if sumProb > measure:
+                finalState = state
+                finalX = x
+                break
+
+        # If state was found, update the system
+        if finalState is not None:
+            for state in self.states:
+                state.amplitude = complex(0.0)
+
+            finalState.amplitude = complex(1.0)
+            self.propagate()
+
+        return finalX
