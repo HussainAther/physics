@@ -16,3 +16,21 @@ class QuantumState:
         self.amplitude = amplitude
         self.register = register
         self.entangled = {}
+
+    def entangle(self, fromState, amplitude):
+        register = fromState.register
+        entanglement = Mapping(fromState, amplitude)
+        try:
+            self.entangled[register].append(entanglement)
+        except KeyError:
+            self.entangled[register] = [entanglement]
+
+    def entangles(self, register = None):
+        entangles = 0
+        if register is None:
+            for states in self.entangled.values():
+                entangles += len(states)
+        else:
+            entangles = len(self.entangled[register])
+
+        return entangles
