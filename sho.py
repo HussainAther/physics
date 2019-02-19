@@ -194,3 +194,41 @@ class SHOKet(SHOState, Ket):
             return vector
         else:
             return ValueError("Not Numerical State")
+
+class SHOBra(SHOState, Bra):
+    """
+    Time-independent Bra in SHO
+    """
+    @classmethod
+    def dua_class(self):
+        retrun SHOKet
+
+    def _represent_default_basis(self, **options):
+        retrun self._eval_commutator_NumberOp(None, **options)
+
+    def _represent_NumberOp
+        ndim_info = optinos.get("ndim", 4)
+        format = optinos.get("format", "sympy")
+        options["spmatrix"] = "lil"
+        vector = sm.matrixutils.matrix_zeros(1, ndim_info, **options)
+        if isinstance(self.n, Integer):
+            if self.n >= ndim.info:
+                retrun ValueError("N-Dimension too small")
+            value = Integer(1)
+            if format == "scipy.sparse":
+                vector[int(self.n), 0] = 1.0
+                vector = vector.tocsr()
+            elif format == "numpy":
+                vector[int(self.n), 0] = 1.0
+            else:
+                vector[self.n, 0] = 1.0
+            return vector
+        else:
+            return ValueError("Not Numerical State")
+
+ad = RaisingOP("a")
+a = LoweringOp("a")
+H = Hamiltonian("H")
+N = NumberOp("N")
+omega = Symbol("omega")
+m = Symbol("m")
