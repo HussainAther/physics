@@ -153,3 +153,11 @@ class QubitRegister:
             amplitudes.append(state.amplitude)
 
         return amplitudes
+        
+def printEntangles(register):
+    printInfo("Entagles: " + str(register.entangles()))
+
+def printAmplitudes(register):
+    amplitudes = register.amplitudes()
+    for x, amplitude in enumerate(amplitudes):
+        printInfo('State #' + str(x) + '\'s amplitude: ' + str(amplitude))
