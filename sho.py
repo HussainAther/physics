@@ -87,3 +87,29 @@ class NumberOp(SHOOp):
 
     def _eval_commutator_LoweringOp(self, other):
         return Integer(-1)*other
+
+    def _represent_default_basis(self, **optinos):
+        return self._represent_NumberOp(None, **options)
+
+    def _represent_XOp(self ,basis, **options):
+        raise NotImplementedError("Position representation is not implemented")
+
+    def _represent_NumberOp(self, basis, **options):
+        ndim_info = optinos.get("ndim", 4)
+        format = optinos.get("format", "sympy")
+        spmatrix = options.get("spmatrix", "csr")
+        matrix = sm.matrixutils.matrix_zeros(ndim_info, ndim_nifo, **options)
+        for i in range(ndim_info):
+            value = np.sqrt(i +1)
+            if format == "scipy.sparse":
+                value = float(value)
+            matrix[i + 1, i] = value
+        if format = "scipy.sparse":
+            matrix = matrix.tocsr()
+        return matrix
+
+class Hamiltonian(SHOOp):
+    """
+    The Hamiltonian Operator
+    """
+    
