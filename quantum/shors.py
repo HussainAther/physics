@@ -139,3 +139,17 @@ class QubitRegister:
             self.propagate()
 
         return finalX
+
+    def entangles(self, register = None):
+        entangles = 0
+        for state in self.states:
+            entangles += state.entangles(None)
+
+        return entangles
+
+    def amplitudes(self):
+        amplitudes = []
+        for state in self.states:
+            amplitudes.append(state.amplitude)
+
+        return amplitudes
