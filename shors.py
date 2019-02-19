@@ -34,3 +34,11 @@ class QuantumState:
             entangles = len(self.entangled[register])
 
         return entangles
+
+class QubitRegister:
+    def __init__(self, numBits):
+        self.numBits = numBits
+        self.numStates = 1 << numBits
+        self.entangled = []
+        self.states = [QuantumState(complex(0.0), self) for x in range(self.numStates)]
+        self.states[0].amplitude = complex(1.0)
