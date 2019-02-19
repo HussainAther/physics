@@ -153,7 +153,7 @@ class QubitRegister:
             amplitudes.append(state.amplitude)
 
         return amplitudes
-        
+
 def printEntangles(register):
     printInfo("Entagles: " + str(register.entangles()))
 
@@ -161,3 +161,17 @@ def printAmplitudes(register):
     amplitudes = register.amplitudes()
     for x, amplitude in enumerate(amplitudes):
         printInfo('State #' + str(x) + '\'s amplitude: ' + str(amplitude))
+
+def hadamard(x, Q):
+    codomain = []
+    for y in range(Q):
+        amplitude = complex(pow(-1.0, bitCount(x & y) & 1))
+        codomain.append(Mapping(y, amplitude))
+
+    return  codomain
+
+# Quantum Modular Exponentiation
+def qModExp(a, exp, mod):
+    state = modExp(a, exp, mod)
+    amplitude = complex(1.0)
+    return [Mapping(state, amplitude)]
