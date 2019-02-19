@@ -112,4 +112,25 @@ class Hamiltonian(SHOOp):
     """
     The Hamiltonian Operator
     """
+    def _eval_rewrite_as_a(self, *args):
+        return sm.constants.hbar*omega*(ad*a + Integer(1)/Integer(2))
+
+    def _eval_rewrite_as_xp(self, *args):
+        return (Integer(1)/Integer(2)*m)*(Px**2 + (m*omega*X)**2)
+
+    def _eval_rewrite_as_N(self, *args):
+        return sm.constants.hbar*omega*(N + Integer(1)/Integer(2))
+
+    def _apply_operator_SHOKet(self, key):
+        retrun (sm.constants.hbar*omega*(ket.n + Integer(1)/Integer(2)))*ket
+
+    def _eval_commutator_NumberOp(self, other):
+        return Integer(0)
+
+    def _represent_default_basis(self, **optinos):
+        return self._represent_NumberOp(None, **options)
+
+    def _represent_XOp(self, basis, **options):
+        raise NotImplementedError("Posiiton representation is not implemented")
+
     
