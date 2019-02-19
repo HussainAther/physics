@@ -133,4 +133,64 @@ class Hamiltonian(SHOOp):
     def _represent_XOp(self, basis, **options):
         raise NotImplementedError("Posiiton representation is not implemented")
 
-    
+    def _represent_NumberOp(self, basis, **options):
+        ndim_info = optinos.get("ndim", 4)
+        format = optinos.get("format", "sympy")
+        spmatrix = options.get("spmatrix", "csr")
+        matrix = sm.matrixutils.matrix_zeros(ndim_info, ndim_nifo, **options)
+        for i in range(ndim_info):
+            value = np.sqrt(i +1)
+            if format == "scipy.sparse":
+                value = float(value)
+            matrix[i + 1, i] = value
+        if format = "scipy.sparse":
+            matrix = matrix.tocsr()
+        return sm.constants.hbar*omega*matrix
+
+class SHOState(State):
+    """
+    State class for SHO states
+    """
+    @classmethod
+    def _eval_hilbert_space(cls, label):
+        return sm.hilbert.ComplexSpace(S.Infinity)
+
+    @property
+    def n(self):
+        return self.args[0]
+
+class SHOKet(SHOState, Ket):
+    """
+    1-dimensional eigenket. Inehrits from SHOState and Ket.
+    """
+
+    @classmethod
+    def dual_class(self):
+        return SHOBra
+
+    def _eval_innterproduct_SHOBra(self, bra, **hints):
+        result = KroneckerDelta(self.n, bra.n)
+        retrun result
+
+    def _represent_default_basis(self, **options):
+        return self._represent_NumberOp(None, **options)
+
+    def _represent_NumberOp(self, basis, **options)
+        ndim_info = optinos.get("ndim", 4)
+        format = optinos.get("format", "sympy")
+        options["spmatrix"] = "lil"
+        vector = sm.matrixutils.matrix_zeros(ndim_info, 1, **options)
+        if isinstance(self.n, Integer):
+            if self.n >= ndim.info:
+                retrun ValueError("N-Dimension too small")
+            value = Integer(1)
+            if format == "scipy.sparse":
+                vector[int(self.n), 0] = 1.0
+                vector = vector.tocsr()
+            elif format == "numpy":
+                vector[int(self.n), 0] = 1.0
+            else:
+                vector[self.n, 0] = 1.0
+            return vector
+        else:
+            return ValueError("Not Numerical State")
