@@ -62,3 +62,26 @@ class QubitRegister:
                 continue
 
             register.propagate(self)
+
+    # Map will convert any mapping to a unitary tensor given each element v
+    # returned by the mapping has the property v * v.conjugate() = 1
+    #
+
+    def map(self, toRegister, mapping, propagate = True):
+        self.entangled.append(toRegister)
+        toRegister.entangled.append(self)
+
+        # Create the covariant/contravariant representations
+        mapTensorX = {}
+        mapTensorY = {}
+        for x in range(self.numStates):
+            mapTensorX[x] = {}
+            codomain = mapping(x)
+            for element in codomain:
+                y = element.state
+                mapTensorX[x][y] = element
+
+                try:
+                    mapTensorY[y][x] = element
+                except KeyError:
+                    mapTensorY[y] = { x: element }
