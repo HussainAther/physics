@@ -175,3 +175,113 @@ def qModExp(a, exp, mod):
     state = modExp(a, exp, mod)
     amplitude = complex(1.0)
     return [Mapping(state, amplitude)]
+
+# Quantum Fourier Transform
+def qft(x, Q):
+    fQ = float(Q)
+    k = -2.0 * math.pi
+    codomain = []
+
+    for y in range(Q):
+        theta = (k * float((x * y) % Q)) / fQ
+        amplitude = complex(math.cos(theta), math.sin(theta))
+        codomain.append(Mapping(y, amplitude))
+
+    return codomain
+
+def findPeriod(a, N):
+    nNumBits = N.bit_length()
+    inputNumBits = (2 * nNumBits) - 1
+    inputNumBits += 1 if ((1 << inputNumBits) < (N * N)) else 0
+    Q = 1 << inputNumBits
+
+    printInfo("Finding the period...")
+    printInfo("Q = " + str(Q) + "\ta = " + str(a))
+    
+    inputRegister = QubitRegister(inputNumBits)
+    hmdInputRegister = QubitRegister(inputNumBits)
+    qftInputRegister = QubitRegister(inputNumBits)
+    outputRegister = QubitRegister(inputNumBits)
+
+    printInfo("Registers generated")
+    printInfo("Performing Hadamard on input register")
+
+    inputRegister.map(hmdInputRegister, lambda x: hadamard(x, Q), False)
+    # inputRegister.hadamard(False)
+
+    printInfo("Hadamard complete")
+    printInfo("Mapping input register to output register, where f(x) is a^x mod N")
+
+    hmdInputRegister.map(outputRegister, lambda x: qModExp(a, x, N), False)
+
+    printInfo("Modular exponentiation complete")
+    printInfo("Performing quantum Fourier transform on output register")
+
+    hmdInputRegister.map(qftInputRegister, lambda x: qft(x, Q), False)
+    inputRegister.propagate()
+
+    printInfo("Quantum Fourier transform complete")
+    printInfo("Performing a measurement on the output register")
+
+    y = outputRegister.measure()
+
+    printInfo("Output register measured\ty = " + str(y))
+
+    # Interesting to watch - simply uncomment
+    # printAmplitudes(inputRegister)
+    # printAmplitudes(qftInputRegister)
+    # printAmplitudes(outputRegister)
+    # printEntangles(inputRegister)
+
+    printInfo("Performing a measurement on the periodicity register")
+
+    x = qftInputRegister.measure()
+
+    printInfo("QFT register measured\tx = " + str(x))
+
+    if x is None:
+        return None
+
+    printInfo("Finding the period via continued fractions")
+
+    r = cf(x, Q, N)
+
+    printInfo("Candidate period\tr = " + str(r))
+
+    return r
+
+####################################################################################################
+#
+#                                       Classical Components
+#
+####################################################################################################
+
+BIT_LIMIT = 12
+
+def bitCount(x):
+    sumBits = 0
+    while x > 0:
+        sumBits += x & 1
+        x >>= 1
+
+    return sumBits
+
+# Greatest Common Divisor
+def gcd(a, b):
+    while b != 0:
+        tA = a % b
+        a = b
+        b = tA
+
+    return a
+
+# Extended Euclidean
+def extendedGCD(a, b):
+    fractions = []
+    while b != 0:
+        fractions.append(a // b)
+        tA = a % b
+        a = b
+        b = tA
+
+    return fractions
