@@ -85,3 +85,19 @@ class QubitRegister:
                     mapTensorY[y][x] = element
                 except KeyError:
                     mapTensorY[y] = { x: element }
+
+        # Normalize the mapping:
+        def normalize(tensor, p = False):
+            lSqrt = math.sqrt
+            for vectors in tensor.values():
+                sumProb = 0.0
+                for element in vectors.values():
+                    amplitude = element.amplitude
+                    sumProb += (amplitude * amplitude.conjugate()).real
+
+                normalized = lSqrt(sumProb)
+                for element in vectors.values():
+                    element.amplitude = element.amplitude / normalized
+
+        normalize(mapTensorX)
+        normalize(mapTensorY, True)
