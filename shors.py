@@ -42,3 +42,23 @@ class QubitRegister:
         self.entangled = []
         self.states = [QuantumState(complex(0.0), self) for x in range(self.numStates)]
         self.states[0].amplitude = complex(1.0)
+
+    def propagate(self, fromRegister = None):
+        if fromRegister is not None:
+            for state in self.states:
+                amplitude = complex(0.0)
+
+                try:
+                    entangles = state.entangled[fromRegister]
+                    for entangle in entangles:
+                        amplitude += entangle.state.amplitude * entangle.amplitude
+
+                    state.amplitude = amplitude
+                except KeyError:
+                    state.amplitude = amplitude
+
+        for register in self.entangled:
+            if register is fromRegister:
+                continue
+
+            register.propagate(self)
