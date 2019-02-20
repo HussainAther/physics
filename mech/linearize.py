@@ -44,3 +44,8 @@ A.set_ang_vel(N, q1d*N.z)
 P = pN.locatenew("P", L*A.x)
 vel_P = P.v2pt_theory(pN, N, A)
 pP = Particle("pP", P, m)
+
+# Solve for eom with Lagrange's method
+Lag = Lagrangian(N, pP)
+LM = LagrangesMethod(Lag, [q1], forcelist=[(P, R)], frame=N)
+lag_eqs = LM.form_lagranges_equations()
