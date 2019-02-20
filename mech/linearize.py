@@ -41,3 +41,6 @@ Linear Lagrange's Equations
 """
 A = N.orientnew("A", "axis", [q1, N.z])
 A.set_ang_vel(N, q1d*N.z)
+P = pN.locatenew("P", L*A.x)
+vel_P = P.v2pt_theory(pN, N, A)
+pP = Particle("pP", P, m)
