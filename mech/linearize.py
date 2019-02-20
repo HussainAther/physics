@@ -27,3 +27,10 @@ pP = Particle("pP", P, m)
 
 # Create Kinematic Differential Equations
 kde = Matrix([q1d - u1])
+
+# Input force at P
+R = m*g*N.x
+
+# Solve for eom with KanesMethod
+KM = KanesMethod(N, q_ind=[q1], u_ind=[u1], kd_eqs=kde)
+fr, frstar = KM.kanes_equations([pP], [P, R])
