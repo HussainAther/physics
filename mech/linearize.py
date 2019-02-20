@@ -34,3 +34,10 @@ R = m*g*N.x
 # Solve for eom with KanesMethod
 KM = KanesMethod(N, q_ind=[q1], u_ind=[u1], kd_eqs=kde)
 fr, frstar = KM.kanes_equations([pP], [P, R])
+
+
+"""
+Linear Lagrange's Equations
+"""
+A = N.orientnew("A", "axis", [q1, N.z])
+A.set_ang_vel(N, q1d*N.z)
