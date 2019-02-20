@@ -3,6 +3,11 @@ from sympy import *
 from sympy.physics.mechanics import *
 
 """
+In this example we demonstrate the use of the functionality provided in mechanics for
+deriving the equations of motion (EOM) for a pendulum with a nonminimal set of coordinates.
+As the pendulum is a one degree of freedom system, it can be described using one coordinate
+and one speed (the pendulum angle, and the angular velocity respectively). Choosing instead
+to describe the system using the x and y coordinates of the mass gives constraints.
 Initialize KanesMethod object and use kanes_equation class method linearization.
 """
 
