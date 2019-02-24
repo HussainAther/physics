@@ -13,11 +13,11 @@ scene = display(x=0, y=0, width=500, height=500, title="String and masses config
 
 tempe = curve(x=range(0, 500), color=color.black)
 
-n = 9
+n = 9 # number of columns of the matrix x minus 1
 eps = 1e-6 # precision
-deriv = zeros((n,n), float) # just get some zeros
+deriv = zeros((n,n), float) # just get some zeros. keep track of derivatives
 f = zeros(n, float)
-x = array([.5, .5, .5 .5, .5, .5, .5, 1, 1, 1])
+x = array([.5, .5, .5, .5, .5, .5, .5, 1, 1, 1])
 
 def plotconfig():
     for obj in scene.objects:
@@ -50,7 +50,7 @@ def plotconfig():
     line3 = curve(pos=[(xbp, ybp), (xcp, ycp)], color=color.yellow, radius=4)
     topline = curve(pos=[(x0, y0), (xcp, yp)], color=color.red, radius=4)
 
-def F(x, f):
+def F(x, f): # F function we use
     f[0] = 3*x[3] + 4*x[4] + 4*x[5] - 8
     f[1] = 3*x[0] + 4*x[1] - 4*x[2]
     f[2] = x[6]*x[0] - x[7]*x[1] - 10
@@ -59,7 +59,29 @@ def F(x, f):
     f[5] = x[7]*x[4] - x[8]*x[5]
     f[6] = pow(x[0], 2) + pow(x[3], 2) - 1
     f[7] = pow(x[1], 2) + pow(x[4], 2) - 1
-    f[8] = pow(x[2], 2) + pow(x[5], 2) -1
+    f[8] = pow(x[2], 2) + pow(x[5], 2) - 1
 
-def dFi_dXj(x ,deriv, n):
-    
+def dFi_dXj(x ,deriv, n): # Derivative function
+    h = 1e-4
+    for j in range(0, n): # For each column
+        temp = x[j]
+        x[j] = x[j] + h/2
+        F(x, f)
+        for i in range(0, n):
+            deriv[i, j] = f[i]
+        x[j] = temp
+    for j in range(0, n):
+        temp = x[j]
+        x[j] = x[j] - h/2
+        F(x, f)
+        for i in range(0, n):
+            deriv[i,j] = (deriv[i, j] - f[i])/h
+        x[j] = temp
+
+for i in range(1, 100):
+    rate(1)
+    F(x, f)
+    dFi_dXj(x, deriv, n)
+    B = array
+
+
