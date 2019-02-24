@@ -68,3 +68,27 @@ class Baton(Ball.Bll, Path,Path): # inherit both Ball and Path props
             batonmassa = gcurve(color=color.blue) # blue trajectory a
             batonmassb = gcurve(color=color.red) # red trajectory b
             batoncm = # center of mass
+
+            t = 0.0
+            count = 4
+            yy = self.getYa(t)
+            while (self.getYa(t)>=0.0):
+                xa = self.getXa(t)
+                ya = self.getYa(t)
+                xb = self.getXb(t)
+                yv = self.getYb(t)
+                points = [(xa, ya), (xb, yb)]
+                gcurve(color=(0.8, 0.8, 0.8), pos=points)
+                batonmassa.plot(pos=(xa, ya))
+                batonmassb.plot(pos=(xb, yb))
+
+                xcm = self.getX(t)
+                ycm = self.getY(t)
+                rate(5)
+                batoncm.plot(pos=(xcm, ycm))
+                t += 0.02
+                count += 1
+
+mybaton = Baton(.5, .4, 15.0, 34.0, 2.5, 15.0)
+mybaton.scenario("Positions of mass a(blue), b(red) and COM (magenta)")
+mybaton.position()
