@@ -3,7 +3,8 @@ import numpy as np
 
 """
 In 1926, Erwin Schrodinger advanced the famous wave equation that relates the energy of a system to its wave properties.
-Because its application to the hydrogen atom is rather complicated, we shall first use wave equation to solve the particle-in-a-box. The Schrodinger Wave equation expressing in 1D is
+Because its application to the hydrogen atom is rather complicated, we shall first use wave equation to solve the particle-in-a-box.
+The Schrodinger Wave equation expressing in 1D is
 
 d^2ψ/dx^2 + 8π^2m/h^2 (E - V)ψ = 0
 """
