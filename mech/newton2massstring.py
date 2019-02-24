@@ -82,6 +82,26 @@ for i in range(1, 100):
     rate(1)
     F(x, f)
     dFi_dXj(x, deriv, n)
-    B = array
+    B = array([[-f[0]], [-f[1]], [-f[2]], [-f[3]], [-f[4]], [-f[5]], [-f[6]], [-f[7]], [-f[8]]])
+    sol = solve(deriv, B)
+    dx = take(sol, (0,), 1) # take the first column of matrix sol
+    for i in range(0, n):
+        x[i] = x[i] + dx[i]
+    plotconfig()
+    errX = errF = errXi = 0
+
+    for i in range(0, n):
+        if x[i] != 0:
+            errXi = abs(dx[i]/x[i])
+        else:
+            errXi = abs(dx[i])
+        if errXi > errX:
+            errX = errXi
+        if abs(f[i]) > errF:
+            errF = abs(f[i])
+        if errX <= eps and errF <= eps:
+            break
+for i in range(0, n):
+    print("x[", i, "] = ", x[i])
 
 
