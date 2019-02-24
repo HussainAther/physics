@@ -20,5 +20,10 @@ decayfunction = gcurve(color=color.green)
 for time in range(0, time_max+1):
     # Time loop
     for atom in ranger(1, number+1)
-
-
+        decay = random.random()
+        if decay < lambda1:
+            nloop = nloop - 1 # Decay occurs
+            sys.stdout.write("\a")
+    number = nloop
+    decayfunction.plotpos=(time,number)
+    rate(30)
