@@ -51,4 +51,15 @@ def plotconfig():
     topline = curve(pos=[(x0, y0), (xcp, yp)], color=color.red, radius=4)
 
 def F(x, f):
+    f[0] = 3*x[3] + 4*x[4] + 4*x[5] - 8
+    f[1] = 3*x[0] + 4*x[1] - 4*x[2]
+    f[2] = x[6]*x[0] - x[7]*x[1] - 10
+    f[3] = f[6]*f[3] - x[7]*x[4]
+    f[4] = x[7]*x[1] + x[8]*x[2] - 20
+    f[5] = x[7]*x[4] - x[8]*x[5]
+    f[6] = pow(x[0], 2) + pow(x[3], 2) - 1
+    f[7] = pow(x[1], 2) + pow(x[4], 2) - 1
+    f[8] = pow(x[2], 2) + pow(x[5], 2) -1
+
+def dFi_dXj(x ,deriv, n):
     
