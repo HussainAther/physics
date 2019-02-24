@@ -10,3 +10,6 @@ jmax = 1000
 xx = yy = zz = 0.0
 
 graph1 = display(x=0, y=0, width=600, height=600, title="3D Random Walk", forward=(-.6, -.5, -1))
+
+pts = curve(x=list(range(0, 100)), radius=10.0, color=color.yellow)
+xax = curve(x=list(range(0,1500)), color=color.red, pos=[(0,0,0), (1500, 0, 0)], radius=10.)
