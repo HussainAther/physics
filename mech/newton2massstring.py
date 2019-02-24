@@ -19,3 +19,13 @@ deriv = zeros((n,n), float) # just get some zeros
 f = zeros(n, float)
 x = array([.5, .5, .5 .5, .5, .5, .5, 1, 1, 1])
 
+def plotconfig():
+    for obj in scene.objects:
+        obj.visible = 0 # erase the previous configuration
+    L1 = 3
+    L2 = 4
+    L3 = 4
+    xa = L1*x[3]
+    ya = L1*x[0]
+    xb = xa+L2*x[4]
+    yb = ya+L2*x[1]
