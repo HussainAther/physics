@@ -50,3 +50,16 @@ class Baton(Ball.Bll, Path,Path): # inherit both Ball and Path props
         def getXa(self, t):
             xa = self.getX(t) + .5*self.L*cos(self.w*t)
             return xa
+
+        def getYz(self, t):
+            return self.getY(t)+.5*self.L.*sin(self.w*t)
+
+        def getXb(self, t):
+            return self.getX(t) -.5*self.L*cos(self.w*t)
+
+        def getYb(self, t):
+            return self.getY(t)-.5*self.L*sin(self.w*t)
+
+        def scenario(sel,f mytitle, myxtitle, myytitle, xma, xmi, yma, ymi):
+            graph = gdisplay(x=0, y=0, width=500, height=500, xmin=xmi, ymax=yma, ymin=ymi, foreground=color.black,
+            background=color.white)
