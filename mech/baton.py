@@ -88,11 +88,28 @@ class Baton(Ball.Bll, Path,Path): # inherit both Ball and Path props
                 batoncm.plot(pos=(xcm, ycm))
                 t += 0.02
                 count += 1
+        
+        def getKEcm(Self,t):
+            return self.getM()*((self.getVx(t))**2 + (self.getVy(t))**2)/2
 
         def energies(self):
             batonKEr = gcurve(color=color.blue) # rotational kinetic energy
             batonPE = gcurve(color=color.green) # potential energy
             batonKEcm = gcurve(color=color.magenta) # center of mass kinetic energy
+            batonEtotal = gcurve(color=color.red) # total energy
+            t = 0 # start at time = 0
+            yy = self.getYa(t) # intial y coordinate
+            while (self.getYa(t)>=0.0):
+                KEcm = self.getKEcm(t)
+                PE = self.getPE(t)
+                KEr = self.getKEr(t)
+                xcm = self.getX(t) # X center of mass
+                Etot = KEcm + PE + KEr # add em up!
+                batonKEcm.plot(pos=(xcm, KEcm))
+                batonKEr.plot(pos=(xcm, KEr))
+                batonEtotal.plot(pos=(xcm, Etot))
+                batonPE.plot(pos=(xcm, PE))
+                t += 0.02
 
 mybaton = Baton(.5, .4, 15.0, 34.0, 2.5, 15.0)
 mybaton.scenario("Positions of mass a(blue), b(red) and COM (magenta)")
