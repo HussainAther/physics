@@ -1,4 +1,4 @@
-from visual.graph import *
+from vpython.graph import *
 import math
 
 class Ball:
@@ -63,3 +63,8 @@ class Baton(Ball.Bll, Path,Path): # inherit both Ball and Path props
         def scenario(sel,f mytitle, myxtitle, myytitle, xma, xmi, yma, ymi):
             graph = gdisplay(x=0, y=0, width=500, height=500, xmin=xmi, ymax=yma, ymin=ymi, foreground=color.black,
             background=color.white)
+
+        def position(self):
+            batonmassa = gcurve(color=color.blue) # blue trajectory a
+            batonmassb = gcurve(color=color.red) # red trajectory b
+            batoncm = # center of mass
