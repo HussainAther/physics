@@ -89,6 +89,11 @@ class Baton(Ball.Bll, Path,Path): # inherit both Ball and Path props
                 t += 0.02
                 count += 1
 
+        def energies(self):
+            batonKEr = gcurve(color=color.blue) # rotational kinetic energy
+            batonPE = gcurve(color=color.green) # potential energy
+            batonKEcm = gcurve(color=color.magenta) # center of mass kinetic energy
+
 mybaton = Baton(.5, .4, 15.0, 34.0, 2.5, 15.0)
 mybaton.scenario("Positions of mass a(blue), b(red) and COM (magenta)")
 mybaton.position()
