@@ -29,3 +29,26 @@ def plotconfig():
     ya = L1*x[0]
     xb = xa+L2*x[4]
     yb = ya+L2*x[1]
+    xc = xb+L3*x[5]
+    yx = yb-L3*x[2]
+    mx = 100
+    bx = -500
+    my = -100
+    by = 400
+    xap = mx*xa+bx
+    yap = my*ya+by
+    ball1 = sphere(pos=(xap, yap))
+    xbp = mx*xb+bx
+    ybp = my*yb+by
+    ball2 = sphere(pos=(xbp, ybp))
+    xbp = mx*xc+bx
+    ycp = my*yc+by
+    x0 = mx*0+bx
+    y0 = my*0+by
+    line1 = curve(pos=[(x0, y0), (xap, yap)], color=color.yellow, radius=4)
+    line2 = curve(pos=[(xap, yap), (xbp, ybp)], color=color.yellow, radius=4)
+    line3 = curve(pos=[(xbp, ybp), (xcp, ycp)], color=color.yellow, radius=4)
+    topline = curve(pos=[(x0, y0), (xcp, yp)], color=color.red, radius=4)
+
+def F(x, f):
+    
