@@ -33,3 +33,20 @@ class Path:
             self.t = t
             return self.v0y*self.t - .5*self.g*t**2
 
+class Baton(Ball.Bll, Path,Path): # inherit both Ball and Path props
+
+        def __init__(self, mass, radius, v0, theta, L1, w1): # all the parts of the Baton
+            Ball.Ball.__init__(self, mass, radius)
+            Path.Path.__init__(self, v0, theta)
+            self.L = L1 # Baton length
+            self.w = w1 # Baton angular velocity
+
+        def getM(self):
+            return 2.0*self.getM1()
+
+        def getI(self):
+            return (2*self.getI1() + .5*self.getM()*self.L**2)
+
+        def getXa(self, t):
+            xa = self.getX(t) + .5*self.L*cos(self.w*t)
+            return xa
