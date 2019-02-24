@@ -1,4 +1,4 @@
-from visual import *
+from vpython import *
 import math
 
 """
