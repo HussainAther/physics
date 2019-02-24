@@ -22,4 +22,13 @@ zname = label(text="Z", pos=(100, 0, 1000), box=0)
 
 # Starting point
 pts.x[0] = pts.y[0] = pts.z[0]
+for i in range(1, 100):
+    xx += (random.random() - 0.5)*2
+    yy += (random.random() - 0.5)*2
+    zz += (random.random() - 0.5)*2
+    pts.x[i] = 200*xx - 100
+    pts.y[i] = 200*yy - 100
+    pts.z[i] = 200*zz - 100
+    rate(100)
 
+print("This walk’s distance R =" , sqrt(xx∗xx + yy∗yy+ zz∗zz))
