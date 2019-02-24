@@ -9,5 +9,12 @@ graph = gdisplay(x=0, y=0, width=500, height=500, title="Motion of a satellite a
     foreground=color.black, background=color.white)
 
 moonfunction = gcurve(color=color.red)
-radius = 4 # orbit radius
-wplanet = 2 #planet angular velocity
+planetradius = 4 # planet orbit radius
+wplanet = 2 # planet angular velocity
+moonradius = 1 # moon radius around planet
+wmoon = 14 # moon angular velocity around planet
+for time in range(0, 3.2, .02):
+    rate(20)
+    x = planetradius*cos(wplanet*time) + moonradius*cos(wmoon*time)
+    y = planetradius*sin(wplanet*time) + moonradius*sin(wmoon*time)
+    moonfunction.plot(pos=(x,y,))
