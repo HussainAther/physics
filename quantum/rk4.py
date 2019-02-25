@@ -15,4 +15,10 @@ eps = 1e-3
 n_steps = 501
 E = -17 # Idk I'm just guessing this energy.
 h = .04
-count_max s
+count_max = 100
+Emax = 1.1*E
+Emin = E/1.1
+
+def f(x, y, F, E):
+    F[0] = y[1]
+    F[1] = -(.4829)*(E-V(x))*y[0]
