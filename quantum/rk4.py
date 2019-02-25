@@ -55,6 +55,20 @@ def rk4(t, y, h, Neqs, E):
 
 def diff(E, h):
     y = zeros((2), float)
-    i_match = n_steps//3
+    i_match = n_steps//3 # matching radius
     nL = i.match + 1
     y[0] = 1.E-15
+    y[1] = -y[0] * sqrt(-E*.04829)
+    for i in range(0, nL + 1):
+        x = h * (i - n_steps/2)
+        rk4(x, y, h, 2, E)
+    left = y[1]/y[0]
+    y[0] = 1.E-15 # slope for even. reverse for odd
+    y[1] = -y[0] * sqrt(-E*.04829)
+    for i in range(n_steps, nL+1, -1):
+        x = h*(i+1-n_steps/2)
+        rk4(x, y, -h, 2, E)
+    right = y[1]/y[0] # log derivative
+    return((left - right)/(left + right))
+
+
