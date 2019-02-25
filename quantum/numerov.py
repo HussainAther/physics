@@ -59,3 +59,9 @@ def numerov(n, h, k2, u): # Numerov algorithm for left and right wavefunctions
 setk2()
 numerov(nl, h, k2l, ul)
 numerov(nr, h, k2r, ur)
+fact = ur[nr-2]/ul[im]
+for i in range(0, nl):
+    ul[i] = fact*ul[i]
+f0 = (ur[nr-1]+ul[nl-1]-ur[nr-3]-ul[nl-3])/(s*h*ur[nr-2]) # log derivative
+
+
