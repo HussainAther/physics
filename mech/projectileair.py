@@ -41,3 +41,14 @@ def plotNumeric(k):
         y = y + vy*dt
         funct.plot(pos=(x,y))
         print(" %13.10f %13.10f "%(x,y))
+
+def plotAnalytic():
+    v0x = v0*cos(angle*pi/180)
+    v0y = v0*sin(angle*pi/180)
+    dt = 2*v0y/g/N
+    for i in range(N):
+        rate(30)
+        t = i*dt
+        x = v0x*t
+        y = v0y*t - g*t*t/2
+        funct1.plot(pos=(x,y))
