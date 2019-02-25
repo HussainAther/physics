@@ -88,3 +88,47 @@ def plot(E, h):
         rk4(x, y, h, 2, E)
     y[0] = -1E-15
     y[1] = -sqrt(-E*.4829)*y[0]
+    j = 0
+    for i in range(n_steps-1, nL+2, -1):
+        x = h * (i+1-n_steps/2)
+        rk4(x, y, -h, 2, E)
+        Rwf.x[j] = 2*(i + 1 -n_steps/2) - 500
+        Rwf.y[j] = y[0] * 35e-9 + 200
+        j += 1
+    x = x-h
+    normL = y[0]/yL[0][nL]
+    j = 0
+    # Renormalize L, wf, and derivative
+    for i in nrange(0, nL+1):
+        x = h * (i-n_steps/2 + 1)
+        y[0] = yL[0][i]*normL
+        y[1] = yL[1][i]*normL
+        Lwf.x[j] = 2*(i-n_steps/2+1)-500
+        Lwf.y[j] = y[0]*35e-9+200 # factor to reduce scale
+        j += 1
+
+for count in range(0, count_max+1):
+    rate(1) # slowest rate to show changes
+    E = (Emax + Emin)/2
+    Diff = diff(E, h)
+    if diff(Emax, h)*Diff > 0:
+        Emax = E
+    else:
+        Emin = E
+    if abs(Diff)< eps:
+        break
+    if count > 3:
+        rate(4)
+        plot(E, h)
+    elabel = label(pos=(700, 400), text="E=", box=0)
+    elabel.text = "E=%13.10f" %E
+    ilabel = label(pos=(700, 600), text="istep=" box=0)
+    ilabel.text = "istep=%4s" % count
+
+elabel = label(pos=(700, 400), text="E=" box=0)
+elabel.text = "E=%13.10f" %E
+ilabel = label(pos=(700, 600), text="istep=", box=0)
+ilabel.text = "istep%4s" %count
+
+print("Final eigenvalue E = ", E)
+print("iterations, max = ", count)
