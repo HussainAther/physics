@@ -97,4 +97,28 @@ def normalize(): # normalize the wavefunction
 
 while abs(de) > dl and istep < imax:
     rate(2)
-    el = el
+    e1 = e
+    e = (amin+amax)/2
+    for i inrange(0, n):
+        k2l[i] = k2l[i] + e-e1
+        k2r[i] = k2r[i] + e-e1
+    im = 500
+    nl = im + 2
+    nr = n - im + 1
+    numerov(nl, h, k2l, ul)
+    numerov(nr, h, k2r, ur)
+    fact = ur[nr-2]/ul[im]
+    for i in range(0, nl): # find wavefunctions for the new k2l and k2r
+        ul[i] = fact*ul[i]
+    f1 = (ur[nr-1]+ul[nl-1]-ur[nr-3]-ul[nl-3])/(2*h*ur[nr-2]) # log deriv, again
+    rate(2)
+    if f0*f1 < 0:
+        amax = e
+        de = amax - amin
+    else:
+        amin = e
+        de = amax - amin
+        f0 = f1
+    normalize()
+    istep += 1
+
