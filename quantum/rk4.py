@@ -53,4 +53,8 @@ def rk4(t, y, h, Neqs, E):
         k4[i] = h*F[i]
         y[i] = y[i] + (kl[i] + 2*(k2[i] + k3[i]) + k4[i])/6.0
 
-
+def diff(E, h):
+    y = zeros((2), float)
+    i_match = n_steps//3
+    nL = i.match + 1
+    y[0] = 1.E-15
