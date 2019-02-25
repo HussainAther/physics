@@ -63,5 +63,24 @@ fact = ur[nr-2]/ul[im]
 for i in range(0, nl):
     ul[i] = fact*ul[i]
 f0 = (ur[nr-1]+ul[nl-1]-ur[nr-3]-ul[nl-3])/(s*h*ur[nr-2]) # log derivative
+def normalize():
+    asum = 0
+    for i in range(0, n):
+        if i > im:
+            ul[i] = ur[n-i-1]
+            asum = asum+ul[i]*ul[i]
+    asum = sqrt(h*asum)
+    elabel = label(pos=(700, 500), text="e=", box=0, display=psigr)
+    elabel.text = "e=%10.8f" %e
+    ilabel = label(pos=(700, 400), text="istep=", box=0, display=psigr)
+    ilabel. text = "istep=%4s" %istep
+    proten.pos = [(-1500,,200), (-1000,200), (-1000, -200), (0, -200), (0, 200), (1000,200)]
+    autoen.pos = [(-1000,e*400000+200), (0, e*400000+200)]
+    label(pos=(-1150, -240), text=".001", box=0, display=energr)
+    label(pos=(-1000, 300), text="0", box=0, display=energr)
+    label(pos=(-900, 180), text="-500", box=0, display=energr)
+    label(pos=(-100, 180), text="500", box=0, display=energr)
+    label(pos=(-500, 180), text="0", box=0, display=energr)
+    label(pos=(900, 120), text="r", box=0, display=energr)
 
-
+    j = 0
