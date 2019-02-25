@@ -125,4 +125,3 @@ while abs(de) > dl and istep < imax:
         f0 = f1
     normalize()
     istep += 1
-
