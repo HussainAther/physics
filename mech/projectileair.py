@@ -20,4 +20,10 @@ R = 2*v0x*v0y/g
 graph1 = gdisplay(title="Projectile width (red)/without (yellow) Air Resistance",
                 xtitle ="x", ytitle="y", xmax=R, xmin=-R/20, ymax=8, ymin=-6.0)
 
-funct
+funct1 = gcurve(color=color.red)
+funct1 = gcurve(color=color.yellow)
+
+print("Frictionless T = " + str(T))
+print("Frictionless H = " + str(H))
+print("Frictionless R = " + str(R))
+
