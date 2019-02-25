@@ -1,9 +1,12 @@
 from vpython import *
 
 """
-Use the Numerov method to solve the 1-D time-independent Schrodinger equation
-for bound-state energies. Peopel generally use the Runge-Kutta model method for solving
-ODEs (using a search routine for solving the eigenvalue problem).
+Use the Numerov method to solve the 1-D time-independent Schrödinger equation
+for bound-state energies. People generally use the Runge-Kutta model method for solving
+ODEs (using a search routine for solving the eigenvalue problem). Numerov, on the other hand,
+is specialized for ODes not contaiing any first derivatives (so we can apply it to the
+Schrödinger equation). IT's not as general as rk4, but it's of O(h^6) so it's fast
+with more precision.
 """
 
 psigr = display(x=0, y=0, width=600, height=300, title="R and L Wave Functions")
