@@ -22,3 +22,24 @@ Emin = E/1.1
 def f(x, y, F, E):
     F[0] = y[1]
     F[1] = -(.4829)*(E-V(x))*y[0]
+
+def V(x): # Well potential
+    if abs(x)< 10:
+        return -16
+    else:
+        return 0
+
+def rk4(t, y, h, Neqs, E):
+    F = zeros((Neqs), float)
+    ydumb = zeros((Neqs), float)
+    k1 = zeros((Neqs), float)
+    k2 = zeros((Neqs), float)
+    k3 = zeros((Neqs), float)
+    k4 = zeros((Neqs), float)
+    f(t, y, F, E)
+    for i in range(0, Neqs):
+        kl[i] = h*F[i]
+        ydumb[i] = y[i] + kl[i]/2
+    f(t + h/2, ydumb, F, E)
+    for i in range(0, Neqs):
+        
