@@ -63,7 +63,8 @@ fact = ur[nr-2]/ul[im]
 for i in range(0, nl):
     ul[i] = fact*ul[i]
 f0 = (ur[nr-1]+ul[nl-1]-ur[nr-3]-ul[nl-3])/(s*h*ur[nr-2]) # log derivative
-def normalize():
+
+def normalize(): # normalize the wavefunction
     asum = 0
     for i in range(0, n):
         if i > im:
@@ -84,3 +85,16 @@ def normalize():
     label(pos=(900, 120), text="r", box=0, display=energr)
 
     j = 0
+    for i in range(0, n, m):
+        xl = xl0 + i*h
+        ul[i] = ul[i]/asum
+        psi.x[j] = xl - 500
+        psi.y[j] = 10000.0*ul[i]
+        line = curve(pos=[(-830, -500), (-830, 500)], color=color.red, display=psigr)
+        psio.x[j] = xl - 500
+        psio.y[j] = 1e5*ul[i]**2
+        j += 1
+
+while abs(de) > dl and istep < imax:
+    rate(2)
+    el = el
