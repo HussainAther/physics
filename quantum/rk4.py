@@ -72,3 +72,19 @@ def diff(E, h):
     return((left - right)/(left + right))
 
 
+def plot(E, h):
+    x = 0
+    n_steps = 1501
+    y= zeros((2), float)
+    yL = zeros((2, 505), float)
+    i_match = 500
+    nL = i_match + 1
+    y[0] = 1E-40
+    y[1] = -sqrt(-E*.04829) * y[0]
+    for i in range(0, nL+1):
+        yL[0][i] = y[0]
+        yL[1][i] = y[1]
+        x = h * (i - n_steps/2)
+        rk4(x, y, h, 2, E)
+    y[0] = -1E-15
+    y[1] = -sqrt(-E*.4829)*y[0]
