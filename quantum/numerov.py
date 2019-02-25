@@ -36,3 +36,10 @@ im = 500
 nl = im + 2 # match point left and right wavefunction
 nr = n - im + 1
 istep = 0
+
+def V(x): # Finite square well from particle-in-a-box
+    if abs(x) <= 500:
+        v = -.001
+    else:
+        v = 0
+    return v
