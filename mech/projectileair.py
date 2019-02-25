@@ -35,4 +35,9 @@ def plotNumeric(k):
     dt = vy/g/N/2
     for i in range(3*N):
         rate(30)
-        vx = vx
+        vx = vx - k*vx*dt
+        vy = vy - g*dt - k * vy * dt
+        x = x + vx*dt
+        y = y + vy*dt
+        funct.plot(pos=(x,y))
+        print(" %13.10f %13.10f "%(x,y))
