@@ -52,3 +52,7 @@ def plotAnalytic():
         x = v0x*t
         y = v0y*t - g*t*t/2
         funct1.plot(pos=(x,y))
+        print(" %13.10f %13.10f "%(x,y))
+
+plotNumeric()
+plotAnalytic()
