@@ -38,8 +38,19 @@ def rk4(t, y, h, Neqs, E):
     k4 = zeros((Neqs), float)
     f(t, y, F, E)
     for i in range(0, Neqs):
-        kl[i] = h*F[i]
+        k1[i] = h*F[i]
         ydumb[i] = y[i] + kl[i]/2
     f(t + h/2, ydumb, F, E)
     for i in range(0, Neqs):
-        
+        k2[i] = h*F[i]
+        ydumb[i] = y[i] + kl[i]/2
+    f(t + h/2, ydumb, F, E)
+    for i in range(0, Neqs):
+        k3[i] = h*F[i]
+        ydumb[i] = y[i] + k3[i]
+    f(t + h, ydumb, F, E)
+    for i in range(0, Neqs):
+        k4[i] = h*F[i]
+        y[i] = y[i] + (kl[i] + 2*(k2[i] + k3[i]) + k4[i])/6.0
+
+
