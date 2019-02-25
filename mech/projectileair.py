@@ -27,3 +27,12 @@ print("Frictionless T = " + str(T))
 print("Frictionless H = " + str(H))
 print("Frictionless R = " + str(R))
 
+def plotNumeric(k):
+    vx = v0*cos(angle*pi/180)
+    vy = v0*sin(angle*pi/180)
+    x = 0
+    y = 0
+    dt = vy/g/N/2
+    for i in range(3*N):
+        rate(30)
+        vx = vx
