@@ -52,5 +52,10 @@ def setk2():
         k2r[i] = e-V(xr)
 
 def numerov(n, h, k2, u): # Numerov algorithm for left and right wavefunctions
-    b =
+    b = (h**2)/12.0
+    for i in range(1, n-1): # shown from integration of both sides
+        u[i+1] = (2*u[i]*(1-5*b*k2[i])-(1+b*k2[i-1])*u[i-1])/(1+b*k2[i+1])
 
+setk2()
+numerov(nl, h, k2l, ul)
+numerov(nr, h, k2r, ur)
