@@ -23,3 +23,8 @@ noTau = 90
 iTau = 0.
 s= iS
 
+# Need ∗very∗ small s steps for high frequency if s small
+dTau = W/noTau
+dS = (W/iS)∗∗(1./noS)
+maxY = 0.001
+sig = zeros (( noPtsSig ) , float )
