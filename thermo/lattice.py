@@ -1,5 +1,6 @@
 import numpy as np
 import math
+from numpy import zeros
 
 """
 First, we need to initialize the system by generating a lattice of atoms

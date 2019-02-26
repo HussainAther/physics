@@ -1,4 +1,5 @@
 import lattice
+from numpy import zeros
 
 [Lx, Ly, Lz, r, v]=readlammps(’mymdinit.lammpstrj’)
 L = [Lx, Ly, Lz]

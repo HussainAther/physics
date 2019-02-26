@@ -1,4 +1,5 @@
 from vpython import *
+from numpy import zeros
 
 """
 Runge-Kutta method (rk4 algorithm) for determining solutions to the 1-Dimensional Schrödinger equation

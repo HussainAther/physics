@@ -1,6 +1,7 @@
 from qutip import *
 from scipy import *
 import matplotlib.pyplot as plt
+from numpy import zeros
 
 """
 The QuTiP function qutip.floquet.fmmesolve implements the Floquet-Markov master equation. It calculates

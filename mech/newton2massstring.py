@@ -1,5 +1,6 @@
 from numpy.linalg import solve
 from vpython.graph import *
+from numpy import zeros
 
 """
 Use the Newton-Raphson search to solve the two-mass-on-a-string problem.
