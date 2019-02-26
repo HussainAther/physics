@@ -19,8 +19,19 @@ nbin = 1000
 nmax = 100000
 prob = zeros((1000), float)
 minx = mumin
-maxx = mumax
+maxx = mumax # window width
 miny = 0
-maxy = 2.5
+maxy = 2.5 # window height
 Xwidth = 500
 Yheight = 500
+
+c = Canvas(root, width= Xwidth, height = Yheight)
+c.pack()
+
+Button(root, text = "Quit", command = root.quit().pack())
+
+def world2sc(x1, yt, xr, yb): # x-left, y-top, x-right, y-bottom
+    """
+    mrm: right margin, bm: bottom margin, lm: left margin, tm: right margin,
+    bx, mx, by, my: global constants for linear transformations
+    """
