@@ -41,3 +41,18 @@ def daube4(f, n, sign):
             miny = -3
             Maxy = .2
             Miny = -.2
+            speed = 50
+        else:
+            maxy = 10
+            miny = -5
+            Maxy = 7.5
+            Miny = -7.5
+            speed = 8
+        if transfgr1:
+            transfgr1.display.visible = False
+            transfgr2.display.visible = False
+            del transfgr1
+            del transfgr2
+        transfgr1 = gdisplay(x=0, y=0, width=600, height=400, title = "Wavelet TF, down sample + low pass",
+                            xmax = maxx, xmin = 0, ymax = maxy, ymin=miny)
+        transf = gvbars(delta=2*n/N, color=color.cyan, display=transfgr1)
