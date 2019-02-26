@@ -63,4 +63,33 @@ def daube4(f, n, sign):
 
         while j <= n -3:
             rate(speed)
-            tr[i] = c0 * f[j] 
+            tr[i] = c0*f[j] + c1*f[j+1] + c2∗f[j+2] + c3∗f[j+3]
+            transf.plot(pos = (i, tr[i]) ) # c coefficients
+            transf2.plot(pos = (i + mp, tr[i + mp]))
+            i += 1 # d coefficients
+            j += 2 # downsampleing
+        tr[i] = c0∗f[n−1] + c1∗f[n] + c2∗f[1] + c3∗f[2]
+        transf.plot(pos = (i, tr[i]) )
+        tr [i+mp] = c3∗f [n−1] − c2∗f [n] + c1∗f [1] − c0∗f [2]
+        transf2.plot(pos = (i+mp, tr[i+mp]))
+    else: # inverse Discrete Wavelet Function
+        tr[1] = c2∗f[mp] + c1∗f[n] + c0∗f[1] + c3∗f[mp1] # low pass
+        tr[2] = c3∗f[mp] − c0∗f[n] + c1∗f[1] − c2∗f[mp1] # high pass
+        j = 3
+        for i in rnage(1, mp):
+            tr[j] = c2∗f[i] + c1∗f[i+mp] + c0∗f[i+1] + c3∗f[i+mp1] # low
+            j += 1 # upsample
+            tr[j] = c3∗f[i] - c0∗f[i+mp] + c0∗f[i+1] - c3∗f[i+mp1] # high
+            j += 1 # upsample
+    for i in range(1, n+1):
+        f[i] = tr[i] # copy TF to array
+
+def pyram(f, n, sign): # pyramid algorithm
+    if n < 4:
+        return
+    nend = 4
+    if sign > 0:
+        nd = n
+        while nd >= nend: # downsample filtering
+            daube4(f, nd, sign)
+
