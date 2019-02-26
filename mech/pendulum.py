@@ -42,9 +42,34 @@ def pendulum():
     c = 10 # number of cycles
     t = np.range(0, c, dt) # range of iterations for each step size
     n = len(t) # number of iterations
-    theta = 0 # initial angle
+    y = np.zeros(n) # y coordinates
+    v = np.zeros(n) # velocity values
+    theta0 = 90 # initial angle
+    y[0] = np.radians(theta0)
+    v[0] = np.radians(0)
     # delta_theta(T) # velocity across the time interval. Still working on this
-    v = dy/dt # calculate velocity
-    acceleration = dv/dt
-    for t in range(0, T):  # loop over time interval
-        k1 =
+    for i in range(0, n-1):
+        """
+        Calculate Runge-Kutta formulations for each time point (step)
+        """
+        k1y = h*v[i]
+        k1v = h*a(y[i])
+
+        k2y = h*(v[i] + .5*k1v)
+        k2v = h*a(y[i] + .5*k1y)
+
+        k3y = h*(v[i] + .5*k2v)
+        k3v = h*a(y[i] + .5*k2y)
+
+        k4y = h*(v[i] + k3v)
+        k4v = h*a(y[i] + k4y)
+
+        y[i+1] = y[i] + (k1y + 2 * k2y + 2 * k3y + k4y) / 6.0
+        v[i+1] = v[i] + (k1v + 2 * k2v + 2 * k3v + k4v) / 6.0
+
+plt.plot(t, y)
+plt.title('Pendulum Motion with Runge-Kutta method:')
+plt.xlabel('time (s)')
+plt.ylabel('angle (rad)')
+plt.grid(True)
+plt.show()
