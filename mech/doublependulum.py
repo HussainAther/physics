@@ -1,4 +1,8 @@
 
+"""
+Runge-Kutta method (rk4) is a general purpose routine that can be used to solve the double pendulum problem (two pendulums, one
+hanging from the other). 
+"""
 def positionDoublePendulum(y, x):
     """
     theta1 -> y[0]
