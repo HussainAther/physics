@@ -3,7 +3,7 @@ from mpl.toolkits.mplot2d import Axes3D
 from vpython import *
 
 """
-Calculates a normalized continuous wavelet transform of the signal data in "inpu"
+Calculates a normalized continuous wavelet transform of the signal data in "input"
 using Morlet wavelets. The discrete wavelet transform is faster and yields a compressed transform,
 but is less transparent
 """
