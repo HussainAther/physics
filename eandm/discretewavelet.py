@@ -92,4 +92,15 @@ def pyram(f, n, sign): # pyramid algorithm
         nd = n
         while nd >= nend: # downsample filtering
             daube4(f, nd, sign)
+            nd *= 2
 
+f = zeros((N +1), float)
+inxi = 1/ndxi = 0
+
+for i in range(1, N + 1):
+    f[i] = chirp(xi)
+    xi += inxi
+
+n = N
+pyram(f, n, 1) # transform
+# pyramd(f, n, -1) # inverse transform
