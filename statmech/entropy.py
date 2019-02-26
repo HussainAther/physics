@@ -32,6 +32,26 @@ Button(root, text = "Quit", command = root.quit().pack())
 
 def world2sc(x1, yt, xr, yb): # x-left, y-top, x-right, y-bottom
     """
-    mrm: right margin, bm: bottom margin, lm: left margin, tm: right margin,
-    bx, mx, by, my: global constants for linear transformations
+    from world (double) to window (int) coordinates
+    
+    mrm: right margin; bm: bottom margin; lm: left margin; tm: right margin;
+    bx, mx, by, my: global constants for linear transformations.
+    xcanvas: mx * xworld + mxl; ycanvas: my*yworld + my;
+    """
+    maxx = Xwidth # canvas width
+    maxy = Yheight # canvas height
+    lm = .1*maxx # left margin
+    rm = .9*maxx # right margin
+    bm = .85*maxy # bottom margin
+    tm = .1*maxy # top margin
+    mx = (lm - rm) / (xl - xr)
+    bx = (xl*rm - xr*lm) / (xl - xr)
+    my = (tm - bm) / (yt - yb)
+    by = (yb*tm - yt*bm) / (yb - yt)
+    linearTr = [mx, bx, my, by]
+    return linearTr
+
+def xyaxis(mx, bx, my, by):
+    """
+    Plot y, x, axes of world coordinates converted to canvas coordinates
     """
