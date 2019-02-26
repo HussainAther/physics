@@ -28,3 +28,24 @@ dTau = W/noTau
 dS = (W/iS)∗∗(1./noS)
 maxY = 0.001
 sig = zeros (( noPtsSig ) , float )
+
+def signal(noPtsSig , y):
+    t = 0.0
+    hs = W/noPtsSig
+    t1 = W/6.
+    t2 = 4.∗W/6.
+    for i in range (0 , noPtsSig ):
+        if t >= iT and t <= t1:
+            y[i] = sin(2∗pi∗t)
+    elif t >= t1 and t <= t2:
+        y[i] = 5.∗sin(2∗pi∗t)+10.∗sin(4∗pi∗t)
+    elif t >= t2 and t <= fT:
+        y[i] = 2.5∗sin(2∗pi∗t) + 6.∗sin(4∗pi∗t) + 10.∗sin(6∗pi∗t)
+    else:
+        print("In signal(...) : t out of range.")
+        sys . exit (1)
+    t += hs
+
+signal(noPtsSig, sig)
+Yn = zeros((noS+!, noTau+1), float)
+
