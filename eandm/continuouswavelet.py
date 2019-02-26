@@ -89,6 +89,7 @@ for i in range(0, noS):
 
 tau = iT
 s = iS
+
 print("normalize")
 for i in range(0, noS):
     s *= dS
@@ -97,3 +98,43 @@ for i in range(0, noS):
         Yn[i, j] = Yn[i,j]/maxY
     tau = iT
 
+print("finding inverse transform")
+recSigData = "RecSig.dat"
+recSig = zeros(len(sig))
+t = 0
+print("count to 10")
+keo = 0
+j = 0
+Yinc = Yn
+
+for rs in range(0, len(recSig)):
+    recSig[rs] = invTransform(t, Yinv)
+    invtr.x[rs] = 2*rs - N
+    invtr.y[rs] = 10*recSig[rs]
+    t += h
+    if kco %24 == 0:
+        j += 1
+        print(j)
+    kco += 1
+
+x = list(range(1, noS +1))
+y = list(range(1, noTau + 1))
+X, Y = p.meshgrid(x, y)
+
+def functz(Yn): # return transform
+    z = Yn[X, Y]
+    return z
+
+Z = functz(Yn)
+fig = p.figure()
+
+ax = Axes3D(fig)
+ax.plot_wireframe(X, Y, Z, color="r")
+ax.set_xlabel("s: scale")
+ax.set_ylabel("Tau")
+ax.set_zlabel("Transform")
+p.show()
+
+print("Done")
+print("Enter and return a character to finish")
+s = raw_input()
