@@ -88,3 +88,17 @@ for mu in arange(mumin, mumax, dmu):
     y = .5
     for n in range(1, nmax+1):
         y = mu*y(1-y) # Logistic map. skip transients.
+        if n > 30000:
+            ibin = int(y*nbin) + 1
+            prob[ibin] += 1
+    entropy = 0
+    for ibin in range(1, nbin):
+        if prob[ibin]>0:
+            entropy = entropy - (prob[ibin]/nmax) * math.log10(prob[ibin]/nmax)
+    entrpc = my*entropy + by
+    muc = mx*mu + bx
+    c.create_line(mu0, entr0, muc, entrpc, width=1, fill="blue")
+    mu0 = muc
+    entr0 =entrpc
+    
+root.mainloop()
