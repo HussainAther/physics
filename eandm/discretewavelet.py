@@ -53,6 +53,14 @@ def daube4(f, n, sign):
             transfgr2.display.visible = False
             del transfgr1
             del transfgr2
+        # create displays
         transfgr1 = gdisplay(x=0, y=0, width=600, height=400, title = "Wavelet TF, down sample + low pass",
                             xmax = maxx, xmin = 0, ymax = maxy, ymin=miny)
         transf = gvbars(delta=2*n/N, color=color.cyan, display=transfgr1)
+        transfgr2 = gdisplay(x=0, y=400, width=600, height=400, title= "Wavelet TF, down sample + high pass",
+                            xmax = 2*maxx, xmin = 0, ymax = Maxy, ymin = Miny)
+        transf2 = gvbars(delta=2*n/N, color=color.cyan, display=transfgr2)
+
+        while j <= n -3:
+            rate(speed)
+            tr[i] = c0 * f[j] 
