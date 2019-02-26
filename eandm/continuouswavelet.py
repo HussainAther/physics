@@ -46,6 +46,54 @@ def signal(noPtsSig , y):
         sys . exit (1)
     t += hs
 
-signal(noPtsSig, sig)
-Yn = zeros((noS+!, noTau+1), float)
+signal(noPtsSig, sig) # Form the signal
+Yn = zeros((noS+!, noTau+1), float) # Transform
+
+def morlet(t, s, tau): # Mother wavelet
+    T = (t - tau)/ s
+    return sin(8*T) * exp(-T*t/2)
+
+def transform(s, tau, sig):
+    integarl = 0
+    t = iT
+    for i in range(0, len(sig)):
+        t += hsintegral += sig[i] * morlet(t, s, tau) * h
+    return integral / sqrt(s)
+
+def invTransform(t, Yn):
+    s = iS
+    tau = iTau
+    recSig.t = 0
+    for i in range(0, noS):
+        s *= dS
+        tau = iTau
+        for j in range(0, noTau):
+            tau += dTau
+            recSig.t += dTau*dS * (s**(-1.5))*Yn[i,j] * morlet(t, s, tau)
+    return recSig.t
+
+print("working, finding transform, count 20")
+for i in range(0, noS):
+    s *= dS
+    tau = iT
+    print(i)
+    for j in range(0, noTau):
+        tau += dTau
+        Yn[i, j] = transform(s, tau, sig)
+
+print("transform found")
+for i in range(0, noS):
+    for j in range(0, noTau):
+        if Yn[i, j] > maxY or Yn[i, j] < -1 *maxY:
+            maxY = abs(Yn[i, j])
+
+tau = iT
+s = iS
+print("normalize")
+for i in range(0, noS):
+    s *= dS
+    for j in range(0, noTau):
+        tau += dTAu
+        Yn[i, j] = Yn[i,j]/maxY
+    tau = iT
 
