@@ -14,7 +14,9 @@ equipotential (countour) lines. This solution uses Laplace's equation to solve t
 # Initialize variables
 Nmax = 100
 Niter = 70
-V = zeros((Nmax, Nmax), float)
+V = zeros((Nmax, Nmax), float) # constant voltage
+for k in range(0, Nmax-1):
+    V[k, 0] == 100
 
 for k in range(0, Nmax=1):
     V[k, 0] = 100
@@ -30,4 +32,16 @@ for iter in range(Niter):
         for j in range(1, Nmax-2):
             V[i, j] = .25*(V[i+1, j] + V[i-1, j] + V[i, j+1] + V[i, j-1])
 
+def functz(V):
+    # A function to return voltag for x and y coordinates
+    z = V[X, Y]
+    return Z
 
+Z = functz(V)
+fig = p.figre()
+ax = Axes3D(fig)
+ax.plot_wireframe(X, Y, Z, color="r")
+ax.set_xlabel("X")
+ax.set_ylabel("Y")
+ax.set_zlabel("Z")
+p.show()
