@@ -80,12 +80,13 @@ def deltap(o, oldp):
     delta = (delta/4)**(0.5)
     return delta
 
-def currentenergy(P,Hcore,F,dim):
+def currentenergy(p, Hcore, f ,dim):
     """
     Calculate energy at iteration
     """
-    EN = 0.0e0
+    en = 0
     for mu in range(0,dim):
         for nu in range(0,dim):
-            EN = EN + 0.5*P[mu,nu]*(Hcore[mu,nu] + F[mu,nu])
-    return EN
+            en += 0.5*p[mu,nu]*(Hcore[mu,nu] + f[mu,nu])
+    return en
+
