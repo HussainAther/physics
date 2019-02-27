@@ -13,7 +13,9 @@ V_LJ = e *epsilon [ (sigma/r)^12 - (sigma/r)^6] = epsilon[(r_m/r)^12 - s*(r_m/r)
 
 in which epsilon is the depth of the potential well, sigma is the finite distance at which
 the inter-particle potential is zero, r is the distance between the particles, and r_m is the
-distance at which potential is a minimum. We use the Verlet algorithm (as was used in
+distance at which potential is a minimum. We use the Verlet algorithm.
+
+WORK IN PROGRESS.
 """
 
 number_of_particles = 70
