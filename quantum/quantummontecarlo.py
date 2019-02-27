@@ -142,16 +142,16 @@ maxx = 0
 while 1: # Infinite loop
     rate(100)
     element = int(N*random.random())
-    if element != 0 and element != N:
-        change = ((random.random() - .5) *20)/10
-        if path[element] + change > 0:
+    if element != 0 and element != N: # don't count the ends
+        change = ((random.random() - .5) *20)/10 # random number to test the change
+        if path[element] + change > 0: # here's the change test
             path[element] += change
-            newE = energy(path)
+            newE = energy(path) # calculate a new trajectory
             if newE > oldE and exp(-newE + oldD) <= random.random():
-                path[element] -= change
+                path[element] -= change # reject hte link
                 plotpath(path)
-            ele = int(path[element]*1250/100)
-            if ele >= maxel:
+            ele = int(path[element]*1250/100) # scale change
+            if ele >= maxel: # scale change 0 to N
                 maxel = ele
             if element != 0:
                 prob[ele] += 1
