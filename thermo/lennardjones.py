@@ -15,6 +15,8 @@ in which epsilon is the depth of the potential well, sigma is the finite distanc
 the inter-particle potential is zero, r is the distance between the particles, and r_m is the
 distance at which potential is a minimum. We use the Verlet algorithm.
 
+Use pygame functionality to visualize.
+
 WORK IN PROGRESS.
 """
 
