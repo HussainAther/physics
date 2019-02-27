@@ -1,0 +1,9 @@
+
+"""
+Solve the square-write problem used in electricity and magnetism. The problem entails finding the electric
+potential for all points inside a charge-free square. The bottom and sides of the region are made up of wires
+that are "grounded" at 0 V. The top wire is connected to a battery that keeps it at a constant voltage 100 V.
+
+We can compute the electric potential as a function of x and y. The projections onto the shaded xy plane are
+equipotential (countour) lines.
+"""
