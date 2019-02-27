@@ -16,7 +16,7 @@ HF assumes that the exact, N-body wave function of the system can be approximate
 Slater determinant (in the case where the particles are fermions) or by a single permanent
 (in the case of bosons) of N spin-orbitals. By invoking the variational method, one can derive a
 set of N-coupled equations for the N spin orbitals. A solution of these equations yields the
-Hartree–Fock wave function and energy of the system.
+HF wave function and energy of the system.
 """
 
 def symmetrize(a): # Symmetrize a matrix given a triangular one
