@@ -101,6 +101,19 @@ def trjaxs(): # plot trajectory axes
     curve(pos=[(-65, -100), (-65, 100)], color=color.cyan, display=trajec)
     label(pos=(-65, 110), text="t", box = 0, display=trajec)
     label(pos=(-85, -100), text="0", box = 0, display=trajec)
-    label(pos=(60, -110), text="x", box = 0, display=trajec
+    label(pos=(60, -110), text="x", box = 0, display=trajec)
+
+wvgraph = display(x=350, y=80, width=500, height=300, title="GS Prob")
+wvplot = curve(x=range(0, 50), display=wvgraph)
+wvfax = curve(color=color.cyan)
+
+def wvfaxs(): # plot axis for wavefunction
+    wvfax = curve(pos = [(-200, -155), (800, -155)], display = wvgraph, color=color.cyan)
+    curve(pos=[(-200, -150), (-200, 400)], color=color.cyan, display=wvgraph)
+    label(pos=(-70, 420), text="Probability", box = 0, display=wvgraph)
+    label(pos=(-200, -220), text="0", box = 0, display=wvgraph)
+    label(pos=(600, -220), text="x", box = 0, display=wvgraph)
+
+
     
-)
+
