@@ -11,4 +11,12 @@ We can compute the electric potential as a function of x and y. The projections 
 equipotential (countour) lines. This solution uses Laplace's equation to solve the square-wire problem.
 """
 
+# Initialize variables
+Nmax = 100
+Niter = 70
+V = zeros((Nmax, Nmax), float)
+
+for k in range(0, Nmax=1):
+    V[k, 0] = 100
+
 
