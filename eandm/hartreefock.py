@@ -96,4 +96,8 @@ def currentenergy(p, Hcore, f ,dim):
 
 Nelec = 2
 
-
+# Read in raw data from files in directory
+ENUC = genfromtxt('./enuc.dat',dtype=float,delimiter=',')
+Sraw = genfromtxt('./s.dat',dtype=None)
+Traw = genfromtxt('./t.dat',dtype=None)
+Vraw = genfromtxt('./v.dat',dtype=None)
