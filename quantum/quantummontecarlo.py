@@ -48,3 +48,28 @@ def plotpath(path):
     for j in range(0, N):
         trplot.x[j] = 20*path[j]
         trplot.y[j] = 2*j - 100
+
+def plotwvf(prob):
+    for i in range(0, 100):
+        wvplot.color = color.yellow
+        wvplot.x[i] = 8*i - 400
+        wvplot.y[i] = 4*prob[i] - 150
+
+oldE = energy(path)
+
+while True:
+    rate(10)
+    element = int(N*random.random())
+    change = 2.0∗(random.random() - .5)
+    path[element] += change
+    newE = energy(path)
+    if newE > oldE and math.exp(-newE+oldE) <= random.random():
+        path[element] -= change
+        plotpath(path)
+    elem = int(path[element]*16+50)
+    
+    # elem = m*path[element] + b is the linear transformation.
+    # if path = -3, elem 3 if path =3, elem = 98 => b = 50, m =16 linear TF
+    # this way x = 0 correspond to prob[50]
+
+
