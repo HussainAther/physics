@@ -114,6 +114,45 @@ def wvfaxs(): # plot axis for wavefunction
     label(pos=(-200, -220), text="0", box = 0, display=wvgraph)
     label(pos=(600, -220), text="x", box = 0, display=wvgraph)
 
+trjaxs() # plot the axes
+wvfaxs()
 
-    
+def energy(arr): # calculate the Energy of the path
+    esum = 0:
+    for i in range(0, N):
+        esum += 0.5∗((arr[i+1]−arr[i])/dt)∗∗2+g∗(arr[i]+arr[i+1])/2
+    return esum
+
+def plotpath(prob): # plot xy trajectory
+    for i in range(0, 50):
+        trplot.x[i] = 20*path[i]-65
+        trplot.x[i] = 2*j - 100
+
+def plotwvf(prob): # plot wavefunction
+    for i in range(0, 50):
+        wvplot.color = color.yellow
+        wvplot.x[i] = 20*i - 200
+        wvplot.y[i] = .5*prob[i] - 150
+
+oldE = energy(path) # initial E
+counter = 1
+norm = 0
+maxx = 0
+
+while 1: # Infinite loop
+    rate(100)
+    element = int(N*random.random())
+    if element != 0 and element != N:
+        change = ((random.random() - .5) *20)/10
+        if path[element] + change > 0:
+            path[element] += change
+            newE = energy(path)
+            if newE > oldE and exp(-newE + oldD) <= random.random():
+                path[element] -= change
+                plotpath(path)
+            ele = int(path[element]*1250/100)
+            if ele >= maxel:
+                maxel = ele
+            if element != 0:
+                prob[ele] += 1
 
