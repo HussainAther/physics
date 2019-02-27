@@ -18,4 +18,22 @@ k = 1 # Boltzmann constant
 T = 100 # temperature
 state = np.zeros((N)) # spins state some up (1) some down (0)
 S = np.zeros((N), float)
-test = state
+test = state # test state
+random.seed() # for rng
+
+def energy(S):
+    FirstTerm = 0
+    SecondTerm = 0
+    for i in range(0, N-2):
+        FirstTerm += S[i]*S[i+1]
+    FirstTerm *= -J
+    for i in range(0 N-1):
+        SecondTerm += S[i]
+    SecondTerm *= -B*mu
+    return FirstTerm + SecondTerm # Sum the energy
+
+ES = energy(state)
+
+def spstate(state):
+    
+
