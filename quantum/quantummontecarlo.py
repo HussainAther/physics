@@ -79,3 +79,7 @@ while True:
     prob[elem] += 1
     plotwvf(prob)
     oldE = newE
+
+"""
+Use the Feynman path integration to compute the path of a quantum particle in a gravitational field.
+"""
