@@ -92,3 +92,8 @@ maxel = 0
 path = np.zeros([101], float)
 arr = path
 prob = zeros([201], float)
+
+trajec = display(width=300, height=500, title="Spacetime Trajectory")
+trplot = curve(y=range(0, 100), color=color.magenta, display=trajec)
+
+def r
