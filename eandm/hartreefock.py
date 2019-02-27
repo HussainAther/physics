@@ -90,3 +90,10 @@ def currentenergy(p, Hcore, f ,dim):
             en += 0.5*p[mu,nu]*(Hcore[mu,nu] + f[mu,nu])
     return en
 
+# Define variables and run the functions.
+# ENUC = nuclear repulsion, Sraw is overlap matrix, Traw is kinetic energy matrix,
+# Vraw is potential energy matrix
+
+Nelec = 2
+
+
