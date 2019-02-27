@@ -69,10 +69,23 @@ def makefock(Hcore,p,dim): # Make Fock Matrix
                         f[i,j] += p[k,l]*(tei(i+1,j+1,k+1,l+1)-0.5e0*tei(i+1,k+1,j+1,l+1))
     return f
 
-def deltap(o, oldp): # Calculate change in density matrix
+def deltap(o, oldp):
+    """
+    Calculate change in density matrix
+    """
     delta = 0.0e0
     for i in range(0,dim):
         for j in range(0,dim):
             delta += ((p[i,j]-oldp[i,j])**2)
     delta = (delta/4)**(0.5)
     return delta
+
+def currentenergy(P,Hcore,F,dim):
+    """
+    Calculate energy at iteration
+    """
+    EN = 0.0e0
+    for mu in range(0,dim):
+        for nu in range(0,dim):
+            EN = EN + 0.5*P[mu,nu]*(Hcore[mu,nu] + F[mu,nu])
+    return EN
