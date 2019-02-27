@@ -155,4 +155,18 @@ while 1: # Infinite loop
                 maxel = ele
             if element != 0:
                 prob[ele] += 1
+            oldE = newE
+    if counter % 100 == 0:
+        for i in range(0, N):
+            if path[i] >= maxx:
+                maxx = path[i]
+        h = maxx/maxel
+        firstlast = h*.5 * (prob[0] + prob[maxel])
+        for i in range(0, maxel + 1):
+            norm += prob[i]
+        for i in range(0, maxel + 1):
+            norm += prob[i]
+        norm = norm*h + firstlast
+        plotwvf(prob)
+    counter += 1
 
