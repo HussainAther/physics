@@ -39,3 +39,8 @@ ttmo = {5.0: 0.94542695583037617, 12.0: 0.17535895381500544, 14.0: 0.12682234020
 """
 Convert them from spatial coordinates to coordinates that flow with spin molecular orbital theory.
 """
+
+
+"""
+    work in progress...
+"""
