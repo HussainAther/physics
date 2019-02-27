@@ -26,3 +26,25 @@ wvplot = curve(x = range(0, 100), display = wvgraph)
 wvfax = curve(color = color.cyan)
 
 
+def wvfaxs() : # axis for probability
+    wvfax = curve(pos =[(−600,−155),(800,−155)], display=wvgraph,color=color.cyan)
+    curve(pos = [(0,−150), (0,400)], display=wvgraph, color=color.cyan)
+    label(pos = (−80,450), text="Probability", box = 0, display = wvgraph)
+    label(pos = (600,−220) , text="x", box=0, display=wvgraph)
+    label(pos = (0, -220), text="0", box=0, display=wvgraph)
+
+# plot axes
+trjaxs()
+wvfaxs()
+
+def energy(path):
+    sums = 0
+    for i in range(0, N-1):
+        sums += (path[i+1]-path[i])*(path[i+1]-path[i])
+    sums += path[i]*path[i+1]
+    return sums
+
+def plotpath(path):
+    for j in range(0, N):
+        trplot.x[j] = 20*path[j]
+        trplot.y[j] = 2*j - 100
