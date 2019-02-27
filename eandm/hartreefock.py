@@ -43,3 +43,18 @@ def diagonalize(M): # Diagonalize a matrix. Return Eigenvalues
     #e=np.diag(e)
     C = np.dot(S_minhalf,Cprime)
     return e,C # :D
+
+
+def makedensity(C,P,dim,Nelec):
+    """
+    Make Density Matrix
+    and store old one to test for convergence.
+    """
+    OLDP = np.zeros((dim,dim))
+    for mu in range(0,dim):
+        for nu in range(0,dim):
+            OLDP[mu,nu] = P[mu,nu]
+            P[mu,nu] = 0.0e0
+            for m in range(0,Nelec//2):
+                P[mu,nu] = P[mu,nu] + 2*C[mu,m]*C[nu,m]
+    return P, OLDP
