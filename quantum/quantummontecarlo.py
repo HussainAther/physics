@@ -157,16 +157,16 @@ while 1: # Infinite loop
                 prob[ele] += 1
             oldE = newE
     if counter % 100 == 0:
-        for i in range(0, N):
+        for i in range(0, N): # max x value of the path
             if path[i] >= maxx:
                 maxx = path[i]
         h = maxx/maxel
-        firstlast = h*.5 * (prob[0] + prob[maxel])
+        firstlast = h*.5 * (prob[0] + prob[maxel]) # space step
         for i in range(0, maxel + 1):
-            norm += prob[i]
+            norm += prob[i] # normalize
         for i in range(0, maxel + 1):
-            norm += prob[i]
-        norm = norm*h + firstlast
-        plotwvf(prob)
+            norm += prob[i] # normalize
+        norm = norm*h + firstlast # trapezoid rule
+        plotwvf(prob) # plot hte probability
     counter += 1
 
