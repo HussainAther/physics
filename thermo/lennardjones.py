@@ -28,6 +28,9 @@ a = 0
 r = 1
 
 class Particle():
+    """
+    Use Pygame functionality
+    """
     def __init__(self, (x, y), size):
         self.x = x
         self.y = y
@@ -59,7 +62,7 @@ class Particle():
 
         elif self.y < self.size:
             self.y = 2*self.size - self.y
-            self.angle = np.pi - self.angle    
+            self.angle = np.pi - self.angle
 
 def r(p1,p2):
     dx = p1.x - p2.x
@@ -106,3 +109,33 @@ def verlet_step(): # Velocity-Verlet algorithm
 
 def LJ(r): # calculate the Lennard-Jones potential
     return -24*e*((2/r*(sigma/r)**12)-1/r*(sigma/r)**6)
+
+screen = pygame.display.set_mode((width, height)
+
+for n in range(number_of_particles):
+    x = random.randint(15, width-15)
+    y = random.randint(15, height-15)
+
+    particle = Particle((x, y), 15)
+    particle.speed = random.random()
+    particle.angle = random.uniform(0, np.pi*2)
+
+    my_particles.append(particle)
+
+running = True
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    screen.fill(background_colour)
+
+    for i, particle in enumerate(my_particles):
+        particle.move()
+        particle.bounce()
+        for particle2 in my_particles[i+1:]:
+            collide(particle, particle2)
+        particle.display()
+
+    pygame.display.flip()
+pygame.quit()
