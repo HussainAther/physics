@@ -45,26 +45,34 @@ def diagonalize(M): # Diagonalize a matrix. Return Eigenvalues
     return e,C # :D
 
 
-def makedensity(C,P,dim,Nelec):
+def makedensity(c, p, dim, Nelec):
     """
     Make Density Matrix
     and store old one to test for convergence.
     """
-    OLDP = np.zeros((dim,dim))
+    oldp = np.zeros((dim,dim))
     for mu in range(0,dim):
         for nu in range(0,dim):
-            OLDP[mu,nu] = P[mu,nu]
-            P[mu,nu] = 0.0e0
+            oldp[mu,nu] = p[mu,nu]
+            p[mu,nu] = 0.0e0
             for m in range(0,Nelec//2):
-                P[mu,nu] = P[mu,nu] + 2*C[mu,m]*C[nu,m]
-    return P, OLDP
+                p[mu,nu] += 2*c[mu,m]*c[nu,m]
+    return p, oldp
 
-def makefock(Hcore,P,dim): # Make Fock Matrix
-    F = np.zeros((dim,dim))
+def makefock(Hcore,p,dim): # Make Fock Matrix
+    f = np.zeros((dim,dim))
     for i in range(0,dim):
         for j in range(0,dim):
-            F[i,j] = Hcore[i,j]
+            f[i,j] = Hcore[i,j]
                 for k in range(0,dim):
                     for l in range(0,dim):
-                        F[i,j] = F[i,j] + P[k,l]*(tei(i+1,j+1,k+1,l+1)-0.5e0*tei(i+1,k+1,j+1,l+1))
-    return F
+                        f[i,j] += p[k,l]*(tei(i+1,j+1,k+1,l+1)-0.5e0*tei(i+1,k+1,j+1,l+1))
+    return f
+
+def deltap(o, oldp): # Calculate change in density matrix
+    delta = 0.0e0
+    for i in range(0,dim):
+        for j in range(0,dim):
+            delta += ((p[i,j]-oldp[i,j])**2)
+    delta = (delta/4)**(0.5)
+    return delta
