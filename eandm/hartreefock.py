@@ -33,3 +33,13 @@ def eint(a,b,c,d): # Return compund index given four indices
 
 def tei(a,b,c,d): # two-election integral
     return twoe.get(eint(a,b,c,d),0.0)
+
+# Put Fock matrix in Orthonormal AO basis
+def fprime(X,F):
+    return np.dot(np.transpose(X),np.dot(F,X))
+
+def diagonalize(M): # Diagonalize a matrix. Return Eigenvalues
+    e,Cprime = np.linalg.eigh(M)  # and non orthogonal Eigenvectors in separate 2D arrays.
+    #e=np.diag(e)
+    C = np.dot(S_minhalf,Cprime)
+    return e,C # :D
