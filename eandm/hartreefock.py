@@ -58,3 +58,13 @@ def makedensity(C,P,dim,Nelec):
             for m in range(0,Nelec//2):
                 P[mu,nu] = P[mu,nu] + 2*C[mu,m]*C[nu,m]
     return P, OLDP
+
+def makefock(Hcore,P,dim): # Make Fock Matrix
+    F = np.zeros((dim,dim))
+    for i in range(0,dim):
+        for j in range(0,dim):
+            F[i,j] = Hcore[i,j]
+                for k in range(0,dim):
+                    for l in range(0,dim):
+                        F[i,j] = F[i,j] + P[k,l]*(tei(i+1,j+1,k+1,l+1)-0.5e0*tei(i+1,k+1,j+1,l+1))
+    return F
