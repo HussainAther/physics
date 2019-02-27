@@ -34,3 +34,8 @@ Nelec = 2 # we have 2 electrons in HeH+
 dim = 2 # we have two spatial basis functions in STO-3G
 E = [-1.52378656, -0.26763148]
 ttmo = {5.0: 0.94542695583037617, 12.0: 0.17535895381500544, 14.0: 0.12682234020148653, 17.0: 0.59855327701641903, 19.0: -0.056821143621433257, 20.0: 0.74715464784363106}
+
+
+"""
+Convert them from spatial coordinates to coordinates that flow with spin molecular orbital theory.
+"""
