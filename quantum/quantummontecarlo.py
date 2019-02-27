@@ -18,5 +18,11 @@ trplot = curve(y=range(0, 100), color=color.magenta, display=trajec)
 
 def trjaxs():
     trax = curve(pos=[(-97, -100), (100, -100)], color=color.cyan, display = trajec)
-    label(pos = (0,−110), text = ’0’, box = 0, display = trajec)
-    label(pos = (60,−110), text = ’x’, box = 0, display = trajec)
+    label(pos = (0,−110), text = "0", box = 0, display = trajec)
+    label(pos = (60,−110), text = "x", box = 0, display = trajec)
+
+wvgraph = display(x=340,y=150,width=500,height=300, title="Ground State")
+wvplot = curve(x = range(0, 100), display = wvgraph)
+wvfax = curve(color = color.cyan)
+
+
