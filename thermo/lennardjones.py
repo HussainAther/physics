@@ -99,13 +99,17 @@ def verlet_step(): # Velocity-Verlet algorithm
     uses a forward-difference approximation for the derivative to advance
     both the position and velocity simultaneously.
     """
-    v += a*0.5*dtt
-    x += v*dt
+    for p in particles:
+        p.v += p.a*0.5*dt; p.x += p.v*dt
     t += dt
-    do_collisions(t,x,v,dt)
-    a = eval_a(x)
-    v += a*0.5*dt
-    do_statistics(t,x,v)
+    for i, p1 in enumerate(particles):
+        for p2 in particles[i+1:]:
+            collide(p1,p2);
+    for i, p1 in enumerate(particles)
+        for p2 in particles[i+1:]:
+            apply_LJ_forces(p1,p2)
+    for p in particles:
+        p.v += p.a*0.5*dt
 
 def LJ(r): # calculate the Lennard-Jones potential
     return -24*e*((2/r*(sigma/r)**12)-1/r*(sigma/r)**6)
