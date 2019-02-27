@@ -141,10 +141,10 @@ SVAL_minhalf = (np.diag(SVAL**(-0.5)))
 S_minhalf = np.dot(SVEC,np.dot(SVAL_minhalf,np.transpose(SVEC)))
 
 P = np.zeros((dim,dim)) # P is density matrix, set intially to zero.
-DELTA = 1.0
+delta = 1.0
 convergence = 0.00000001
 G = np.zeros((dim,dim)) # The G matrix is used to make the Fock matrix
-while DELTA > convergence:
+while delta > convergence:
     F = makefock(Hcore,P,dim)
    # print "F = \n", F
     Fprime = fprime(S_minhalf,F)
@@ -159,9 +159,9 @@ while DELTA > convergence:
 
    # print "P = \n", P
 
-    DELTA = deltap(P,OLDP)
+    delta = deltap(P,OLDP)
    #print "E= ",currentenergy(P,Hcore,F,dim)+ENUC
-   #print "Delta = ", DELTA,"\n"
+   #print "delta = ", delta,"\n"
 
     EN = currentenergy(P,Hcore,F,dim)
     print "TOTAL E(SCF) = \n", EN + ENUC
