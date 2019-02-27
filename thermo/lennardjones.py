@@ -1,7 +1,7 @@
 from pylab import *
 
 """
-Leonard-Jones potential approximates the interaction between a pair of neutral atoms or molecules.
+Lennard-Jones potential approximates the interaction between a pair of neutral atoms or molecules.
 
 We gain an interatomic potential of:
 
@@ -11,7 +11,6 @@ in which epsilon is the depth of the potential well, sigma is the finite distanc
 the inter-particle potential is zero, r is the distance between the particles, and r_m is the
 distance at which potential is a minimum.
 """
-
 
 def display(self):
       if(self.x<0 or self.x>height):
