@@ -67,9 +67,15 @@ while True:
         path[element] -= change
         plotpath(path)
     elem = int(path[element]*16+50)
-    
+
     # elem = m*path[element] + b is the linear transformation.
     # if path = -3, elem 3 if path =3, elem = 98 => b = 50, m =16 linear TF
     # this way x = 0 correspond to prob[50]
 
-
+    if elem < 0:
+        elem = 0
+    if elem > 100:
+        elem = 100
+    prob[elem] += 1
+    plotwvf(prob)
+    oldE = newE
