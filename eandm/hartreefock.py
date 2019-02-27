@@ -101,3 +101,68 @@ ENUC = genfromtxt('./enuc.dat',dtype=float,delimiter=',')
 Sraw = genfromtxt('./s.dat',dtype=None)
 Traw = genfromtxt('./t.dat',dtype=None)
 Vraw = genfromtxt('./v.dat',dtype=None)
+
+# dim is the number of basis functions
+dim = int((np.sqrt(8*len(Sraw)+1)-1)/2)
+
+# Initialize integrals, and put them in convenient Numpy array format
+S = np.zeros((dim,dim))
+T = np.zeros((dim,dim))
+V = np.zeros((dim,dim))
+
+for i in Sraw: S[i[0]-1,i[1]-1] = i[2]
+for i in Traw: T[i[0]-1,i[1]-1] = i[2]
+for i in Vraw: V[i[0]-1,i[1]-1] = i[2]
+
+# The matrices are stored triangularly. For convenience, we fill
+# the whole matrix. The function is defined above.
+S = symmetrize(S)
+V = symmetrize(V)
+T = symmetrize(T)
+
+Hcore = T + V
+
+"""
+Like the core hamiltonian, we need to grab the integrals from the
+separate file, and put into ERIraw (ERI = electron repulsion integrals).
+I chose to store the two electron integrals in a python dictionary.
+The function 'eint' generates a unique compund index for the unique two
+electron integral, and maps this index to the corresponding integral value.
+'twoe' is the name of the dictionary containing these.
+"""
+
+ERIraw = genfromtxt('./eri.dat',dtype=None)
+twoe = {eint(row[0],row[1],row[2],row[3]) : row[4] for row in ERIraw}
+
+# Orthogonalize the basis using symmetric orthogonalization and S^(-1/2) as the
+# transformation matrix.
+SVAL, SVEC = np.linalg.eig(S)
+SVAL_minhalf = (np.diag(SVAL**(-0.5)))
+S_minhalf = np.dot(SVEC,np.dot(SVAL_minhalf,np.transpose(SVEC)))
+
+P = np.zeros((dim,dim)) # P is density matrix, set intially to zero.
+DELTA = 1.0
+convergence = 0.00000001
+G = np.zeros((dim,dim)) # The G matrix is used to make the Fock matrix
+while DELTA > convergence:
+    F = makefock(Hcore,P,dim)
+   # print "F = \n", F
+    Fprime = fprime(S_minhalf,F)
+   # print "Fprime = \n", Fprime
+
+    E,Cprime = np.linalg.eigh(Fprime)
+    C = np.dot(S_minhalf,Cprime)
+    E,C = diagonalize(Fprime)
+   # print "C = \n", C
+
+    P,OLDP = makedensity(C,P,dim,Nelec)
+
+   # print "P = \n", P
+
+    DELTA = deltap(P,OLDP)
+   #print "E= ",currentenergy(P,Hcore,F,dim)+ENUC
+   #print "Delta = ", DELTA,"\n"
+
+    EN = currentenergy(P,Hcore,F,dim)
+    print "TOTAL E(SCF) = \n", EN + ENUC
+   #print "C = \n", C
