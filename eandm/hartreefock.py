@@ -31,3 +31,5 @@ def eint(a,b,c,d): # Return compund index given four indices
     else: abcd = cd*(cd+1)/2 + ab
     return abcd
 
+def tei(a,b,c,d): # two-election integral
+    return twoe.get(eint(a,b,c,d),0.0)
