@@ -96,4 +96,11 @@ prob = zeros([201], float)
 trajec = display(width=300, height=500, title="Spacetime Trajectory")
 trplot = curve(y=range(0, 100), color=color.magenta, display=trajec)
 
-def r
+def trjaxs(): # plot trajectory axes
+    trax = curve(pos=[(-97, 100), (100, -100)], color=color.cyan, display=trajec)
+    curve(pos=[(-65, -100), (-65, 100)], color=color.cyan, display=trajec)
+    label(pos=(-65, 110), text="t", box = 0, display=trajec)
+    label(pos=(-85, -100), text="0", box = 0, display=trajec)
+    label(pos=(60, -110), text="x", box = 0, display=trajec
+    
+)
