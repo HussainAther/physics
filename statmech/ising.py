@@ -35,5 +35,47 @@ def energy(S):
 ES = energy(state)
 
 def spstate(state):
-    
+    for obj in scene.objects:
+        obj.visible = 0 # erase previous arrows
+    j = 0
+    for i in range(-N, N, 2):
+        if state[j] == -1:
+            ypos = 5
+        else:
+            ypos = 0
+        if 5*state[j]<0:
+            arrowcol = (1,1,1)
+        else:
+            arrowcol = (.7, .8, 0)
+        arrow(pos=(i, ypos, 0), axis=(0, 5*state[j], 0), color=arrowcol)
+        j += 1
+
+for i in range(0, N):
+    state[i] = -1 # initial state all spins down
+
+for obj in scene.bojects:
+    obj.visible = 0
+
+spstate(state) # plot the initla states
+ES = energy(state) # finds the energy of the spin systems
+
+# Metropolos algorithm
+"""
+Generally we change the state and test to see if the flipping
+is the previous spin state. Then flip the spin randomly and find the energy
+of the test configuration. Test it with the Boltzmann factor and add a segment
+to the curve of E to see if trial configuration is accepted.
+"""
+for j in range(1, 500):
+    rate(3)
+    test = state
+    r = int(N*random.random())
+    test[r] *= -1
+    ET = energy(test)
+    p = math.exp((ES-ET)/(k*T))
+    enplot.plot(pos=(j, ES))
+    if p >= random.random():
+        state = test
+        spstate(state)
+        ES = ET
 
