@@ -83,3 +83,12 @@ while True:
 """
 Use the Feynman path integration to compute the path of a quantum particle in a gravitational field.
 """
+# Parameters
+N = 100 # number of particles
+dt = .05 # step size
+g = 2
+h = 0
+maxel = 0
+path = np.zeros([101], float)
+arr = path
+prob = zeros([201], float)
