@@ -49,5 +49,5 @@ def newfields():
         Ey[1:max-1, 1] = Ey[1:max-1, 0] + c*(Hx[2:max, 0]-Hx[:max-2,0])
         Hx[1:max-1, 1] = Hx[1:max-1, 0] + c*(Ey[2:max, 0]-Ey[:max-2,0])
         Hy[1:max-1, 1] = Hy[1:max-1, 0] + c*(Ex[:max-2, 0]-Ex[2:max,0])
-
+        Ex[0,1] = Ex[0,0] + c*(hy[200-1,0] - Hy[1,0])
 
