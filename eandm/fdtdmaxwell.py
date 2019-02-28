@@ -39,4 +39,10 @@ def inifields():
     Hy[:xmax, 0] = .1*sin(2*pi*k/100)
 
 def plotfields(ti):
-    
+    k = arange(xmax)
+    Efield.x = 2*k-xmax
+    Efield.y = 800*Ex[k,ti]
+    Hfield.x = 2*k-xmax
+    Hfield.z = 800*Hy[k,ti]
+
+
