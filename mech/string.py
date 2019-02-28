@@ -14,3 +14,11 @@ ball2 = sphere(pos=(-100, 0),  color=color.red, radius=2)
 ball2.pos
 ball2.pos
 vibst.radius = 1
+
+# parameters
+rho = .01 # string density
+ten = 40 # string tension
+c = sqrt(ten/rho) # propogation speed
+c1 = c # Courant–Friedrichs–Lewy condition
+ratio = c*c/(c1*c1)
+
