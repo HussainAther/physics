@@ -1,3 +1,5 @@
+from numpy import *
+from numpy.linagl import *
 
 """
 Solve the Lippmann-Schwinger integral equation for bound states within a delta-shell
