@@ -54,4 +54,9 @@ while True:
     Hy[1:xmax-1, 1] = Hy[1:xmax-1,0] + beta*(Ex[0:xmax-1,0]-Ex[2:xmax,0])
     Ex[0,1] = Ex[0,]0 + beta*(Hy[xmax-2,0] - Hy[1,0]) # boundary condition
     Ex[xmax-1, 1] = Ex[xmax-1, 0] + beta*(Hy[xmax-2,0] - Hy[1,0])
-    Hy[0,1] = Hy[0,0] + beta*(
+    Hy[0,1] = Hy[0,0] + beta*(Ex[xmax-2,0] - EX[1,0]) # boundary condition
+    Hy[xmax-1, 1] = Hy[xmax-1, 0] + beta*(Ex[xmax-2,0] - Ex[1,0])
+    plotfields(ti)
+    Ex[:xmax,0] = Ex[:xmax,1]
+    Hy[:xmax,0] = Hy[:xmax,1]
+    
