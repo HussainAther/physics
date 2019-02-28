@@ -8,7 +8,10 @@ This code is common to both animation examples.
 
 def qubit_integrate(w, theta, gamma1, gamma2, psi0, tlist):
     # operators and the hamiltonian
-    sx = sigmax(); sy = sigmay(); sz = sigmaz(); sm = sigmam()
+    sx = sigmax()
+    sy = sigmay()
+    sz = sigmaz()
+    sm = sigmam()
     H = w * (cos(theta) * sz + sin(theta) * sx)
     # collapse operators
     c_op_list = []
