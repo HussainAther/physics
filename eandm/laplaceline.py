@@ -18,7 +18,7 @@ V = zeros((Nmax, Nmax), float) # constant voltage
 for k in range(0, Nmax-1):
     V[k, 0] == 100
 
-for k in range(0, Nmax=1):
+for k in range(0, Nmax-1):
     V[k, 0] = 100
 
 for iter in range(Niter):
