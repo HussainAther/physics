@@ -26,3 +26,7 @@ Harrows = []
 for i in range(0, max, 10):
     Earrows.append(arrow(pos=(0, i-100), axis=(0,0,0), color=arrowcol))
     Harrows.append(arrow(pos=(0, i-100), axis=(0,0,0), color=color.yellow))
+
+def plotfields(Ex, Ey, Hx, Hy):
+    for n, arr in enumerate(Earrows):
+        
