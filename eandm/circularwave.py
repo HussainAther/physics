@@ -29,4 +29,6 @@ for i in range(0, max, 10):
 
 def plotfields(Ex, Ey, Hx, Hy):
     for n, arr in enumerate(Earrows):
-        
+        arr.axis = (35*Ey[10*n, 1],0,35*Ex[10*n,1])
+    for n, arr in enumerate(Harrows):
+        arr.axis = (35*Hy[10*n, 1],0,35*Hx[10*n,1])
