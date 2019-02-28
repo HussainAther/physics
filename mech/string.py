@@ -28,4 +28,9 @@ for i in range(0, 81):
     xi[i, 0] = .00125 * i
 for i in range(81,101):
     xi[i, 0] = .1 - .005*(i-80)
+for i in range(0, 100):
+    vibst.x[i] = 2*i - 100
+    vibst.y[i] = 300**xi[i, 0]
+vibst.pos
+
 
