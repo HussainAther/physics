@@ -44,3 +44,19 @@ for M in range(16,32,8):
         WR = np.zeros((M), float) # eigenvalues and potential
         k = np.zeros((M), float) # points
         w = np.zeros((M), float) # weights
+        gauss(M, min1, max1, k, w)
+        for i in range(0, M):
+            # Set Hamiltonian
+            for j in range(0, M):
+                VR = lmbda/2/u*sin(k[i]*b)/k[i]*sin(k[j]*b)/k[j]
+                A[i, j] 2/math.pi*VR*k[j]*k[j]*w[j]
+                if i == j:
+                    A[i, j] += k[i]*k[i]/2/u
+        Es, evectors = eig(A)
+        realev = Es.real
+        for j in range(0, M):
+            if realev[j]<0:
+                print(" M (size), lmbda, Ree=", M, " ", lmbda," ", realev[j])
+                break
+print("Enter and return any character to quit")
+s = input()
