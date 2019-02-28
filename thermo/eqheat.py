@@ -52,7 +52,7 @@ def functz(Tpl): # function to return the temperature distribution
     z = Tpl[X, Y]
     return z
 
-fig = p.figre()
+fig = p.figure()
 ax = Axes3D(fig)
 ax.plot_wireframe(X, Y, Z, color = 'r')
 ax.set_xlabel("Position")
