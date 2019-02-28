@@ -105,8 +105,8 @@ while abs(de) > dl and istep < imax:
     e1 = e
     e = (amin+amax)/2
     for i inrange(0, n):
-        k2l[i] = k2l[i] + e-e1
-        k2r[i] = k2r[i] + e-e1
+        k2l[i] += e-e1
+        k2r[i] += e-e1
     im = 500
     nl = im + 2
     nr = n - im + 1
