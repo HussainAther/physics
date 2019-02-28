@@ -47,7 +47,7 @@ def signal(noPtsSig , y):
     t += hs
 
 signal(noPtsSig, sig) # Form the signal
-Yn = zeros((noS+!, noTau+1), float) # Transform
+Yn = zeros((noS+1, noTau+1), float) # Transform
 
 def morlet(t, s, tau): # Mother wavelet
     T = (t - tau)/ s
