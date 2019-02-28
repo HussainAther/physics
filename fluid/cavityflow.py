@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 from matplotlib import pyplot, cm
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -9,18 +9,18 @@ nit = 50
 c = 1
 dx = 2 / (nx - 1)
 dy = 2 / (ny - 1)
-x = numpy.linspace(0, 2, nx)
-y = numpy.linspace(0, 2, ny)
-X, Y = numpy.meshgrid(x, y)
+x = np.linspace(0, 2, nx)
+y = np.linspace(0, 2, ny)
+X, Y = np.meshgrid(x, y)
 
 rho = 1
 nu = .1
 dt = .001
 
-u = numpy.zeros((ny, nx))
-v = numpy.zeros((ny, nx))
-p = numpy.zeros((ny, nx))
-b = numpy.zeros((ny, nx))
+u = np.zeros((ny, nx))
+v = np.zeros((ny, nx))
+p = np.zeros((ny, nx))
+b = np.zeros((ny, nx))
 
 def build_up_b(b, rho, dt, u, v, dx, dy):
     
@@ -35,7 +35,7 @@ def build_up_b(b, rho, dt, u, v, dx, dy):
     return b
 
 def pressure_poisson(p, dx, dy, b):
-    pn = numpy.empty_like(p)
+    pn = np.empty_like(p)
     pn = p.copy()
     
     for q in range(nit):
@@ -54,9 +54,9 @@ def pressure_poisson(p, dx, dy, b):
     return p
 
 def cavity_flow(nt, u, v, dt, dx, dy, p, rho, nu):
-    un = numpy.empty_like(u)
-    vn = numpy.empty_like(v)
-    b = numpy.zeros((ny, nx))
+    un = np.empty_like(u)
+    vn = np.empty_like(v)
+    b = np.zeros((ny, nx))
     
     for n in range(nt):
         un = u.copy()
@@ -99,10 +99,10 @@ def cavity_flow(nt, u, v, dt, dx, dy, p, rho, nu):
         
     return u, v, p
 
-u = numpy.zeros((ny, nx))
-v = numpy.zeros((ny, nx))
-p = numpy.zeros((ny, nx))
-b = numpy.zeros((ny, nx))
+u = np.zeros((ny, nx))
+v = np.zeros((ny, nx))
+p = np.zeros((ny, nx))
+b = np.zeros((ny, nx))
 nt = 100
 u, v, p = cavity_flow(nt, u, v, dt, dx, dy, p, rho, nu)
 
@@ -117,10 +117,10 @@ pyplot.quiver(X[::2, ::2], Y[::2, ::2], u[::2, ::2], v[::2, ::2])
 pyplot.xlabel('X')
 pyplot.ylabel('Y');
 
-u = numpy.zeros((ny, nx))
-v = numpy.zeros((ny, nx))
-p = numpy.zeros((ny, nx))
-b = numpy.zeros((ny, nx))
+u = np.zeros((ny, nx))
+v = np.zeros((ny, nx))
+p = np.zeros((ny, nx))
+b = np.zeros((ny, nx))
 nt = 700
 u, v, p = cavity_flow(nt, u, v, dt, dx, dy, p, rho, nu)
 
