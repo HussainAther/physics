@@ -18,3 +18,11 @@ Ex = np.zeros((max+2, 2), float)
 Hy = np.zeros((max+2, 2), float)
 Ey = np.zeros((max+2, 2), float)
 Hx = np.zeros((max+2, 2), float)
+
+arrowcol = color.white
+Earrows = []
+Harrows = []
+
+for i in range(0, max, 10):
+    Earrows.append(arrow(pos=(0, i-100), axis=(0,0,0), color=arrowcol))
+    Harrows.append(arrow(pos=(0, i-100), axis=(0,0,0), color=color.yellow))
