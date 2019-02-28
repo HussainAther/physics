@@ -46,4 +46,23 @@ for j in range(1, max+1):
             a2 = u[i-1, 1] - u[i+1, 1]
         a3 = u[i+1, 0] - u[i-1, 0]
         u[i, 2] = u[i, 0] - a1*a3 - 2*fac*a2/3
-    
+    if j % 100 == 0:
+        for i in range(1, mx-2):
+            spl[i, m] = u[i, 2]
+        print(m)
+        m += 1
+    for k in range(0, mx):
+        u[k, 0] = u[k, 1]
+        u[k, 1] = u[k, 2]
+
+x = list(range(0, mx, 2))
+y = list(range(0, 21))
+X, Y = p.meshgrid(x, y)
+
+fig = p.figure()
+ax = Axes3D(fig)
+ax.plot_wireframe(X, Y, spl[X, Y], color="r")
+ax.set_xlabel("Position")
+ax.set_ylabel("Time")
+ax.set_zlabel("Disturbance")
+p.show()
