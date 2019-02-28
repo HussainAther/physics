@@ -1,4 +1,6 @@
-
+from numpy import *
+import matplotlib.pylab as p
+from mpl_toolkits.mplot3d import Axes3D
 
 
 """
@@ -14,20 +16,47 @@ Nx = 101 # total x size
 Nt = 3000 # total time
 dx = .03 # x step size
 dt = .9 # time step size
+T = zeros((Nx,2), float)
+Tpl = zeros((Nx, 31), float)
 
 u = [] # energies
 
-results  [] # temperature dsitributino
 
-def tempdist():  # solve for the temperature distribution
-    for i in range(i, 101)
+for ix in range (1, Nx - 1):
+    T[ix, 0] = 100.0    # Initial T
+    T[0,0] = 0.0
+    T[0,1] = 0.  # Boundary conditions
 
+T[Nx-1, 0] = 0.
+T[Nx-1, 1] = 0.0
 
-def functz(Tpl): # function to return
+cons = kappa/(C*rho)*dt/(dx*dx) # calcuate constant
+n = 1 #
+for t in range (1, Nt):
+    for ix in range (1, Nx - 1):
+        T[ix,1] = T[ix,0] + cons*(T[ix+1,0]+ T[ix-1,0]-2.*T[ix,0])
+        
+    if t%300 == 0 or t == 1: # Every 300 steps
+        for ix in range (1, Nx - 1, 2):
+            Tpl[ix, n] = T[ix, 1]
+        n += 1
+        
+    for ix in range (1, Nx - 1):
+        T[ix, 0] = T[ix, 1]
+
+x = list(range(1, Nx - 1, 2)) # Plot alternating points
+y = list(range(1, 30))
+X, Y = p.meshgrid(x, y)
+
+def functz(Tpl): # function to return the temperature distribution
     z = Tpl[X, Y]
     return z
 
-
-with open("eqheat.dat", "w") as file:
-
+fig = p.figre()
+ax = Axes3D(fig)
+ax.plot_wireframe(X, Y, Z, color = 'r')
+ax.set_xlabel("Position")
+ax.set_ylabel("time")
+ax.set_zlabel("Temp")
+p.show()
 
