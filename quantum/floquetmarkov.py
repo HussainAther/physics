@@ -13,8 +13,10 @@ environment from the noise spectral-density functions and the instantaneous Hami
 (similar to the Bloch-Redfield master equation solver qutip.bloch_redfield.brmesolve).
 """
 
-delta = 0.0 * 2*pi; eps0 = 1.0 * 2*pi
-A = 0.25 * 2*pi; omega = 1.0 * 2*pi
+delta = 0.0 * 2*pi
+eps0 = 1.0 * 2*pi
+A = 0.25 * 2*pi
+omega = 1.0 * 2*pi
 T = (2*pi)/omega
 tlist = linspace(0.0, 20 * T, 101)
 
