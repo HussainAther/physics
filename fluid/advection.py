@@ -6,6 +6,7 @@ Solve the advection equation, a description of some scalar field (u) carried alo
 flow of constant speed v. Use the Lax-Wendroff scheme.
 """
 
+# initialize parameters
 m = 100
 c = 1
 dx = 1/m
@@ -17,3 +18,7 @@ dt = beta*dx/c
 T_final = .5
 n = int(T_final/dt)
 
+graph1 = gdisplay(width=600, height=500, title="Advec Eqn: Initial (red), Exact (blue), Lax-Wendroff (yellow)",
+                xtitle="x", ytitle="u(x) Blue=exact, Yellow=Sim", xmin=0, xmax=1, ymin=0, ymax=1)
+initfn = gcurve(color=color.red)
+exactfn = gcurve(color=color.blue)
