@@ -22,3 +22,8 @@ c = sqrt(ten/rho) # propogation speed
 c1 = c # Courant–Friedrichs–Lewy condition
 ratio = c*c/(c1*c1)
 
+# initialize
+xi = np.zeros((101, 3), float)
+for i in range(0, 81):
+    xi[i, 0] = .00125 * i
+
