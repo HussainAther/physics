@@ -23,7 +23,7 @@ for k in range(0, Nmax-1):
 
 for iter in range(Niter):
     """
-    Graph the LaPlace equation solutino for our function.
+    Graph the Laplace equation solutino for our function.
     """
     if iter%10 == 0:
         print(iter) # to show progress
