@@ -78,3 +78,12 @@ X, Y = p.meshgrid(x, y)
 def functz(t): # potential
     z = t[X, Y]
     return z
+
+Z = functz(t)
+fig = p.figure()
+ax = Axes3D(fig)
+ax.plot_wireframe(X, Y, Z, color="r")
+ax.set_xlabel("t")
+ax.set_ylabel("x")
+ax.set_zlabel("T")
+p.show()
