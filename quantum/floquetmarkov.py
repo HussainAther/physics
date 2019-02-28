@@ -53,7 +53,7 @@ p_ex_ref = output.expect[0]
 # plot the results
 plt(tlist, real(p_ex), 'r--', tlist, 1-real(p_ex), 'b--')
 plt(tlist, real(p_ex_ref), 'r', tlist, 1-real(p_ex_ref), 'b')
-plt.xlabel('Time')
-plt.ylabel('Occupation probability')
+plt.xlabel("Time")
+plt.ylabel("Occupation probability")
 plt.legend(("Floquet $P_1$", "Floquet $P_0$", "Lindblad $P_1$", "Lindblad $P_0$"))
 plt.show()
