@@ -2,8 +2,8 @@ from qutip import *
 from scipy import *
 
 """
-The code for calculating the expectation values for the Pauli spin operators of a qubit decay is given below. This
-code is common to both animation examples.
+The code for calculating the expectation values for the Pauli spin operators of a qubit decay is given below.
+This code is common to both animation examples.
 """
 
 def qubit_integrate(w, theta, gamma1, gamma2, psi0, tlist):
