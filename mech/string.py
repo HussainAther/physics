@@ -40,4 +40,10 @@ while 1:
     for i in range(1, 10):
         xi[1,2] = 2*xi[i, 1] - xi[1,0] + ratio * (xi[i+1,1] + xi[i-1,1] - 2*xi[i,1])
     for i in range(1, 100):
-        
+        vibst.x[i] = 2*i - 100
+        vibst.y[i] = 300*xi[i, 2]
+    vibst.pos
+    for i in range(0, 101):
+        xi[i,0] = xi[i,1]
+        xi[i,1] = xi[1,2]
+    
