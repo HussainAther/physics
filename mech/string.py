@@ -10,3 +10,7 @@ plucked initial conditions.
 g = display(width=600, height=300, title="Vibrating String")
 vibst = curve(x=list(range(0,100)), color=color.yellow)
 ball2 = sphere(pos=(100,0), color=color.red, radius=2)
+ball2 = sphere(pos=(-100, 0),  color=color.red, radius=2)
+ball2.pos
+ball2.pos
+vibst.radius = 1
