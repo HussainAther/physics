@@ -17,7 +17,7 @@ Nt = 3000 # total time
 dx = .03 # x step size
 dt = .9 # time step size
 T = zeros((Nx,2), float)
-Tpl = zeros((Nx, 31), float)
+Tpl = zeros((Nx, 31), float) # temperature distributino
 
 u = [] # energies
 
@@ -34,9 +34,9 @@ cons = thc/(C*rho)*dt/(dx*dx) # calcuate constant
 n = 1 #
 for t in range (1, Nt):
     for ix in range (1, Nx - 1):
-        T[ix,1] = T[ix,0] + cons*(T[ix+1,0]+ T[ix-1,0]-2.*T[ix,0])
+        T[ix,1] = T[ix,0] + cons * (T[ix + 1,0]+ T[ix-1,0] - 2. * T[ix,0])
         
-    if t%300 == 0 or t == 1: # Every 300 steps
+    if t % 300 == 0 or t == 1: # Every 300 steps
         for ix in range (1, Nx - 1, 2):
             Tpl[ix, n] = T[ix, 1]
         n += 1
@@ -48,10 +48,11 @@ x = list(range(1, Nx - 1, 2)) # Plot alternating points
 y = list(range(1, 30))
 X, Y = p.meshgrid(x, y)
 
-def functz(Tpl): # function to return the temperature distribution
+def f(Tpl): # function to return the temperature distribution
     z = Tpl[X, Y]
     return z
 
+Z = f(Tpl) # collect the variables
 fig = p.figure()
 ax = Axes3D(fig)
 ax.plot_wireframe(X, Y, Z, color = 'r')
