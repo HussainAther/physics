@@ -12,3 +12,9 @@ global phy, pyx
 max = 201
 
 c = .01 # Courant stability condition
+
+# set arrays
+Ex = np.zeros((max+2, 2), float)
+Hy = np.zeros((max+2, 2), float)
+Ey = np.zeros((max+2, 2), float)
+Hx = np.zeros((max+2, 2), float)
