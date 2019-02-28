@@ -30,7 +30,7 @@ for ix in range (1, Nx - 1):
 T[Nx-1, 0] = 0.
 T[Nx-1, 1] = 0.0
 
-cons = kappa/(C*rho)*dt/(dx*dx) # calcuate constant
+cons = thc/(C*rho)*dt/(dx*dx) # calcuate constant
 n = 1 #
 for t in range (1, Nt):
     for ix in range (1, Nx - 1):
