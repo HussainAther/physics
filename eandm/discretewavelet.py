@@ -70,7 +70,7 @@ def daube4(f, n, sign):
             j += 2 # downsampleing
         tr[i] = c0∗f[n−1] + c1∗f[n] + c2∗f[1] + c3∗f[2]
         transf.plot(pos = (i, tr[i]) )
-        tr [i+mp] = c3∗f [n−1] − c2∗f [n] + c1∗f [1] − c0∗f [2]
+        tr[i+mp] = c3∗f [n−1] − c2∗f [n] + c1∗f [1] − c0∗f [2]
         transf2.plot(pos = (i+mp, tr[i+mp]))
     else: # inverse Discrete Wavelet Function
         tr[1] = c2∗f[mp] + c1∗f[n] + c0∗f[1] + c3∗f[mp1] # low pass
