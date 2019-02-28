@@ -34,4 +34,13 @@ def gauss(npts, a, b, x, w):
         w[i-1] = 2/((1-t*t)*pp*pp)
         w[npts-i] = w[i-1]
     for i in range(0, npts):
-        x[i] = x[i]*(b-1)/2 + (b+a)/2
+        x[i] = x[i]*(b-a)/2 + (b+a)/2
+        w[i] = w[i]*(b-a)/2
+
+for M in range(16,32,8):
+    z = [-1024, -512, -256, -128, -64, -32, -16, -8, -4, -2]
+    for lmbda in z:
+        Z = np.zeros((M, M), float) # Hamiltonian
+        WR = np.zeros((M), float) # eigenvalues and potential
+        k = np.zeros((M), float) # points
+        w = np.zeros((M), float) # weights
