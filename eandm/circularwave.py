@@ -32,3 +32,22 @@ def plotfields(Ex, Ey, Hx, Hy):
         arr.axis = (35*Ey[10*n, 1],0,35*Ex[10*n,1])
     for n, arr in enumerate(Harrows):
         arr.axis = (35*Hy[10*n, 1],0,35*Hx[10*n,1])
+
+def inifields(): # initialize the fields
+    phx = .5*pi
+    phy = 0
+    k = arange(0, max)
+    Ex[:-2,0] = cos(-2*pi*k/200 + phx)
+    Ey[:-2,0] = cos(-2*pi*k/200 + phy)
+    Hx[:-2,0] = cos(-2*pi*k/200 + phy + pi)
+    Hy[:-2,0] = cos(-2*pi*k/200 + phx)
+
+def newfields():
+    while True:
+        rate(1000)
+        Ex[1:max-1, 1] = Ex[1:max-1, 0] + c*(Hy[:max-2, 0]-Hy[2:max,0])
+        Ey[1:max-1, 1] = Ey[1:max-1, 0] + c*(Hx[2:max, 0]-Hx[:max-2,0])
+        Hx[1:max-1, 1] = Hx[1:max-1, 0] + c*(Ey[2:max, 0]-Ey[:max-2,0])
+        Hy[1:max-1, 1] = Hy[1:max-1, 0] + c*(Ex[:max-2, 0]-Ex[2:max,0])
+
+
