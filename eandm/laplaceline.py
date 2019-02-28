@@ -38,7 +38,7 @@ def functz(V):
     return Z
 
 Z = functz(V)
-fig = p.figre()
+fig = p.figure()
 ax = Axes3D(fig)
 ax.plot_wireframe(X, Y, Z, color="r")
 ax.set_xlabel("X")
