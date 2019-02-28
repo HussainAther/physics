@@ -65,5 +65,16 @@ Tb[n] = 0
 
 for j in range(1, m+1):
     print(j)
-    for i in range(2, n):
-        Tb[i] = t[i-1][j-1]
+    for i in range(2, n): # Run it
+        Tb[i] = t[i-1][j-1] + t[i+1][j-1] + (2/r-2) * r[i][j-1]
+        Tridiag(a, d, c, b, Ta, Td, Tc, Tb, x, n)
+    for i in range(1, n+1):
+        t[i][j] = x[i]
+
+x = list(range(1, m+1))
+y = list(range(1, n+1))
+X, Y = p.meshgrid(x, y)
+
+def functz(t): # potential
+    z = t[X, Y]
+    return z
