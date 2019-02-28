@@ -1,4 +1,5 @@
 from vpython import *
+from numpy import zeros
 
 """
 Use the Numerov method to solve the 1-D time-independent Schrödinger equation
