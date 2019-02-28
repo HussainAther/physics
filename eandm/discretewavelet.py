@@ -61,7 +61,7 @@ def daube4(f, n, sign):
                             xmax = 2*maxx, xmin = 0, ymax = Maxy, ymin = Miny)
         transf2 = gvbars(delta=2*n/N, color=color.cyan, display=transfgr2)
 
-        while j <= n -3:
+        while j <= n - 3:
             rate(speed)
             tr[i] = c0*f[j] + c1*f[j+1] + c2∗f[j+2] + c3∗f[j+3]
             transf.plot(pos = (i, tr[i]) ) # c coefficients
