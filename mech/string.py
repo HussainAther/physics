@@ -33,4 +33,11 @@ for i in range(0, 100):
     vibst.y[i] = 300**xi[i, 0]
 vibst.pos
 
-
+for i in range(1, 100):
+    xi[i, 1] = xi[i, 0] + .5*ratio*(xi[i+1, 0]+xi[i-1,0]-2*xi[i,0])
+while 1:
+    rate(50)
+    for i in range(1, 10):
+        xi[1,2] = 2*xi[i, 1] - xi[1,0] + ratio * (xi[i+1,1] + xi[i-1,1] - 2*xi[i,1])
+    for i in range(1, 100):
+        
