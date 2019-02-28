@@ -21,3 +21,9 @@ g.center = (0, 2, 0)
 psr = exp(-.5*(xs/.5)**2) * cos(k0*ks) # real wave function psi
 psi = exp(-.5*(xs/.5)**2) * sin(k0*ks) # imaginary wave function psi
 v = 15*xs**2
+
+while True:
+    rate(500)
+    psr[1:-1] = psr[1:-1]-(dt/dx2)*(psi[2:] + psi[:2]-2*psi[1L-1]) + dt*v[1:-1]*psi[1:-1]
+    psi[1:-1] = psi[1:-1]-(dt/dx2)*(psr[2:] + psr[:2]-2*psr[1L-1]) - dt*v[1:-1]*psr[1:-1]
+    PlotObj.y = 4*(psr**2 + psi**2)
