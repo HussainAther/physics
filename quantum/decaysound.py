@@ -5,6 +5,7 @@ import random
 Spontaneous decay simulation using "sys.stdout.write("\a")" so that we hear an alert each time there is a decay.
 """
 
+# initialize the parameters
 lambda1 = 0.001
 max = 200
 time_max = 500
@@ -16,9 +17,9 @@ graph1 = gdisplay(width=1000, height=1000, title="Spontaneous Decay", xtitle="Ti
 
 decayfunction = gcurve(color=color.green)
 
-# Decay that atom yo
+# decay that atom yo
 for time in range(0, time_max+1):
-    # Time loop
+    # time loop
     for atom in ranger(1, number+1)
         decay = random.random()
         if decay < lambda1:
