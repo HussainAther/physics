@@ -1,7 +1,7 @@
-import numpy
+import numpy as np
 from matplotlib import pyplot, cm
 from mpl_toolkits.mplot3d import Axes3D
-from numpy import zeros
+from np import zeros
 
 """
 Channel flow with Navier-Stokes
@@ -11,7 +11,7 @@ Using the discretized equations of u-momentum, v-momentum, and pressure.
 
 
 def build_up_b(rho, dt, dx, dy, u, v):
-    b = numpy.zeros_like(u)
+    b = np.zeros_like(u)
     b[1:-1, 1:-1] = (rho * (1 / dt * ((u[1:-1, 2:] - u[1:-1, 0:-2]) / (2 * dx) +
                                       (v[2:, 1:-1] - v[0:-2, 1:-1]) / (2 * dy)) -
                             ((u[1:-1, 2:] - u[1:-1, 0:-2]) / (2 * dx))**2 -
@@ -38,7 +38,7 @@ def build_up_b(rho, dt, dx, dy, u, v):
     return b
 
 def pressure_poisson_periodic(p, dx, dy):
-    pn = numpy.empty_like(p)
+    pn = np.empty_like(p)
     
     for q in range(nit):
         pn = p.copy()
@@ -73,9 +73,9 @@ nit = 50
 c = 1
 dx = 2 / (nx - 1)
 dy = 2 / (ny - 1)
-x = numpy.linspace(0, 2, nx)
-y = numpy.linspace(0, 2, ny)
-X, Y = numpy.meshgrid(x, y)
+x = np.linspace(0, 2, nx)
+y = np.linspace(0, 2, ny)
+X, Y = np.meshgrid(x, y)
 
 
 ##physical variables
@@ -85,16 +85,16 @@ F = 1
 dt = .01
 
 #initial conditions
-u = numpy.zeros((ny, nx))
-un = numpy.zeros((ny, nx))
+u = np.zeros((ny, nx))
+un = np.zeros((ny, nx))
 
-v = numpy.zeros((ny, nx))
-vn = numpy.zeros((ny, nx))
+v = np.zeros((ny, nx))
+vn = np.zeros((ny, nx))
 
-p = numpy.ones((ny, nx))
-pn = numpy.ones((ny, nx))
+p = np.ones((ny, nx))
+pn = np.ones((ny, nx))
 
-b = numpy.zeros((ny, nx))
+b = np.zeros((ny, nx))
 
 udiff = 1
 stepcount = 0
@@ -186,7 +186,7 @@ while udiff > .001:
     v[0, :] = 0
     v[-1, :]=0
     
-    udiff = (numpy.sum(u) - numpy.sum(un)) / numpy.sum(u)
+    udiff = (np.sum(u) - np.sum(un)) / np.sum(u)
     stepcount += 1
 
 fig = pyplot.figure(figsize = (11,7), dpi=100)
