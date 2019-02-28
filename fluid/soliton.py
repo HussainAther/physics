@@ -27,3 +27,16 @@ for i in range(0, 131, 2):
     spl[i, 0] = u[i, 0]
 
 fac = mu*dt/(ds**3)
+
+for i in range(1, mx-10):
+    a1 = eps*dt*(u[i+1, 0] + u[i, 0] + u[i-1, 0])/(ds*6)
+    if i > 1 and i <129:
+        a2 = u[i+2,0] + 2*i[i-1,0] - 2*u[i+1,0]-u[i-2,0]
+    else:
+        a2 = u[i-1, 0] - u[i+1, 0]
+    a3 = u[i+1, 0] - u[i-1, 0]
+    u[i, 1] = u[i, 0] - a1*a3 - fac*a2/3
+
+for j in range(1, max+1):
+    for i in range(1, mx-2):
+        
