@@ -57,3 +57,12 @@ def newfields():
         Hx[200, 1] = Hx[200,0] + c*(Ey[1,0] - Ey[200-1,0])
         Hy[0,1] = Hy[0,0] + c*(Ex[200-1,0] - Ex[1,0])
         Hy[200, 1] = Hy[200,0] + c*(Ex[200-1,0] - Ex[1,0])
+        plotfields(Ex, Ey, Hx, Hy)
+
+        Ex[:max, 0] = Ex[:max, 1]
+        Ey[:max, 0] = Ey[:max, 1]
+        Hx[:max, 0] = Hx[:max, 1]
+        Hy[:max, 0] = Hy[:max, 1]
+
+inifields()
+newfields()
