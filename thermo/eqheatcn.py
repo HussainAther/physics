@@ -51,4 +51,19 @@ height = .1
 ct = 1
 for i in range(0, n):
     t[i, 0] = 0
+for i in range(1, n+1):
+    Td[i] = 2 + 2/r
+Td[1] = 1
+Td[n] = 1
+for i in range(1, n):
+    Ta[i] = -1
+    Tc[i] = -1
+Ta[n-1] = 1
+Tc[1] = 0
+Tb[1] = 0
+Tb[n] = 0
 
+for j in range(1, m+1):
+    print(j)
+    for i in range(2, n):
+        Tb[i] = t[i-1][j-1]
