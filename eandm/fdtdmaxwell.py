@@ -32,3 +32,11 @@ Exlabel2 = label(text="Ex", pos=(xmax+10, 50), box=0)
 Hylabel = label(text="Hy", pos=(-xmax-10, 0, 50), box=0)
 zlabel = label(text="Z", pos=(xmax+10, 0), box=0)
 t1 =0
+
+def inifields():
+    k = arange(xmax)
+    Ex[:xmax, 0] = .1*sin(2*pi*k/100)
+    Hy[:xmax, 0] = .1*sin(2*pi*k/100)
+
+def plotfields(ti):
+    
