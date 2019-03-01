@@ -28,7 +28,9 @@ for ik in range(len(qvalue)):
     multB[ik] = comb(qB+NB-1,qB)
     mult[ik] = multA[ik]*multB[ik]
 
-SA = log(multA), SB = log(multB), STOT = SA + SB
+SA = log(multA)
+SB = log(multB)
+STOT = SA + SB
 
 plot(qvalue,SA,"-r",qvalue,SB,"-b",qvalue,STOT,":k")
 xlabel("q_A"), ylabel("S")
