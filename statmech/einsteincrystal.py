@@ -83,3 +83,21 @@ for istep in range(nstep):
     TBSA[istep] = TB[istep]*log(omegaA)
 
 
+
+"""
+Plot energy and heat capacitance of an Einstein crystal
+"""
+
+x = linspace(0,1.5,1000)
+E = 1.0/(exp(1.0/x)-1.0)
+subplot(2,1,1)
+plot(x,E)
+xlabel("T/\theta_E")
+ylabel("E/\epsilon")
+subplot(2,1,2)
+CV = diff(E)/diff(x)
+xx = 0.5*(x[1:]+x[0:-1])
+plot(xx,CV)
+xlabel("T/\theta_E")
+ylabel("C_V/\epsilon")
+show()
