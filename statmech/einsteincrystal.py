@@ -34,3 +34,8 @@ STOT = SA + SB
 
 plot(qvalue,SA,"-r",qvalue,SB,"-b",qvalue,STOT,":k")
 xlabel("q_A"), ylabel("S")
+
+"""
+We can use the Monte Carlo method to simulate the time dynamics of the system
+as it goes through microstates.
+"""
