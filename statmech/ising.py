@@ -108,3 +108,7 @@ halflattice(2:2:N, 1:2:N)=1
 for i in range(1, nstep):
     sumneighbors = np.roll(spins, [0,1]) + np.roll(spins, [0, -1]) + np.roll(spins, [1, 0]) + np.roll(spins, [-1.0])
     DeltaEdivkT = -spins*(JdivkT*sumneighbors+HdivkT)
+    pboltzmann = exp(DeltaEdivkT)
+    changespin = -2*(random.rand(N,N)<pboltzmann)*halflattice+1 # adjust with halflattice
+    spins = spins*chanespin # flip the spins
+    
