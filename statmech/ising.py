@@ -2,6 +2,7 @@ import random
 from vpython.graph import *
 import numpy as np
 from pylab import *
+import matplotlib.pyplot as plt
 
 """
 Metropolis algorithm for a one-dimensional Ising chain.
@@ -116,5 +117,6 @@ for i in range(1, nstep):
         DeltaE = -JdivkT*thisspin*sumneigh - HdivkT*thisspin
         change = (random.rand(1,1)<exp(DeltaE))*(-2)+1
         spins(posx, posy) = spins(posx, posy)*change # change the spins
-
+        plt.axes(spins) # this is messy
+    plt.axes(spins)
 
