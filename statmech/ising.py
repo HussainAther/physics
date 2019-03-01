@@ -96,4 +96,6 @@ T=0.1 # dimensionless temperature
 JdivkT = Jdivk/T
 HdivkT = Hdivk/T
 
+# initialize random spin configuration
+spins = random.randint(2,N,N)*2-3
 
