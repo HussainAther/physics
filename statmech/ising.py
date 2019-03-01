@@ -99,3 +99,7 @@ HdivkT = Hdivk/T
 # initialize random spin configuration
 spins = random.randint(2,N,N)*2-3
 
+# half-martix of sites for spin change
+halflattice = zeros(N, N)
+halflattice(1:2:N, 2:2:N)=1
+halflattice(2:2:N, 1:2:N)=1
