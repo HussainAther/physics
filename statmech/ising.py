@@ -97,3 +97,7 @@ HdivkT = Hdivk/T
 
 # initial random spin configuration
 spins = randint(0, 2, (N,N))*2-1
+sizespins = size(spins)
+
+# for convenience
+N2 = N*N
