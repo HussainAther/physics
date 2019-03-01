@@ -31,4 +31,4 @@ for ik in range(len(qvalue)):
 SA = log(multA), SB = log(multB), STOT = SA + SB
 
 plot(qvalue,SA,"-r",qvalue,SB,"-b",qvalue,STOT,":k")
-xlabel(’q_A’), ylabel(’S’)
+xlabel("q_A"), ylabel("S")
