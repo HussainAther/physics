@@ -96,8 +96,13 @@ JdivkT = Jdivk/T
 HdivkT = Hdivk/T
 
 # initial random spin configuration
-spins = randint(0, 2, (N,N))*2-1
+spins = random.randint(0, 2, (N,N))*2-1
 sizespins = size(spins)
 
 # for convenience
 N2 = N*N
+
+# begin monte carlo testing
+for i in range(1, nstep):
+    for j in range(1, N2):
+        
