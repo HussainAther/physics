@@ -109,6 +109,7 @@ for i in range(1, nstep):
     sumneighbors = np.roll(spins, [0,1]) + np.roll(spins, [0, -1]) + np.roll(spins, [1, 0]) + np.roll(spins, [-1.0])
     DeltaEdivkT = -spins*(JdivkT*sumneighbors+HdivkT)
     pboltzmann = exp(DeltaEdivkT) # boltzmann probability
+    # it describes a system S with N, V, and T to have a state i with energy epsilon as P(epsilon) = (1/Z) * exp(-epsilon/kT)
     changespin = -2*(random.rand(N,N)<pboltzmann)*halflattice+1 # adjust with halflattice
     spins = spins*chanespin # flip the spins
     halflattice = 1-halflattice # other half next
