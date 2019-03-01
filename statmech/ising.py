@@ -91,3 +91,7 @@ Jdivk = 2.0/3.0 # interaction
 Hdivk = 0.0 # external field
 T=0.1 # dimensionless temperature
 
+JdivkT = Jdivk/T # normalize with respect to temperature
+HdivkT = Hdivk/T
+
+
