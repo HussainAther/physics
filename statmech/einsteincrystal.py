@@ -39,3 +39,40 @@ xlabel("q_A"), ylabel("S")
 We can use the Monte Carlo method to simulate the time dynamics of the system
 as it goes through microstates.
 """
+
+NA = 10
+NB = 990
+qA = 300
+qB = 9700
+
+q = qA + qB # Total energy
+N = NA + NB
+
+nstep = 1000000
+nbetween = 1000
+state = zeros(N,float)
+
+# Generate initial, random state placeA = randint(0,NA,qA)
+for ip in range(len(placeA)):
+    i = placeA[ip]
+    state[i] = state[i] + 1
+placeB = randint(0,NB,qB)+NA
+
+for ip in range(len(placeB)):
+    i = placeB[ip]
+    state[i] = state[i] + 1
+
+# Simulate state development
+EA = zeros(nstep,float)
+EB = zeros(nstep,float)
+TBSA = zeros(nstep,float)
+TB = zeros(nstep,float)
+
+for istep in range(nstep):
+    i1 = randiint(0,N) # Select oscillator at random
+    if (state[i1]>0): # Check if it has energy
+        i2 = randint(0,N) # Then find other oscillator state[i2] = state[i2] + 1
+        state[i1] = state[i1] - 1
+    # Calculate T_B S_A
+    EA[istep] = sum(state[:NA-1])
+    EB[istep] = sum(state[NA:])
