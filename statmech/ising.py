@@ -105,4 +105,5 @@ N2 = N*N
 # begin monte carlo testing
 for i in range(1, nstep):
     for j in range(1, N2):
-        
+        posx = random.randint(1, N)
+        posy = random.randint(1, N)
