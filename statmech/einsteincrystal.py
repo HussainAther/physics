@@ -16,7 +16,9 @@ multA = zeros(q+1,float) multB = zeros(q+1,float)
 mult = zeros(q+1,float)
 N = NA + NB
 
-qvalue = array(range(q+1)) for ik in range(len(qvalue)):
+qvalue = array(range(q+1)) # output equilibrium temperatures
+
+for ik in range(len(qvalue)):
     """
     Adjust equilibrium accordingly.
     """
