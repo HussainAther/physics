@@ -1,6 +1,7 @@
 import random
 from vpython.graph import *
 import numpy as np
+from pylab import *
 
 """
 Metropolis algorithm for a one-dimensional Ising chain.
@@ -79,3 +80,7 @@ for j in range(1, 500):
         spstate(state)
         ES = ET
 
+
+"""
+Monte Carlo Ising model one spin at a time
+"""
