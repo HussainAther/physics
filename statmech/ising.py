@@ -83,7 +83,7 @@ for j in range(1, 500):
 
 
 """
-Monte Carlo Ising model one spin at a time
+Stochastic Monte Carlo Ising model one spin at a time
 """
 
 nstep = 100 # number of MC steps
