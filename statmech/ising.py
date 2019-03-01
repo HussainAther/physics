@@ -96,27 +96,4 @@ T=0.1 # dimensionless temperature
 JdivkT = Jdivk/T
 HdivkT = Hdivk/T
 
-# initial random spin configuration
-spins = random.randint(0, 2, (N,N))*2-1
-sizespins = size(spins)
-
-# for convenience
-N2 = N*N
-
-# begin monte carlo testing
-for i in range(1, nstep):
-    for j in range(1, N2):
-        posx = random.randint(1, N)
-        posy = random.randint(1, N)
-        neighbors = [np.unravel_index(sizespins, mod(posx+1-1),N)+1, posy),
-                    np.unravel_index(sizespins, mod(posx+1-1),N)+1, posy),
-                    np.unravel_index(sizespins, posx, mod(posx+1-1),N)+1),
-                    np.unravel_index(sizespins, posx,mod(posx-1-1),N)+1)]
-        sumneigh = sum(spins(neighbors)) # sum the neighbors
-        thisspin = spins(posx, posy)
-        DeltaE = -JdivkT*thisspin*sumneigh - HdivkT*thisspin
-        change = (random.rand(1,1)<exp(DeltaE))*(-2)+1
-        spins(posx, posy) = spins(posx, posy)*change # change the spins
-        plt.axes(spins) # this is messy
-    plt.axes(spins)
 
