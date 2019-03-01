@@ -114,4 +114,7 @@ for i in range(1, nstep):
         sumneigh = sum(spins(neighbors)) # sum the neighbors
         thisspin = spins(posx, posy)
         DeltaE = -JdivkT*thisspin*sumneigh - HdivkT*thisspin
+        change = (random.rand(1,1)<exp(DeltaE))*(-2)+1
+        spins(posx, posy) = spins(posx, posy)*change # change the spins
+
 
