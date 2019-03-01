@@ -111,4 +111,5 @@ for i in range(1, nstep):
     pboltzmann = exp(DeltaEdivkT)
     changespin = -2*(random.rand(N,N)<pboltzmann)*halflattice+1 # adjust with halflattice
     spins = spins*chanespin # flip the spins
-    
+    halflattice = 1-halflattice # other half next
+    plt.axes(spins)
