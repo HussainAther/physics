@@ -110,5 +110,8 @@ for i in range(1, nstep):
         neighbors = [np.unravel_index(sizespins, mod(posx+1-1),N)+1, posy),
                     np.unravel_index(sizespins, mod(posx+1-1),N)+1, posy),
                     np.unravel_index(sizespins, posx, mod(posx+1-1),N)+1),
-                    np.unravel_index(sizespins, posx, mod(posx-1-1),N)+1)]
+                    np.unravel_index(sizespins, posx,mod(posx-1-1),N)+1)]
+        sumneigh = sum(spins(neighbors)) # sum the neighbors
+        thisspin = spins(posx, posy)
+        DeltaE = -JdivkT*thisspin*sumneigh - HdivkT*thisspin
 
