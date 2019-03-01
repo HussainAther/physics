@@ -76,3 +76,18 @@ for istep in range(nstep):
     # Calculate T_B S_A
     EA[istep] = sum(state[:NA-1])
     EB[istep] = sum(state[NA:])
+    qA = EA[istep]
+    qB = EB[istep]
+    omegaA = comb(NA+qA-1,qA)
+    TB[istep] = qB/NB
+    TBSA[istep] = TB[istep]*log(omegaA)
+
+
+if (mod(istep,nbetween)==0):
+    subplot(4,1,1) # State
+    bar((1:NA),state(1:NA),’b’), hold(’on’)
+    bar((NA+1:N),state(NA+1:end),’r’), hold(’off’)
+    a = axis(); a(2) = N; axis(a);
+    xlabel("i")
+    ylabel("n_i")
+    subplot(4,1,2)
