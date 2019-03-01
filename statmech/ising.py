@@ -84,3 +84,10 @@ for j in range(1, 500):
 """
 Monte Carlo Ising model one spin at a time
 """
+
+nstep = 100 # number of MC steps
+N=100 # system size
+Jdivk = 2.0/3.0 # interaction
+Hdivk = 0.0 # external field
+T=0.1 # dimensionless temperature
+
