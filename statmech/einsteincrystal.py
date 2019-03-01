@@ -83,11 +83,3 @@ for istep in range(nstep):
     TBSA[istep] = TB[istep]*log(omegaA)
 
 
-if (mod(istep,nbetween)==0):
-    subplot(4,1,1) # State
-    bar((1:NA),state(1:NA),’b’), hold(’on’)
-    bar((NA+1:N),state(NA+1:end),’r’), hold(’off’)
-    a = axis(); a(2) = N; axis(a);
-    xlabel("i")
-    ylabel("n_i")
-    subplot(4,1,2)
