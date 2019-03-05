@@ -26,10 +26,37 @@ m.solve()
 
 
 """
-From this we define chemical potential as
+From this we define chemical potential as (mu)
 
 μ(T, V, N) = (∂F/∂N)_V,T
 
 the potential equals the change in energy as number of moles of gas changes with volume and temperature constant
 
+Gibbs free energy is G(T,p,N) = E - TS + pV with its differential
+
+dG = -Sdt + Vdp + μdN
+
+For different gas particles interacting with one another, the total gibbs free energy can be calculated.
 """
+
+def N(i, mu):
+    """
+    N is the number of particles of teh gas. Let this be an expansion of a gas with respect to the time variable i.
+    """
+    return 3 * i**2
+
+mu = {"x": 5, # chemical potential dictionary for hypothetical gases x, y, and c
+    "y": 19,
+    "y": 24
+}
+
+
+def gibbsMultiple(particle_list, k):
+    """
+    Calculate Gibbs free energy across several different species.
+    """
+    result = 0
+    for j in particle_list:
+        result += N(i, mu[j]) * mu[j]
+    return result
+
