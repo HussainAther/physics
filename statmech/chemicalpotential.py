@@ -1,3 +1,6 @@
+import numpy as np
+from gekko import GEKKO
+import matplotlib.pyplot as plt
 
 """
 To address thermodynamic systems open to diffusion, we need to identify an equilibrium
@@ -10,4 +13,15 @@ def helmholtz(a, b):
     such that particles can bass from a to b and the other way. This is the sum of the energy
     for the components Fa + Fb.
     """
-    H = a
+    return a + b
+
+m = GEKKO() # initialize GEKKO model
+N_A = m.var(50) # number of particles of gas A
+N_B = m.var(60) # of gas B
+F_A = m.var(10) # energy of gas A
+F_B = m.var(20) # energy of gas B
+m.Equation(F_A.dN_A * dN_A + F_B.dN_B * dN_B = dF)
+m.options.IMODE=4
+m.solve()
+
+
