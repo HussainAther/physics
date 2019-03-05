@@ -29,7 +29,7 @@ def Laguerre(alpha, l, z):
     """
     Calcualte the generalized Laguerre polynoamials up to alpha that are used in the Morse potential.
     n is the list of possible eigenstates (from 0 to lambda - 1/2).
-    l is the hihest lambda value.
+    l is the highest lambda value.
     alpha is order of the Laguerre polynomial (integer)
     """
     lambdas = [x for x in range(0, l)]
