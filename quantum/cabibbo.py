@@ -26,3 +26,8 @@ c = np.arctan(abs(V_d)/abs(V_s))
 # dn = np.cos(c)*d + np.sin(c)*s and
 # sn = -np.sin(c)*d + np.cos(c)*s
 # in which sn is s'
+
+"""
+We can determine the Cabibbo-Kobayashi-Maskawa matrix to keep track of the weak decays of three
+generations of quarks.
+"""
