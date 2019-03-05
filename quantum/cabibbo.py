@@ -15,12 +15,12 @@ dn = np.cos(c)*d + np.sin(c)*s
 
 # in which dn is d'
 
-# from decay probabilities |V_d|^2 and |V_s|^2. this method of calculation is more accepted.
+# from decay probabilities |V_ud|^2 and |V_us|^2. this method of calculation is more accepted.
 
-V_d = .22534 # down quark into up quark
-V_s = .97427 # strange quark into up quark
+V_ud = .22534 # down quark into up quark
+V_us = .97427 # strange quark into up quark
 
-c = np.arctan(abs(V_d)/abs(V_s))
+c = np.arctan(abs(V_ud)/abs(V_us))
 
 # this gives us two equations
 # dn = np.cos(c)*d + np.sin(c)*s and
@@ -29,5 +29,14 @@ c = np.arctan(abs(V_d)/abs(V_s))
 
 """
 We can determine the Cabibbo-Kobayashi-Maskawa matrix to keep track of the weak decays of three
-generations of quarks.
+generations of quarks. This allows for CP-violation.
 """
+V_ub = .00351 # bottom to up
+
+V_cd = .22520 # down to charm
+V_cs = .97344 # spin to charm
+V_cb = .0412 # bottom to charm
+
+V_td = .00867 # down to top
+
+ckm_m = np.array([V_ud, V_us, V_ub], [V_cd, V_cs, V_cb], [V_td, V_ts, V_tb])
