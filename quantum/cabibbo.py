@@ -6,8 +6,8 @@ Physicist Nicola Cabibbo introduced the Cabibbo angle to preserve the
 universality of the weak interaction.
 """
 
-d = np.array([3, 4]) # some vector
-s = np.array([0, 4]) # some other vector
+d = np.array([3, 4]) # some vector for down quark
+s = np.array([0, 4]) # some other vector for strange quark
 c = np.angle(45) # rotate it 45 deg. this is the Cabibbo angle. It represents the rotation of the mass
                      # eigenstate vector space formed by the mas  eigenstates |d> and |s> into the weak eigenstate
                      # vector space formed by the weak eigenstate |d'> and |s'>
@@ -38,5 +38,9 @@ V_cs = .97344 # spin to charm
 V_cb = .0412 # bottom to charm
 
 V_td = .00867 # down to top
+V_ts = .0404 # strange to top
+V_tb = .999146 # bottom to top
 
-ckm_m = np.array([V_ud, V_us, V_ub], [V_cd, V_cs, V_cb], [V_td, V_ts, V_tb])
+b = np.array([1,3]) # some vector for bottom quark
+
+ckm_m = np.array([V_ud, V_us, V_ub], [V_cd, V_cs, V_cb], [V_td, V_ts, V_tb]) * np.array([d, s, b])
