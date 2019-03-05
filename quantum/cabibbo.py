@@ -13,10 +13,16 @@ c = np.angle(45) # rotate it 45 deg. this is the Cabibbo angle. It represents th
                      # vector space formed by the weak eigenstate |d'> and |s'>
 dn = np.cos(c)*d + np.sin(c)*s
 
+# in which dn is d'
+
 # from decay probabilities |V_d|^2 and |V_s|^2. this method of calculation is more accepted.
 
 V_d = .22534 # down quark into up quark
 V_s = .97427 # strange quark into up quark
 
-c = tanh
+c = np.arctan(abs(V_d)/abs(V_s))
 
+# this gives us two equations
+# dn = np.cos(c)*d + np.sin(c)*s and
+# sn = -np.sin(c)*d + np.cos(c)*s
+# in which sn is s'
