@@ -26,4 +26,6 @@ We can use a generalized Laguerre polynomial to write the eigenstates and eigenv
 """
 
 def Laguerre(alpha, n, z):
-
+    """
+    Calcualte the generalized Laguerre polynoamials up to alpha that are used in the Morse potential.
+    """
