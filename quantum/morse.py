@@ -1,5 +1,5 @@
 import numpy as np
-import scipy as sp
+from scipy.special import gamma, factorial
 
 """
 Morse potential is the ptoential energy for a diatomic molecule using the interatomic
@@ -29,3 +29,4 @@ def Laguerre(alpha, n, z):
     """
     Calcualte the generalized Laguerre polynoamials up to alpha that are used in the Morse potential.
     """
+    results = [] # list of Laguerre polynomials
