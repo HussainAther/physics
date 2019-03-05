@@ -25,3 +25,11 @@ m.options.IMODE=4
 m.solve()
 
 
+"""
+From this we define chemical potential as
+
+μ(T, V, N) = (∂F/∂N)_V,T
+
+the potential equals the change in energy as number of moles of gas changes with volume and temperature constant
+
+"""
