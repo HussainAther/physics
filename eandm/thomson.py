@@ -25,3 +25,9 @@ esp_t = 5 # ε_t
 eps_r = 6 # ε_r
 
 result = integrate.quad(lambda x: (eps_t + eps_r)*np.sin(x), 0, np.pi) * integrate.quad(lambda x: 1, 0, 2*np.pi)
+
+# result should be equal to I σ_t n (8/3) π ^2
+
+
+
+
