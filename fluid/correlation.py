@@ -3,7 +3,7 @@ from qutip import *
 from pylab import *
 
 """
-More generally, we can also calculate correlation functions of the kind ⟨𝐴(𝑡1 + 𝑡2)𝐵(𝑡1)⟩, i.e., the correlation
+Calculate correlation functions of the kind ⟨𝐴(𝑡1 + 𝑡2)𝐵(𝑡1)⟩, i.e., the correlation
 function of a system that is not in its steadystate. In QuTiP, we can evoluate such correlation functions using the
 function qutip.correlation.correlation_2op_2t. The default behavior of this function is to return
 a matrix with the correlations as a function of the two time coordinates (𝑡1 and 𝑡2).
