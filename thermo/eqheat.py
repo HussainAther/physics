@@ -2,7 +2,6 @@ from numpy import *
 import matplotlib.pylab as p
 from mpl_toolkits.mplot3d import Axes3D
 
-
 """
 To solve for the temperature distribution within an aluminum bar of length L = 1m that is subject to
 the boudnary and initial conditions: T(x=0, t) = T(x=L, t) = 0 K and T(x, t=0) == 100K. The corresponding
@@ -17,13 +16,12 @@ Nt = 3000 # total time
 dx = .03 # x step size
 dt = .9 # time step size
 T = zeros((Nx,2), float)
-Tpl = zeros((Nx, 31), float) # temperature distributino
+Tpl = zeros((Nx, 31), float) # temperature distribution
 
 u = [] # energies
 
-
 for ix in range (1, Nx - 1):
-    T[ix, 0] = 100.0    # Initial T
+    T[ix, 0] = 100.0  # Initial T
     T[0,0] = 0.0
     T[0,1] = 0.  # Boundary conditions
 
@@ -60,4 +58,3 @@ ax.set_xlabel("Position")
 ax.set_ylabel("time")
 ax.set_zlabel("Temp")
 p.show()
-
