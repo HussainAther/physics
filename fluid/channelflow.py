@@ -10,6 +10,9 @@ Using the discretized equations of u-momentum, v-momentum, and pressure.
 
 
 def build_up_b(rho, dt, dx, dy, u, v):
+    """
+    Discretized forms of the various physical quantities.
+    """
     b = np.zeros_like(u)
     b[1:-1, 1:-1] = (rho * (1 / dt * ((u[1:-1, 2:] - u[1:-1, 0:-2]) / (2 * dx) +
                                       (v[2:, 1:-1] - v[0:-2, 1:-1]) / (2 * dy)) -
