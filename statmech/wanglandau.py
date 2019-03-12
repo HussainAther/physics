@@ -4,7 +4,7 @@ from vpython.graph import *
 
 """
 Wang Landau algorithm for two-dimensional Ising model.
-Each time fac changes, a new histogram is generated. Onyl the first histrogram
+Each time fac changes, a new histogram is generated. Only the first histrogram
 plotted to reduce computational time.
 """
 
