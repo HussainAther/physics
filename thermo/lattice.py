@@ -39,7 +39,9 @@ for i = 1:ip
     v(i,:) = v0*randn(1,3);
 
 def writelammps(filename,Lx,Ly,Lz,r,v)
-# WRITELAMMPS Write data to lammps file
+    """
+    Write data to lammps file
+    """
     fp = open(filename,’w’)
     s = size(r)
     ip = s(1)
