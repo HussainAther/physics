@@ -1,5 +1,4 @@
 import site
-site.addsitedir('C:\Users\Den\mya405\python\\thermlib')
 import matplotlib.pyplot as plt
 import numpy as np
 from constants import constants
