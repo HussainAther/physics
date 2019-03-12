@@ -1,8 +1,11 @@
 from pylab import *
+
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Simulate a system of gas particles undergoing van der Waals forces
+"""
+Simulate a system of gas particles undergoing van der Waals forces
+"""
 
 t = [0.9,0.95,1.0,1.05] # adjusted temp
 
