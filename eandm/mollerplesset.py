@@ -1,4 +1,5 @@
 from __future__ import division
+
 import math
 import numpy as np
 
@@ -41,6 +42,3 @@ Convert them from spatial coordinates to coordinates that flow with spin molecul
 """
 
 
-"""
-    work in progress...
-"""
