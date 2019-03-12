@@ -1,6 +1,11 @@
 from pylab import *
+
 import matplotlib.plot as plt
 import numpy as np
+
+"""
+Simple method of adjusting distances to achieve equilibrium.
+"""
 
 for i in range(1,nstep):
 r = rand(1)
