@@ -84,7 +84,10 @@ def daube4(f, n, sign):
     for i in range(1, n+1):
         f[i] = tr[i] # copy TF to array
 
-def pyram(f, n, sign): # pyramid algorithm
+def pyram(f, n, sign): 
+    """
+    Working from bottom to top using the daube4 function
+    """
     if n < 4:
         return
     nend = 4
