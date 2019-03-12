@@ -1,6 +1,9 @@
 f=open("/Users/syedather/Desktop/highdata.txt", "r")
 a=[]
 def FindMaxima(numbers):
+    """
+    Lol what is this I don't even
+    """
     maxima = []
     length = len(numbers)
     if length >= 2:
