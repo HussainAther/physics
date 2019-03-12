@@ -1,6 +1,7 @@
 import numpy as np
-from gekko import GEKKO
 import matplotlib.pyplot as plt
+
+from gekko import GEKKO
 
 """
 To address thermodynamic systems open to diffusion, we need to identify an equilibrium
