@@ -1,8 +1,9 @@
 import random
-from vpython.graph import *
 import numpy as np
-from pylab import *
 import matplotlib.pyplot as plt
+
+from vpython.graph import *
+from pylab import *
 
 """
 Metropolis algorithm for a one-dimensional Ising chain.
@@ -24,6 +25,9 @@ test = state # test state
 random.seed() # for rng
 
 def energy(S):
+    """
+    Calcuate the energy using the individual states.
+    """
     FirstTerm = 0
     SecondTerm = 0
     for i in range(0, N-2):
