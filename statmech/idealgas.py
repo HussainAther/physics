@@ -1,7 +1,8 @@
 from pylab import *
+from numpy import zeros
+
 import matplotlib.plot as plt
 import numpy as np
-from numpy import zeros
 
 """
 We can also use the molecular dynamics simulations to learn about the ideal gas. We can, for example,
