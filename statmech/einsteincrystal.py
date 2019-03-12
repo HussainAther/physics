@@ -8,8 +8,8 @@ T_E = epsilon/k and it predicts that the energy and heat capacities of a crystal
 functions of the dimensionless ratio T/T_{E}.
 """
  
-NA = 300
-NB = 200
+NA = 300 # number of particles for gas A
+NB = 200 # gas B
 q = 200 # heat
 
 multA = zeros(q+1,float) multB = zeros(q+1,float)
