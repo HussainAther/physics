@@ -23,7 +23,9 @@ p = np.zeros((ny, nx))
 b = np.zeros((ny, nx))
 
 def build_up_b(b, rho, dt, u, v, dx, dy):
-    
+    """
+    Solve the appropriate differential equation.
+    """
     b[1:-1, 1:-1] = (rho * (1 / dt *
                     ((u[1:-1, 2:] - u[1:-1, 0:-2]) /
                      (2 * dx) + (v[2:, 1:-1] - v[0:-2, 1:-1]) / (2 * dy)) -
