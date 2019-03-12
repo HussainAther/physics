@@ -1,6 +1,7 @@
 from numpy import *
-import matplotlib.pylab as p
 from mpl_toolkits.mplot2d import Axes3D
+
+import matplotlib.pylab as p
 
 """
 Solve the square-write problem used in electricity and magnetism. The problem entails finding the electric
