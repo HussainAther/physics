@@ -26,3 +26,12 @@ def gaussian():
     y = r*sin(theta)
     return x,y
 
+# simulate the transmissions
+count = 0
+for i in range(N):
+    x,y = gaussian()
+    b = sqrt(x*x+y*y)
+    if b<Z*e*e/(2*pi*epsilon0*E):
+        count += 1
+
+print(count,"particles were reflected out of",N)
