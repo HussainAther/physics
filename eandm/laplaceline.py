@@ -34,7 +34,7 @@ for iter in range(Niter):
             V[i, j] = .25*(V[i+1, j] + V[i-1, j] + V[i, j+1] + V[i, j-1])
 
 def functz(V):
-    # A function to return voltag for x and y coordinates
+    # A function to return voltage for x and y coordinates
     z = V[X, Y]
     return Z
 
