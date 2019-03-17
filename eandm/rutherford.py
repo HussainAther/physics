@@ -15,3 +15,14 @@ epsilon0 = 8.854e-12 # permittivity of free space
 a0 = 5.292e-11 # radius
 sigma = a0/100 # coulomb potential
 N = 1000000 # number of particles
+
+def gaussian():
+    """
+    Generate two random Gaussian numbers for our distribution.
+    """
+    r = sqrt(-2*sigma*sigma*log(1-random()))
+    theta = 2*pi*random()
+    x = r*cos(theta)
+    y = r*sin(theta)
+    return x,y
+
