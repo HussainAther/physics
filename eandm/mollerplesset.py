@@ -9,7 +9,7 @@ adding electron correlation effects by means of Rayleigh-Schrodinger perturbatio
 order.
 """
 
-def eint(a,b,c,d):
+def compound(a,b,c,d):
     """
     Return compound index given four indices
     """
@@ -26,7 +26,7 @@ def teimo(a,b,c,d):
     Return Value of spatial MO two electron integral
     Example: (12\vert 34) = tei(1,2,3,4)
     """
-    return ttmo.get(eint(a,b,c,d),0.0e0)
+    return tt.get(compound(a,b,c,d),0.0e0)
 
 """
 Initialize the orbital energies and transformed two-electron integrals
@@ -34,11 +34,12 @@ Initialize the orbital energies and transformed two-electron integrals
 Nelec = 2 # we have 2 electrons in HeH+
 dim = 2 # we have two spatial basis functions in STO-3G
 E = [-1.52378656, -0.26763148]
-ttmo = {5.0: 0.94542695583037617, 12.0: 0.17535895381500544, 14.0: 0.12682234020148653, 17.0: 0.59855327701641903, 19.0: -0.056821143621433257, 20.0: 0.74715464784363106}
-
+tt = {5.0: 0.94542695583037617, 12.0: 0.17535895381500544, 14.0: 0.12682234020148653, 17.0: 0.59855327701641903, 19.0: -0.056821143621433257, 20.0: 0.74715464784363106}
 
 """
 Convert them from spatial coordinates to coordinates that flow with spin molecular orbital theory.
 """
 
+dim *= 2
+ints = np.zeros((dim, dim, dim, dim))
 
