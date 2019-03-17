@@ -7,3 +7,11 @@ It is a physical phenomenon explained by Ernest Rutherford in 1911 that led to t
 the planetary Rutherford model of the atom and eventually the Bohr model.
 """
 
+# Constants
+Z = 79 # atomic number
+e = 1.602e-19 # electric
+E = 7.7e6*e
+epsilon0 = 8.854e-12
+a0 = 5.292e-11
+sigma = a0/100
+N = 1000000
