@@ -33,3 +33,4 @@ xmax = 1 # distance end
 xc = .25 # curve center
 v = 1 # velocity
 dx = (xmax - xmin)/N # step size
+x = np.arange(xmin-dx, xmax+(2*dx), dx) # range of x across the step size
