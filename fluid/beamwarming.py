@@ -26,8 +26,10 @@ using the Thomas Algorithm (modified tridiagonal matrix algorithm).
 
 """
 
-N = 100 # number of nodes
+N = 100 # number of steps
 tmax = 2.5 # maximum time value
 xmin = 0 # distance start
 xmax = 1 # distance end
-xc = .25 # curve centre
+xc = .25 # curve center
+v = 1 # velocity
+dx = (xmax - xmin)/N # step size
