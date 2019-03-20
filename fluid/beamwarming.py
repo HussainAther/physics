@@ -32,5 +32,11 @@ xmin = 0 # distance start
 xmax = 1 # distance end
 xc = .25 # curve center
 v = 1 # velocity
+
 dx = (xmax - xmin)/N # step size
 x = np.arange(xmin-dx, xmax+(2*dx), dx) # range of x across the step size
+
+u0 = np.exp(-200*(x-xs)**2) # initialize energy at 0
+u = u0 # same
+unp1 = u0
+
