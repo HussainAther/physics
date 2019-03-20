@@ -40,3 +40,6 @@ u0 = np.exp(-200*(x-xs)**2) # initialize energy at 0
 u = u0 # same
 unp1 = u0
 
+nsteps = round(tmax/dt) # number of steps
+alpha1 = v*dt/(2*dx) # first guesses
+alpha2 = v**2*dt**2/(2*dx**2) 
