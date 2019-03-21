@@ -8,7 +8,7 @@ graph = gdisplay(x=0, y=0, width=500, height=500, title="Motion of a satellite a
     xtitle="x", ytitle="y", xmax=5, xmin=-5, ymax=5, ymin=-5,
     foreground=color.black, background=color.white)
 
-moonfunction = gcurve(color=color.red)
+moonfunction = gcurve(color=color.red) # use gcurve
 planetradius = 4 # planet orbit radius
 wplanet = 2 # planet angular velocity
 moonradius = 1 # moon radius around planet
