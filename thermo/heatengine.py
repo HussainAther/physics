@@ -64,8 +64,14 @@ cold_adiabat = plt.plot(xcoord_sf,pvec*0.01, "b-", linewidth=3)
 
 plt.axis([convertTempToSkew(-15.,1000.,skew), convertTempToSkew(35.,1000.,skew), 1020, 350])
 
+# transform along the coordinates
 xtempA = convertTempToSkew(tempA - c.Tc,pressA*0.01, skew)
 xtempB = convertTempToSkew(tempB - c.Tc,pressB*0.01, skew)
 xtempC = convertTempToSkew(tempC - c.Tc,pressC*0.01, skew)
 xtempD = convertTempToSkew(tempD - c.Tc,pressD*0.01, skew)
 
+# plot
+plt.text(xtempA,pressA*0.01, "A", fontweight="bold", fontsize= 22, color="b")
+plt.text(xtempB,pressB*0.01, "B", fontweight="bold", fontsize= 22, color="b")
+plt.text(xtempC,pressC*0.01, "C", fontweight="bold", fontsize= 22, color="b")
+plt.text(xtempD,pressD*0.01, "D", fontweight="bold", fontsize= 22, color="b")
