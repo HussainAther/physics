@@ -35,6 +35,9 @@ prhist = np.zeros((N + 1))
 S = np.zeros((N+1), float) # entropy
 
 def iE(e):
+    """
+    Normalize the energy state.
+    """
     return int((e + 2*N)/4)
 
 def IntEnergy():
@@ -121,11 +124,13 @@ def WL(): # Wang-Landau sampling
 deltaS = 0
 print("wait because iter > 13,000,000")
 WL()
+
 deltaS = 0
 for j in range(0, N+1):
     order = j*4 - 2*N−3
     deltaS = S[j] - S[0] + log(2)
     if S[j] != 0:
-        entrp.plot(pos = (1*order/N, deltaS))
+        entrp.plot(pos = (order/N, deltaS))
+
 IntEnergy():
 print("Done.")
