@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 from matplotlib import pyplot, cm
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -6,7 +6,8 @@ from mpl_toolkits.mplot3d import Axes3D
 Poisson's equation is obtained from adding a source term to the right-hand-side of Laplace's equation:
 
 ∂2p/∂x2+∂2p/∂y2 = b
-So, unlinke the Laplace equation, there is some finite value inside the field that affects the solution.
+
+Unlinke the Laplace equation, there is some finite value inside the field that affects the solution.
 Poisson's equation acts to "relax" the initial sources in the field.
 """
 
@@ -23,11 +24,11 @@ dx = (xmax - xmin) / (nx - 1)
 dy = (ymax - ymin) / (ny - 1)
 
 # Initialization
-p  = numpy.zeros((ny, nx))
-pd = numpy.zeros((ny, nx))
-b  = numpy.zeros((ny, nx))
-x  = numpy.linspace(xmin, xmax, nx)
-y  = numpy.linspace(xmin, xmax, ny)
+p  = np.zeros((ny, nx))
+pd = np.zeros((ny, nx))
+b  = np.zeros((ny, nx))
+x  = np.linspace(xmin, xmax, nx)
+y  = np.linspace(xmin, xmax, ny)
 
 # Source
 b[int(ny / 4), int(nx / 4)]  = 100
@@ -51,7 +52,7 @@ for it in range(nt):
 def plot2D(x, y, p):
     fig = pyplot.figure(figsize=(11, 7), dpi=100)
     ax = fig.gca(projection='3d')
-    X, Y = numpy.meshgrid(x, y)
+    X, Y = np.meshgrid(x, y)
     surf = ax.plot_surface(X, Y, p[:], rstride=1, cstride=1, cmap=cm.viridis,
             linewidth=0, antialiased=False)
     ax.view_init(30, 225)
