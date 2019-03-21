@@ -33,3 +33,7 @@ def lf():
     """
     Lax-Friedrich scheme for solving nonlinear differential equations.
     """
+    tc = 0
+    for i in range(nsteps):
+        plt.clf()
+        
