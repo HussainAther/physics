@@ -28,3 +28,8 @@ unp1 = u0
 
 nsteps = round(tmax/dt) # number of steps
 alpha = v*dt/(2*dx) # term in our expansion
+
+def lf():
+    """
+    Lax-Friedrich scheme for solving nonlinear differential equations.
+    """
