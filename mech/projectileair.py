@@ -28,6 +28,10 @@ print("Frictionless H = " + str(H))
 print("Frictionless R = " + str(R))
 
 def plotNumeric(k):
+    """
+    Plot the numeric solution to the projectile using individual values 
+    for each variable. 
+    """ 
     vx = v0*cos(angle*pi/180)
     vy = v0*sin(angle*pi/180)
     x = 0
@@ -43,6 +47,9 @@ def plotNumeric(k):
         print(" %13.10f %13.10f "%(x,y))
 
 def plotAnalytic():
+    """
+    The analytic solution uses the differnetials in the equations.
+    """
     v0x = v0*cos(angle*pi/180)
     v0y = v0*sin(angle*pi/180)
     dt = 2*v0y/g/N
