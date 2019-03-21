@@ -1,5 +1,6 @@
-from numpy import *
+import numpy as np
 import matplotlib.pylab as p
+
 from mpl_toolkits.mplot3d import Axes3D
 
 """
@@ -15,8 +16,8 @@ Nx = 101 # total x size
 Nt = 3000 # total time
 dx = .03 # x step size
 dt = .9 # time step size
-T = zeros((Nx,2), float)
-Tpl = zeros((Nx, 31), float) # temperature distribution
+T = np.zeros((Nx,2), float)
+Tpl = np.zeros((Nx, 31), float) # temperature distribution
 
 u = [] # energies
 
@@ -28,7 +29,7 @@ for ix in range (1, Nx - 1):
 T[Nx-1, 0] = 0.
 T[Nx-1, 1] = 0.0
 
-cons = thc/(C*rho)*dt/(dx*dx) # calcuate constant
+cons = thc/(C*rho)*dt/(dx*dx) # calculate constant to simplify things
 n = 1 #
 for t in range (1, Nt):
     for ix in range (1, Nx - 1):
@@ -42,8 +43,8 @@ for t in range (1, Nt):
     for ix in range (1, Nx - 1):
         T[ix, 0] = T[ix, 1]
 
-x = list(range(1, Nx - 1, 2)) # Plot alternating points
-y = list(range(1, 30))
+x = list(np.range(1, Nx - 1, 2)) # Plot alternating points
+y = list(rnp.ange(1, 30))
 X, Y = p.meshgrid(x, y)
 
 def f(Tpl): # function to return the temperature distribution
