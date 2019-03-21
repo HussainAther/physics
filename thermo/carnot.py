@@ -1,24 +1,28 @@
 import site
 import matplotlib.pyplot as plt
 import numpy as np
+
 from constants import constants
 from new_thermo import theta, convertTempToSkew
 from convecSkew import convecSkew
 
-
 c=constants()
 
-# Carnot heat engine:
-#
-# dry adiabatic expansion from B to C
-# isothermal compression from C to D (heat flow, Qout,  out of the system)
-# dry adiabatic compression from D to C
-# note that Qin > Qout so that work done by the system in the carnot cycle = Qin - Qout > 0
+"""
+Carnot heat engine:
+
+0. Isothermal expansion from A to B 
+1. Dry adiabatic expansion from B to C
+2. Isothermal compression from C to D (heat flow, Qout,  out of the system)
+3. Dry adiabatic compression from D to C
+
+note that Qin > Qout so that work done by the system in the carnot cycle = Qin - Qout > 0
+"""
 
 pressA=1.e5
 tempA=15 + c.Tc
 pressC=0.7e5
-tempC=5 + c.Tc;
+tempC=5 + c.Tc
 thetaA=theta(tempA,pressA)
 thetaC=theta(tempC,pressC)
 thetaB=thetaC
@@ -100,20 +104,23 @@ plt.show()
 #Calculate the heat input and output
 
 #exact change in entropy
-deltaS=c.cpd*(np.log(thetaC) - np.log(thetaB));
+deltaS=c.cpd*(np.log(thetaC) - np.log(thetaB))
+
 #approx change in entropy
-deltaSapprox=c.cpd*(thetaC - thetaB)/thetaC;
+deltaSapprox=c.cpd*(thetaC - thetaB)/thetaC
+
 #heat input inside the house
-qin=tempB*deltaS;
+qin=tempB*deltaS
+
 #heat exausted outside the house
-qout=tempA*deltaS;
-work_done=qin - qout;
+qout=tempA*deltaS
+work_done=qin - qout
 
 
-out_mesg='\nHeat absorbed during expansion (qin) = %8.3f (J/kg)\n\
+out_mesg = "Heat absorbed during expansion (qin) = %8.3f (J/kg)\n\
 Heat expelled during compression (qout) = %8.3f (J/kg)\n\
 Work required to complete the cycle (work_done) = %8.3f (J/kg)\n\
-(this is also the net energy removed from the room)\n'
+(this is also the net energy removed from the room)"
 
 print out_mesg %(qin, qout, work_done)
 
@@ -122,7 +129,7 @@ print out_mesg %(qin, qout, work_done)
 qin_h= c.cpd*(tempC - tempB) - c.Rd*tempB*(np.log(pressC) - np.log(pressB))
 qout_h= c.cpd*(tempD - tempA) - c.Rd*tempD*(np.log(pressD) - np.log(pressA))
 
-out_mesg='\nEnthalpy check: heat absorbed during expansion (qin) = %8.3f (J/kg)\n\
-Enthalpy check: Heat expelled during compression (qout) = %8.3f (J/kg)\n'
+out_mesg = "Enthalpy check: heat absorbed during expansion (qin) = %8.3f (J/kg)\n\
+Enthalpy check: Heat expelled during compression (qout) = %8.3f (J/kg)"
 
 print out_mesg %(qin, qout)
