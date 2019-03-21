@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 """
-Use the Lax-Friedrich method to solve the advection equation
+Use the Lax-Friedrich method to solve the advection equation. It uses a Forward
+Euler method to discretize the system of ordinary differential equations.
 
 U_t + vU_x = 0
 
@@ -36,4 +37,5 @@ def lf():
     tc = 0
     for i in range(nsteps):
         plt.clf()
-        
+        for j in range(N+2): # Lax-Friedrich scheme
+            unp1[j] = u[j] - alpha*(u[j+1] - u[j-1]) + (1/2)*(self.u[j+1] - 2*self.u[j] + self.u[j-1])
