@@ -7,7 +7,8 @@ from convecSkew import convecSkew
 
 """
 Keep track of equilibrium values as a heat engine expands
-along the length pvec.
+along the length pvec for a hot adiabatic and cold adiabatic system.
+Heat neither enters nor leaves the system.
 """
 
 c = constants()
@@ -58,4 +59,13 @@ pressD = ptop
 wvD = wsat(tempD, ptop)
 wvC = wsat(tempC, ptop)
 
+hot_adiabat = plt.plot(xcoord_eq,pvec*0.01, "r-", linewidth=3)
+cold_adiabat = plt.plot(xcoord_sf,pvec*0.01, "b-", linewidth=3)
+
+plt.axis([convertTempToSkew(-15.,1000.,skew), convertTempToSkew(35.,1000.,skew), 1020, 350])
+
+xtempA = convertTempToSkew(tempA - c.Tc,pressA*0.01, skew)
+xtempB = convertTempToSkew(tempB - c.Tc,pressB*0.01, skew)
+xtempC = convertTempToSkew(tempC - c.Tc,pressC*0.01, skew)
+xtempD = convertTempToSkew(tempD - c.Tc,pressD*0.01, skew)
 
