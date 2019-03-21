@@ -38,4 +38,8 @@ def lf():
     for i in range(nsteps):
         plt.clf()
         for j in range(N+2): # Lax-Friedrich scheme
-            unp1[j] = u[j] - alpha*(u[j+1] - u[j-1]) + (1/2)*(self.u[j+1] - 2*self.u[j] + self.u[j-1])
+            unp1[j] = u[j] - alpha*(u[j+1] - u[j-1]) + (1/2)*(u[j+1] - 2*u[j] + u[j-1])
+        u = unp1
+        # periodic boundary conditions
+        u[0] = u[N+1]
+        u[N+2] = u[1]
