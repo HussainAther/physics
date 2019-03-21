@@ -3,14 +3,14 @@ from vpython.graph import *
 from numpy import zeros
 
 """
-Use the Newton-Raphson search to solve the two-mass-on-a-string problem.
+Use the Newton-Rhaphson search to solve the two-mass-on-a-string problem.
 We set up matrices using coupled linear equations and check the physical reasonableness
 of them by a variety of weights and lengths. We need to check that the tensions we calculate are positive
 and that the deduced angles correspond to a physical geometry. The solution will show graphically
 the step-by-step search for a solution.
 
 Check out the mathematics repositories for the algebra and calculus folder for more information
-on solving linear equations and the Newton-Raphson search, respectively.
+on solving linear equations and the Newton-Rhaphson search, respectively.
 """
 
 scene = display(x=0, y=0, width=500, height=500, title="String and masses configuration")
