@@ -4,7 +4,7 @@ import numpy as np
 from vpython.graph import *
 
 """
-Wang Landau algorithm for two-dimensional Ising model.
+Wang Landau (Wang-Landau) algorithm for two-dimensional Ising model.
 Each time fac changes, a new histogram is generated. Only the first histrogram
 plotted to reduce computational time.
 """
@@ -29,9 +29,9 @@ ticM = curve(pos = [(N, -10), (N, -13)])
 enr = label(text = "E/N", pos = (N/2, -15), box = 0)
 
 # initialize values
-sp = np.zeros((L,L)) 
-hist = np.zeros((N+1))
-prhist = np.zeros((N + 1))
+sp = np.zeros((L,L)) # spins
+hist = np.zeros((N+1)) # histogram values for results
+prhist = np.zeros((N + 1)) # second histogram for step in middle
 S = np.zeros((N+1), float) # entropy
 
 def iE(e):
@@ -65,18 +65,21 @@ def IntEnergy():
         energ.plot(pos= (T, U))
 
 
-def WL(): # Wang-Landau sampling
-    Hinf = 1e10 # for inifnity
-    Hsup = 0 # for zero
+def WL(): 
+    """
+    Wang-Landau sampling
+    """
+    Hinf = 1e10 # for histogram
+    Hsup = 0 
     epsilon = 1e-3 # tolerance
-    ip = np.zeros(L)
-    im = np.zeros(L)
-    height = abs(Hsup - Hinf)/2
-    ave = (Hsup + Hinf)/ 2 # average
+    ip = np.zeros(L) 
+    im = np.zeros(L) # BC R or down, L or up
+    height = abs(Hsup - Hinf)/2 # initialize histogram
+    ave = (Hsup + Hinf)/ 2 # average # about average of histogram
     percent = height / ave # normalize with respect to our average 
     for i in range(0, L):
         for j in range(0, L):
-            sp[i, j] = 1 # begin 
+            sp[i, j] = 1 # begin spins
     for i in range(0, L):
         ip[i] = i + 1
         im[i] = i - 1
@@ -88,18 +91,18 @@ def WL(): # Wang-Landau sampling
     iter = 0
     fac = 1
     while fac > epsilon:
-        i = int(N*random.random())
-        xg = i%L
-        yg = i//L
+        i = int(N*random.random()) # select a random spin
+        xg = i%L # remainder for spin values
+        yg = i//L # localize x, y, grid point
 	# cost function
         Enew = Eold + 2∗(sp[ip[xg],yg] + sp[im[xg],yg] + sp[xg,ip[yg]] + sp[xg, im[yg]] ) ∗ sp[xg, yg] # change energy
-        deltaS = S[iE(Enew)] − S[iE(Eold)] # change in entropy
-        if deltaS <= 0 or random.random() < exp( − deltaS):
+        deltaS = S[iE(Enew)] − S[iE(Eold)] # change entropy
+        if deltaS <= 0 or random.random() < exp( − deltaS): 
             Eold = Enew
-            sp[xg, yg] *= -1
-        S[iE(Eold)] += fac
-        if iter%10000 == 0:
-            for j in range(0, N+1):
+            sp[xg, yg] *= -1 # flip spin
+        S[iE(Eold)] += fac # change entropy again
+        if iter%10000 == 0: # flatness every 10000 sweeps
+            for j in range(0, N+1): 
                 if j ==0: # for our first iteration
                     Hsup = 0
                     Hinf = 1e10
@@ -112,28 +115,28 @@ def WL(): # Wang-Landau sampling
             height = Hsup - Hinf # update our values
             ave = Hsup + Hinf
             percent = height/ave
-            if percent < .3:
-                print(" iter ", iter, " log(f) ", fac)
-                for j in range(0, N +1):
-                    prhist[j] = hist[j]
+            if percent < .3: # is the histogram flat?
+                print(" iter ", iter, " log(f) ", fac) # tell us
+                for j in range(0, N +1): 
+                    prhist[j] = hist[j] 
                     hist[j] = 0
                 fac *= .5
         iter += 1
-        hist[iE(Eold)] += 1
-        if fac >= .5:
+        hist[iE(Eold)] += 1 
+        if fac >= .5: # only the first histogram
             hist.x = 2 * np.arange(0, N+1) - N
             histo.y = .025*hist - 10
 
 deltaS = 0
 print("wait because iter > 13,000,000")
-WL()
+WL() # run the Wang-Landau algorithm
 
 deltaS = 0
 for j in range(0, N+1):
     order = j*4 - 2*N−3
     deltaS = S[j] - S[0] + log(2)
     if S[j] != 0:
-        entrp.plot(pos = (order/N, deltaS))
+        entrp.plot(pos = (order/N, deltaS)) # plot the entropy
 
 IntEnergy():
 print("Done.")
