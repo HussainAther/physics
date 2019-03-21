@@ -43,3 +43,5 @@ def lf():
         # periodic boundary conditions
         u[0] = u[N+1]
         u[N+2] = u[1]
+
+        uexact = np.exp(-200*(x-xc-v*tc)**2)
