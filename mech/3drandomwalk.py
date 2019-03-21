@@ -2,7 +2,8 @@ from vpython import *
 import random
 
 """
-Produce a 3-D graph of 3-D Random walk
+Produce a 3-D graph of 3-D Random walk. It's a mathematical
+formalization of a path of random steps in succession.
 """
 
 random.seed(123)
