@@ -40,15 +40,16 @@ x = np.arange(xmin-dx, xmax+(2*dx), dx) # range of x across the step size
 u0 = np.exp(-200*(x-xs)**2) # initialize energy at 0
 u = u0 # same
 unp1 = u0
-diss = u0 # dissipative term
+diss = np.exp(-200*(x-xs)**2)[2:-2] # dissipative term
 
 nsteps = round(tmax/dt) # number of steps
-alpha1 = v*dt/(2*dx) # first guesses
+alpha1 = v*dt/(2*dx) # terms in our expansion
 alpha2 = v**2*dt**2/(2*dx**2)
 
 def bw(d=True):
     """
     Beam-Warming scheme for solving nonlinear differential equations.
+    If d = True, we are under a shock wave and add a dissipative/dissipation term.
     """
     tc = 0
     for i in range(nsteps):
@@ -57,6 +58,8 @@ def bw(d=True):
                            # (tridiagonal matrix algorithm) in solving the linear system of equations that result
                            # from the trapzeoidal formula (the Taylor expansion of the first term).
             unp1[j] = u[j] - alpha1*(3*u[j] - 4*u[j-1] + u[j-2]) + alpha2*(u[j] - 2*u[j-1] + u[j-2])
+            if j <= N - 2 and j >= 2:
+                diss[j] = u[j+2] - 4*u[j+1] + 6*u[j] - 4*u[j-1] + u[j-2]
         
         u = unp1
         # periodic boundary conditions
