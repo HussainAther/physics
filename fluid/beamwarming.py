@@ -23,8 +23,6 @@ Then we add a dissipation term for non-linear hyperbolic equations (if
 we have a shock wave), and use a second-order smoothing term
 if we only require a stable solution. Then we solve the resulting equation
 using the Thomas Algorithm (modified tridiagonal matrix algorithm).
-
-
 """
 
 N = 100 # number of steps
