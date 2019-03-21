@@ -40,33 +40,37 @@ x = np.arange(xmin-dx, xmax+(2*dx), dx) # range of x across the step size
 u0 = np.exp(-200*(x-xs)**2) # initialize energy at 0
 u = u0 # same
 unp1 = u0
+diss = u0 # dissipative term
 
 nsteps = round(tmax/dt) # number of steps
 alpha1 = v*dt/(2*dx) # first guesses
 alpha2 = v**2*dt**2/(2*dx**2)
 
-def bw():
+def bw(d=True):
     """
     Beam-Warming scheme for solving nonlinear differential equations.
     """
     tc = 0
     for i in range(nsteps):
         plt.clf()
-        for j in range(N): # apply the Beam-Warming scheme
+        for j in range(N): # apply the Beam-Warming scheme by using the Thomas algorithm
+                           # (tridiagonal matrix algorithm) in solving the linear system of equations that result
+                           # from the trapzeoidal formula (the Taylor expansion of the first term).
             unp1[j] = u[j] - alpha1*(3*u[j] - 4*u[j-1] + u[j-2]) + alpha2*(u[j] - 2*u[j-1] + u[j-2])
+        
         u = unp1
         # periodic boundary conditions
         u[0] = u[N-1]
         u[1] = u[N]
         uexact = np.exp(-200*(x - xc - v*tc)**2) # exact energy value
 
-        plt.plot(self.x, uexact, "r", label="Exact solution")
-        plt.plot(self.x, self.u, "bo-", label="Beam-Warming")
-        plt.axis((self.xmin-0.15, self.xmax+0.15, -0.2, 1.4))
+        plt.plot(x, uexact, "r", label="Exact solution")
+        plt.plot(x, u, "bo-", label="Beam-Warming")
+        plt.axis((xmin-0.15, xmax+0.15, -0.2, 1.4))
         plt.grid(True)
         plt.xlabel("Distance (x)")
         plt.ylabel("u")
         plt.legend(loc=1, fontsize=12)
-        plt.suptitle("Time = %1.3f" % (tc+self.dt))
+        plt.suptitle("Time = %1.3f" % (tc+dt))
         plt.pause(0.01)
-        tc += self.dt
+        tc += dt
