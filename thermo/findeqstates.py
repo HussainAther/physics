@@ -1,6 +1,12 @@
 from pylab import *
 import re
 
+"""
+Find the equilibrium states undergoing the lammps simulator 
+to apply pressure changes and track the chemical, statistical, 
+and thermodynamic quantities.
+"""
+
 pressarr = array([]) # Store pressures
 volarr = array([]) # Store volumes
 
@@ -24,17 +30,21 @@ for ivol in range(0,size(myvolumes)):
     # Run the simulator
     print("Executing lammps < in.tmp")
     os.system("lammps < in.tmp") # Run lammps
+
     # Extract data from trajectory of simulation
     d = dump("tmpdump.lammpstrj") # Read sim states tmp_time,simbox,atoms,bonds,tris,lines = d.viz(0) dx = simbox[3]-simbox[0]
     dy = simbox[4]-simbox[1]
     vol = dx*dy # Volume of box
     t = d.time(), n = size(t)
+
     # Calculate total kinetic energy of last timestep vx = array(d.vecs(n-1,"vx"))
     vy = array(d.vecs(n-1,"vy"))
     K = 0.5*sum(vx*vx+vy*vy) # Sum of kinetic energy # Read pressures calculated in simulation
     l = logfile("log.lammps")
+
     # Find pressure averaged over all timesteps
     press = average(l.get("Press"))
+
     # Store calculated values in arrays
     pressarr = append(pressarr,press)
     volarr = append(volarr,vol)
