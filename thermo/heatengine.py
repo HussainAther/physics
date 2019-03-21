@@ -21,11 +21,21 @@ sfwv_top = 3.e-3
 ptop = 4 10.e2
 pbot = 1000.e2
 
-
+# Perform the functions as the heat expands
 eqTd_bot = findTdwv(eqwv_bot,pbot)
 sfTd_bot = findTdwv(sfwv_bot,pbot)
 thetae_eq = thetaep(eqTd_bot,eqT_bot,pbot)
 thetae_sf = thetaep(sfTd_bot,sfT_bot,pbot)
 
+# plot
+fig1 = plt.figure(1)
+skew, ax1 = convecSkew(1)
 
-
+# initialize vector arrays
+pvec = np.arange(ptop, pbot, 1000)
+Tvec_eq = np.zeros(pvec.size)
+Tvec_sf = np.zeros(pvec.size)
+wv = np.zeros(pvec.size)
+wl = np.zeros(pvec.size)
+xcoord_eq = np.zeros(pvec.size)
+xcoord_sf = np.zeros(pvec.size)
