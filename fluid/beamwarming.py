@@ -54,4 +54,8 @@ def bw():
         plt.clf()
         for j in range(N): # apply the Beam-Warming scheme
             unp1[j] = u[j] - alpha1*(3*u[j] - 4*u[j-1] + u[j-2]) + alpha2*(u[j] - 2*u[j-1] + u[j-2])
-        
+        u = unp1
+        # periodic boundary conditions
+        u[0] = u[N-1]
+        u[1] = u[N] 
+
