@@ -9,6 +9,10 @@ from convecSkew import convecSkew
 Keep track of equilibrium values as a heat engine expands
 along the length pvec for a hot adiabatic and cold adiabatic system.
 Heat neither enters nor leaves the system.
+
+In a Hadley cell (which we will attempt to create), we have a large-scale 
+atmospheric convection cell in which air rises at the equator and sinks
+at medium latitudes. It's kinda like San Francisco. 
 """
 
 c = constants()
@@ -75,3 +79,8 @@ plt.text(xtempA,pressA*0.01, "A", fontweight="bold", fontsize= 22, color="b")
 plt.text(xtempB,pressB*0.01, "B", fontweight="bold", fontsize= 22, color="b")
 plt.text(xtempC,pressC*0.01, "C", fontweight="bold", fontsize= 22, color="b")
 plt.text(xtempD,pressD*0.01, "D", fontweight="bold", fontsize= 22, color="b")
+
+# plot
+plt.title("Heat engine (something like a Hadley cell)")
+plt.legend(("equator", "San Francisco")) # like the heat there
+plt.show()
