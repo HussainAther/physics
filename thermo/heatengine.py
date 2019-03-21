@@ -20,3 +20,12 @@ eqwv_top = 3.e-3
 sfwv_top = 3.e-3
 ptop = 4 10.e2
 pbot = 1000.e2
+
+
+eqTd_bot = findTdwv(eqwv_bot,pbot)
+sfTd_bot = findTdwv(sfwv_bot,pbot)
+thetae_eq = thetaep(eqTd_bot,eqT_bot,pbot)
+thetae_sf = thetaep(sfTd_bot,sfT_bot,pbot)
+
+
+
