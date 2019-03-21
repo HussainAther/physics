@@ -39,3 +39,23 @@ wv = np.zeros(pvec.size)
 wl = np.zeros(pvec.size)
 xcoord_eq = np.zeros(pvec.size)
 xcoord_sf = np.zeros(pvec.size)
+
+for i in range(0, len(pvec)):
+    Tvec_eq[i], wv[i], wl[i] = tinvert_thetae(thetae_eq, eqwv_bot, pvec[i])
+    xcoord_eq[i] = convertTempToSkew(Tvec_eq[i] - c.Tc, pvec[i]*0.01, skew)
+    Tvec_sf[i], wv[i], wl[i] = tinvert_thetae(thetae_sf, sfwv_bot, pvec[i])
+    xcoord_sf[i] = convertTempToSkew(Tvec_sf[i] - c.Tc, pvec[i]*0.01, skew)
+
+    
+tempA = Tvec_sf[len(Tvec_sf)-1]
+pressA = pbot
+tempB = Tvec_eq[len(Tvec_eq)-1]
+pressB = pbot
+tempC = Tvec_eq[0]
+pressC = ptop
+tempD = Tvec_sf[0]
+pressD = ptop
+wvD = wsat(tempD, ptop)
+wvC = wsat(tempC, ptop)
+
+
