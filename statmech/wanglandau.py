@@ -1,5 +1,6 @@
 import random
 import numpy as np
+
 from vpython.graph import *
 
 """
@@ -11,15 +12,13 @@ plotted to reduce computational time.
 L = 8
 N = (L*L)
 
-# Set up graphics
-entgr = gidsplay(x=0, y=0, width=500, height=250, title="Density of States",\
-    xtitle="E/N", ytitle="log g(E)", xmax=2, xmin=-2, ymax=45, ymin=0)
+# graph
+entgr = gidsplay(x=0, y=0, width=500, height=250, title="Density of States", xtitle="E/N", ytitle="log g(E)", xmax=2, xmin=-2, ymax=45, ymin=0)
 entrp = gcurve(color=color.yellow, display=entgr)
-energygr = gdisplay(x=0, y=250, width=500, height=250, title="E vs. T",\
-    xtitle = "T", ytitle="U(T)/N", xmax=8, xmin=0, ymax=0, ymin=-2)
+energygr = gdisplay(x=0, y=250, width=500, height=250, title="E vs. T", xtitle = "T", ytitle="U(T)/N", xmax=8, xmin=0, ymax=0, ymin=-2)
 energ = gcurve(color=color.cyan, display = energygr)
-histogr = display(x=0, y=500, width=500, height=300,\
-    title="1st histgram: H(E) vs E/N. coreresponds to log(f) = 1")
+histogr = display(x=0, y=500, width=500, height=300, title="1st histgram: H(E) vs E/N. coreresponds to log(f) = 1")
+
 histo = curve(x=list(range(0, N+1)), color=color.red, display=histogr)
 xaxis = curve(pos=[(−N, −10),(N, −10)])
 minE = label(text="-2",pos=(−N+3, −15),box=0)
@@ -30,10 +29,10 @@ tic0 = curve(pos = [(0, -10), (0, -13)])
 ticM = curve(pos = [(N, -10), (N, -13)])
 enr = label(text = "E/N", pos = (N/2, -15), box = 0)
 
-sp = np.zeros((L,L))
+sp = np.zeros((L,L)) 
 hist = np.zeros((N+1))
 prhist = np.zeros((N + 1))
-S = np.zeros((N+1), float)
+S = np.zeros((N+1), float) # entropy
 
 def iE(e):
     return int((e + 2*N)/4)
@@ -61,17 +60,17 @@ def IntEnergy():
 
 
 def WL(): # Wang-Landau sampling
-    Hinf = 1e10
-    Hsup = 0
-    tol = 1e-3
+    Hinf = 1e10 # for inifnity
+    Hsup = 0 # for zero
+    epsilon = 1e-3 # tolerance
     ip = np.zeros(L)
     im = np.zeros(L)
     height = abs(Hsup - Hinf)/2
-    ave = (Hsup + Hinf)/ 2
-    percent = height / ave
+    ave = (Hsup + Hinf)/ 2 # average
+    percent = height / ave # normalize with respect to our average 
     for i in range(0, L):
         for j in range(0, L):
-            sp[i, j] = 1
+            sp[i, j] = 1 # begin 
     for i in range(0, L):
         ip[i] = i + 1
         im[i] = i - 1
@@ -82,30 +81,31 @@ def WL(): # Wang-Landau sampling
         S[j] = 0
     iter = 0
     fac = 1
-    while fac > tol:
+    while fac > epsilon:
         i = int(N*random.random())
         xg = i%L
         yg = i//L
-        Enew = = Eold + 2∗(sp[ip[xg],yg] + sp[im[xg],yg] + sp[xg,ip[yg]] + sp[xg, im[yg]] ) ∗ sp[xg, yg] # Change energy
-        deltaS = S[iE(Enew)] − S[iE(Eold)]
+	# cost function
+        Enew = Eold + 2∗(sp[ip[xg],yg] + sp[im[xg],yg] + sp[xg,ip[yg]] + sp[xg, im[yg]] ) ∗ sp[xg, yg] # change energy
+        deltaS = S[iE(Enew)] − S[iE(Eold)] # change in entropy
         if deltaS <= 0 or random.random() < exp( − deltaS):
             Eold = Enew
             sp[xg, yg] *= -1
         S[iE(Eold)] += fac
         if iter%10000 == 0:
             for j in range(0, N+1):
-                if j ==0:
+                if j ==0: # for our first iteration
                     Hsup = 0
                     Hinf = 1e10
-                if hist[j] == 0:
+                if hist[j] == 0: # do nothing
                     continue
-                if hist[j] > Hsup:
+                if hist[j] > Hsup: # cost function
                     Hsup = hist[j]
                 if hist[j] < Hinf:
                     Hinf = hist[j]
-            height = Hsup - Hinf
+            height = Hsup - Hinf # update our values
             ave = Hsup + Hinf
-            percent = 1*height/ave
+            percent = height/ave
             if percent < .3:
                 print(" iter ", iter, " log(f) ", fac)
                 for j in range(0, N +1):
@@ -115,8 +115,9 @@ def WL(): # Wang-Landau sampling
         iter += 1
         hist[iE(Eold)] += 1
         if fac >= .5:
-            hist.x = 2*arange(0, N+1) - N
+            hist.x = 2 * np.arange(0, N+1) - N
             histo.y = .025*hist - 10
+
 deltaS = 0
 print("wait because iter > 13,000,000")
 WL()
