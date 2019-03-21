@@ -1,6 +1,5 @@
 import numpy as np
 import math
-from numpy import zeros
 
 """
 First, we need to initialize the system by generating a lattice of atoms
@@ -19,9 +18,9 @@ L = 5; % Lattice size
 b = 2.0; % Size of unit cell (units of sigma)
 v0 = 1.0; % Initial kinetic energy scale
 N = 4*L^3; % Nr of atoms
-r = zeros(N,3);
+r = np.zeros(N,3);
 
-v = zeros(N,3);
+v = np.zeros(N,3);
 bvec = [0 0 0; b/2 b/2 0; b/2 0 b/2; 0 b/2 b/2];
 ip = 0;
 
