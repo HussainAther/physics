@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 """
 We use the Beam-Warming method for solutions of the linear advection equation (used to
@@ -48,4 +49,9 @@ def bw():
     """
     Beam-Warming scheme for solving nonlinear differential equations.
     """
-    
+    tc = 0
+    for i in range(nsteps):
+        plt.clf()
+        for j in range(N): # apply the Beam-Warming scheme
+            unp1[j] = u[j] - alpha1*(3*u[j] - 4*u[j-1] + u[j-2]) + alpha2*(u[j] - 2*u[j-1] + u[j-2])
+        
