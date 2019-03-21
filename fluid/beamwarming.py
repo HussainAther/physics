@@ -57,5 +57,6 @@ def bw():
         u = unp1
         # periodic boundary conditions
         u[0] = u[N-1]
-        u[1] = u[N] 
+        u[1] = u[N]
+        uexact = np.exp(-200*(x - xc - v*tc)**2) # exact energy value
 
