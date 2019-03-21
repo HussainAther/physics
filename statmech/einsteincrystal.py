@@ -1,6 +1,8 @@
 from pylab import *
 from scipy.misc import comb
 
+import numpy as np
+
 """
 Calculate entropy as a function of q (heat of crystal A) as two Einstein crystals come
 into thermal contact with one another. The Einstein crystal has the characteristic property
@@ -12,9 +14,9 @@ NA = 300 # number of particles for gas A
 NB = 200 # gas B
 q = 200 # heat
 
-multA = zeros(q+1,float) multB = zeros(q+1,float)
-mult = zeros(q+1,float)
-N = NA + NB
+multA = np.zeros(q+1,float) multB = np.zeros(q+1,float)
+mult = np.zeros(q+1,float)
+N = NA + NB # total number of particles
 
 qvalue = array(range(q+1)) # output equilibrium temperatures
 
@@ -40,17 +42,17 @@ We can use the Monte Carlo method to simulate the time dynamics of the system
 as it goes through microstates.
 """
 
-NA = 10
-NB = 990
-qA = 300
-qB = 9700
+NA = 10 # number of gas A particles
+NB = 990 # number of gas B partcles
+qA = 300 # A heat
+qB = 9700 # B heat
 
 q = qA + qB # Total energy
-N = NA + NB
+N = NA + NB # total number of particles
 
-nstep = 1000000
-nbetween = 1000
-state = zeros(N,float)
+nstep = 1000000 # number of steps
+nbetween = 1000 
+state = np.zeros(N,float)
 
 # Generate initial, random state placeA = randint(0,NA,qA)
 for ip in range(len(placeA)):
@@ -63,10 +65,10 @@ for ip in range(len(placeB)):
     state[i] = state[i] + 1
 
 # Simulate state development
-EA = zeros(nstep,float)
-EB = zeros(nstep,float)
-TBSA = zeros(nstep,float)
-TB = zeros(nstep,float)
+EA = np.zeros(nstep, float)
+EB = np.zeros(nstep, float)
+TBSA = np.zeros(nstep, float)
+TB = np.zeros(nstep, float)
 
 for istep in range(nstep):
     i1 = randiint(0,N) # Select oscillator at random
@@ -82,13 +84,11 @@ for istep in range(nstep):
     TB[istep] = qB/NB
     TBSA[istep] = TB[istep]*log(omegaA)
 
-
-
 """
 Plot energy and heat capacitance of an Einstein crystal
 """
 
-x = linspace(0,1.5,1000)
+x = np.linspace(0,1.5,1000)
 E = 1.0/(exp(1.0/x)-1.0)
 subplot(2,1,1)
 plot(x,E)
