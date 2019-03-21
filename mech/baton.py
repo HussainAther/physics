@@ -46,7 +46,7 @@ class Baton(Ball.Bll, Path,Path): # inherit both Ball and Path props
             self.w = w1 # Baton angular velocity
 
         def getM(self):
-            return 2.0*self.getM1()
+            return 2.0*self.getM1() 
 
         def getI(self):
             return (2*self.getI1() + .5*self.getM()*self.L**2)
