@@ -44,4 +44,15 @@ def lf():
         u[0] = u[N+1]
         u[N+2] = u[1]
 
-        uexact = np.exp(-200*(x-xc-v*tc)**2)
+        uexact = np.exp(-200*(x-xc-v*tc)**2) # exact energy solution for comparison with lf
+
+        plt.plot(x, uexact, "r", label="Exact solution")
+        plt.plot(x, u, "bo-", label="Lax-Friedrich")
+        plt.axis((xmin-0.15, xmax+0.15, -0.2, 1.4))
+        plt.grid(True)
+        plt.xlabel("Distance (x)")
+        plt.ylabel("u")
+        plt.legend(loc=1, fontsize=12)
+        plt.suptitle("Time = %1.3f" % (tc+dt))
+        plt.pause(0.01)
+        tc += dt

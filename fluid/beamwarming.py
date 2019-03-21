@@ -64,7 +64,7 @@ def bw(d=True):
         # periodic boundary conditions
         u[0] = u[N+2]
         u[1] = u[N+1]
-        uexact = np.exp(-200*(x - xc - v*tc)**2) # exact energy value
+        uexact = np.exp(-200*(x - xc - v*tc)**2) # exact energy value for comparison with bw
 
         plt.plot(x, uexact, "r", label="Exact solution")
         plt.plot(x, u, "bo-", label="Beam-Warming")
