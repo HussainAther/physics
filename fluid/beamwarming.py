@@ -52,7 +52,7 @@ def bw(d=True):
     tc = 0
     for i in range(nsteps):
         plt.clf()
-        for j in range(N): # apply the Beam-Warming scheme by using the Thomas algorithm
+        for j in range(N+3): # apply the Beam-Warming scheme by using the Thomas algorithm
                            # (tridiagonal matrix algorithm) in solving the linear system of equations that result
                            # from the trapzeoidal formula (the Taylor expansion of the first term).
             unp1[j] = u[j] - alpha1*(3*u[j] - 4*u[j-1] + u[j-2]) + alpha2*(u[j] - 2*u[j-1] + u[j-2])
