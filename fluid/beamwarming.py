@@ -60,3 +60,13 @@ def bw():
         u[1] = u[N]
         uexact = np.exp(-200*(x - xc - v*tc)**2) # exact energy value
 
+        plt.plot(self.x, uexact, "r", label="Exact solution")
+        plt.plot(self.x, self.u, "bo-", label="Beam-Warming")
+        plt.axis((self.xmin-0.15, self.xmax+0.15, -0.2, 1.4))
+        plt.grid(True)
+        plt.xlabel("Distance (x)")
+        plt.ylabel("u")
+        plt.legend(loc=1, fontsize=12)
+        plt.suptitle("Time = %1.3f" % (tc+self.dt))
+        plt.pause(0.01)
+        tc += self.dt
