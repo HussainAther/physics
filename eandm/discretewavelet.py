@@ -1,5 +1,5 @@
 from vpython.graph import *
-from numpy import zeros
+import numpy np
 
 """
 Compute the discrete wavelet transform using the pyramid algorithm for the second signal values
@@ -7,8 +7,8 @@ stored in f[]. Here, they're assigned as the chirp signal sin(60t^2). The Daub4 
 are the basis functions and sign = +/- 1 is used for transform/inverse.
 """
 
-sq3 = sqrt(3)
-fsq2 = 4*sqrt(2)
+sq3 = np.sqrt(3)
+fsq2 = 4*np.sqrt(2)
 N = 1024
 N = 2^n
 c0 = (1+sq3) / fsq2
@@ -20,13 +20,13 @@ transfgr1 = None  # displays haven't been made yet
 transfgr2 = None
 
 def chirp(xi): # chirp signal lol
-    y = sin(60*xi**2)
+    y = np.sin(60*xi**2)
     return y
 
 def daube4(f, n, sign):
     global transfgr1, transfgr2
 
-    tr = zeros((n+1), float) # temp variable
+    tr = np.zeros((n+1), float) # temp variable
     if n < 4:
         return
 
@@ -97,7 +97,7 @@ def pyram(f, n, sign):
             daube4(f, nd, sign)
             nd *= 2
 
-f = zeros((N +1), float)
+f = np.zeros((N +1), float)
 inxi = 1/ndxi = 0
 
 for i in range(1, N + 1):
