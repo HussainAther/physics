@@ -1,6 +1,7 @@
 import matplotlib.pylab as p:
 from mpl.toolkits.mplot2d import Axes3D
 from vpython import *
+import numpy as np
 
 """
 Calculates a normalized continuous wavelet transform of the signal data in "input"
@@ -27,7 +28,7 @@ s= iS
 dTau = W/noTau
 dS = (W/iS)∗∗(1./noS)
 maxY = 0.001
-sig = zeros (( noPtsSig ) , float )
+sig = np.zeros (( noPtsSig ) , float )
 
 def signal(noPtsSig , y):
     t = 0.0
