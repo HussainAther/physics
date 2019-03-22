@@ -1,4 +1,5 @@
 from vpython import *
+import numpy as np
 
 """
 Finite-Difference Time Domain Method of findings solutions to Maxwell's equations for linearly
@@ -23,8 +24,8 @@ ts = 2
 beta = .01
 
 # initialize arrays
-Ex = zeros((xmax, ts), float)
-Hy = zeros((xmax, ts), float)
+Ex = np.zeros((xmax, ts), float)
+Hy = np.zeros((xmax, ts), float)
 
 # label
 Exlabel1 = label(text="Ex", pos=(-xmax-10, 50), box=0)
@@ -34,11 +35,17 @@ zlabel = label(text="Z", pos=(xmax+10, 0), box=0)
 t1 =0
 
 def inifields():
-    k = arange(xmax)
-    Ex[:xmax, 0] = .1*sin(2*pi*k/100)
-    Hy[:xmax, 0] = .1*sin(2*pi*k/100)
+    """
+    Initialize the fields with the appropriate values
+    """
+    k = np.arange(xmax)
+    Ex[:xmax, 0] = .1*np.sin(2*np.pi*k/100)
+    Hy[:xmax, 0] = .1*np.sin(2*np.pi*k/100)
 
 def plotfields(ti):
+    """
+    Plot the solutions to the field equations.
+    """
     k = arange(xmax)
     Efield.x = 2*k-xmax
     Efield.y = 800*Ex[k,ti]
