@@ -1,6 +1,6 @@
-from vpython.graph import *
 import numpy as np
 
+from vpython.graph import *
 """
 Solve the advection equation, a description of some scalar field (u) carried along by a
 flow of constant speed v. Use the Lax-Wendroff scheme.
