@@ -1,4 +1,5 @@
 import numpy as np
+
 from qutip import *
 from pylab import *
 
@@ -16,6 +17,8 @@ H = a.dag() * a
 alpha = 2.5
 rho0 = coherent_dm(10, alpha)
 corr = correlation_2op_2t(H, rho0, times, times, [np.sqrt(0.25) * a], x, x)
+
+# plot
 pcolor(corr)
 xlabel(r"Time $t_2$")
 ylabel(r"Time $t_1$")
