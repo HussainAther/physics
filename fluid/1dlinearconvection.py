@@ -1,7 +1,7 @@
 import numpy as np
 import time, sys
+import matplotlib.pyplot as plt
 
-from matplotlib import pyplot
 """
 The 1-D Linear Convection equation is the simplest, most basic model that can be used to learn
 something about CFD. It is surprising that this little equation can teach us so much! Here it is:
@@ -55,4 +55,4 @@ for n in range(nt):
     for i in range(1, nx):
         u[i] = un[i] - c * dt / dx * (un[i] - un[i-1])
 
-pyplot.plot(np.linspace(0, 2, nx), u);
+plt.plot(np.linspace(0, 2, nx), u);
