@@ -1,7 +1,8 @@
 import matplotlib.pylab as p
+import numpy as np
+
 from mpl_toolkits.mplot3d import Axe3D
 from vpython import *
-import numpy as np
 
 """
 Solve the heat equation in one dimension and time using the Crank-Nicolson method.
