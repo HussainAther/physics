@@ -1,5 +1,6 @@
 from math import sqrt,log,cos,sin,pi
 from random import random
+import numpy as np
 
 """
 Rutherford scattering is the elastic scattering of charged particles by the Coulomb interaction.
@@ -20,18 +21,18 @@ def gaussian():
     """
     Generate two random Gaussian numbers for our distribution.
     """
-    r = sqrt(-2*sigma*sigma*log(1-random()))
+    r = np.sqrt(-2*sigma*sigma*log(1-random()))
     theta = 2*pi*random()
-    x = r*cos(theta)
-    y = r*sin(theta)
+    x = r*np.cos(theta)
+    y = r*np.sin(theta)
     return x,y
 
 # simulate the transmissions
 count = 0
 for i in range(N):
     x,y = gaussian()
-    b = sqrt(x*x+y*y)
-    if b<Z*e*e/(2*pi*epsilon0*E):
+    b = np.sqrt(x*x+y*y)
+    if b<Z*e*e/(2*np.pi*epsilon0*E):
         count += 1
 
 print(count,"particles were reflected out of",N)
