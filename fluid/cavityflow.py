@@ -1,6 +1,11 @@
 import numpy as np
+
 from matplotlib import pyplot, cm
 from mpl_toolkits.mplot3d import Axes3D
+
+"""
+Simulate flow of an incompressible fluid over a cavity.
+"""
 
 nx = 41
 ny = 41
