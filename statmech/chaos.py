@@ -1,6 +1,12 @@
 import numpy as np
 
 """
+We use chaos to describe the qualitative change in the behavior of a solution as the solution patern
+is not repetetive in any regular way. This aperiodic behavior of a solution
+for a deterministic system that depends intimately on the intiial conditions
+such that very small changes in the initial conditions can give rise to major 
+differences in the solution at later times.
+
 We can use a discrete nonlinear logistic-type model in which we assume
 0 < u_0 < 1 for
 
@@ -18,3 +24,6 @@ lambda = f'(u_star) = 2 - r
 as r increases from 0 under the contsraint 0 < r < 1 
 with non-negative equilibrium u_star 
 """
+
+
+
