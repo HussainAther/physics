@@ -5,7 +5,7 @@ from vpython import *
 
 """
 Solve the Korteweg–de Vries (KdeV) equation for a soliton. It's a mathematical model
-of waves of shallow water surfaces. We can use a non-linear partial differential
+of waves of shallow water surfaces. We can use a nonlinear partial differential
 equation to solve it.
 """
 
