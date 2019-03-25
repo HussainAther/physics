@@ -10,9 +10,11 @@ for rate r, population function u over time t.
 
 The steady state solution and corresponding eiganvalues lambda are
 
-u_star = y0 
-lambda = f'(0) = r
-u_star = (r-1)/r 
-lambda = f'(ustar) = 2 - r
+u_star = 0 # we define u_star as this 0 equilibrium of the function of population 
+lambda = f'(0) = r # r is the rate at t = 0. It's one of our solutions for lambda
+u_star = (r-1)/r  # analytic solution
+lambda = f'(u_star) = 2 - r
 
+as r increases from 0 under the contsraint 0 < r < 1 
+with non-negative equilibrium u_star 
 """
