@@ -46,3 +46,11 @@ def ut2(f, t):
     """
     r = cd(u(f, 0, 5)) # over some interval t of size 5, differentiation the function f around u = 0
     return r * (u(t) * (t-u(t)) * (1 - r*u(t) * (1 - u(t))))
+
+"""
+Alternatively we can solve for the solutions analytically.
+"""
+
+u2_star = 0 # or we can write it as
+u2_star = (r-1)/r # which is > 0 if r > 1
+u2_star = ((r+1) +- ((r+1)(r-3))**(1/2))/ (2*r) # which is > 0 if r > 3 
