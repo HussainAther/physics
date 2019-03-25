@@ -12,7 +12,8 @@ We can use a discrete nonlinear logistic-type model in which we assume
 
 u_t+1 = r * u_t * (1 - u_t) in which r > 0
 
-for rate r, population function f(u) over time t. 
+for bifurcation value r, population function f that depends upon some function
+u that depends upon t.  
 
 The steady state solution and corresponding eiganvalues lambda are
 
@@ -30,6 +31,13 @@ def cd(y, t, h):
     Differentiate around both sides of a point t of interval h.
     """
     return ( y(t+h/2) -y(t-h/2))/h
+
+"""
+We can observe what happens to our functions as we vary our bifurcation value (r) and 
+let the solution pass over various values including r. We use an iterative procedure
+in which we define the various subtitles of u to be the number of times we 
+differentiate f around t = u0 in which u0 is our initial condition. 
+"""
 
 def ut2(f, t):
     """
