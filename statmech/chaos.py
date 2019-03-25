@@ -25,5 +25,8 @@ as r increases from 0 under the contsraint 0 < r < 1
 with non-negative equilibrium u_star 
 """
 
-
-
+def ut2(u):
+    """
+    For some function u that depends upon t, return the u_t+2 value
+    from the second iteration as r passes through the bifurcation value.
+    """
