@@ -18,9 +18,9 @@ U(x,t) = exp(-200*(x-xc-v*t)^2)
 in which xc  is the center of the curve at t=0.
 
 First we use the Navier-Stokes equatino for incompressible flow. We use
-an implicit Beam-Warming scheme for the non-linear hyperbolic equation.
+an implicit Beam-Warming scheme for the nonlinear hyperbolic equation.
 We can create a conservative form of this equation to linearize it.
-Then we add a dissipation term for non-linear hyperbolic equations (if
+Then we add a dissipation term for nonlinear hyperbolic equations (if
 we have a shock wave), and use a second-order smoothing term
 if we only require a stable solution. Then we solve the resulting equation
 using the Thomas Algorithm (modified tridiagonal matrix algorithm).
