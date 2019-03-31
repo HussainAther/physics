@@ -148,7 +148,7 @@ while 1: # Infinite loop
             path[element] += change
             newE = energy(path) # calculate a new trajectory
             if newE > oldE and exp(-newE + oldD) <= random.random():
-                path[element] -= change # reject hte link
+                path[element] -= change # reject the link
                 plotpath(path)
             ele = int(path[element]*1250/100) # scale change
             if ele >= maxel: # scale change 0 to N
