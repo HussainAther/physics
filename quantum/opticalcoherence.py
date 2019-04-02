@@ -1,6 +1,7 @@
 import numpy as np
-from qutip import *
 import pylab as plt
+
+from qutip import *
 
 """
 This example demonstrates how to calculate a correlation function on the form ⟨𝐴(𝜏 )𝐵(0)⟩ for a non-steady initial
