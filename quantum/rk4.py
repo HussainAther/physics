@@ -1,5 +1,6 @@
 from vpython import *
-from numpy import zeros
+
+import numpy as np
 
 """
 Runge-Kutta method (rk4 algorithm) for determining solutions to the 1-Dimensional Schrödinger equation
@@ -31,12 +32,12 @@ def V(x): # Well potential
         return 0
 
 def rk4(t, y, h, Neqs, E):
-    F = zeros((Neqs), float)
-    ydumb = zeros((Neqs), float)
-    k1 = zeros((Neqs), float)
-    k2 = zeros((Neqs), float)
-    k3 = zeros((Neqs), float)
-    k4 = zeros((Neqs), float)
+    F = np.zeros((Neqs), float)
+    ydumb = np.zeros((Neqs), float)
+    k1 = np.zeros((Neqs), float)
+    k2 = np.zeros((Neqs), float)
+    k3 = np.zeros((Neqs), float)
+    k4 = np.zeros((Neqs), float)
     f(t, y, F, E)
     for i in range(0, Neqs):
         k1[i] = h*F[i]
@@ -55,7 +56,7 @@ def rk4(t, y, h, Neqs, E):
         y[i] = y[i] + (kl[i] + 2*(k2[i] + k3[i]) + k4[i])/6.0
 
 def diff(E, h):
-    y = zeros((2), float)
+    y = np.zeros((2), float)
     i_match = n_steps//3 # matching radius
     nL = i.match + 1
     y[0] = 1.E-15
@@ -76,8 +77,8 @@ def diff(E, h):
 def plot(E, h):
     x = 0
     n_steps = 1501
-    y= zeros((2), float)
-    yL = zeros((2, 505), float)
+    y= np.zeros((2), float)
+    yL = np.zeros((2, 505), float)
     i_match = 500
     nL = i_match + 1
     y[0] = 1E-40
