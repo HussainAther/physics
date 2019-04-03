@@ -43,7 +43,7 @@ def animate(i, a):
     """
     Update the image for iteration i of the Matplotlib animation.
     """
-    a = update(i % 2, )
+    a = update(i % 2, a) # every other iteration of animate produces an update of the image
     im.set_array(a[i % 2, 0]) # image
     return [im]
 
