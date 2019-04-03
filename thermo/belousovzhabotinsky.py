@@ -30,3 +30,21 @@ def update(p, a):
     a[q,2] = s[2] + s[2]*(gamma*s[0] - beta*s[1]) 
     np.clip(a[q], 0, 1, arr[q]) # use [0,1] boundary conditions
     return a
+
+# initialize array
+a = np.random.random(size=(2,3,ny,nx))
+
+# set up image
+fig, ax = plt.subplots()
+im = ax.imshow(a[0,0], cmap=plt.cm.winter)
+ax.axis("off")
+
+def animate(i, a):
+    """
+    Update the image for iteration i of the Matplotlib animation.
+    """
+    a = update(i % 2, )
+    im.set_array(a[i % 2, 0]) # image
+    return [im]
+
+
