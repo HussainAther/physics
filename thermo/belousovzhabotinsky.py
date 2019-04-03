@@ -28,7 +28,7 @@ def update(p, a):
     a[q,0] = s[0] + s[0]*(alpha*s[1] - gamma*s[2]) 
     a[q,1] = s[1] + s[1]*(beta*s[2] - alpha*s[0]) 
     a[q,2] = s[2] + s[2]*(gamma*s[0] - beta*s[1]) 
-    np.clip(a[q], 0, 1, arr[q]) # use [0,1] boundary conditions
+    np.clip(a[q], 0, 1, a[q]) # use [0,1] boundary conditions
     return a
 
 # initialize array
@@ -47,6 +47,7 @@ def animate(i, a):
     im.set_array(a[i % 2, 0]) # image
     return [im]
 
+# animate the image over 200 frames at intervals of 5
 anim = animation.FuncAnimation(fig, animate, frames=200, interval=5, blit=False, fargs=(a,))
 
 plt.show()
