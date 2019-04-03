@@ -47,4 +47,6 @@ def animate(i, a):
     im.set_array(a[i % 2, 0]) # image
     return [im]
 
+anim = animation.FuncAnimation(fig, animate, frames=200, interval=5, blit=False, fargs=(a,))
 
+plt.show()
