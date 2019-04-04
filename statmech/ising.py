@@ -9,10 +9,12 @@ from pylab import *
 Metropolis algorithm for a one-dimensional Ising chain.
 """
 
+# initialize graph/plot
 scene = display(x=0,y=0,width=700,height=200, range=40,title="Spins")
-engraph = gdisplay(y=200,width=700,height=300, title="E of Spin System",\
-    xtitle="iteration", ytitle="E",xmax=500, xmin=0, ymax=5, ymin=−5)
+engraph = gdisplay(y=200,width=700,height=300, title="E of Spin System", xtitle="iteration", ytitle="E",xmax=500, xmin=0, ymax=5, ymin=−5)
 enplot = gcurve(color=color.yellow) # energy plot
+
+# initialize parameters
 N = 30 # number of spins
 B = 1 # magnetic field
 mu = .33 # g mu (giromag times Bohrs magneton)
@@ -66,12 +68,14 @@ spstate(state) # plot the initla states
 ES = energy(state) # finds the energy of the spin systems
 
 # Metropolos algorithm
+
 """
 Generally we change the state and test to see if the flipping
 is the previous spin state. Then flip the spin randomly and find the energy
 of the test configuration. Test it with the Boltzmann factor and add a segment
 to the curve of E to see if trial configuration is accepted.
 """
+
 for j in range(1, 500):
     rate(3)
     test = state
@@ -84,7 +88,6 @@ for j in range(1, 500):
         state = test
         spstate(state)
         ES = ET
-
 
 """
 Stochastic Monte Carlo Ising model one spin at a time
