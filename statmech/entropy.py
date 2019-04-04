@@ -1,29 +1,30 @@
-try:
+try: # depends on which python version you're using
     from tkinter import *
 except:
     from Tkinter import *
+
 import math
-from numpy import zeros
+import numpy as np
 
 """
-Calculate Shannon enetropy for the logistic map as a function of growth parameter mu.
+Calculate Shannon entropy for the logistic map as a function of growth parameter mu.
 """
 
-global Xwidth, Yheight
+global Xwidth, Yheight # as though this were C code
 
-Tk( ): root.title("Entropy versus mu ")
-mumin = 3.5
-mumax = 4
-dmu = .005
-nbin = 1000
-nmax = 100000
-prob = zeros((1000), float)
-minx = mumin
+Tk( ): root.title("Entropy versus mu ") # Tk statement for the title
+mumin = 3.5 # minumum mu value
+mumax = 4 # maximum mu value
+dmu = .005 # step size for each mu value
+nbin = 1000 # number of bins
+nmax = 100000 # maximum value for number of bins
+prob = np.zeros((1000), float) # calculate each entropy probability value
+minx = mumin # minimum x value
 maxx = mumax # window width
-miny = 0
-maxy = 2.5 # window height
-Xwidth = 500
-Yheight = 500
+miny = 0 # minimum y value
+maxy = 2.5 # maximum y value
+Xwidth = 500 # window width
+Yheight = 500 # window height
 
 c = Canvas(root, width= Xwidth, height = Yheight)
 c.pack()
@@ -78,11 +79,11 @@ def xyaxis(mx, bx, my, by):
 
 mx, bx, my, by = world2sc(minx, maxy, maxx, miny)
 xyaxis(mx, bx, my, by)
-mu0 = mumin∗mx + bx
-entr0 = my∗0.0 + by
+mu0 = mumin∗mx + bx # beginning mu value
+entr0 = my∗0.0 + by # beginning entropy value
 
 for mu in arange(mumin, mumax, dmu):
-    print(mu)
+    print("Mu value %" % mu)
     for j in range(1, nbin):
         prob[j] = 0
     y = .5
@@ -99,6 +100,6 @@ for mu in arange(mumin, mumax, dmu):
     muc = mx*mu + bx
     c.create_line(mu0, entr0, muc, entrpc, width=1, fill="blue")
     mu0 = muc
-    entr0 =entrpc
+    entr0 = entrpc 3 move it to previous entropy
     
 root.mainloop()
