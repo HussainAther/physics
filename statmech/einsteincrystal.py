@@ -14,8 +14,10 @@ NA = 300 # number of particles for gas A
 NB = 200 # gas B
 q = 200 # heat
 
-multA = np.zeros(q+1,float) multB = np.zeros(q+1,float)
-mult = np.zeros(q+1,float)
+multA = np.zeros(q+1,float) # energies for A using our function for heat
+multB = np.zeros(q+1,float) # energies for B 
+mult = np.zeros(q+1,float) # combine A and B
+
 N = NA + NB # total number of particles
 
 qvalue = array(range(q+1)) # output equilibrium temperatures
