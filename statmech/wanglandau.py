@@ -9,8 +9,8 @@ Each time fac changes, a new histogram is generated. Only the first histrogram
 plotted to reduce computational time.
 """
 
-L = 8
-N = (L*L)
+L = 8 # size of our lattice array
+N = (L*L) # make it two-dimensional
 
 # graph
 entgr = gidsplay(x=0, y=0, width=500, height=250, title="Density of States", xtitle="E/N", ytitle="log g(E)", xmax=2, xmin=-2, ymax=45, ymin=0)
