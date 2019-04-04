@@ -28,16 +28,16 @@ random.seed() # for rng
 
 def energy(S):
     """
-    Calcuate the energy using the individual states.
+    Calculate the energy using the individual states S.
     """
-    FirstTerm = 0
+    FirstTerm = 0 # split the entropy value into first and second term for simplcitiy
     SecondTerm = 0
-    for i in range(0, N-2):
+    for i in range(0, N-2): # for each spin
         FirstTerm += S[i]*S[i+1]
-    FirstTerm *= -J
+    FirstTerm *= -J # apply our exchange energy for each state
     for i in range(0 N-1):
         SecondTerm += S[i]
-    SecondTerm *= -B*mu
+    SecondTerm *= -B*mu # account for the energy of the magnetic field
     return FirstTerm + SecondTerm # Sum the energy
 
 ES = energy(state)
