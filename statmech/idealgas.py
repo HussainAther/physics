@@ -1,5 +1,4 @@
 from pylab import *
-from numpy import zeros
 
 import matplotlib.plot as plt
 import numpy as np
@@ -21,18 +20,21 @@ We introduce reflective walls in both the x and the y direction to contain the s
 We can set up a two-dimensional simulation of a dilute gas, just as we did before, and measure the volume V = Lx · Ly , the pressure P , as measured by the
  simulation program, and the total kinetic energy.
  
- K=summation from i=1 to N of (1/2)m(v_x^2 +v_y^2).
+K=summation from i=1 to N of (1/2)m(v_x^2 +v_y^2).
 
 """
 
-data = dump("gasstat01.lammpstrj") # Read output states t = data.time()
-nt = size(t)
-nleft = zeros(nt,float) # Store number of particles
-# Get information about simulation box tmp_time,box,atoms,bonds,tris,lines = data.viz(0)
-# halfsize = 0.5*box[3]
+# Simulate a 2-D Lennard-Jones gas (lennard jones)
+t = range(500) # pylab's time function for the input data.
+nt = size(t) 
+nleft = np.zeros(nt,float) # Store number of particles
+
+tmp_time,box,atoms,bonds,tris,lines = 20, 10, 100, 20, 30, 20 
+
+halfsize = 0.5*box[3]
 # Box size in x-dir
 for it in range(nt):
-   xit = np.array(data.vecs(it,"x"))
+   xit = np.array(range(50))
    jj = find(xit<halfsize)
    numx = size(jj)
    nleft[it] = numx
