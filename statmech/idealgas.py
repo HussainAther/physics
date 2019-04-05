@@ -24,20 +24,25 @@ K=summation from i=1 to N of (1/2)m(v_x^2 +v_y^2).
 
 """
 
+# Before running this script, you must run the lammps file by using
+# `lammps < in.gasstatistics01`
+
+data = dump("gasstat01.lammpstrj")
 # Simulate a 2-D Lennard-Jones gas (lennard jones)
-t = range(500) # pylab's time function for the input data.
+t = data.time() # pylab's time function for the input data.
 nt = size(t) 
 nleft = np.zeros(nt,float) # Store number of particles
 
-tmp_time,box,atoms,bonds,tris,lines = 20, 10, 100, 20, 30, 20 
+tmp_time,box,atoms,bonds,tris,lines = data.viz(0)
 
 halfsize = 0.5*box[3]
 # Box size in x-dir
 for it in range(nt):
-   xit = np.array(range(50))
+   xit = np.array(data.vecs(it, "x"))
    jj = find(xit<halfsize)
    numx = size(jj)
    nleft[it] = numx
 plt(t,nleft, xlabel="t" ylabel="n")
 plt.show()
+np.savetxt("ndata.d", (t, nleft))
 np.savetxt("ndata.d",(t, nleft))
