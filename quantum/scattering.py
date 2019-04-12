@@ -1,4 +1,5 @@
 from vpython.graph import *
+
 import gauss # using gauss.pyc
 import numpy.linalg as lina
 import numpy as np
