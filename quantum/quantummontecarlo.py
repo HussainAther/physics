@@ -83,6 +83,7 @@ while True:
 """
 Use the Feynman path integration to compute the path of a quantum particle in a gravitational field.
 """
+
 # Parameters
 N = 100 # number of particles
 dt = .05 # step size
