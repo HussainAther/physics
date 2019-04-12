@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*- 
 
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 import numpy as np
 
 from mpl_toolkits.mplot3d import Axes3D
@@ -34,14 +35,14 @@ for n in range(1,4):
         psi_2_list.append(psi_2(n,L,x))
         psi_list.append(psi(n,L,x))
     plt.subplot(3,2,2*n-1)
-    plt.plot(x_list, psi_list)
+    plt.plot(x_list, psi_list, color="green")
     plt.xlabel("L", fontsize=13)
     plt.ylabel("psi", fontsize=13)
     plt.xticks(np.arange(0, 1, step=0.5))
     plt.title("n="+str(n), fontsize=16)
     plt.grid()
     plt.subplot(3,2,2*n)
-    plt.plot(x_list, psi_2_list)
+    plt.plot(x_list, psi_2_list, color="red")
     plt.xlabel(u"L", fontsize=13)
     plt.ylabel("psi*psi", fontsize=13)
     plt.xticks(np.arange(0, 1, step=0.5))
@@ -81,6 +82,7 @@ elem_mat = np.matrix(elem_mat)
 x_coords = [float(i.item()[1:]) for i in elem_mat[:,0]]
 y_coords = [float(i.item()) for i in elem_mat[:,1]]
 z_coords = [float(i.item()[0:-1]) for i in elem_mat[:,2]]
+
 #Plotting
 fig = plt.figure(figsize=(10,10))
 ax = Axes3D(fig)
