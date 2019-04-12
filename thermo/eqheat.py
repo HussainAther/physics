@@ -44,8 +44,8 @@ for t in range (1, Nt):
         T[ix, 0] = T[ix, 1]
 
 x = list(np.arange(1, Nx - 1, 2)) # Plot alternating points
-y = list((np.arange(1, 30))
-X, Y = p.meshgrid(x, y)
+y = list((np.arange(1, 30)))
+(X, Y) = p.meshgrid(x, y)
 
 def f(Tpl): # function to return the temperature distribution
     z = Tpl[X, Y]
