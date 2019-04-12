@@ -1,6 +1,7 @@
 import random
-from vpython.graph import *
 import numpy as np
+
+from vpython.graph import *
 
 """
 Determine the ground-state probabilty via a Feynman path integration
