@@ -23,7 +23,7 @@ sfT_bot = 21 + c.Tc
 sfwv_bot = 3.e-3
 eqwv_top = 3.e-3
 sfwv_top = 3.e-3
-ptop = 4 10.e2
+ptop = 4e2
 pbot = 1000.e2
 
 # Perform the functions as the heat expands
