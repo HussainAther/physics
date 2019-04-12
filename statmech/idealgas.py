@@ -44,7 +44,9 @@ for it in range(nt):
    jj = find(xit<halfsize)
    numx = size(jj)
    nleft[it] = numx
-plt(t,nleft, xlabel="t" ylabel="n")
+plt.plot(t,nleft)
+plt.xlabel("t") 
+plt.ylabel("n")
 plt.show()
 np.savetxt("ndata.d", (t, nleft))
 np.savetxt("ndata.d",(t, nleft))
