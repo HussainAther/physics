@@ -20,11 +20,11 @@ def helmholtz(a, b):
     return a + b
 
 m = GEKKO() # initialize GEKKO model
-N_A = m.var(50) # number of particles of gas A
-N_B = m.var(60) # of gas B
-F_A = m.var(10) # energy of gas A
-F_B = m.var(20) # energy of gas B
-m.Equation(F_A.dN_A * dN_A + F_B.dN_B * dN_B == dF)
+N_A = m.Var(50) # number of particles of gas A
+N_B = m.Var(60) # of gas B
+F_A = m.Var(10) # energy of gas A
+F_B = m.Var(20) # energy of gas B
+m.Equation(F_A.dN_A * F_A.dN_A + F_B.dN_B * dN_B == dF)
 m.options.IMODE=4
 m.solve()
 
@@ -45,7 +45,7 @@ For different gas particles interacting with one another, the total gibbs free e
 
 def N(i, mu):
     """
-    N is the number of particles of teh gas. Let this be an expansion of a gas with respect to the time variable i.
+    N is the number of particles of teh gas. Let this be an expansion of a gas with respect to the time Variable i.
     """
     return 3 * i**2
 
