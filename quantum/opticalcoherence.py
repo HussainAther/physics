@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*- 
 import numpy as np
 import pylab as plt
 
@@ -31,13 +33,13 @@ n = mesolve(H, rho0, taus, c_ops, [a.dag() * a]).expect[0]
 # calculate the correlation function G1 and normalize with n to obtain g1
 G1 = correlation_2op_2t(H, rho0, None, taus, c_ops, a.dag(), a)
 g1 = G1 / np.sqrt(n[0] * n)
-plot(taus, g1, 'b')
-plot(taus, n, 'r')
-title('Decay of a coherent state to an incoherent (thermal) state')
-xlabel(r'$\tau$')
-legend((r'First-order coherence function $g^{(1)}(\tau)$',
+plt.plot(taus, g1, 'b')
+plt.plot(taus, n, 'r')
+plt.title('Decay of a coherent state to an incoherent (thermal) state')
+plt.xlabel(r'$\tau$')
+plt.legend((r'First-order coherence function $g^{(1)}(\tau)$',
 r'occupation number $n(\tau)$'))
-show()
+plt.show()
 
 """
 The second-order optical coherence function, with time-delay 𝜏 , is defined as
