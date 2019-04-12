@@ -3,6 +3,7 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
 
 """
 In 1926, Erwin Schrodinger advanced the famous wave equation that relates the energy of a system to its wave properties.
@@ -81,7 +82,8 @@ y_coords = [float(i.item()) for i in elem_mat[:,1]]
 z_coords = [float(i.item()[0:-1]) for i in elem_mat[:,2]]
 #Plotting
 fig = plt.figure(figsize=(10,10))
-ax = fig.add_subplot(111, projection='3d')
+ax = Axes3D(fig)
+ax = fig.add_subplot(111, projection="3d")
 ax.scatter(x_coords, y_coords, z_coords, alpha=0.05, s=2)
 ax.set_title("Hydrogen 1s density")
 plt.show()
