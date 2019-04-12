@@ -1,4 +1,7 @@
-from vpython import *
+#!/usr/bin/env python
+# -*- coding: utf-8 -*- 
+
+from vpython.graph import *
 
 """
 Solve the time-dependent Schrödinger equation for a particle
