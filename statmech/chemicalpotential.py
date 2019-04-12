@@ -24,7 +24,7 @@ N_A = m.var(50) # number of particles of gas A
 N_B = m.var(60) # of gas B
 F_A = m.var(10) # energy of gas A
 F_B = m.var(20) # energy of gas B
-m.Equation(F_A.dN_A * dN_A + F_B.dN_B * dN_B = dF)
+m.Equation(F_A.dN_A * dN_A + F_B.dN_B * dN_B == dF)
 m.options.IMODE=4
 m.solve()
 
