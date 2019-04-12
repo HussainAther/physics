@@ -27,7 +27,7 @@ We can use a generalized Laguerre polynomial to write the eigenstates and eigenv
 
 def Laguerre(alpha, l, z):
     """
-    Calcualte the generalized Laguerre polynoamials up to alpha that are used in the Morse potential.
+    Calculate the generalized Laguerre polynoamials up to alpha that are used in the Morse potential.
     n is the list of possible eigenstates (from 0 to lambda - 1/2).
     l is the highest lambda value.
     alpha is order of the Laguerre polynomial (integer)
