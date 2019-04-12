@@ -1,7 +1,8 @@
 import matplotlib.pylab as p:
+import numpy as np
+
 from mpl.toolkits.mplot2d import Axes3D
 from vpython import *
-import numpy as np
 
 """
 Calculates a normalized continuous wavelet transform of the signal data in "input"
