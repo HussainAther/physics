@@ -905,14 +905,16 @@ class KeyWirePairL(KeyWirePair):
         self.wire_id = -1000000000
 
 class KeyWirePairH(KeyWirePair):
-  """A KeyWirePair that is used as the high end of a range query.
+    """
+    A KeyWirePair that is used as the high end of a range query.
   
-  This KeyWirePair is larger than all other KeyWirePairs with the same key."""
-  def __init__(self, key):
-    self.key = key
-    self.wire = None
-    # HACK(pwnall): assuming 1 billion objects won"t fit into RAM.
-    self.wire_id = 1000000000
+    This KeyWirePair is larger than all other KeyWirePairs with the same key.
+    """
+    def __init__(self, key):
+        self.key = key
+        self.wire = None
+        # HACK(pwnall): assuming 1 billion objects won"t fit into RAM.
+        self.wire_id = 1000000000
 
 class CrossVerifier(object):
   """Checks whether a wire network has any crossing wires."""
