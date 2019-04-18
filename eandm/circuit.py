@@ -1012,31 +1012,33 @@ class CrossVerifier(object):
                 else:
                     self.events.append([wire.x1, 1, wire.object_id, "query", wire])
   
-    def _compute_crossings(self, count_only):
-      """Implements count_crossings and wire_crossings."""
-      if count_only:
-        result = 0
-      else:
-        result = self.result_set
+        def _compute_crossings(self, count_only):
+            """
+            Implements count_crossings and wire_crossings.
+            """
+            if count_only:
+                result = 0
+            else:
+                result = self.result_set
   
-      for event in self.events:
-        event_x, event_type, wire = event[0], event[3], event[4]
-        self.trace_sweep_line(event_x)
+            for event in self.events:
+                event_x, event_type, wire = event[0], event[3], event[4]
+                self.trace_sweep_line(event_x)
         
-        if event_type == "add":
-          self.index.add(KeyWirePair(wire.y1, wire))
-        elif event_type == "remove":
-          self.index.remove(KeyWirePair(wire.y1, wire))
-        elif event_type == "query":
-          if count_only:
-            result += self.index.count(KeyWirePairL(wire.y1),
+            if event_type == "add":
+                self.index.add(KeyWirePair(wire.y1, wire))
+            elif event_type == "remove":
+                self.index.remove(KeyWirePair(wire.y1, wire))
+            elif event_type == "query":
+                if count_only:
+                    result += self.index.count(KeyWirePairL(wire.y1),
                                        KeyWirePairH(wire.y2))
-          else:
-            for kwp in self.index.list(KeyWirePairL(wire.y1),
+            else:
+                for kwp in self.index.list(KeyWirePairL(wire.y1),
                                        KeyWirePairH(wire.y2)):
-              result.add_crossing(wire, kwp.wire)
+                    result.add_crossing(wire, kwp.wire)
     
-      return result
+            return result
   
 class TracedCrossVerifier(CrossVerifier):
   """Augments CrossVerifier to build a trace for the visualizer."""
