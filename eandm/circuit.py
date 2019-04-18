@@ -768,12 +768,12 @@ class RangeTree(AVL):
   
 class TracedRangeIndex(RangeIndex):
     """
-    Augments RangeIndex to build a trace for the visualizer.
+    Augment RangeIndex to build a trace for the visualizer.
     """
   
     def __init__(self, trace):
         """
-        Sets the object receiving tracing info.
+        Set the object receiving tracing info.
         """
         RangeIndex.__init__(self)
         self.trace = trace
@@ -801,18 +801,18 @@ class TracedRangeIndex(RangeIndex):
 
 class ResultSet(object):
     """
-    Records the result of the circuit verifier (pairs of crossing wires).
+    Record the result of the circuit verifier (pairs of crossing wires).
     """
   
     def __init__(self):
         """
-        Creates an empty result set.
+        Create an empty result set.
         """
         self.crossings = []
   
     def add_crossing(self, wire1, wire2):
         """
-        Records the fact that two wires are crossing.
+        Record the fact that two wires are crossing.
         """
         self.crossings.append(sorted([wire1.name, wire2.name]))
   
@@ -826,25 +826,26 @@ class ResultSet(object):
 
 class TracedResultSet(ResultSet):
     """
-    Augments ResultSet to build a trace for the visualizer.
+    Augment ResultSet to build a trace for the visualizer.
     """
   
     def __init__(self, trace):
         """
         Sets the object receiving tracing info.
         """
-    ResultSet.__init__(self)
-    self.trace = trace
+        ResultSet.__init__(self)
+        self.trace = trace
     
-  def add_crossing(self, wire1, wire2):
-    self.trace.append({"type": "crossing", "id1": wire1.name,
-                       "id2": wire2.name})
-    ResultSet.add_crossing(self, wire1, wire2)
+    def add_crossing(self, wire1, wire2):
+        self.trace.append({"type": "crossing", "id1": wire1.name,
+                            "id2": wire2.name})
+        ResultSet.add_crossing(self, wire1, wire2)
 
 class KeyWirePair(object):
-  """Wraps a wire and the key representing it in the range index.
-  
-  Once created, a key-wire pair is immutable."""
+    """
+    Wrap a wire and the key representing it in the range index.
+    Once created, a key-wire pair is immutable.
+    """
   
   def __init__(self, key, wire):
     """Creates a new key for insertion in the range index."""
