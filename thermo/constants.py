@@ -1,11 +1,6 @@
 class constants:
    """ 
    A list of constants relevant to atmospheric science.
-
-   References
-   - - - - - -
-   Emanuel appendix 2
-   
    """
    Tc = 273.15; #0 deg C in Kelvin
    eps = 0.622;
