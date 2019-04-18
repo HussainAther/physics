@@ -1,6 +1,6 @@
-from math import sqrt,log,cos,sin,pi
-from random import random
 import numpy as np
+
+from random import random
 
 """
 Rutherford scattering is the elastic scattering of charged particles by the Coulomb interaction.
@@ -21,8 +21,8 @@ def gaussian():
     """
     Generate two random Gaussian numbers for our distribution.
     """
-    r = np.sqrt(-2*sigma*sigma*log(1-random()))
-    theta = 2*pi*random()
+    r = np.sqrt(-2*sigma*sigma*np.log(1-random()))
+    theta = 2*np.pi*random()
     x = r*np.cos(theta)
     y = r*np.sin(theta)
     return x,y
