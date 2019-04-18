@@ -592,41 +592,41 @@ class AVL(BST):
         else:
             return -1
 
-  def _left_rotate(self, x):
-    y = x.right
-    y.parent = x.parent
-    if y.parent is None:
-      self.root = y
-    else:
-      if y.parent.left is x:
-        y.parent.left = y
-      else:  # y.parent.right is x
-        y.parent.right = y
-    x.right = y.left
-    if x.right is not None:
-      x.right.parent = x
-    y.left = x
-    x.parent = y
-    x.update_subtree_info()
-    y.update_subtree_info()
+    def _left_rotate(self, x):
+        y = x.right
+        y.parent = x.parent
+        if y.parent is None:
+            self.root = y
+        else:
+            if y.parent.left is x:
+                y.parent.left = y
+            else:  # y.parent.right is x
+                y.parent.right = y
+        x.right = y.left
+        if x.right is not None:
+            x.right.parent = x
+        y.left = x
+        x.parent = y
+        x.update_subtree_info()
+        y.update_subtree_info()
 
-  def _right_rotate(self, x):
-    y = x.left
-    y.parent = x.parent
-    if y.parent is None:
-      self.root = y
-    else:
-      if y.parent.left is x:
-        y.parent.left = y
-      else:  # y.parent.right is x
-        y.parent.right = y
-    x.left = y.right
-    if x.left is not None:
-        x.left.parent = x
-    y.right = x
-    x.parent = y
-    x.update_subtree_info()
-    y.update_subtree_info()
+    def _right_rotate(self, x):
+        y = x.left
+        y.parent = x.parent
+        if y.parent is None:
+            self.root = y
+        else:
+            if y.parent.left is x:
+                y.parent.left = y
+            else:  # y.parent.right is x
+                y.parent.right = y
+        x.left = y.right
+        if x.left is not None:
+            x.left.parent = x
+        y.right = x
+        x.parent = y
+        x.update_subtree_info()
+        y.update_subtree_info()
 
 class RangeNode(AVLNode):
   """A node in a range tree."""
