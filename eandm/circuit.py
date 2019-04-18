@@ -847,37 +847,39 @@ class KeyWirePair(object):
     Once created, a key-wire pair is immutable.
     """
   
-  def __init__(self, key, wire):
-    """Creates a new key for insertion in the range index."""
-    self.key = key
-    if wire is None:
-      raise ValueError("Use KeyWirePairL or KeyWirePairH for queries")
-    self.wire = wire
-    self.wire_id = wire.object_id
+    def __init__(self, key, wire):
+        """
+        Create a new key for insertion in the range index.
+        """
+        self.key = key
+        if wire is None:
+            raise ValueError("Use KeyWirePairL or KeyWirePairH for queries")
+        self.wire = wire
+        self.wire_id = wire.object_id
 
-  def __lt__(self, other):
-    # :nodoc: Delegate comparison to keys.
-    return (self.key < other.key or
+    def __lt__(self, other):
+        # :nodoc: Delegate comparison to keys.
+        return (self.key < other.key or
             (self.key == other.key and self.wire_id < other.wire_id))
   
-  def __le__(self, other):
-    # :nodoc: Delegate comparison to keys.
-    return (self.key < other.key or
-            (self.key == other.key and self.wire_id <= other.wire_id))  
+    def __le__(self, other):
+        # :nodoc: Delegate comparison to keys.
+        return (self.key < other.key or
+                (self.key == other.key and self.wire_id <= other.wire_id))
 
-  def __gt__(self, other):
-    # :nodoc: Delegate comparison to keys.
-    return (self.key > other.key or
-            (self.key == other.key and self.wire_id > other.wire_id))
+    def __gt__(self, other):
+        # :nodoc: Delegate comparison to keys.
+        return (self.key > other.key or
+              (self.key == other.key and self.wire_id > other.wire_id))
   
-  def __ge__(self, other):
-    # :nodoc: Delegate comparison to keys.
-    return (self.key > other.key or
+    def __ge__(self, other):
+        # :nodoc: Delegate comparison to keys.
+        return (self.key > other.key or
             (self.key == other.key and self.wire_id >= other.wire_id))
 
-  def __eq__(self, other):
-    # :nodoc: Delegate comparison to keys.
-    return self.key == other.key and self.wire_id == other.wire_id
+    def __eq__(self, other):
+        # :nodoc: Delegate comparison to keys.
+        return self.key == other.key and self.wire_id == other.wire_id
   
   def __ne__(self, other):
     # :nodoc: Delegate comparison to keys.
