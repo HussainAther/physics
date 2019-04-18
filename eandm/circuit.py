@@ -881,26 +881,28 @@ class KeyWirePair(object):
         # :nodoc: Delegate comparison to keys.
         return self.key == other.key and self.wire_id == other.wire_id
   
-  def __ne__(self, other):
-    # :nodoc: Delegate comparison to keys.
-    return self.key != other.key or self.wire_id != other.wire_id
+    def __ne__(self, other):
+        # :nodoc: Delegate comparison to keys.
+        return self.key != other.key or self.wire_id != other.wire_id
 
-  def __hash__(self):
-    # :nodoc: Delegate comparison to keys.
-    return hash([self.key, self.wire_id])
+    def __hash__(self):
+        # :nodoc: Delegate comparison to keys.
+        return hash([self.key, self.wire_id])
 
-  def __repr__(self):
-    # :nodoc: nicer formatting to help with debugging
-    return "<key: " + str(self.key) + " wire: " + str(self.wire) + ">"
+    def __repr__(self):
+        # :nodoc: nicer formatting to help with debugging
+        return "<key: " + str(self.key) + " wire: " + str(self.wire) + ">"
 
 class KeyWirePairL(KeyWirePair):
-  """A KeyWirePair that is used as the low end of a range query.
+    """
+    A KeyWirePair that is used as the low end of a range query.
   
-  This KeyWirePair is smaller than all other KeyWirePairs with the same key."""
-  def __init__(self, key):
-    self.key = key
-    self.wire = None
-    self.wire_id = -1000000000
+    This KeyWirePair is smaller than all other KeyWirePairs with the same key.
+    """
+    def __init__(self, key):
+        self.key = key
+        self.wire = None
+        self.wire_id = -1000000000
 
 class KeyWirePairH(KeyWirePair):
   """A KeyWirePair that is used as the high end of a range query.
