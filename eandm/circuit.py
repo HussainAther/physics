@@ -1,193 +1,226 @@
-import json # Used when TRACE=jsonp
-import os # Used to get the TRACE environment variable
-import re # Used when TRACE=jsonp
-import sys # Used to smooth over the range / xrange issue.
+import json 
+import os 
+import re 
+import sys 
 
 # Python 3 doesn't have xrange, and range behaves like xrange.
 if sys.version_info >= (3,):
     xrange = range
 
-# Circuit verification library.
+"""
+Circuit verification library.
+"""
 
 class Wire(object):
-  """A wire in an on-chip circuit.
-  
-  Wires are immutable, and are either horizontal or vertical.
-  """
-  
-  def __init__(self, name, x1, y1, x2, y2):
-    """Creates a wire.
-    
-    Raises an ValueError if the coordinates don't make up a horizontal wire
-    or a vertical wire.
-    
-    Args:
-      name: the wire's user-visible name
-      x1: the X coordinate of the wire's first endpoint
-      y1: the Y coordinate of the wire's first endpoint
-      x2: the X coordinate of the wire's last endpoint
-      y2: the Y coordinate of the wire's last endpoint
     """
-    # Normalize the coordinates.
-    if x1 > x2:
-      x1, x2 = x2, x1
-    if y1 > y2:
-      y1, y2 = y2, y1
-    
-    self.name = name
-    self.x1, self.y1 = x1, y1
-    self.x2, self.y2 = x2, y2
-    self.object_id = Wire.next_object_id()
-    
-    if not (self.is_horizontal() or self.is_vertical()):
-      raise ValueError(str(self) + " is neither horizontal nor vertical")
+    A wire in an on-chip circuit.
+    Wires are immutable, and are either horizontal or vertical.
+    """
   
-  def is_horizontal(self):
-    """True if the wire"s endpoints have the same Y coordinates."""
-    return self.y1 == self.y2
-  
-  def is_vertical(self):
-    """True if the wire"s endpoints have the same X coordinates."""
-    return self.x1 == self.x2
-  
-  def intersects(self, other_wire):
-    """True if this wire intersects another wire."""
-    # NOTE: we assume that wires can only cross, but not overlap.
-    if self.is_horizontal() == other_wire.is_horizontal():
-      return False 
-    
-    if self.is_horizontal():
-      h = self
-      v = other_wire
-    else:
-      h = other_wire
-      v = self
-    return v.y1 <= h.y1 and h.y1 <= v.y2 and h.x1 <= v.x1 and v.x1 <= h.x2
-  
-  def __repr__(self):
-    # :nodoc: nicer formatting to help with debugging
-    return("<wire " + self.name + " (" + str(self.x1) + "," + str(self.y1) +
-           ")-(" + str(self.x2) + "," + str(self.y2) + ")>")
-  
-  def as_json(self):
-    """Dict that obeys the JSON format restrictions, representing the wire."""
-    return {"id": self.name, "x": [self.x1, self.x2], "y": [self.y1, self.y2]}
+    def __init__(self, name, x1, y1, x2, y2):
+        """
+        Create a wire. Raise a ValueError if the coordinates
+        don't make up a horizontal wire or a vertical wire.
+        name is the wire's user-visible name x1 is the X coordinate
+        of the wire's first endpoint, y1 is the Y coordinate of the
+        wire's first endpoint, x2 is the X coordinate of the wire's
+        last endpoint, y2 isthe Y coordinate of the wire's last endpoint.
+        """
+        # Normalize the coordinates.
+        if x1 > x2:
+        x1, x2 = x2, x1
+        if y1 > y2:
+        y1, y2 = y2, y1
 
-  # Next number handed out by Wire.next_object_id()
-  _next_id = 0
+        self.name = name
+        self.x1, self.y1 = x1, y1
+        self.x2, self.y2 = x2, y2
+        self.object_id = Wire.next_object_id()
+
+        if not (self.is_horizontal() or self.is_vertical()):
+        raise ValueError(str(self) + " is neither horizontal nor vertical")
+    
+    def is_horizontal(self):
+        """
+        True if the wire"s endpoints have the same Y coordinates.
+        """
+        return self.y1 == self.y2
+
+    def is_vertical(self):
+        """
+        True if the wire"s endpoints have the same X coordinates.
+        """
+        return self.x1 == self.x2
+    
+    def intersects(self, other_wire):
+        """
+        True if this wire intersects another wire.
+        """
+        # NOTE: we assume that wires can only cross, but not overlap.
+        if self.is_horizontal() == other_wire.is_horizontal():
+        return False
+
+        if self.is_horizontal():
+        h = self
+        v = other_wire
+        else:
+        h = other_wire
+        v = self
+        return v.y1 <= h.y1 and h.y1 <= v.y2 and h.x1 <= v.x1 and v.x1 <= h.x2
+    
+    def __repr__(self):
+        # :nodoc: nicer formatting to help with debugging
+        return("<wire " + self.name + " (" + str(self.x1) + "," + str(self.y1) +
+             ")-(" + str(self.x2) + "," + str(self.y2) + ")>")
+    
+    def as_json(self):
+        """
+        Dict that obeys the JSON format restrictions, representing the wire.
+        """
+        return {"id": self.name, "x": [self.x1, self.x2], "y": [self.y1, self.y2]}
   
-  @staticmethod
-  def next_object_id():
-    """Returns a unique numerical ID to be used as a Wire"s object_id."""
-    id = Wire._next_id
-    Wire._next_id += 1
-    return id
+    # Next number handed out by Wire.next_object_id()
+    _next_id = 0
+    
+    @staticmethod
+    def next_object_id():
+        """Returns a unique numerical ID to be used as a Wire"s object_id."""
+        id = Wire._next_id
+        Wire._next_id += 1
+        return id
 
 class WireLayer(object):
-  """The layout of one layer of wires in a chip."""
+    """
+    The layout of one layer of wires in a chip.
+    """
+
+    def __init__(self):
+        """
+        Creates a layer layout with no wires.
+        """
+        self.wires = {}
+
+    def wires(self):
+        """
+        The wires in the layout.
+        """
+        self.wires.values()
+
+    def add_wire(self, name, x1, y1, x2, y2):
+        """
+        Adds a wire to a layer layout.
+        name is the wire's unique name, x1 is the X coordinate of the wire"s first endpoint,
+        y2 is the Y coordinate of the wire's first endpoint, x2 is the X coordinate of the
+        wire's last endpoint, y2 is the Y coordinate of the wire's last endpoint.
+        
+        Raises an exception if the wire isn"t perfectly horizontal (y1 = y2) or
+        perfectly vertical (x1 = x2).
+        """
+        if name in self.wires:
+            raise ValueError("Wire name " + name + " not unique")
+        self.wires[name] = Wire(name, x1, y1, x2, y2)
   
-  def __init__(self):
-    """Creates a layer layout with no wires."""
-    self.wires = {}
-  
-  def wires(self):
-    """The wires in the layout."""
-    self.wires.values()
-  
-  def add_wire(self, name, x1, y1, x2, y2):
-    """Adds a wire to a layer layout.
-    
-    Args:
-      name: the wire"s unique name
-      x1: the X coordinate of the wire"s first endpoint
-      y1: the Y coordinate of the wire"s first endpoint
-      x2: the X coordinate of the wire"s last endpoint
-      y2: the Y coordinate of the wire"s last endpoint
-    
-    Raises an exception if the wire isn"t perfectly horizontal (y1 = y2) or
-    perfectly vertical (x1 = x2)."""
-    if name in self.wires:
-        raise ValueError("Wire name " + name + " not unique")
-    self.wires[name] = Wire(name, x1, y1, x2, y2)
-  
-  def as_json(self):
-    """Dict that obeys the JSON format restrictions, representing the layout."""
-    return { "wires": [wire.as_json() for wire in self.wires.values()] }
+    def as_json(self):
+        """
+        Dict that obeys the JSON format restrictions, representing the layout.
+        """
+        return { "wires": [wire.as_json() for wire in self.wires.values()] }
   
   @staticmethod
-  def from_file(file):
-    """Builds a wire layer layout by reading a textual description from a file.
-    
-    Args:
-      file: a File object supplying the input
-    
-    Returns a new Simulation instance."""
+    def from_file(file):
+        """
+        Builds a wire layer layout by reading a textual description from a file.
+        file is a File object supplying the input
+        Returns a new Simulation instance.
+        """
 
-    layer = WireLayer()
-    
-    while True:
-      command = file.readline().split()
-      if command[0] == "wire":
-        coordinates = [float(token) for token in command[2:6]]
-        layer.add_wire(command[1], *coordinates)
-      elif command[0] == "done":
-        break
-      
-    return layer
+        layer = WireLayer()
+        
+        while True:
+            command = file.readline().split()
+            if command[0] == "wire":
+                coordinates = [float(token) for token in command[2:6]]
+                layer.add_wire(command[1], *coordinates)
+            elif command[0] == "done":
+                break
+          
+        return layer
 
 class RangeIndex(object):
-  """Array-based range index implementation."""
+    """
+    Array-based range index implementation.
+    """
   
-  def __init__(self):
-    """Initially empty range index."""
-    self.data = []
+    def __init__(self):
+        """
+        Initially empty range index.
+        """
+        self.data = []
   
-  def add(self, key):
-    """Inserts a key in the range index."""
-    if key is None:
-        raise ValueError("Cannot insert nil in the index")
-    self.data.append(key)
+    def add(self, key):
+        """
+        Inserts a key in the range index.
+        """
+        if key is None:
+            raise ValueError("Cannot insert nil in the index")
+        self.data.append(key)
   
-  def remove(self, key):
-    """Removes a key from the range index."""
-    self.data.remove(key)
+    def remove(self, key):
+        """
+        Removes a key from the range index.
+        """
+        self.data.remove(key)
   
-  def list(self, first_key, last_key):
-    """List of values for the keys that fall within [first_key, last_key]."""
-    return [key for key in self.data if first_key <= key <= last_key]
+    def list(self, first_key, last_key):
+        """
+        List of values for the keys that fall within [first_key, last_key].
+        """
+        return [key for key in self.data if first_key <= key <= last_key]
   
-  def count(self, first_key, last_key):
-    """Number of keys that fall within [first_key, last_key]."""
-    result = 0
-    for key in self.data:
-      if first_key <= key <= last_key:
-        result += 1
-    return result
+    def count(self, first_key, last_key):
+        """
+        Number of keys that fall within [first_key, last_key].
+        """
+        result = 0
+        for key in self.data:
+            if first_key <= key <= last_key:
+                result += 1
+        return result
 
 class BlitRangeIndex(object):
-  """Sorted array-based range index implementation."""
+    """
+    Sorted array-based range index implementation.
+    """
   
-  def __init__(self):
-    """Initially empty range index."""
-    self.data = []
+    def __init__(self):
+        """
+        Initially empty range index.
+        """
+        self.data = []
   
-  def add(self, key):
-    """Inserts a key in the range index."""
-    if key is None:
-        raise ValueError("Cannot insert None in the index")
-    self.data.insert(self._binary_search(key), key)
+    def add(self, key):
+        """
+        Inserts a key in the range index.
+        """
+        if key is None:
+            raise ValueError("Cannot insert None in the index")
+        self.data.insert(self._binary_search(key), key)
   
-  def remove(self, key):
-    """Removes a key from the range index."""
-    index = self._binary_search(key)
-    if index < len(self.data) and self.data[index] == key:
-      self.data.pop(index)
+    def remove(self, key):
+        """
+        Removes a key from the range index.
+        """
+        index = self._binary_search(key)
+        if index < len(self.data) and self.data[index] == key:
+            self.data.pop(index)
   
-  def list(self, low_key, high_key):
-    """List of values for the keys that fall within [low_key, high_key]."""
-    low_index = self._binary_search(low_key)
-    high_index = self._binary_search(high_key)
-    return self.data[low_index:high_index]
+    def list(self, low_key, high_key):
+        """
+        List of values for the keys that fall within [low_key, high_key].
+        """
+        low_index = self._binary_search(low_key)
+        high_index = self._binary_search(high_key)
+        return self.data[low_index:high_index]
   
   def count(self, low_key, high_key):
     """Number of keys that fall within [low_key, high_key]."""
