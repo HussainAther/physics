@@ -170,14 +170,18 @@ def hadamard(x, Q):
 
     return  codomain
 
-# Quantum Modular Exponentiation
 def qModExp(a, exp, mod):
+    """
+    Quantum Modular Exponentiation (quantum modular exponentiation)
+    """
     state = modExp(a, exp, mod)
     amplitude = complex(1.0)
     return [Mapping(state, amplitude)]
 
-# Quantum Fourier Transform
 def qft(x, Q):
+    """
+    Quantum Fourier transform (QFT quantum Transform)
+    """
     fQ = float(Q)
     k = -2.0 * math.pi
     codomain = []
@@ -250,15 +254,16 @@ def findPeriod(a, N):
 
     return r
 
-####################################################################################################
-#
-#                                       Classical Components
-#
-####################################################################################################
+"""
+Classical components
+"""
 
 BIT_LIMIT = 12
 
 def bitCount(x):
+    """
+    Convert to bits. 
+    """
     sumBits = 0
     while x > 0:
         sumBits += x & 1
@@ -266,8 +271,10 @@ def bitCount(x):
 
     return sumBits
 
-# Greatest Common Divisor
 def gcd(a, b):
+    """
+    Return greatest common divisor.
+    """
     while b != 0:
         tA = a % b
         a = b
@@ -275,8 +282,11 @@ def gcd(a, b):
 
     return a
 
-# Extended Euclidean
 def extendedGCD(a, b):
+    """
+    Extended Euclidean algorithm to get the polynomial greatest common divisor
+    and the coefficients of Bézout's identity of two univariate polynomials.
+    """
     fractions = []
     while b != 0:
         fractions.append(a // b)
@@ -286,9 +296,11 @@ def extendedGCD(a, b):
 
     return fractions
 
-
-# Continued Fractions
 def cf(y, Q, N):
+    """
+    Continued fractions we get through iterating processes using sums and 
+    reciprocals of another number.
+    """
     fractions = extendedGCD(y, Q)
     depth = 2
 
@@ -313,8 +325,10 @@ def cf(y, Q, N):
 
     return r
 
-# Modular Exponentiation
 def modExp(a, exp, mod):
+    """
+    Modular exponentiation used to exponentiate over a modulus.
+    """
     fx = 1
     while exp > 0:
         if (exp & 1) == 1:
@@ -325,6 +339,9 @@ def modExp(a, exp, mod):
     return fx
 
 def pick(N):
+    """
+    Pick a number at random.
+    """
     a = math.floor((random.random() * (N - 1)) + 0.5)
     return a
 
@@ -413,19 +430,17 @@ def shors(N, attempts = 1, neighborhood = 0.0, numPeriods = 1):
 
     return None
 
-####################################################################################################
-#
-#                                    Command-line functionality
-#
-####################################################################################################
+"""
+Command-line functions.
+"""
 
 def parseArgs():
-    parser = argparse.ArgumentParser(description='Simulate Shor\'s algorithm for N.')
-    parser.add_argument('-a', '--attempts', type=int, default=20, help='Number of quantum attemtps to perform')
-    parser.add_argument('-n', '--neighborhood', type=float, default=0.01, help='Neighborhood size for checking candidates (as percentage of N)')
-    parser.add_argument('-p', '--periods', type=int, default=2, help='Number of periods to get before determining least common multiple')
-    parser.add_argument('-v', '--verbose', type=bool, default=True, help='Verbose')
-    parser.add_argument('N', type=int, help='The integer to factor')
+    parser = argparse.ArgumentParser(description="Simulate Shor\'s algorithm for N.")
+    parser.add_argument("-a", "--attempts", type=int, default=20, help="Number of quantum attempts to perform")
+    parser.add_argument("-n", "--neighborhood", type=float, default=0.01, help="Neighborhood size for checking candidates (as percentage of N)")
+    parser.add_argument("-p", "--periods", type=int, default=2, help="Number of periods to get before determining least common multiple")
+    parser.add_argument("-v", "--verbose", type=bool, default=True, help="Verbose")
+    parser.add_argument("N", type=int, help="The integer to factor")
     return parser.parse_args()
 
 def main():
