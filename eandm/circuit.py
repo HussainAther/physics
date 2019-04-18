@@ -997,18 +997,20 @@ class CrossVerifier(object):
         When tracing is enabled, adds info about where the sweep line is.
         x is the coordinate of the vertical sweep line
         """
-    # NOTE: this is overridden in TracedCrossVerifier
-    pass
+        # NOTE: this is overridden in TracedCrossVerifier
+        pass
   
-  if os.environ.get("CROSS") == "sweep":
-    def _events_from_layer(self, layer):
-      """Populates the sweep line events from the wire layer."""
-      for wire in layer.wires.values():
-        if wire.is_horizontal():
-          self.events.append([wire.x1, 0, wire.object_id, "add", wire])
-          self.events.append([wire.x2, 2, wire.object_id, "remove", wire])
-        else:
-          self.events.append([wire.x1, 1, wire.object_id, "query", wire])
+    if os.environ.get("CROSS") == "sweep":
+        def _events_from_layer(self, layer):
+            """
+            Populates the sweep line events from the wire layer.
+            """
+            for wire in layer.wires.values():
+                if wire.is_horizontal():
+                    self.events.append([wire.x1, 0, wire.object_id, "add", wire])
+                    self.events.append([wire.x2, 2, wire.object_id, "remove", wire])
+                else:
+                    self.events.append([wire.x1, 1, wire.object_id, "query", wire])
   
     def _compute_crossings(self, count_only):
       """Implements count_crossings and wire_crossings."""
