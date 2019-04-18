@@ -1,5 +1,6 @@
-from vpython.graph import *
 import math
+
+from vpython.graph import *
 
 """
 Model a baton using a ball attached to a stick. Compute mechanical properties.
