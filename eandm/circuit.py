@@ -1041,20 +1041,24 @@ class CrossVerifier(object):
             return result
   
 class TracedCrossVerifier(CrossVerifier):
-  """Augments CrossVerifier to build a trace for the visualizer."""
+    """
+    Augment CrossVerifier to build a trace for the visualizer.
+    """
   
-  def __init__(self, layer):
-    CrossVerifier.__init__(self, layer)
-    self.trace = []
-    self.index = TracedRangeIndex(self.trace)
-    self.result_set = TracedResultSet(self.trace)
+    def __init__(self, layer):
+        CrossVerifier.__init__(self, layer)
+        self.trace = []
+        self.index = TracedRangeIndex(self.trace)
+        self.result_set = TracedResultSet(self.trace)
     
-  def trace_sweep_line(self, x):
-    self.trace.append({"type": "sweep", "x": x})
+    def trace_sweep_line(self, x):
+        self.trace.append({"type": "sweep", "x": x})
     
-  def trace_as_json(self):
-    """List that obeys the JSON format restrictions with the verifier trace."""
-    return self.trace
+    def trace_as_json(self):
+        """
+        List that obeys the JSON format restrictions with the verifier trace.
+        """
+        return self.trace
     
 
 class TruthTable:
