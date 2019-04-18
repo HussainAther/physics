@@ -1,10 +1,9 @@
-from __future__ import division
-from numpy import genfromtxt
-
 import sys
 import math
 import numpy as np
 import csv
+
+from numpy import genfromtxt
 
 """
 Tthe Hartree–Fock (HF) method is a method of approximation for the determination of the
