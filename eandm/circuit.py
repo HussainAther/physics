@@ -1116,19 +1116,18 @@ class TruthTable:
         return depth
     
 class GateType:
-    """A type of gate, e.g. 2-input NAND with 60ps delay."""
+    """
+    A type of gate, e.g. 2-input NAND with 60ps delay.
+    """
     
     def __init__(self, name, truth_table, delay):
-        """Creates a gate type with a truth table and output delay.
-        
-        Args:
-            name: User-friendly name for the gate type.
-            truth_table: TruthTable instance containing the gate"s logic.
-            delay: The time it takes an input transition to cause an output
-                transition.
-        
-        Raises:
-            ValueError: An exception if the delay is negative.
+        """
+        Create a gate type with a truth table and output delay.
+        name is User-friendly name for the gate type.
+        truth_table is TruthTable instance containing the gate"s logic.
+        delay is The time it takes an input transition to cause an output
+        transition.
+        Raise ValueError: An exception if the delay is negative.
         """
         self.name = name
         if delay < 0:
@@ -1138,17 +1137,16 @@ class GateType:
         self.delay = delay
 
     def output(self, inputs):
-        """The gate"s output value, given a list of inputs."""
+        """
+        The gate's output value, given a list of inputs.
+        """
         return self.truth_table.output(inputs)
     
     def output_time(self, input_time):
-        """The time of the gate"s output transition.
-        
-        Computes the time of the output transition given an input transition
-        time.
-        
-        Args:
-            input_time: Time of the input transition.
+        """
+        The time of the gate's output transition.
+        Computesthe time of the output transition given an input transition
+        time. input_time is Time of the input transition.
         """
         return self.delay + input_time
 
