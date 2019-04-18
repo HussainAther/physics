@@ -538,63 +538,59 @@ class AVL(BST):
   """
     def __init__(self, node_class = AVLNode):
         """
-        Creates an empty AVL tree.
+        Create an empty AVL tree.
         node_class (optional) is the class of nodes in the tree, defaults to AVLNode
         """
         BST.__init__(self, node_class)
   
-  def insert(self, key):
-    """Inserts a node into the subtree rooted at this node.
-    
-    Args:
-      key: the key of the node to be inserted
-        
-    Returns an AVLNode with the given key that belongs to this tree.
-    """
-    inserted_node = BST.insert(self, key)
-    self._rebalance(inserted_node)
-    return inserted_node
+    def insert(self, key):
+        """
+        Insert a node into the subtree rooted at this node.
+        key is the key of the node to be inserted
+        Return an AVLNode with the given key that belongs to this tree.
+        """
+        inserted_node = BST.insert(self, key)
+        self._rebalance(inserted_node)
+        return inserted_node
 
-  def delete(self, key):
-    """Removes the node with the given key from this BST.
-    
-    Args:
-      key: the key of the node to be deleted
-        
-    Returns a BSTNode instance with the given key, which was removed from the
-    tree. If this tree does not contain the given key, returns None. The deleted
-    node"s fields will still be set, despite the fact that it does not belong to
-    the tree anymore.
-    """
-    deleted_node = BST.delete(self, key)
-    # NOTE: deleted_node still has its parent set, and it happens to be the
-    #       first potentially out-of-balance node.
-    self._rebalance(deleted_node.parent)
-    return deleted_node
+    def delete(self, key):
+        """
+        Remove the node with the given key from this BST.
+        key is the key of the node to be deleted
+        Return a BSTNode instance with the given key, which was removed from the
+        tree. If this tree does not contain the given key, returns None. The deleted
+        node"s fields will still be set, despite the fact that it does not belong to
+        the tree anymore.
+        """
+        deleted_node = BST.delete(self, key)
+        # NOTE: deleted_node still has its parent set, and it happens to be the
+        #       first potentially out-of-balance node.
+        self._rebalance(deleted_node.parent)
+        return deleted_node
   
-  def _rebalance(self, node):
-    while node is not None:
-      # NOTE: rebalance is called after an insertion or a deletion; asides from
-      #       fixing the imbalance, it is also responsible for updating the
-      #       cached sub-tree information in each node on the path to the root 
+    def _rebalance(self, node):
+        while node is not None:
+          # NOTE: rebalance is called after an insertion or a deletion; asides from
+          #       fixing the imbalance, it is also responsible for updating the
+          #       cached sub-tree information in each node on the path to the root
       node.update_subtree_info()
       
-      if AVL._height(node.left) >= 2 + AVL._height(node.right):
-        if AVL._height(node.left.left) < AVL._height(node.left.right):
-          self._left_rotate(node.left)
-        self._right_rotate(node)
-      elif AVL._height(node.right) >= 2 + AVL._height(node.left):
-        if AVL._height(node.right.right) < AVL._height(node.right.left):
-          self._right_rotate(node.right)
-        self._left_rotate(node)
-      node = node.parent
+        if AVL._height(node.left) >= 2 + AVL._height(node.right):
+            if AVL._height(node.left.left) < AVL._height(node.left.right):
+                self._left_rotate(node.left)
+            self._right_rotate(node)
+        elif AVL._height(node.right) >= 2 + AVL._height(node.left):
+            if AVL._height(node.right.right) < AVL._height(node.right.left):
+                self._right_rotate(node.right)
+            self._left_rotate(node)
+        node = node.parent
 
-  @staticmethod
-  def _height(node):
-    if node is not None:
-      return node.height
-    else:
-      return -1
+    @staticmethod
+    def _height(node):
+        if node is not None:
+            return node.height
+        else:
+            return -1
 
   def _left_rotate(self, x):
     y = x.right
