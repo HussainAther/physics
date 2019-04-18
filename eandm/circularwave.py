@@ -1,6 +1,7 @@
-from vpython import *
 import numpy as np
 
+from vpython import *
+ 
 """
 Solve Maxwell's equations with FDTD time-stepping for circularly polarized wave propogations
 in the z-direction in free space.
