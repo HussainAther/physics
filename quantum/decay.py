@@ -7,7 +7,9 @@ This code is common to both animation examples.
 """
 
 def qubit_integrate(w, theta, gamma1, gamma2, psi0, tlist):
-    # operators and the hamiltonian
+    """
+    Operators and the hamiltonian (Hamiltonian)
+    """
     sx = sigmax()
     sy = sigmay()
     sz = sigmaz()
