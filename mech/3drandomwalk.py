@@ -1,5 +1,6 @@
-from vpython import *
 import random
+
+from vpython import *
 
 """
 Produce a 3-D graph of 3-D Random walk. It's a mathematical
