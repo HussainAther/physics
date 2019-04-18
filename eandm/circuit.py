@@ -1295,12 +1295,16 @@ class Circuit:
         return new_gate
     
     def add_probe(self, gate_name):
-        """Adds a gate to the list of outputs."""
+        """
+        Add a gate to the list of outputs.
+        """
         gate = self.gates[gate_name]
         gate.probe()
       
     def as_json(self):
-        """A hash that obeys the JSON format, representing the circuit."""
+        """
+        A hash that obeys the JSON format, representing the circuit.
+        """
         json = {}
         json["gates"] = [gate.as_json() for gate in self.gates.itervalues()]
         return json
@@ -1309,15 +1313,12 @@ class Transition:
     """A transition in a gate's output."""
   
     def __init__(self, gate, new_output, time):
-        """Creates a potential transition of a gate's output to a new value.
-        
-        Args:
-            gate: The Gate whose output might transition.
-            new_output: The new output value that the gate will take.
-            time: The time at which the Gate"s output will match the new value.
-        
-        Raises:
-            ValueError: An exception if the output is not 0 or 1.
+        """
+        Create a potential transition of a gate's output to a new value.
+        gate is the Gate whose output might transition.
+        new_output is the new output value that the gate will take.
+        time is the time at which the Gate"s output will match the new value.
+        Raise ValueError: An exception if the output is not 0 or 1.
         """
         if new_output != 0 and new_output != 1:
             raise ValueError("Invalid output value")
@@ -1350,7 +1351,8 @@ class Transition:
     #       equal. So we don"t need to override __eq__, __ne__, or __hash__.
       
     def is_valid(self):
-        """True if the transition would cause an actual change in the gate"s
+        """
+        True if the transition would cause an actual change in the gate's
         output.
         """
         return self.gate.output != self.new_output
