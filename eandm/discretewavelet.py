@@ -1,5 +1,6 @@
-from vpython.graph import *
 import numpy np
+
+from vpython.graph import *
 
 """
 Compute the discrete wavelet transform using the pyramid algorithm for the second signal values
