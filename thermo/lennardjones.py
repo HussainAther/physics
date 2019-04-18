@@ -1,8 +1,8 @@
 import pygame
 import random
-import numpy as np
-import matplotlib.pyplot as plt
 import math
+import matplotlib.pyplot as plt
+import numpy as np
 
 """
 Lennard-Jones potential approximates the interaction between a pair of neutral atoms or molecules.
