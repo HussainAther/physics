@@ -363,186 +363,185 @@ class BSTNode(object):
             return node
         return self
 
-  def delete(self):
-    """
-    Delete this node from the BST.
-    
-    Return the deleted BSTNode instance. The instance might be different from
-    this node, but will have this node"s key. The deleted node"s fields will
-    still be set, despite the fact that it does not belong to the tree anymore.
-    """
-    if self.left is None or self.right is None:
-      if self is self.parent.left:
-        self.parent.left = self.left or self.right
-        if self.parent.left is not None:
-          self.parent.left.parent = self.parent
-      else:
-        self.parent.right = self.left or self.right
-        if self.parent.right is not None:
-          self.parent.right.parent = self.parent
-      return self
-    else:
-      s = self.successor()
-      # NOTE: deleting before swapping the keys so the BST RI is never violated.
-      deleted_node = s.delete()
-      self.key, s.key = s.key, self.key
-      return deleted_node
+    def delete(self):
+        """
+        Delete this node from the BST.
+        Return the deleted BSTNode instance. The instance might be different from
+        this node, but will have this node"s key. The deleted node"s fields will
+        still be set, despite the fact that it does not belong to the tree anymore.
+        """
+        if self.left is None or self.right is None:
+            if self is self.parent.left:
+                self.parent.left = self.left or self.right
+            if self.parent.left is not None:
+                self.parent.left.parent = self.parent
+        else:
+            self.parent.right = self.left or self.right
+            if self.parent.right is not None:
+                self.parent.right.parent = self.parent
+            return self
+        else:
+            s = self.successor()
+            # NOTE: deleting before swapping the keys so the BST RI is never violated.
+            deleted_node = s.delete()
+            self.key, s.key = s.key, self.key
+        return deleted_node
   
-  def check_ri(self):
-    """Checks the BST representation invariant around this node.
-    
-    Raises an exception if the RI is violated.
-    """
-    if self.left is not None:
-      if self.left.key >= self.key:
-        raise RuntimeError("BST RI violated by a left node key")
-      if self.left.parent is not self:
-        raise RuntimeError("BST RI violated by a left node parent pointer")
-      self.left.check_ri()
-    if self.right is not None:
-      if self.right.key <= self.key:
-        raise RuntimeError("BST RI violated by a right node key")
-      if self.right.parent is not self:
-        raise RuntimeError("BST RI violated by a right node parent pointer")
-      self.right.check_ri()
+    def check_ri(self):
+        """
+        Checks the BST representation invariant around this node.
+        Raises an exception if the RI is violated.
+        """
+        if self.left is not None:
+            if self.left.key >= self.key:
+                raise RuntimeError("BST RI violated by a left node key")
+            if self.left.parent is not self:
+                raise RuntimeError("BST RI violated by a left node parent pointer")
+            self.left.check_ri()
+        if self.right is not None:
+            if self.right.key <= self.key:
+                raise RuntimeError("BST RI violated by a right node key")
+            if self.right.parent is not self:
+                raise RuntimeError("BST RI violated by a right node parent pointer")
+            self.right.check_ri()
 
 class BST(object):
-  """A binary search tree."""
-  
-  def __init__(self, node_class = BSTNode):
-    """Creates an empty BST.
-    
-    Args:
-      node_class (optional): the class of nodes in the tree, defaults to BSTNode
     """
-    self.node_class = node_class
-    self.root = None
+    A binary search tree.
+    """
+  
+    def __init__(self, node_class = BSTNode):
+        """
+        Creates an empty BST.
+       node_class (optional) is the class of nodes in the tree, defaults to BSTNode
+        """
+        self.node_class = node_class
+        self.root = None
 
-  def find(self, key):
-    """The node with the given key in this BST.
-    
-    Args:
-      key: the key of the node to be returned
-    
-    Returns a BSTNode instance with the given key, or None if the key was not
-    found.
-    """
-    return self.root and self.root.find(key)
+    def find(self, key):
+        """
+        The node with the given key in this BST.
+        key is the key of the node to be returned
+        Return a BSTNode instance with the given key, or None if the key was not
+        found.
+        """
+        return self.root and self.root.find(key)
               
-  def min(self):
-    """The node with the minimum key in this BST."""
-    if self.root is None:
-      return None
-    else:
-      return self.root.min()
+    def min(self):
+        """
+        The node with the minimum key in this BST.
+        """
+        if self.root is None:
+            return None
+        else:
+            return self.root.min()
   
-  def insert(self, key):
-    """Inserts a node into the subtree rooted at this node.
-    
-    Args:
-      key: the key of the node to be inserted
-        
-    Returns a BSTNode with the given key that belongs to this tree.
-    """
-    node = self.node_class(key)
-    if self.root is None:
-      self.root = node
-      return node
-    return self.root.insert(node)
+    def insert(self, key):
+        """
+        Insert a node into the subtree rooted at this node.
+        key is the key of the node to be inserted
+        Return a BSTNode with the given key that belongs to this tree.
+        """
+        node = self.node_class(key)
+        if self.root is None:
+            self.root = node
+            return node
+        return self.root.insert(node)
           
-  def delete(self, key):
-    """Removes the node with the given key from this BST.
-    
-    Args:
-      key: the key of the node to be deleted
-        
-    Returns a BSTNode instance with the given key, which was removed from the
-    tree. If this tree does not contain the given key, returns None. The deleted
-    node"s fields will still be set, despite the fact that it does not belong to
-    the tree anymore.
-    """
-    node = self.find(key)
-    if node is None:
-      return None
-    if node is self.root:
-      pseudo_root = self.node_class(None)
-      pseudo_root.left = self.root
-      self.root.parent = pseudo_root
-      deleted_node = self.root.delete()
-      self.root = pseudo_root.left
-      if self.root is not None:
-        self.root.parent = None
-      return deleted_node
-    else:
-      return node.delete()   
+    def delete(self, key):
+        """
+        Remove the node with the given key from this BST.
+        key is the key of the node to be deleted
+        Return a BSTNode instance with the given key, which was removed from the
+        tree. If this tree does not contain the given key, returns None. The deleted
+        node's fields will still be set, despite the fact that it does not belong to
+        the tree anymore.
+        """
+        node = self.find(key)
+        if node is None:
+            return None
+        if node is self.root:
+            pseudo_root = self.node_class(None)
+            pseudo_root.left = self.root
+            self.root.parent = pseudo_root
+            deleted_node = self.root.delete()
+            self.root = pseudo_root.left
+            if self.root is not None:
+                self.root.parent = None
+            return deleted_node
+        else:
+            return node.delete()
       
-  def successor(self, key):
-    """Returns the node that contains the next larger (the successor) key in
-    the BST in relation to the node with key k.
-    
-    Args:
-      key: the key of the node whose successor will be returned
-        
-    Returns a BSTNode instance whose key is the successor of the given key, or
-    None if the given key doesn"t exist in the tree, or if is the maximum key,
-    so the corresponding node has no successor.
-    """
-    node = self.find(key)
-    return node and node.successor()
+    def successor(self, key):
+        """
+        Return the node that contains the next larger (the successor) key in
+        the BST in relation to the node with key k.
+        key is the key of the node whose successor will be returned
+        Return a BSTNode instance whose key is the successor of the given key, or
+        None if the given key doesn"t exist in the tree, or if is the maximum key,
+        so the corresponding node has no successor.
+        """
+        node = self.find(key)
+        return node and node.successor()
   
-  def check_ri(self):
-    """Checks the BST representation invariant.
-    
-    Raises an exception if the RI is violated.
-    """
-    if self.root is not None:
-      if self.root.parent is not None:
-        raise RuntimeError("BST RI violated by the root node"s parent pointer")
-      self.root.check_ri()
+    def check_ri(self):
+        """
+        Check the BST representation invariant.
+        Raise an exception if the RI is violated.
+        """
+        if self.root is not None:
+            if self.root.parent is not None:
+                raise RuntimeError("BST RI violated by the root node"s parent pointer")
+            self.root.check_ri()
     
 class AVLNode(BSTNode):
-  """A node in an AVL."""
+    """
+    A node in an AVL.
+    """
   
-  def __init__(self, key):
-    """Creates a node that will be inserted in an AVL.
-  
-    See __init__ in BSTNode."""
-    BSTNode.__init__(self, key)
-    self.height = 0
+    def __init__(self, key):
+        """
+        Create a node that will be inserted in an AVL.
+        See __init__ in BSTNode.
+        """
+        BSTNode.__init__(self, key)
+        self.height = 0
 
-  def update_subtree_info(self):
-    """Updates pre-computed fields such as the node"s subtree height."""
-    self.height = self._uncached_height()
+    def update_subtree_info(self):
+        """
+        Update pre-computed fields such as the node"s subtree height.
+        """
+        self.height = self._uncached_height()
 
-  def _uncached_height(self):
-    """Re-computes the node"s height based on the children"s heights."""
-    return 1 + max((self.left and self.left.height) or -1,
-                   (self.right and self.right.height) or -1)
+    def _uncached_height(self):
+        """
+        Re-compute the node"s height based on the children"s heights.
+        """
+        return 1 + max((self.left and self.left.height) or -1,
+                       (self.right and self.right.height) or -1)
     
   def check_ri(self):
-    """Checks the AVL representation invariant around this node.
-    
-    Raises an exception if the RI is violated.
-    """
-    if self.height != self._uncached_height():
-      raise RuntimeError("AVL RI violated by node height")
-    if abs(AVL._height(self.left) - AVL._height(self.right)) > 1:
-      raise RuntimeError("AVL RI violated by unbalanced children heights")
-    BSTNode.check_ri(self)
+        """
+        Check the AVL representation invariant around this node.
+        Raise an exception if the RI is violated.
+        """
+        if self.height != self._uncached_height():
+            raise RuntimeError("AVL RI violated by node height")
+        if abs(AVL._height(self.left) - AVL._height(self.right)) > 1:
+            raise RuntimeError("AVL RI violated by unbalanced children heights")
+        BSTNode.check_ri(self)
     
 class AVL(BST):
-  """AVL binary search tree implementation.
-  
+  """
+  AVL binary search tree implementation.
   All queries and updates are guaranteed to take O(lg N) time.
   """
-  
-  def __init__(self, node_class = AVLNode):
-    """Creates an empty AVL tree.
-    
-    Args:
-      node_class (optional): the class of nodes in the tree, defaults to AVLNode
-    """
-    BST.__init__(self, node_class)
+    def __init__(self, node_class = AVLNode):
+        """
+        Creates an empty AVL tree.
+        node_class (optional) is the class of nodes in the tree, defaults to AVLNode
+        """
+        BST.__init__(self, node_class)
   
   def insert(self, key):
     """Inserts a node into the subtree rooted at this node.
