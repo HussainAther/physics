@@ -629,23 +629,31 @@ class AVL(BST):
         y.update_subtree_info()
 
 class RangeNode(AVLNode):
-  """A node in a range tree."""
+    """
+    A node in a range tree.
+    """
 
-  def __init__(self, key):
-    """Creates a node that will be inserted in a range index tree.
+    def __init__(self, key):
+        """
+        Creates a node that will be inserted in a range index tree.
   
-    See __init__ in BSTNode."""
-    AVLNode.__init__(self, key)
-    self.tree_size = 1
+        See __init__ in BSTNode.
+        """
+        AVLNode.__init__(self, key)
+        self.tree_size = 1
 
-  def update_subtree_info(self):
-    """Updates pre-computed fields such as the node"s subtree height."""
-    AVLNode.update_subtree_info(self)
-    self.tree_size = self._uncached_tree_size()
+    def update_subtree_info(self):
+        """
+        Updates pre-computed fields such as the node"s subtree height.
+        """
+        AVLNode.update_subtree_info(self)
+        self.tree_size = self._uncached_tree_size()
 
-  def _uncached_tree_size(self):
-    """Re-computes the node"s subtree size based on the children's heights."""
-    return 1 + (((self.left and self.left.tree_size) or 0) +
+    def _uncached_tree_size(self):
+        """
+        Re-computes the node"s subtree size based on the children's heights.
+        """
+        return 1 + (((self.left and self.left.tree_size) or 0) +
                 ((self.right and self.right.tree_size) or 0))
     
   def check_ri(self):
