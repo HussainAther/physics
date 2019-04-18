@@ -1062,18 +1062,17 @@ class TracedCrossVerifier(CrossVerifier):
     
 
 class TruthTable:
-    """Truth table representation of the logic inside a gate."""
+    """
+    Truth table representation of the logic inside a gate.
+    """
     
     def __init__(self, name, output_list):
-        """Creates a truth table from a list representation.
-        
-        Args:
-            name: User-friendly name for the truth table.
-            output_list: The entries in the truth table, in the standard order
-                (the inputs should look like an incrementing counter).
-        
-        Raises:
-            TypeError: An exception if the list"s length is not a power of two.
+        """
+        Create a truth table from a list representation.
+        name is User-friendly name for the truth table.
+        output_list is The entries in the truth table, in the standard order
+        (the inputs should look like an incrementing counter).
+        Raise TypeError if An exception if the list's length is not a power of two.
         """
         self.name = name
         self.table = self._build_table(output_list)
