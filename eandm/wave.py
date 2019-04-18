@@ -1,5 +1,6 @@
-from vpython import *
 import math
+
+from vpython import *
 
 """
 Plot the sine and cosine of the waves in 3-D
