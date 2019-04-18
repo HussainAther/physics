@@ -1146,7 +1146,7 @@ class GateType:
         """
         The time of the gate's output transition.
         Computesthe time of the output transition given an input transition
-        time. input_time is Time of the input transition.
+        time. input_time is time of the input transition.
         """
         return self.delay + input_time
 
