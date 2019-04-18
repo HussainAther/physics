@@ -67,19 +67,10 @@ def tinvert_thetae(thetaeVal, wT, p):
     thetaeVal is (float) thetae of parcel (K).
     wtotal is (float) total water mixing ratio (kg/kg).
     p is (float) pressure of parcel in (Pa).
-    Return theTemp (float) temperature for which thetaep equals the parcel thetae (K).
-    wv : float
-        Vapor mixing ratio of the parcel (kg/kg).
-    wl : float
-        liquid water mixing ratio of the parcel (kg/kg) at 'p'.
-
-    Raises
-    - - - -
-    IOError
-        If 'p' is larger than 100000 Pa.
-
+    Return theTemp (float) temperature for which thetaep equals the parcel thetae (K). wv is (float) vapor mixing ratio of the parcel (kg/kg).
+    wl is (float) liquid water mixing ratio of the parcel (kg/kg) at 'p'.
+    Raises IOError if 'p' is larger than 100000 Pa.
     Examples
-    - - - - -
     >>> test.assert_array_almost_equal(tinvert_thetae(300., 0.001, 8.e4),(278.405, 0.001, 0),decimal=3)
     
     """
@@ -99,8 +90,10 @@ def tinvert_thetae(thetaeVal, wT, p):
 def Tchange(Tguess, thetaeVal, wT, p):
     [wv, wl] = findWvWl(Tguess, wT, p);
     tdGuess = Tdfind(wv, p);
-    # Iterate on Tguess until this function is
-    # zero to within tolerance.
+    """
+    Iterate on Tguess until this function is
+    zero to within tolerance.
+    """
     return thetaeVal - thetaep(tdGuess, Tguess, p);
 
 
