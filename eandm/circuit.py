@@ -1145,20 +1145,21 @@ class GateType:
     def output_time(self, input_time):
         """
         The time of the gate's output transition.
-        Computesthe time of the output transition given an input transition
+        Compute the time of the output transition given an input transition
         time. input_time is time of the input transition.
         """
         return self.delay + input_time
 
 class Gate:
-    """A gate in a circuit."""
+    """
+    A gate in a circuit.
+    """
 
     def __init__(self, name, gate_type):
-        """ Creates an unconnected gate whose initial output is false.
-        
-        Args:
-            name: User-friendly name for the gate.
-            gate_type: GateType instance specifying the gate"s behavior.
+        """
+        Create an unconnected gate whose initial output is false.
+        name is user-friendly name for the gate.
+        gate_type is gateType instance specifying the gate"s behavior.
         """
         self.name = name
         self.gate_type = gate_type
@@ -1168,12 +1169,11 @@ class Gate:
         self.output = 0
   
     def connect_input(self, gate, terminal):
-        """Connects one of this gate"s input terminals to another gate's output.
-        
-        Args:
-            gate: The gate whose output terminal will be connected.
-            terminal: The number of this gate"s input terminal that will be
-                connected (using 0-based indexing)
+        """
+        Connect one of this gate"s input terminals to another gate's output.
+        gate is the gate whose output terminal will be connected.
+        terminal is the number of this gate"s input terminal that will be
+        connected (using 0-based indexing)
         """
         if self.in_gates[terminal] is not None:
             raise RuntimeError("Input terminal already connected")
@@ -1181,19 +1181,18 @@ class Gate:
         gate.out_gates.append(self)
       
     def probe(self):
-        """Marks this gate as probed.
-        
-        So the simulator will record its transitions.
-        
-        Raises:
-            RuntimeError: An exception if the gate is already probed.
+        """
+        Mark this gate as probed.
+        The simulator will record its transitions.
+        Raises RuntimeError: An exception if the gate is already probed.
         """
         if self.probed:
             raise RuntimeError("Gate already probed")
         self.probed = True
 
     def has_inputs_connected(self):
-        """True if all the gate"s input terminals are connected to other gates.
+        """
+        True if all the gate"s input terminals are connected to other gates.
         """
         for input in self.in_gates:
             if input == None:
@@ -1201,75 +1200,75 @@ class Gate:
         return True
   
     def has_output_connected(self):
-        """True if the gate"s output terminal is connected to another gate."""
+        """
+        True if the gate"s output terminal is connected to another gate.
+        """
         return self.out_gates.length > 0
   
     def is_connected(self):
-        """True if all the gate"s inputs and outputs are connected."""
+        """
+        True if all the gate"s inputs and outputs are connected.
+        """
         return self.has_inputs_connected and self.has_output_connected
 
     def transition_output(self):
-        """The value that the gate"s output will have after transition.
-        
-        The gate"s output will not reflect this value right away. Each gate has
+        """
+        The value that the gate"s output will have after transition.
+        The gate's output will not reflect this value right away. Each gate has
         a delay from its inputs" transitions to the output"s transition. The
         circuit simulator is responsible for setting the appropriate time.
         """
         return self.gate_type.output([gate.output for gate in self.in_gates])
   
     def transition_time(self, input_time):
-        """The time that the gate"s output will reflect a change in its inputs.
-        
-        Args:
-            input_time: The last time when the gate"s inputs changed.
+        """
+        The time that the gate"s output will reflect a change in its inputs.
+        input_time is the last time when the gate"s inputs changed.
         """
         return self.gate_type.output_time(input_time)
     
     def as_json(self):
-        """"A hash that obeys the JSON format, representing the gate."""
+        """"
+        A hash that obeys the JSON format, representing the gate.
+        """
         return {"id": self.name, "table": self.gate_type.truth_table.name,
                 "type": self.gate_type.name, "probed": self.probed,
                 "inputs": [g and g.name for g in self.in_gates],
-        "outputs": [g and g.name for g in self.out_gates]}
+                "outputs": [g and g.name for g in self.out_gates]}
 
 class Circuit:
-    """The topology of a combinational circuit, and a snapshot of its state.
-    
+    """
+    The topology of a combinational circuit, and a snapshot of its state.
     This class contains topological information about a circuit (how the gates
     are connected to each other) as well as information about the gates" states
     (values at their output terminals) at an instance of time.
     """
     def __init__(self):
-        """Creates an empty circuit."""
+        """
+        Create an empty circuit.
+        """
         self.truth_tables = {}
         self.gate_types = {}
         self.gates = {}
 
     def add_truth_table(self, name, output_list):
-        """Adds a truth table that can be later attached to gate types.
-        
-        Args:
-            name: A unique string used to identify the truth table.
-            output_list: A list of outputs for the truth table.
-        
-        Returns:
-            A newly created TruthTable instance.
+        """
+        Add a truth table that can be later attached to gate types.
+        name is a unique string used to identify the truth table.
+        output_list is a list of outputs for the truth table.
+        Return Aanewly created TruthTable instance.
         """
         if name in self.truth_tables:
             raise ValueError("Truth table name already used")
         self.truth_tables[name] = TruthTable(name, output_list)
     
     def add_gate_type(self, name, truth_table_name, delay):
-        """Adds a gate type that can be later attached to gates.
-        
-        Args:
-            name: A unique string used to identify the gate type.
-            truth_table_name: The name of the gate"s truth table.
-            delay: The gate"s delay from an input transition to an output
-                transition.
-        
-        Returns:
-            The newly created GateType instance.
+        """
+        Add a gate type that can be later attached to gates.
+        name is a unique string used to identify the gate type.
+        truth_table_name is the name of the gate"s truth table.
+        delay is the gate's delay from an input transition to an output transition.
+        Return the newly created GateType instance.
         """
         if name in self.gate_types:
             raise ValueError("Gate type name already used")
@@ -1279,16 +1278,12 @@ class Circuit:
         self.gate_types[name] = GateType(name, truth_table, delay)
     
     def add_gate(self, name, type_name, input_names):
-        """Adds a gate and connects it to other gates.
-        
-        Args:
-            name: A unique string used to identify the gate.
-            type_name: The name of the gate"s type.
-            input_names: List of the names of gates whose outputs are connected
-                to this gate"s inputs.
-        
-        Returns:
-            The newly created Gate instance.
+        """
+        Add a gate and connects it to other gates.
+        name is a unique string used to identify the gate.
+        type_name is the name of the gate"s type.
+        input_names is the list of the names of gates whose outputs are connected to this gate's inputs.
+        Return the newly created Gate instance.
         """
         if name in self.gates:
             raise ValueError("Gate name already used")
