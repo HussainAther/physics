@@ -165,11 +165,6 @@ def LCLfind(Td, T, p):
     Traceback (most recent call last):
         ...
     NameError: parcel is saturated at this pressure
-
-    References
-    - - - - - -
-    Emanuel 4.6.24 p. 130 and 4.6.22 p. 129
-    
     """
     hit = Td >= T;
     if hit is True:
@@ -193,27 +188,11 @@ def LCLfind(Td, T, p):
 
 def wsat(Temp, press):
     """
-    wsat(Temp, press)
-
-    Calculates the saturation vapor mixing ratio of an air parcel.
-
-    Parameters
-    - - - - - -
-    Temp : float or array_like
-        Temperature in Kelvin.
-    press : float or array_like
-        Pressure in Pa.
-
-    Returns
-    - - - -
-    theWs : float or array_like 
-        Saturation water vapor mixing ratio in (kg/kg).
-
-    Raises
-    - - - -
-    IOError
-        If both 'Temp' and 'press' are array_like.
-
+    Calculate the saturation vapor mixing ratio of an air parcel.
+    Temp is (float or array_like) temperature in Kelvin.
+    press is (float or array_like) pressure in Pa.
+    Return theWs is (float or array_like) saturation water vapor mixing ratio in (kg/kg).
+    Raise IOError if both 'Temp' and 'press' are array_like.
     Examples
     - - - - -
     >>> test.assert_almost_equal(wsat(300, 8e4),0.02875,decimal=4)
@@ -246,44 +225,14 @@ def wsat(Temp, press):
 
 def theta(*args):
     """
-    theta(*args)
-
-    Computes potential temperature.
-    Allows for either T,p or T,p,wv as inputs.
-    
-
-    Parameters
-    - - - - - -
-    T : float
-        Temperature (K).
-    p : float
-        Pressure (Pa).
-
-
-    Returns
-    - - - -
-    thetaOut : float
-        Potential temperature (K).
-
-
-    Other Parameters
-    - - - - - - - - -
-    wv : float, optional
-        Vapour mixing ratio (kg,kg). Can be appended as an argument
-        in order to increase precision of returned 'theta' value.
-    
-    
-    Raises
-    - - - -
-    NameError
-        If an incorrect number of arguments is provided.
-    
-    
-    References
-    - - - - - -
-    Emanuel p. 111 4.2.11
-
-
+    Compute potential temperature.
+    Allow for either T,p or T,p,wv as inputs.
+    T is (float) temperature (K).
+    p is (float) pressure (Pa).
+    Return thetaOut (float) as potential temperature (K).
+    wv is (float, optional) vapour mixing ratio (kg,kg). Can be appended as an argument
+    in order to increase precision of returned 'theta' value.
+    Raise NameError if an incorrect number of arguments is provided.
     Examples
     - - - - -
     >>> theta(300., 8.e4) # Only 'T' and 'p' are input.
@@ -308,37 +257,14 @@ def theta(*args):
 
 def thetaes(Temp, press):
     """
-    thetaes(Temp, press)
-
-    Calculates the pseudo equivalent potential temperature of an air
+    Calculate the pseudo equivalent potential temperature of an air
     parcel.
-
-    Parameters
-    - - - - - -
-    Temp : float
-        Temperature (K).
-    press : float
-        Pressure (Pa).
-
-
-    Returns
-    - - - -
-    thetaep : float
-        Pseudo equivalent potential temperature (K).
-
-
-    Notes
-    - - -
+    Temp is (float) temperature (K).
+    press is (float) pressure (Pa).
+    Return thetaep (float) pseudo equivalent potential temperature (K).
     It should be noted that the pseudo equivalent potential
     temperature (thetaep) of an air parcel is not a conserved
     variable.
-
-
-    References
-    - - - - - -
-    Emanuel 4.7.9 p. 132
-
-
     Examples
     - - - - -
     >>> test.assert_almost_equal(thetaes(300., 8.e4),412.9736,decimal=4)
@@ -362,39 +288,14 @@ def thetaes(Temp, press):
 
 def thetaep(Td, T, p):
     """
-    thetaep(Td, T, p)
-
-    Calculates the pseudo equivalent potential temperature of a
+    Calculate the pseudo equivalent potential temperature of a
     parcel. 
-
-
-    Parameters
-    - - - - - -
-    Td : float
-        Dewpoint temperature (K).
-    T : float
-        Temperature (K).
-    p : float
-        Pressure (Pa).
-
-
-    Returns
-    - - - -
-    thetaepOut : float
-        Pseudo equivalent potential temperature (K).
-
-
-    Notes
-    - - -
-    Note that the pseudo equivalent potential temperature of an air
+    Td is (float) dewpoint temperature (K).
+    T is (float) temperature (K).
+    p is (float) pressure (Pa).
+    Return thetaepOut (float) pseudo equivalent potential temperature (K).
+    The pseudo equivalent potential temperature of an air
     parcel is not a conserved variable.
-
-
-    References
-    - - - - - -
-    Emanuel 4.7.9 p. 132
-
-
     Examples
     - - - - -
     >>> test.assert_almost_equal(thetaep(280., 300., 8.e4),344.998307,decimal=5) # Parcel is unsaturated.
