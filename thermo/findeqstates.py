@@ -1,5 +1,6 @@
-from pylab import *
 import re
+
+from pylab import *
 
 """
 Find the equilibrium states undergoing the lammps simulator 
