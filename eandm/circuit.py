@@ -907,7 +907,6 @@ class KeyWirePairL(KeyWirePair):
 class KeyWirePairH(KeyWirePair):
     """
     A KeyWirePair that is used as the high end of a range query.
-  
     This KeyWirePair is larger than all other KeyWirePairs with the same key.
     """
     def __init__(self, key):
@@ -917,35 +916,42 @@ class KeyWirePairH(KeyWirePair):
         self.wire_id = 1000000000
 
 class CrossVerifier(object):
-  """Checks whether a wire network has any crossing wires."""
+    """
+    Check whether a wire network has any crossing wires.
+    """
   
-  def __init__(self, layer):
-    """Verifier for a layer of wires.
+    def __init__(self, layer):
+        """Verifier for a layer of wires.
     
-    Once created, the verifier can list the crossings between wires (the 
-    wire_crossings method) or count the crossings (count_crossings)."""
+        Once created, the verifier can list the crossings between wires (the
+        wire_crossings method) or count the crossings (count_crossings).
+        """
 
-    self.events = []
-    self._events_from_layer(layer)
-    self.events.sort()
+        self.events = []
+        self._events_from_layer(layer)
+        self.events.sort()
   
-    self.index = RangeIndex()
-    self.result_set = ResultSet()
-    self.performed = False
+        self.index = RangeIndex()
+        self.result_set = ResultSet()
+        self.performed = False
   
-  def count_crossings(self):
-    """Returns the number of pairs of wires that cross each other."""
-    if self.performed:
-      raise 
-    self.performed = True
-    return self._compute_crossings(True)
+    def count_crossings(self):
+        """
+        Return the number of pairs of wires that cross each other.
+        """
+        if self.performed:
+            raise
+        self.performed = True
+        return self._compute_crossings(True)
 
-  def wire_crossings(self):
-    """An array of pairs of wires that cross each other."""
-    if self.performed:
-      raise 
-    self.performed = True
-    return self._compute_crossings(False)
+    def wire_crossings(self):
+        """
+        An array of pairs of wires that cross each other.
+        """
+        if self.performed:
+            raise
+        self.performed = True
+        return self._compute_crossings(False)
 
   def _events_from_layer(self, layer):
     """Populates the sweep line events from the wire layer."""
