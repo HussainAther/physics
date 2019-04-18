@@ -1,5 +1,6 @@
-from vpython import *
 import numpy as np
+
+from vpython import *
 
 """
 Finite-Difference Time Domain Method of findings solutions to Maxwell's equations for linearly
