@@ -1358,11 +1358,10 @@ class Transition:
         return self.gate.output != self.new_output
     
     def apply(self):
-        """Makes this transition effective by changing the gate's output.
-        
-        Raises:
-            ValueError: An exception if applying the transition wouldn"t cause
-                an actual change in the gate"s output.
+        """
+        Make this transition effective by changing the gate's output.
+        Raise ValueError: An exception if applying the transition wouldn"t cause
+        an actual change in the gate"s output.
         """
         if self.gate.output == self.new_output:
             raise ValueError("Gate output should not transition to the same "
@@ -1386,10 +1385,14 @@ class Transition:
         return id
 
 class PriorityQueue:
-    """Heap-based priority queue implementation."""
+    """
+    Heap-based priority queue implementation.
+    """
     
     def __init__(self):
-        """Initially empty priority queue."""
+        """
+        Initially empty priority queue.
+        """
         self.heap = [None]
     
     def __len__(self):
@@ -1397,7 +1400,9 @@ class PriorityQueue:
         return len(self.heap) - 1
     
     def append(self, key):
-        """Inserts an element in the priority queue."""
+        """
+        Insert an element in the priority queue.
+        """
         if key is None:
             raise ValueError("Cannot insert None in the queue")
     
@@ -1412,14 +1417,15 @@ class PriorityQueue:
                 break
     
     def min(self):
-        """Returns the smallest element in the queue."""
+        """
+        Return the smallest element in the queue.
+        """
         return self.heap[1]
     
     def pop(self):
-        """Removes the minimum element in the queue.
-    
-        Returns:
-            The value of the removed element.
+        """
+        Remove the minimum element in the queue.
+        Return the value of the removed element.
         """
         heap = self.heap
         popped_key = heap[1]
@@ -1449,17 +1455,17 @@ class PriorityQueue:
 
 
 class Simulation:
-    """State needed to compute a circuit's state as it evolves over time."""
+    """
+    State needed to compute a circuit's state as it evolves over time.
+    """
     
     def __init__(self, circuit):
-        """Creates a simulation that will run on a pre-built circuit.
-        
+        """
+        Create a simulation that will run on a pre-built circuit.
         The Circuit instance does not need to be completely built before it is
         given to the class constructor. However, it does need to be complete
         before the run method is called.
-        
-        Args:
-            circuit: The circuit whose state transitions will be simulated.
+        circuit is the circuit whose state transitions will be simulated.
         """
         self.circuit = circuit
         self.in_transitions = []
@@ -1469,22 +1475,20 @@ class Simulation:
         self.probe_all_undo_log = []
 
     def add_transition(self, gate_name, output_value, output_time):
-        """Adds a transition to the simulation"s initial conditions.
-        
+        """
+        Add a transition to the simulation"s initial conditions.
         The transition should involve one of the circuit"s input gates.
         """
         gate = self.circuit.gates[gate_name]
         self.in_transitions.append([output_time, gate_name, output_value, gate])
     
     def step(self):
-        """Runs the simulation for one time slice.
-        
+        """
+        Run the simulation for one time slice.
         A step does not equal one unit of time. The simulation logic ignores
         time units where nothing happens, and bundles all the transitions that
         happen at the same time in a single step.
-        
-        Returns:
-            The simulation time after the step occurred.
+        Return the  simulation time after the step occurred.
         """
         step_time = self.queue.min().time
         
@@ -1510,7 +1514,9 @@ class Simulation:
         return step_time
     
     def run(self):
-        """Runs the simulation to completion."""
+        """
+        Run the simulation to completion.
+        """
         for in_transition in sorted(self.in_transitions):
             self.queue.append(Transition(in_transition[3], in_transition[2],
                                          in_transition[0]))
@@ -1519,26 +1525,28 @@ class Simulation:
         self.probes.sort()
             
     def probe_all_gates(self):
-        """Turns on probing for all gates in the simulation."""
+        """
+        Turn on probing for all gates in the simulation.
+        """
         for gate in self.circuit.gates.itervalues():
             if not gate.probed:
                 self.probe_all_undo_log.append(gate)
                 gate.probe()
 
     def undo_probe_all_gates(self):
-        """Reverts the effects of calling probe_all_gates!"""
+        """
+        Revert the effects of calling probe_all_gates!
+        """
         for gate in self.probe_all_undo_log:
             gate.probed = False
         self.probe_all_undo_log = []
     
     @staticmethod
     def from_file(file):
-        """Builds a simulation by reading a textual description from a file.
-        
-        Args:
-            file: A File object supplying the input.
-        
-        Returns: A new Simulation instance.
+        """
+        Build a simulation by reading a textual description from a file.
+        file is a File object supplying the input.
+        Return a new Simulation instance.
         """
         circuit = Circuit()
         simulation = Simulation(circuit)
@@ -1573,13 +1581,10 @@ class Simulation:
         return simulation
     
     def layout_from_file(self, file):
-        """Reads the simulation's visual layout from a file.
-        
-        Args:
-            file: A File-like object supplying the input.
-        
-        Returns:
-             self.
+        """
+        Read the simulation's visual layout from a file.
+        file is a File-like object supplying the input.
+        Return self.
         """
         while True:
           line = file.readline()
@@ -1595,7 +1600,9 @@ class Simulation:
         self
     
     def trace_as_json(self):
-        """A hash that obeys the JSON format, containing simulation data."""
+        """
+        A hash that obeys the JSON format, containing simulation data.
+        """
         return {"circuit": self.circuit.as_json(), "trace": self.probes,
                 "layout": self.layout_svg}
     
@@ -1603,22 +1610,18 @@ class Simulation:
         return [" ".join([str(probe[0]), probe[1], str(probe[2])]) for probe in self.probes]
     
     def outputs_to_file(self, file):
-        """Writes a textual description of the simulation's probe results to a
-        file.
-        
-        Args:
-            file: A File object that receives the probe results.
+        """
+        Write a textual description of the simulation's probe results to a
+        file. file is a File object that receives the probe results.
         """
         for line in self.outputs_to_line_list():
             file.write(line)
             file.write("\n")
             
     def jsonp_to_file(self, file):
-        """Writes a JSONP description of the simulation's probe results to a
-        file.
-        
-        Args:
-            file: A File object that receives the probe results.
+        """
+        Write a JSONP description of the simulation's probe results to a
+        file. file is a File object that receives the probe results.
         """
         file.write("onJsonp(")
         json.dump(self.trace_as_json(), file)
