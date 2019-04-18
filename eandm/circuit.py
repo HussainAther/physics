@@ -308,67 +308,66 @@ class BSTNode(object):
         self.left = None
         self.right = None
       
-  def find(self, key):
-    """
-    The node with the given key in the subtree rooted at this node.
-    key is the key of the node to be returned
-    Return a BSTNode instance with the given key, or None if the key was not
-    found.
-    """
-    if key < self.key:
-      return self.left and self.left.find(key)
-    elif key > self.key:
-      return self.right and self.right.find(key)
-    return self
+    def find(self, key):
+        """
+        The node with the given key in the subtree rooted at this node.
+        key is the key of the node to be returned
+        Return a BSTNode instance with the given key, or None if the key was not
+        found.
+        """
+        if key < self.key:
+            return self.left and self.left.find(key)
+        elif key > self.key:
+            return self.right and self.right.find(key)
+        return self
   
-  def min(self):
-    """The node with the minimum key in the subtree rooted at this node.
-    
-    Returns a BSTNode instance with the minimum key.
-    """
-    if self.left is None:
-      return self
-    return self.left.min()
+    def min(self):
+        """
+        The node with the minimum key in the subtree rooted at this node.
+        Return a BSTNode instance with the minimum key.
+        """
+        if self.left is None:
+            return self
+        return self.left.min()
      
-  def successor(self):
-    """The node with the next larger key (the successor) in the BST.
-    
-    Returns a BSTNode instance, or None if this node has no successor.
-    """
-    if self.right is not None:
-      return self.right.min()
-    current = self
-    while current.parent is not None and current is current.parent.right:
-      current = current.parent
-    return current.parent
+    def successor(self):
+        """
+        The node with the next larger key (the successor) in the BST.
+        Return a BSTNode instance, or None if this node has no successor.
+        """
+        if self.right is not None:
+            return self.right.min()
+        current = self
+        while current.parent is not None and current is current.parent.right:
+            current = current.parent
+        return current.parent
 
-  def insert(self, node):
-    """Inserts a node into the subtree rooted at this node.
-    
-    Args:
-      node: the node to be inserted
-      
-    Returns the node argument, if the node was inserted in the tree. If a node
-    with the same key was found, that node is returned instead.
-    """
-    if node.key < self.key:
-      if self.left is not None:
-        return self.left.insert(node)
-      node.parent = self
-      self.left = node
-      return node
-    elif node.key > self.key:
-      if self.right is not None:
-        return self.right.insert(node)
-      node.parent = self
-      self.right = node
-      return node
-    return self
+    def insert(self, node):
+        """
+        Inserts a node into the subtree rooted at this node.
+        node is the node to be inserted
+        Return the node argument, if the node was inserted in the tree. If a node
+        with the same key was found, that node is returned instead.
+        """
+        if node.key < self.key:
+            if self.left is not None:
+                return self.left.insert(node)
+            node.parent = self
+            self.left = node
+            return node
+        elif node.key > self.key:
+            if self.right is not None:
+                return self.right.insert(node)
+            node.parent = self
+            self.right = node
+            return node
+        return self
 
   def delete(self):
-    """Deletes this node from the BST.
+    """
+    Delete this node from the BST.
     
-    Returns the deleted BSTNode instance. The instance might be different from
+    Return the deleted BSTNode instance. The instance might be different from
     this node, but will have this node"s key. The deleted node"s fields will
     still be set, despite the fact that it does not belong to the tree anymore.
     """
