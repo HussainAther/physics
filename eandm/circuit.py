@@ -953,14 +953,16 @@ class CrossVerifier(object):
         self.performed = True
         return self._compute_crossings(False)
 
-  def _events_from_layer(self, layer):
-    """Populates the sweep line events from the wire layer."""
-    left_edge = min([wire.x1 for wire in layer.wires.values()])
-    for wire in layer.wires.values():
-      if wire.is_horizontal():
-        self.events.append([left_edge, 0, wire.object_id, "add", wire])
-      else:
-        self.events.append([wire.x1, 1, wire.object_id, "query", wire])
+    def _events_from_layer(self, layer):
+        """
+        Populate the sweep line events from the wire layer.
+        """
+        left_edge = min([wire.x1 for wire in layer.wires.values()])
+        for wire in layer.wires.values():
+            if wire.is_horizontal():
+                self.events.append([left_edge, 0, wire.object_id, "add", wire])
+            else:
+                self.events.append([wire.x1, 1, wire.object_id, "query", wire])
 
   def _compute_crossings(self, count_only):
     """Implements count_crossings and wire_crossings."""
