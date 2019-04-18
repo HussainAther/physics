@@ -222,83 +222,97 @@ class BlitRangeIndex(object):
         high_index = self._binary_search(high_key)
         return self.data[low_index:high_index]
   
-  def count(self, low_key, high_key):
-    """Number of keys that fall within [low_key, high_key]."""
-    low_index = self._binary_search(low_key)
-    high_index = self._binary_search(high_key)
-    if high_index < len(self.data) and self.data[high_index] == high_key:
-      high_index += 1
-    return high_index - low_index
+    def count(self, low_key, high_key):
+        """
+        Number of keys that fall within [low_key, high_key].
+        """
+        low_index = self._binary_search(low_key)
+        high_index = self._binary_search(high_key)
+        if high_index < len(self.data) and self.data[high_index] == high_key:
+            high_index += 1
+        return high_index - low_index
   
-  def _binary_search(self, key):
-    """Binary search for the given key in the sorted array."""
-    low, high = 0, len(self.data) - 1
-    while low <= high:
-      mid = (low + high) // 2
-      mid_key = self.data[mid]
-      if key < mid_key:
-        high = mid - 1
-      elif key > mid_key:
-        low = mid + 1
-      else:
-        return mid
-    return high + 1
+    def _binary_search(self, key):
+        """
+        Binary search for the given key in the sorted array.
+        """
+        low, high = 0, len(self.data) - 1
+        while low <= high:
+            mid = (low + high) // 2
+            mid_key = self.data[mid]
+            if key < mid_key:
+                high = mid - 1
+            elif key > mid_key:
+                low = mid + 1
+            else:
+                return mid
+        return high + 1
 
 if os.environ.get("INDEX") == "blit":
-  RangeIndex = BlitRangeIndex
+    RangeIndex = BlitRangeIndex
 
 class AvlRangeIndex(object):
-  """Sorted array-based range index implementation."""
+    """
+    Sorted array-based range index implementation.
+    """
   
-  def __init__(self):
-    """Initially empty range index."""
+    def __init__(self):
+        """
+        Initially empty range index.
+        """
     self.tree = RangeTree()
   
-  def add(self, key):
-    """Inserts a key in the range index."""
+    def add(self, key):
+        """
+        Insert a key in the range index.
+        """
     if key is None:
         raise ValueError("Cannot insert None in the index")
     self.tree.insert(key)
   
-  def remove(self, key):
-    """Removes a key from the range index."""
-    self.tree.delete(key)
+    def remove(self, key):
+        """
+        Remove a key from the range index.
+        """
+        self.tree.delete(key)
   
-  def list(self, low_key, high_key):
-    """List of values for the keys that fall within [low_key, high_key]."""
-    return [node.key for node in self.tree.list(low_key, high_key)]
+    def list(self, low_key, high_key):
+        """
+        List of values for the keys that fall within [low_key, high_key].
+        """
+        return [node.key for node in self.tree.list(low_key, high_key)]
   
-  def count(self, low_key, high_key):
-    """Number of keys that fall within [low_key, high_key]."""
-    return self.tree.rank(high_key) - self.tree.rank(low_key)
+    def count(self, low_key, high_key):
+        """
+        Number of keys that fall within [low_key, high_key].
+        """
+        return self.tree.rank(high_key) - self.tree.rank(low_key)
 
 if os.environ.get("INDEX") == "avl":
-  RangeIndex = AvlRangeIndex
+    RangeIndex = AvlRangeIndex
 
 class BSTNode(object):
-  """A node in a vanilla BST tree."""
+  """
+  A node in a vanilla BST tree.
+  """
   
-  def __init__(self, key):
-    """Creates a node that will be inserted in a BST.
-    
-    After the node is created, it should be inserted in a tree by calling
-    BST.insert(). Until that happens, the node is not in a valid state.
-    
-    Args:
-      key: the key associated with the node
-    """
-    self.key = key
-    self.parent = None
-    self.left = None
-    self.right = None
+    def __init__(self, key):
+        """
+        Create a node that will be inserted in a BST.
+        After the node is created, it should be inserted in a tree by calling
+        BST.insert(). Until that happens, the node is not in a valid state.
+        key is the key associated with the node
+        """
+        self.key = key
+        self.parent = None
+        self.left = None
+        self.right = None
       
   def find(self, key):
-    """The node with the given key in the subtree rooted at this node.
-    
-    Args:
-      key: the key of the node to be returned
-    
-    Returns a BSTNode instance with the given key, or None if the key was not
+    """
+    The node with the given key in the subtree rooted at this node.
+    key is the key of the node to be returned
+    Return a BSTNode instance with the given key, or None if the key was not
     found.
     """
     if key < self.key:
@@ -650,7 +664,9 @@ class RangeNode(AVLNode):
     AVLNode.check_ri(self)
 
   def rank(self, key):
-    """Number of keys <= the given key in the subtree rooted at this node."""
+    """
+    Number of keys <= the given key in the subtree rooted at this node.
+    """
     if key < self.key:
       if self.left is not None:
         return self.left.rank(key)
@@ -682,7 +698,8 @@ class RangeNode(AVLNode):
       return self.right and self.right.lca(low_key, high_key)
 
   def list(self, low_key, high_key, result):
-    """Lists nodes with keys between low_key and high_key in this node's subtree.
+    """
+    Lists nodes with keys between low_key and high_key in this node's subtree.
     
     Extends result with a list of RangeNode instances for the nodes in the
     subtree rooted at this node, such that each node"s key is between low_key
