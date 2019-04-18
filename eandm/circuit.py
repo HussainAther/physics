@@ -723,95 +723,116 @@ class RangeTree(AVL):
         """
         AVL.__init__(self, node_class)
     
-  def rank(self, key):
-    """Number of keys <= the given key in the tree."""
-    if self.root is not None:
-      return self.root.rank(key)
-    return 0
+    def rank(self, key):
+        """
+        Number of keys <= the given key in the tree.
+        """
+        if self.root is not None:
+            return self.root.rank(key)
+        return 0
 
-  def lca(self, low_key, high_key):
-    """Lowest-common ancestor node of nodes with low_key and high_key.
+    def lca(self, low_key, high_key):
+        """
+        Lowest-common ancestor node of nodes with low_key and high_key.
     
-    If low_key and/or high_key are not in the tree, this returns the LCA of the
-    nodes that would be created by inserting the keys in the tree.
+        If low_key and/or high_key are not in the tree, this returns the LCA of the
+        nodes that would be created by inserting the keys in the tree.
     
-    Returns a RangeNode instance, or None if low_key and high_key are not in the
-    tree, and there is no key in the tree such that low_key < key < high_key.
-    """
-    return self.root and self.root.lca(low_key, high_key)
+        Return a RangeNode instance, or None if low_key and high_key are not in the
+        tree, and there is no key in the tree such that low_key < key < high_key.
+        """
+        return self.root and self.root.lca(low_key, high_key)
 
-  def list(self, low_key, high_key):
-    """A list containing the nodes with keys between low_key and high_key."""
-    result = []
-    lca = self.lca(low_key, high_key)
-    if lca is not None:
-      lca.list(low_key, high_key, result)
-    return result
+    def list(self, low_key, high_key):
+        """
+        A list containing the nodes with keys between low_key and high_key.
+        """
+        result = []
+        lca = self.lca(low_key, high_key)
+        if lca is not None:
+            lca.list(low_key, high_key, result)
+        return result
 
   # Un-comment the lines below for RI checking.
-  """
-  def insert(self, key):
-    result = AVL.insert(self, key)
-    self.check_ri()
-    return result
+    """
+    def insert(self, key):
+        result = AVL.insert(self, key)
+        self.check_ri()
+        return result
   
-  def delete(self, key):
-    result = AVL.delete(self, key)
-    self.check_ri()
-    return result
-  """
+    def delete(self, key):
+        result = AVL.delete(self, key)
+        self.check_ri()
+        return result
+    """
   
 class TracedRangeIndex(RangeIndex):
-  """Augments RangeIndex to build a trace for the visualizer."""
+    """
+    Augments RangeIndex to build a trace for the visualizer.
+    """
   
-  def __init__(self, trace):
-    """Sets the object receiving tracing info."""
-    RangeIndex.__init__(self)
-    self.trace = trace
+    def __init__(self, trace):
+        """
+        Sets the object receiving tracing info.
+        """
+        RangeIndex.__init__(self)
+        self.trace = trace
   
-  def add(self, key):
-    self.trace.append({"type": "add", "id": key.wire.name})
-    RangeIndex.add(self, key)
+    def add(self, key):
+        self.trace.append({"type": "add", "id": key.wire.name})
+        RangeIndex.add(self, key)
   
-  def remove(self, key):
-    self.trace.append({"type": "delete", "id": key.wire.name})
-    RangeIndex.remove(self, key)
+    def remove(self, key):
+        self.trace.append({"type": "delete", "id": key.wire.name})
+        RangeIndex.remove(self, key)
   
-  def list(self, first_key, last_key):
-    result = RangeIndex.list(self, first_key, last_key)
-    self.trace.append({"type": "list", "from": first_key.key,
-                       "to": last_key.key,
-                       "ids": [key.wire.name for key in result]})
-    return result
+    def list(self, first_key, last_key):
+        result = RangeIndex.list(self, first_key, last_key)
+        self.trace.append({"type": "list", "from": first_key.key,
+                            "to": last_key.key,
+                            "ids": [key.wire.name for key in result]})
+        return result
   
-  def count(self, first_key, last_key):
-    result = RangeIndex.count(self, first_key, last_key)
-    self.trace.append({"type": "list", "from": first_key.key,
-                       "to": last_key.key, "count": result})
-    return result
+    def count(self, first_key, last_key):
+        result = RangeIndex.count(self, first_key, last_key)
+        self.trace.append({"type": "list", "from": first_key.key,
+                            "to": last_key.key, "count": result})
+        return result
 
 class ResultSet(object):
-  """Records the result of the circuit verifier (pairs of crossing wires)."""
+    """
+    Records the result of the circuit verifier (pairs of crossing wires).
+    """
   
-  def __init__(self):
-    """Creates an empty result set."""
-    self.crossings = []
+    def __init__(self):
+        """
+        Creates an empty result set.
+        """
+        self.crossings = []
   
-  def add_crossing(self, wire1, wire2):
-    """Records the fact that two wires are crossing."""
-    self.crossings.append(sorted([wire1.name, wire2.name]))
+    def add_crossing(self, wire1, wire2):
+        """
+        Records the fact that two wires are crossing.
+        """
+        self.crossings.append(sorted([wire1.name, wire2.name]))
   
-  def write_to_file(self, file):
-    """Write the result to a file."""
-    for crossing in self.crossings:
-      file.write(" ".join(crossing))
-      file.write("\n")
+    def write_to_file(self, file):
+        """
+        Write the result to a file.
+        """
+        for crossing in self.crossings:
+            file.write(" ".join(crossing))
+            file.write("\n")
 
 class TracedResultSet(ResultSet):
-  """Augments ResultSet to build a trace for the visualizer."""
+    """
+    Augments ResultSet to build a trace for the visualizer.
+    """
   
-  def __init__(self, trace):
-    """Sets the object receiving tracing info."""
+    def __init__(self, trace):
+        """
+        Sets the object receiving tracing info.
+        """
     ResultSet.__init__(self)
     self.trace = trace
     
