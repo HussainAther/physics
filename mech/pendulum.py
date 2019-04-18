@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from math import *
 
 """
 Runge-Kutta algorithm to solve for the oscillations of a simple pendulum.
@@ -25,7 +24,7 @@ def delta_delta_theta(theta, delta_theta):
     
     d^2(theta)/dt^2 = -(delta_theta*r)^2 * sin(theta)
     """
-    return -(delta_theta)^2 * sin(theta)
+    return -(delta_theta)^2 * np.sin(theta)
 
 def a(theta):
     """
@@ -72,21 +71,22 @@ v[0] = np.radians(0)
 pendulum()
 
 plt.plot(t, y)
-plt.title('Pendulum Motion with Runge-Kutta method:')
-plt.xlabel('time (s)')
-plt.ylabel('angle (rad)')
+plt.title("Pendulum Motion with Runge-Kutta method:")
+plt.xlabel("time (s)")
+plt.ylabel("angle (rad)")
 plt.grid(True)
 plt.show()
 
 """
 Now solve the pendulum using Euler method.
 """
+
 def euler(dt, yi, theta):
     """
     Euler step uses -sin(theta) to solve differential equations
     """
     dtheta = dt * yi
-    dy = dt * (-sin(theta))
+    dy = dt * (-np.sin(theta))
     yi += dy
     theta += dtheta
     return yi
@@ -99,14 +99,13 @@ c = 10 # number of cycles
 dt = .05 # time step (interval)
 t = np.range(0, c, dt)
 
-
 for i in t:
     (y0, theta) = euler(dt, y0, theta)
     y.append(y0)
 
 plt.plot(t, y)
-plt.title('Pendulum Motion with Euler method:')
-plt.xlabel('time (s)')
-plt.ylabel('angle (rad)')
+plt.title("Pendulum Motion with Euler method:")
+plt.xlabel("time (s)")
+plt.ylabel("angle (rad)")
 plt.grid(True)
 plt.show()
