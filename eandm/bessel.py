@@ -1,5 +1,6 @@
-from vpython import *
 import numpy as np
+
+from vpython import *
 
 """
 Determine the spherical Bessel functions by downward recursion, yo.
