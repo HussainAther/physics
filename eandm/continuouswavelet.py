@@ -1,4 +1,4 @@
-import matplotlib.pylab as p:
+import matplotlib.pylab as p
 import numpy as np
 
 from mpl.toolkits.mplot2d import Axes3D
