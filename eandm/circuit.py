@@ -1079,7 +1079,9 @@ class TruthTable:
         self.input_count = self._table_depth(self.table)
 
     def output(self, inputs):
-        """Computes the output for this truth table, given a list of inputs."""
+        """
+        Compute the output for this truth table, given a list of inputs.
+        """
         if len(inputs) != self.input_count:
             raise ValueError("Inputs list is incorrectly sized")
         value = self.table
