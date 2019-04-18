@@ -99,24 +99,11 @@ def Tchange(Tguess, thetaeVal, wT, p):
 
 def Tdfind(wv, p):
     """
-    Tdfind(wv, p)
-
-    Calculates the due point temperature of an air parcel.
-
-    Parameters
-    - - - - - -
-    wv : float
-        Mixing ratio (kg/kg).
-    p : float
-        Pressure (Pa).
-
-    Returns
-    - - - -
-    Td : float
-        Dew point temperature (K).
-
+    Calculate the due point temperature of an air parcel.
+    wv is (float) mixing ratio (kg/kg).
+    p is (float) pressure (Pa).
+    Return Td is (float) dew point temperature (K).
     Examples
-    - - - - -
     >>> test.assert_almost_equal(Tdfind(0.001, 8.e4),253.39429,decimal=4)
 
     References
@@ -133,23 +120,11 @@ def Tdfind(wv, p):
 
 def esat(Temp):
     """
-    esat(Temp)
-
-    Calculates the saturation water vapor pressure over a flat
+    Calculate the saturation water vapor pressure over a flat
     surface of water at temperature 'T'.
-
-    Parameters
-    - - - - - -
-    Temp : float or array_like
-        Temperature of parcel (K).
-
-    Returns
-    - - - -
-    esatOut : float or list
-        Saturation water vapour pressure (Pa).
-
+    temp is (float) or array_like temperature of parcel (K).
+    Return esatOut is (float or list) saturation water vapour pressure (Pa).
     Examples
-    - - - - -
     >>> test.assert_almost_equal(esat(300.),3534.5196,decimal=3)
     >>> np.allclose(esat([300., 310.]),[3534.519, 6235.532])
     True
@@ -174,34 +149,15 @@ def esat(Temp):
     
 def LCLfind(Td, T, p):
     """
-    LCLfind(Td, T, p)
-
-    Finds the temperature and pressure at the lifting condensation
+    Find the temperature and pressure at the lifting condensation
     level (LCL) of an air parcel.
-
-    Parameters
-    - - - - - -
-    Td : float
-        Dewpoint temperature (K).
-    T : float
-        Temperature (K).
-    p : float
-        Pressure (Pa)
-
-    Returns
-    - - - -
-    Tlcl : float
-        Temperature at the LCL (K).
-    plcl : float
-        Pressure at the LCL (Pa).
-
-    Raises
-    - - - -
-    NameError
-        If the air is saturated at a given Td and T (ie. Td >= T)
-    
+    Td is (float) dewpoint temperature (K).
+    T is (float) temperature (K).
+    p is (float) pressure (Pa)
+    Return Tlcl is (float) temperature at the LCL (K).
+    plcl is (float) pressure at the LCL (Pa).
+    Raise NameError if the air is saturated at a given Td and T (ie. Td >= T)
     Examples
-    - - - - -
     >>> [Tlcl, plcl] =  LCLfind(280., 300., 8.e4)
     >>> print [Tlcl, plcl]
     [275.76250387361404, 59518.928699453245]
