@@ -1,31 +1,18 @@
 import numpy as np
-from constants import constants as c
 import matplotlib.cbook as cbook
 import numpy.testing as test
 
+from constants import constants as c
+
 def convertSkewToTemp(xcoord, press, skew):
     """
-    convertSkewToTemp(xcoord, press, skew)
-
-    Determines temperature from knowledge of a plotting coordinate
+    Determine temperature from knowledge of a plotting coordinate
     system and corresponding plot skew.
-    
-    Parameters
-    - - - - - -
-    xcoord : int
-        X coordinate in temperature plotting coordinates.
-    press : float
-        Pressure (hPa).
-    skew : int
-        Skew of a given coordinate system.
-
-    Returns
-    - - - -
-    Temp : float
-        Converted temperature in degC.
-
+    xcoord is (int) x coordinate in temperature plotting coordinates.
+    press is (float) pressure (hPa).
+    skew is (int) skew of a given coordinate system.
+    Return Temp (float) converted temperature in degC.
     Examples
-    - - - - -
     >>> test.assert_almost_equal(convertSkewToTemp(300, 8.e4, 30),638.6934,decimal=3)
     """
     Temp = xcoord  + skew * np.log(press);
@@ -33,61 +20,26 @@ def convertSkewToTemp(xcoord, press, skew):
 
 def convertTempToSkew(Temp, press, skew):
     """
-    convertTempToSkew(Temp, press, skew)
-
-    Determines the transformed temperature in plotting coordinates.
-    
-    Parameters
-    - - - - - -
-    Temp : float
-        Temperature (degC)
-    press : float
-        Pressure (hPa).
-    skew : int
-        Designated skew factor of temperature.
-
-    Returns
-    - - - -
-    tempOut : float
-        Converted temperature (degC).
-
+    Determine the transformed temperature in plotting coordinates.
+    Temp is (float) temperature (degC),
+    press is (float) pressure (hPa).
+    skew is (int) designated skew factor of temperature.
+    Return tempOut (float) Converted temperature (degC).
     Examples
-    - - - - -
     >>> test.assert_almost_equal(convertTempToSkew(30., 8.e4, 30),-308.693,decimal=3)
     """
-    
     tempOut = Temp - skew * np.log(press);
     return tempOut
 
 def findWvWl(Temp, wT, press):
     """
-    findWvWl(Temp, wT, press)
-
-    Computes the vapour and liquid water mixing ratios.
-
-    Parameters
-    - - - - - -
-    Temp : float
-        Temperature (K).
-    wT : float
-        Total water mixing ratio (kg/kg).
-    press : float
-        Pressure (Pa).
-
-
-    Returns
-    - - - -
-    wv : float
-        Water vapour mixing ratio (kg/kg).
-    wl : float
-        Liquid water mixing ratio (kg/kg).
-
-
-    Raises
-    - - - -
-    AssertionError
-        If any of the inputs are in vector form.
-
+    Compute the vapour and liquid water mixing ratios.
+    Temp is (float) temperature (K).
+    wT is (float) total water mixing ratio (kg/kg).
+    press is (float) pressure (Pa).
+    Return wv (float) water vapour mixing ratio (kg/kg).
+    wl is (float) liquid water mixing ratio (kg/kg).
+    Rais AssertionError If any of the inputs are in vector form.
     Examples
     - - - - -
     >>> test.assert_almost_equal(findWvWl(250., 0.01, 8.e4),(0.00074, 0.00925),decimal=5)
@@ -109,25 +61,13 @@ def findWvWl(Temp, wT, press):
 
 def tinvert_thetae(thetaeVal, wT, p):
     """
-    temp,wv,wl=tinvert_thetae(thetaeVal, wT, p)
-
-    Uses a rootfinder to determine the temperature for which the
+    Use a rootfinder to determine the temperature for which the
     pseudo equivilant potential temperature (thetaep) is equal to the
     equivilant potential temperature (thetae) of the parcel.
-
-    Parameters
-    - - - - - -
-    thetaeVal : float
-        Thetae of parcel (K).
-    wtotal : float
-        Total water mixing ratio (kg/kg).
-    p : float
-        Pressure of parcel in (Pa).
-
-    Returns
-    - - - -
-    theTemp : float
-        Temperature for which thetaep equals the parcel thetae (K).
+    thetaeVal is (float) thetae of parcel (K).
+    wtotal is (float) total water mixing ratio (kg/kg).
+    p is (float) pressure of parcel in (Pa).
+    Return theTemp (float) temperature for which thetaep equals the parcel thetae (K).
     wv : float
         Vapor mixing ratio of the parcel (kg/kg).
     wl : float
