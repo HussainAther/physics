@@ -964,39 +964,39 @@ class CrossVerifier(object):
             else:
                 self.events.append([wire.x1, 1, wire.object_id, "query", wire])
 
-  def _compute_crossings(self, count_only):
-    """Implements count_crossings and wire_crossings."""
-    if count_only:
-      result = 0
-    else:
-      result = self.result_set
-
-    for event in self.events:
-      event_x, event_type, wire = event[0], event[3], event[4]
-      
-      if event_type == "add":
-        self.index.add(KeyWirePair(wire.y1, wire))
-      elif event_type == "query":
-        self.trace_sweep_line(event_x)
-        cross_wires = []
-        for kwp in self.index.list(KeyWirePairL(wire.y1),
-                                   KeyWirePairH(wire.y2)):
-          if wire.intersects(kwp.wire):
-            cross_wires.append(kwp.wire)
+    def _compute_crossings(self, count_only):
+        """
+        Implement count_crossings and wire_crossings.
+        """
         if count_only:
-          result += len(cross_wires)
+            result = 0
         else:
-          for cross_wire in cross_wires:
-            result.add_crossing(wire, cross_wire)
+            result = self.result_set
 
-    return result
+        for event in self.events:
+            event_x, event_type, wire = event[0], event[3], event[4]
+      
+            if event_type == "add":
+                self.index.add(KeyWirePair(wire.y1, wire))
+            elif event_type == "query":
+                self.trace_sweep_line(event_x)
+                cross_wires = []
+            for kwp in self.index.list(KeyWirePairL(wire.y1),
+                                   KeyWirePairH(wire.y2)):
+                if wire.intersects(kwp.wire):
+                    cross_wires.append(kwp.wire)
+                if count_only:
+                    result += len(cross_wires)
+                else:
+            for cross_wire in cross_wires:
+                result.add_crossing(wire, cross_wire)
+        return result
   
-  def trace_sweep_line(self, x):
-    """When tracing is enabled, adds info about where the sweep line is.
-    
-    Args:
-      x: the coordinate of the vertical sweep line
-    """
+    def trace_sweep_line(self, x):
+        """
+        When tracing is enabled, adds info about where the sweep line is.
+        x is the coordinate of the vertical sweep line
+        """
     # NOTE: this is overridden in TracedCrossVerifier
     pass
   
