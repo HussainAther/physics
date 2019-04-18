@@ -712,15 +712,16 @@ class RangeNode(AVLNode):
             self.right.list(low_key, high_key, result)
 
 class RangeTree(AVL):
-  """BST with support for range queries."""
-
-  def __init__(self, node_class = RangeNode):
-    """Creates an empty AVL tree.
-    
-    Args:
-      node_class (optional): the class of nodes in the tree, defaults to AVLNode
     """
-    AVL.__init__(self, node_class)
+    BST with support for range queries.
+    """
+
+    def __init__(self, node_class = RangeNode):
+        """
+        Creates an empty AVL tree.
+        node_class (optional) is the class of nodes in the tree, defaults to AVLNode
+        """
+        AVL.__init__(self, node_class)
     
   def rank(self, key):
     """Number of keys <= the given key in the tree."""
