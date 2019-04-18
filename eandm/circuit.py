@@ -697,19 +697,19 @@ class RangeNode(AVLNode):
         else:
             return self.right and self.right.lca(low_key, high_key)
 
-  def list(self, low_key, high_key, result):
-    """
-    Lists nodes with keys between low_key and high_key in this node's subtree.
-    
-    Extends result with a list of RangeNode instances for the nodes in the
-    subtree rooted at this node, such that each node"s key is between low_key
-    and high_key."""
-    if low_key <= self.key <= high_key:
-      result.append(self)
-    if self.left is not None and low_key <= self.key:
-      self.left.list(low_key, high_key, result)
-    if self.right is not None and self.key <= high_key:
-      self.right.list(low_key, high_key, result)
+    def list(self, low_key, high_key, result):
+        """
+        List nodes with keys between low_key and high_key in this node's subtree.
+        Extend result with a list of RangeNode instances for the nodes in the
+        subtree rooted at this node, such that each node"s key is between low_key
+        and high_key.
+        """
+        if low_key <= self.key <= high_key:
+            result.append(self)
+        if self.left is not None and low_key <= self.key:
+            self.left.list(low_key, high_key, result)
+        if self.right is not None and self.key <= high_key:
+            self.right.list(low_key, high_key, result)
 
 class RangeTree(AVL):
   """BST with support for range queries."""
