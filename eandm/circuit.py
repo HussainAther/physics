@@ -681,22 +681,21 @@ class RangeNode(AVLNode):
             return lrank + self.right.rank(key)
         return lrank
 
-  def lca(self, low_key, high_key):
-    """Lowest-common ancestor node of nodes with low_key and high_key.
-    
-    If low_key and/or high_key are not in the tree, this returns the LCA of the
-    nodes that would be created by inserting the keys in the tree.
-    
-    Returns a RangeNode instance, or None if low_key and high_key are not in the
-    node"s subtree, and there is no key in the tree such that
-    low_key < key < high_key.
-    """
-    if low_key <= self.key <= high_key:
-      return self
-    if low_key < self.key:
-      return self.left and self.left.lca(low_key, high_key)
-    else:
-      return self.right and self.right.lca(low_key, high_key)
+    def lca(self, low_key, high_key):
+        """
+        Lowest-common ancestor node of nodes with low_key and high_key.
+        If low_key and/or high_key are not in the tree, this returns the LCA of the
+        nodes that would be created by inserting the keys in the tree.
+        Returns a RangeNode instance, or None if low_key and high_key are not in the
+        node"s subtree, and there is no key in the tree such that
+        low_key < key < high_key.
+        """
+        if low_key <= self.key <= high_key:
+            return self
+        if low_key < self.key:
+            return self.left and self.left.lca(low_key, high_key)
+        else:
+            return self.right and self.right.lca(low_key, high_key)
 
   def list(self, low_key, high_key, result):
     """
