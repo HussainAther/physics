@@ -1,6 +1,7 @@
-from qutip import *
-from scipy import *
 import matplotlib.pyplot as plt
+
+from scipy import *
+from qutip import *
 from numpy import zeros
 
 """
