@@ -6,7 +6,7 @@ from constants import constants
 from new_thermo import theta, convertTempToSkew
 from convecSkew import convecSkew
 
-c=constants()
+c = constants()
 
 """
 Carnot heat engine:
@@ -19,24 +19,24 @@ Carnot heat engine:
 note that Qin > Qout so that work done by the system in the carnot cycle = Qin - Qout > 0
 """
 
-pressA=1.e5
-tempA=15 + c.Tc
-pressC=0.7e5
-tempC=5 + c.Tc
-thetaA=theta(tempA,pressA)
-thetaC=theta(tempC,pressC)
-thetaB=thetaC
-tempB=tempA
-term1=(thetaB/tempB)**(c.cpd/c.Rd)
-term1=1./term1
-pressB=term1*1.e5
-tempD=tempC
-thetaD=thetaA
-term1=(thetaD/tempD)**(c.cpd/c.Rd)
-term1=1./term1
-pressD=term1*1.e5
+pressA = 1.e5
+tempA = 15 + c.Tc
+pressC = 0.7e5
+tempC = 5 + c.Tc
+thetaA = theta(tempA,pressA)
+thetaC = theta(tempC,pressC)
+thetaB = thetaC
+tempB = tempA
+term1= ( thetaB/tempB)**(c.cpd/c.Rd)
+term1 = 1./term1
+pressB = term1*1.e5
+tempD  =tempC
+thetaD = thetaA
+term1 = (thetaD/tempD)**(c.cpd/c.Rd)
+term1 = 1./term1
+pressD = term1*1.e5
 plt.figure(1)
-skew, ax1 =convecSkew(1)
+skew, ax1 = convecSkew(1)
 
 xtempA=convertTempToSkew(tempA - c.Tc,pressA*0.01,skew)
 xtempB=convertTempToSkew(tempB - c.Tc,pressB*0.01,skew)
@@ -85,10 +85,10 @@ xtempB=convertTempToSkew(tempB - c.Tc,pressB*0.01,skew)
 xtempC=convertTempToSkew(tempC - c.Tc,pressC*0.01,skew)
 xtempD=convertTempToSkew(tempD - c.Tc,pressD*0.01,skew)
 
-plt.text(xtempA,pressA*0.01,'A', fontweight='bold',fontsize= 22, color='b')
-plt.text(xtempB,pressB*0.01,'B', fontweight='bold',fontsize= 22,color='b')
-plt.text(xtempC,pressC*0.01,'C', fontweight='bold',fontsize= 22,color='b')
-plt.text(xtempD,pressD*0.01,'D', fontweight='bold',fontsize= 22, color='b')
+plt.text(xtempA,pressA*0.01,"A", fontweight="bold",fontsize= 22, color="b")
+plt.text(xtempB,pressB*0.01,"B", fontweight="bold",fontsize= 22,color="b")
+plt.text(xtempC,pressC*0.01,"C", fontweight="bold",fontsize= 22,color="b")
+plt.text(xtempD,pressD*0.01,"D", fontweight="bold",fontsize= 22, color="b")
 
 xmin = convertTempToSkew(0,pressA*0.01,skew)
 xmax = convertTempToSkew(35,pressA*0.01,skew)
@@ -99,7 +99,6 @@ plt.show()
 #print -dpdf backward_carnot.pdf
 #print -dpng -r200 backward_carnot.png
 #print -depsc  backward_carnot_clip.eps
-
 
 #Calculate the heat input and output
 
@@ -116,20 +115,19 @@ qin=tempB*deltaS
 qout=tempA*deltaS
 work_done=qin - qout
 
-
 out_mesg = "Heat absorbed during expansion (qin) = %8.3f (J/kg)\n\
-Heat expelled during compression (qout) = %8.3f (J/kg)\n\
-Work required to complete the cycle (work_done) = %8.3f (J/kg)\n\
-(this is also the net energy removed from the room)"
+            Heat expelled during compression (qout) = %8.3f (J/kg)\n\
+            Work required to complete the cycle (work_done) = %8.3f (J/kg)\n\
+            (this is also the net energy removed from the room)"
 
-print out_mesg %(qin, qout, work_done)
+print(out_mesg %(qin, qout, work_done))
 
 #check this using enthalpy per the carnot_refrigerator notes
 
-qin_h= c.cpd*(tempC - tempB) - c.Rd*tempB*(np.log(pressC) - np.log(pressB))
-qout_h= c.cpd*(tempD - tempA) - c.Rd*tempD*(np.log(pressD) - np.log(pressA))
+qin_h = c.cpd*(tempC - tempB) - c.Rd*tempB*(np.log(pressC) - np.log(pressB))
+qout_h = c.cpd*(tempD - tempA) - c.Rd*tempD*(np.log(pressD) - np.log(pressA))
 
 out_mesg = "Enthalpy check: heat absorbed during expansion (qin) = %8.3f (J/kg)\n\
 Enthalpy check: Heat expelled during compression (qout) = %8.3f (J/kg)"
 
-print out_mesg %(qin, qout)
+print(out_mesg %(qin, qout))
