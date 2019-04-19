@@ -25,10 +25,10 @@ lambda = f'(u_star) = 2 - r
 as r increases from 0 under the contsraint 0 < r < 1 
 with non-negative equilibrium u_star 
 """
-# central differentiation
+
 def cd(y, t, h):
     """
-    Differentiate around both sides of a point t of interval h.
+    Central differentiation: Differentiate around both sides of a point t of interval h.
     """
     return ( y(t+h/2) -y(t-h/2))/h
 
