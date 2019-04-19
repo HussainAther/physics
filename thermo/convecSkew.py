@@ -6,12 +6,10 @@ from constants import constants as c
 from new_thermo import convertSkewToTemp,convertTempToSkew,theta,wsat,thetaes
 
 def convecSkew(figNum):
-      """       
-      Usage:  convecSkew(figNum)
-      Input:  figNum = integer
-       Takes any integer, creates figure(figNum), and plots a
-       skewT logp thermodiagram.
-      Output: skew=30 and the handle for the plot
+      """    
+      Skew-T diagram for the level of free convection. 
+      Take any integer, creates figure(figNum), and plots a
+      skewT logp thermodiagram.
       """
       fig=plt.figure(figNum)
       fig.clf()
