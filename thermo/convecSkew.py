@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 from constants import constants as c
 from new_thermo import convertSkewToTemp,convertTempToSkew,theta,wsat,thetaes
 
+"""
+Skew-T diagrams for convective inhibition are used in thermodynamics and weather analysis.  
+"""
+
 def convecSkew(figNum):
       """    
       Skew-T diagram for the level of free convection. 
