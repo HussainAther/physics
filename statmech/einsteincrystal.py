@@ -1,7 +1,7 @@
+import numpy as np
+
 from pylab import *
 from scipy.misc import comb
-
-import numpy as np
 
 """
 Calculate entropy as a function of q (heat of crystal A) as two Einstein crystals come
