@@ -1,11 +1,13 @@
-from sympy import sqrt, I, Symbol, Integer, S
-from sympy.functions.special.tensor_functions import KroneckerDelta
 import sympy.physics.quantum as sm
 import numpy as np
+
+from sympy import sqrt, I, Symbol, Integer, S
+from sympy.functions.special.tensor_functions import KroneckerDelta
 
 """
 Simple Harmonic Oscillator in 1-Dimension
 """
+
 class SHOOp(Operator):
     """
     SHO Operators
@@ -163,7 +165,6 @@ class SHOKet(SHOState, Ket):
     """
     1-dimensional eigenket. Inehrits from SHOState and Ket.
     """
-
     @classmethod
     def dual_class(self):
         return SHOBra
