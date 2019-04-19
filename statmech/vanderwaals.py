@@ -1,7 +1,7 @@
-from pylab import *
-
 import numpy as np
 import matplotlib.pyplot as plt
+
+from pylab import *
 
 """
 Simulate a system of gas particles undergoing van der Waals forces
