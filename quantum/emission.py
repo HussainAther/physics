@@ -1,6 +1,7 @@
 import numpy as np
-from qutip import *
 import pylab as plt
+
+from qutip import *
 
 """
 Given a correlation function ⟨𝐴(𝜏 )𝐵(0)⟩ we can define the corresponding power spectrum as
