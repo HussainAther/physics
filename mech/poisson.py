@@ -36,7 +36,9 @@ b[int(ny / 4), int(nx / 4)]  = 100
 b[int(3 * ny / 4), int(3 * nx / 4)] = -100
 
 for it in range(nt):
-
+    """
+    Calculate the probability using Poisson's equation.
+    """ 
     pd = p.copy()
 
     p[1:-1,1:-1] = (((pd[1:-1, 2:] + pd[1:-1, :-2]) * dy**2 +
