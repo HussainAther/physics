@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 """
-Runge-Kutta algorithm to solve for the oscillations of a simple pendulum.
+Runge-Kutta (runge kutta Runge Kutta) algorithm to solve for the oscillations of a simple pendulum.
 """
 
 def delta_theta(T):
