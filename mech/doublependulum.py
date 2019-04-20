@@ -22,6 +22,9 @@ def positionDoublePendulum(y, x):
     return array([ (p1-p2*cs)*tt, (2*p2-p1*cs)*tt, -2*np.sin(t1)-c1+c2, -np.sin(t2)+c1-c2])
 
 def energyDoublePendulum(y):
+    """
+    Solve the rk4 equations for energy.
+    """
     t1,t2 = y[0],y[1]
     p1,p2 = y[2],y[3]
     cs = np.cos(t1-t2)
