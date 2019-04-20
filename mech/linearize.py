@@ -1,4 +1,3 @@
-from __future__ import division
 from sympy import *
 from sympy.physics.mechanics import *
 
