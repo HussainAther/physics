@@ -1,6 +1,7 @@
+import numpy as np
+
 from numpy.linalg import solve
 from vpython.graph import *
-from numpy import zeros
 
 """
 Use the Newton-Rhaphson search to solve the two-mass-on-a-string problem.
@@ -19,8 +20,8 @@ tempe = curve(x=range(0, 500), color=color.black)
 
 n = 9 # number of columns of the matrix x minus 1
 eps = 1e-6 # precision
-deriv = zeros((n,n), float) # just get some zeros. keep track of derivatives
-f = zeros(n, float)
+deriv = np.zeros((n,n), float) # just get some zeros. keep track of derivatives
+f = np.zeros(n, float)
 x = array([.5, .5, .5, .5, .5, .5, .5, 1, 1, 1])
 
 def plotconfig():
