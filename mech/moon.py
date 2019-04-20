@@ -1,7 +1,9 @@
+import numpy as np
+
 from visual.graph import *
 
 """
-Moon orbiting a planet
+Equations of motion for a moon orbiting a planet.
 """
 
 graph = gdisplay(x=0, y=0, width=500, height=500, title="Motion of a satellite around a planet",
@@ -13,7 +15,7 @@ planetradius = 4 # planet orbit radius
 wplanet = 2 # planet angular velocity
 moonradius = 1 # moon radius around planet
 wmoon = 14 # moon angular velocity around planet
-for time in range(0, 3.2, .02):
+for time in np.arange(0, 3.2, .02): # iterate
     rate(20)
     x = planetradius*cos(wplanet*time) + moonradius*cos(wmoon*time)
     y = planetradius*sin(wplanet*time) + moonradius*sin(wmoon*time)
