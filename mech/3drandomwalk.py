@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 from vpython import *
 
@@ -33,4 +34,4 @@ for i in range(1, 100):
     pts.z[i] = 200*zz - 100
     rate(100)
 
-print("This walk’s distance R =" , sqrt(xx∗xx + yy∗yy+ zz∗zz))
+print("This walk’s distance R =" , np.sqrt(xx∗xx + yy∗yy+ zz∗zz))
