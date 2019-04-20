@@ -44,7 +44,7 @@ def plotNumeric(k):
         x = x + vx*dt
         y = y + vy*dt
         funct.plot(pos=(x,y))
-        print(" %13.10f %13.10f "%(x,y))
+        print(" %13.10f %13.10f " % (x,y))
 
 def plotAnalytic():
     """
