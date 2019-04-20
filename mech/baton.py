@@ -7,7 +7,9 @@ Model a baton using a ball attached to a stick. Compute mechanical properties.
 """
 
 class Ball:
-    """It's ball, yo.""""
+    """
+    It's ball, yo.
+    """"
     def __init__(self, mass, radius):
         self.m = mass
         self.r = radius
@@ -22,7 +24,9 @@ class Ball:
         return (2.0/5.0)*self.m*(self.r)**2
 
 class Path:
-    """The path the ball takes."""
+    """ 
+    The path the ball takes.
+    """
         def __init__(self, v0, theta):
             self.g = 9.8 # acceleration due to gravity
             self.v0 = v0 # initail velocity
@@ -38,7 +42,10 @@ class Path:
             self.t = t
             return self.v0y*self.t - .5*self.g*t**2
 
-class Baton(Ball.Bll, Path,Path): # inherit both Ball and Path props
+class Baton(Ball.Bll, Path,Path): 
+    """
+    Inherit both Ball and Path properties
+    """
 
         def __init__(self, mass, radius, v0, theta, L1, w1): # all the parts of the Baton
             Ball.Ball.__init__(self, mass, radius)
