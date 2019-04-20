@@ -13,9 +13,9 @@ Poisson's equation acts to "relax" the initial sources in the field.
 """
 
 # Parameters
-nx = 50
-ny = 50
-nt  = 100
+nx = 50 # x width
+ny = 50 # y height
+nt  = 100 # number of time steps
 xmin = 0
 xmax = 2
 ymin = 0
