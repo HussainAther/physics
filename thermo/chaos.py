@@ -20,4 +20,10 @@ def eq(x, t, w, e):
     equal to zero.
     """
     xdot[1] = -w**2 + e * np.cos(t[1]) * np.sin(x[1])
-    tdot = [1]*len(t) # differential of time  
+    """
+    Solving this using the Hamiltonian vector field, we obtain a system
+    of equations. 
+    """
+    tdot = [1]*len(t) # differential of time 
+    xdot[0] = y # set the first derivative equal to y, which should be x[0] in the original input
+    ydot = -(w**2 + e * np.cos(t) * np.sin(x[0])  
