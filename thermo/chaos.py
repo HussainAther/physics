@@ -14,4 +14,9 @@ def eq(x, t, w, e):
     dy = x[1]
     xdot = [[],[]] # first and second derivative of x
     xdot[0] = dy # first derivate of x
-    xdot[1] = -w**2 + e * np.cos(t[1]) * np.sin(x[1]) 
+    """
+    Introduce our equation of motion which we can solve by setting
+    equal to zero.
+    """
+    xdot[1] = -w**2 + e * np.cos(t[1]) * np.sin(x[1])
+ 
