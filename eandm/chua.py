@@ -12,10 +12,13 @@ def res(x):
     """
     return np.sin(x) 
 
-def ChuaEq(alpha, beta, x, y, z):
+def ChuaEq(alpha, beta, x, y, z, R, C):
     """
     For x(t), y(t), and z(t) voltages across capacitors C1 and C2 and current in
     inductor L1, respectively, we describe three equations to illustrate the 
-    dynamics of Chua's circuit.
+    dynamics of Chua's circuit with resistor R and capacitance of the second capacitor C.
     """
-    dxdt = alpha*(y - x -res(x))
+    dxdt = alpha*(y - x - res(x))
+    dydt = (x - y + R*z) / (R*C)
+    dzdt = -beta*y
+    return (dxdt, dydt, dzdt)
