@@ -26,4 +26,8 @@ def eq(x, t, w, e):
     """
     tdot = [1]*len(t) # differential of time 
     xdot[0] = y # set the first derivative equal to y, which should be x[0] in the original input
-    ydot = -(w**2 + e * np.cos(t) * np.sin(x[0])  
+    ydot = -(w**2 + e * np.cos(t) * np.sin(x[0]) 
+
+"""
+We observe chaos in this Hamiltonian dynamical system.
+""" 
