@@ -8,7 +8,8 @@ and heteroclinic orbits.
 def eq(x, t, w, e):
     """
     An equation of motion for which we will find the coresponding Hamiltonian
-    vector field for positions x, times t, omega w, and epsilon e.
+    vector field for positions x, times t, omega (angular frequency) w, and 
+    epsilon (eigenvector) e.
     """
     y = x[0]
     dy = x[1]
@@ -19,4 +20,4 @@ def eq(x, t, w, e):
     equal to zero.
     """
     xdot[1] = -w**2 + e * np.cos(t[1]) * np.sin(x[1])
- 
+    tdot = [1]*len(t) # differential of time  
