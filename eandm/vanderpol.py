@@ -15,5 +15,8 @@ def response(x, t):
     for some input lists x and t of position and time, respectively.
     """
     xdot = ["", ""] # first and second derivative of x
-    return xdot[1][0]     
+    e = 10 # epsilon
+    xdot[0] = x[0]
+    xdot[1] = x[0] /(t[1]- t[0]) 
+    return xdot[1] - e(1 - x[0]**2) * xdot[0] + x[0] 
  
