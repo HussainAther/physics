@@ -5,10 +5,13 @@ We observe chaos when we split separatrices of Hamiltonian systems in homo-
 and heteroclinic orbits.
 """
 
-def eq(t, x):
+def eq(x, t, w, e):
     """
     An equation of motion for which we will find the coresponding Hamiltonian
-    vector field.
+    vector field for positions x, times t, omega w, and epsilon e.
     """
-
-dx2d2t + (omega**2 + epsilon * np.cos(t) * np.sin(x) = 0 
+    y = x[0]
+    dy = x[1]
+    xdot = [[],[]] # first and second derivative of x
+    xdot[0] = dy # first derivate of x
+    xdot[1] = -w**2 + e * np.cos(t[1]) * np.sin(x[1]) 
