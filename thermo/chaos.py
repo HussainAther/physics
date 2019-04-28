@@ -14,18 +14,18 @@ def eq(x, t, w, e):
     y = x[0]
     dy = x[1]
     xdot = [[],[]] # first and second derivative of x
-    xdot[0] = dy # first derivate of x
+    xdot[0][0] = dy # first derivate of x
     """
     Introduce our equation of motion which we can solve by setting
     equal to zero.
     """
-    xdot[1] = -w**2 + e * np.cos(t[1]) * np.sin(x[1])
+    xdot[1][0] = -w**2 + e * np.cos(t[1]) * np.sin(x[1])
     """
     Solving this using the Hamiltonian vector field, we obtain a system
     of equations. 
     """
     tdot = [1]*len(t) # differential of time 
-    xdot[0] = y # set the first derivative equal to y, which should be x[0] in the original input
+    xdot[0][0] = y # set the first derivative equal to y, which should be x[0] in the original input
     ydot = -(w**2 + e * np.cos(t) * np.sin(x[0]) 
 
 """
