@@ -20,8 +20,17 @@ def response(x, t):
     xdot[1] = x[0] /(t[1]- t[0]) 
     return xdot[1] - e(1 - x[0]**2) * xdot[0] + x[0] 
 
-def circuit(V):
+def psi(x):
     """
-    For a list of input voltage V, we can introduce new variables alpha and gamma
-    to study an electrical circuit with a tunnel diode for the van der Pol oscillator.
-    """ 
+    Output for tunnel diode.
+    """
+    return np.sin(x)
+
+def circuit(V, I0, L, C, alpha, beta):
+    """
+    For a list of input voltage V, initial input current I0, inductance L and capacitance C, we can introduce new 
+    variables alpha and gamma to study an electrical circuit with a tunnel diode for the van der Pol oscillator.
+    """
+    Vdot = [V[0], V[0]/(psi(np.pi(/2))) # first and second derivative of V
+    return Vdot[1] - (1/C) * (alpha - 3*gamma*V[0]**2)*Vdot[0] + 1/(L*C)*V[0] 
+     
