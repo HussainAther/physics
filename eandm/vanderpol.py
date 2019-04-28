@@ -11,5 +11,9 @@ in which epsilon is a parameter > 0 for some dynamical variable x.
 def response(x, t):
     """
     The van der Pol oscillator responds to periodic forcing with two frequencies
-    in the system: frequency of self-oscillation and frequency of periodic forcing. 
+    in the system: frequency of self-oscillation and frequency of periodic forcing
+    for some input lists x and t of position and time, respectively.
     """
+    xdot = ["", ""] # first and second derivative of x
+    return xdot[1][0]     
+ 
