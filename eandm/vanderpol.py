@@ -19,4 +19,9 @@ def response(x, t):
     xdot[0] = x[0]
     xdot[1] = x[0] /(t[1]- t[0]) 
     return xdot[1] - e(1 - x[0]**2) * xdot[0] + x[0] 
- 
+
+def circuit(V):
+    """
+    For a list of input voltage V, we can introduce new variables alpha and gamma
+    to study an electrical circuit with a tunnel diode for the van der Pol oscillator.
+    """ 
