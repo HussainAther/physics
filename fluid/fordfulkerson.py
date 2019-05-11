@@ -14,6 +14,12 @@ def fofu(graph, source, sink):
     while path: # while we haven't found a path.
         path, reserve = dfs(graph, source, sink)
         flow += reserve
+    # increase flow along the path
+    for v, u in zip(path, path[1:]):
+        if graph.has_edge(v, u):
+            graph[v][u]["flow"] += reserve
+        else:
+            graph[u][v]["flow"] -= reserve
 
 def dfs(graph, source, sink):
     """
@@ -37,8 +43,8 @@ def dfs(graph, source, sink):
             continue
         # current flow and capacity
         in_direction = graph.has_edge(v, u)
-        capacity = e['capacity']
-        flow = e['flow']
+        capacity = e["capacity"]
+        flow = e["flow"]
         # increase or redirect flow at the edge
         if in_direction and flow < capacity:
             stack.append((u, capacity - flow, undirected[u]))
