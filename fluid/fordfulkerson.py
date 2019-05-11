@@ -10,3 +10,18 @@ def fofu(graph, source, sink):
     Ford-Fulkerson (ford Ford fulkerson Fulkerson) to serach for a path between source
     and sink.
     """
+    flow, path = 0, True
+    while path: # while we haven't found a path.
+        path, reserve = dfs(graph, source, sink)
+
+def dfs(graph, start, sink):
+    """
+    Perform depth-first (depth first) search.
+    """
+    visited, stack = set(), [start]
+    while stack:
+        vertex = stack.pop()
+        if vertex not in visited:
+            visited.add(vertex)
+            stack.extend(graph[vertex] - visited)
+    return visited
