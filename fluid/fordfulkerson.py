@@ -13,15 +13,40 @@ def fofu(graph, source, sink):
     flow, path = 0, True
     while path: # while we haven't found a path.
         path, reserve = dfs(graph, source, sink)
+        flow += reserve
 
-def dfs(graph, start, sink):
+def dfs(graph, source, sink):
     """
-    Perform depth-first (depth first) search.
+    Perform depth-first (depth first) search and its
+    corresponding flow reserve. 
     """
-    visited, stack = set(), [start]
+    undirected = graph.to_undirected()
+    explored = {source}
+    stack = [(source, 0, undirected[source])]
     while stack:
-        vertex = stack.pop()
-        if vertex not in visited:
-            visited.add(vertex)
-            stack.extend(graph[vertex] - visited)
-    return visited
+        v, _, neighbours = stack[-1]
+        if v == sink:
+            break
+        # search the next neighbour
+        while neighbours:
+            u, e = neighbours.popitem()
+            if u not in explored:
+                break
+        else:
+            stack.pop()
+            continue
+        # current flow and capacity
+        in_direction = graph.has_edge(v, u)
+        capacity = e['capacity']
+        flow = e['flow']
+        # increase or redirect flow at the edge
+        if in_direction and flow < capacity:
+            stack.append((u, capacity - flow, undirected[u]))
+            explored.add(u)
+        elif not in_direction and flow:
+            stack.append((u, flow, undirected[u]))
+            explored.add(u)
+    # (source, sink) path and its flow reserve
+    reserve = min((f for _, f, _ in stack[1:]), default=0)
+    path = [v for v, _, _ in stack]
+    return path, reserve
