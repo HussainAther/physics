@@ -4,7 +4,9 @@
 #include <valarray>
 #include <cassert>
 
-/* Exact diagonalization of the Hamiltonian matrix using the Lanczos algorithm.*/ 
+/* Exact diagonalization of the Hamiltonian matrix using the Lanczos algorithm.
+The size of the Hilbert space of an N-site system can be reduced using symmetries.
+*/ 
 
 class FermionBasis {
 public:
