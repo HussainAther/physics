@@ -12,4 +12,4 @@ pr = Fd(p) * F(q)
 v = AntiSymmetricTensor("v", (p, q), (r, s))
 pqsr = Fd(p) * Fd(q) * F(s) * F(r)
 Hamiltonian = f * pr + Rational(1) / Rational(4) * v * pqsr
-
+a, b, c, d, e, f = symbols("a, b, c, d, e, f", above_fermi=True)
