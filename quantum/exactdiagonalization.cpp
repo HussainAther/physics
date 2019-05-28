@@ -60,3 +60,13 @@ void HamiltonianMatrix::multiply(std::valarray<double>& v,
         // count number of neighboring fermion pairs
         v[i]=w[i]*V_*alps::popcnt(s&(s>>1));
 }
+// do the t-term
+for (int i=0;i<dimension();++i) {
+    state_type s = state(i);
+    // inside the chain
+    for (int r=0;r<L_-1;++r) {
+        state_type shop = s^(3<<r); // exchange two neighbors
+        index_type idx = index(shop); // get the index
+        if(idx!=std::numeric_limits<index_type>::max())
+            v[idx]+=-t_*w[i];
+}
