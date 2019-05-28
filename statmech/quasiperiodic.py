@@ -8,6 +8,10 @@ Quasiperiodic (quasi periodic) signal.
 """
 
 def gaussian_frequency(array_length = 10000, central_freq = 100, std = 10):
+    """
+    Output Gaussian frquencies for an array length, central frequency,
+    and standard deviation.
+    """
     n = np.arange(array_length)
     f = np.sqrt(2)*std*erfinv(2*n/array_length - erf(central_freq/np.sqrt(2)/std)) + central_freq
     return f
