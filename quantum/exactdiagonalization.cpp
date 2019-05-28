@@ -20,4 +20,6 @@ private:
     std::vector<state_type> states_;
     std::vector<index_type> index_;
 };
-I
+
+/* Fermion basis states */
+FermionBasis::FermionBasis(int L, int N)
