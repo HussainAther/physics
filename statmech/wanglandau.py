@@ -140,5 +140,5 @@ for j in range(0, N+1):
     if S[j] != 0:
         entrp.plot(pos = (order/N, deltaS)) # plot the entropy
 
-IntEnergy():
+IntEnergy()
 print("Done.")
