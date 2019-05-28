@@ -35,3 +35,10 @@ FermionBasis::FermionBasis(int L, int N)
         // invalid state
         index_[s]=std::numeric_limits<index_type>::max();
 }
+
+/* Matrix-vector multiplication v = Hw for our Hamiltonian. */
+class HamiltonianMatrix : public FermionBasis {
+public:
+    HamiltonianMatrix(int L, int N, double t, double V)
+        : FermionBasis(L,N), t_(t), V_(V), L_(L) {}
+    void multiply(std::valarray<double>& v, const std::valarray<double>& w);
