@@ -42,3 +42,21 @@ public:
     HamiltonianMatrix(int L, int N, double t, double V)
         : FermionBasis(L,N), t_(t), V_(V), L_(L) {}
     void multiply(std::valarray<double>& v, const std::valarray<double>& w);
+private:
+    double t_, V_;
+    int L_;
+};
+
+/* Implementation */
+void HamiltonianMatrix::multiply(std::valarray<double>& v,
+             const std::valarray<double>& w)
+{
+    // check dimensions
+    assert(v.size()==dimension());
+    assert(w.size()==dimension());
+    // do the V-term
+    for (int i=0;i<dimension();++i) {
+        state_type s = state(i);
+        // count number of neighboring fermion pairs
+        v[i]=w[i]*V_*alps::popcnt(s&(s>>1));
+}
