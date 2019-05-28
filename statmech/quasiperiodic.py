@@ -1,0 +1,3 @@
+"""
+Quasiperiodic (quasi periodic) signal.
+"""
