@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.special import erf, erfinv
 
 """
-Quasiperiodic (quasi periodic) signal.
+Quasiperiodic (quasi periodic) signal of Fourier transform.
 """
 
 def gaussian_frequency(array_length = 10000, central_freq = 100, std = 10):
