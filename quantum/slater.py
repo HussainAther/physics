@@ -4,3 +4,6 @@ from sympy.physics.secondquant import F, Fd, wicks, AntiSymmetricTensor, substit
 """
 Define Hamiltonian and the second-quantized representation of a three-body Slater determinant.
 """
+
+# Define Hamiltonian
+p, q, r, s = symbols("p q r s", dummy=True)
