@@ -24,5 +24,3 @@ for i in t:
 
 plt.figure()
 plt.plot(t, s)
-
-S = abs(
