@@ -69,4 +69,12 @@ for (int i=0;i<dimension();++i) {
         index_type idx = index(shop); // get the index
         if(idx!=std::numeric_limits<index_type>::max())
             v[idx]+=-t_*w[i];
+    }
+    // across the boundary
+        state_type shop = s^(1|(1<<(L-1))); // exchange the first and last
+        index_type idx = index(shop); // get the index
+            if(idx!=std::numeric_limits<index_type>::max())
+            // watch out for Fermi sign since we hop over some particles
+            v[idx]+=-t*(alps::popcnt(s&((1<<(L-1))-1))%2==0 ? 1 : -1)*w[i];
+    }
 }
