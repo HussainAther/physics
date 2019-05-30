@@ -19,4 +19,10 @@ def Ii(C0, C, V0, Vout):
         num = i * Vout[i] 
         den = V0 * (C0 + sum(C))
         summ += num/den
-    return summ 
+    return summ
+
+"""
+For a binary stochastic neuron (BSN) with response mi to input Ii for a random number r,
+we can create a probabilistic network that can perform functions depending on the weights.
+The p-bit bridges the gap between stochastic machine learning and quantum computing.
+""" 
