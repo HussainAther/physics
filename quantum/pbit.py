@@ -27,8 +27,9 @@ we can create a probabilistic network that can perform functions depending on th
 The p-bit bridges the gap between stochastic machine learning and quantum computing.
 """
 
-def bayes():
+def bayes(a, b):
     """
-    Return geometric correlation (relatedness) between nodes in the tree. Bayesian inference as an application 
+    Return geometric correlation (relatedness) between a and b nodes in the tree. Bayesian inference as an application 
     of stochastic circuits in the simulation of netowrks whose nodes are stochastic in nature.
-    """ 
+    """
+    return np.correlate(a, b) 
