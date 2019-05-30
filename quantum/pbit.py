@@ -25,4 +25,10 @@ def Ii(C0, C, V0, Vout):
 For a binary stochastic neuron (BSN) with response mi to input Ii for a random number r,
 we can create a probabilistic network that can perform functions depending on the weights.
 The p-bit bridges the gap between stochastic machine learning and quantum computing.
-""" 
+"""
+
+def bayes():
+    """
+    Return geometric correlation (relatedness) between nodes in the tree. Bayesian inference as an application 
+    of stochastic circuits in the simulation of netowrks whose nodes are stochastic in nature.
+    """ 
