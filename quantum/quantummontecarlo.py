@@ -1,7 +1,6 @@
 import random
 import numpy as np
-
-from vpython.graph import *
+import vpython.graph as vp
 
 """
 Determine the ground-state probabilty via a Feynman path integration
@@ -14,27 +13,27 @@ xscale = 10
 path = np.zeros([M], float)
 prob = np.zeros([M], float)
 
-trajec = display(width=300, height=500, title="Spacetime Trajectories")
-trplot = curve(y=range(0, 100), color=color.magenta, display=trajec)
+trajec = vp.display(width=300, height=500, title="Spacetime Trajectories")
+trplot = vp.curve(y=range(0, 100), color=color.magenta, vp.display=trajec)
 
 def trjaxs():
-    trax = curve(pos=[(-97, -100), (100, -100)], color=color.cyan, display = trajec)
-    label(pos = (0,−110), text = "0", box = 0, display = trajec)
-    label(pos = (60,−110), text = "x", box = 0, display = trajec)
+    trax = vp.curve(pos=[(-97, -100), (100, -100)], color=color.cyan, vp.display = trajec)
+    vp.label(pos = (0,−110), text = "0", box = 0, vp.display = trajec)
+    vp.label(pos = (60,−110), text = "x", box = 0, vp.display = trajec)
 
-wvgraph = display(x=340,y=150,width=500,height=300, title="Ground State")
-wvplot = curve(x = range(0, 100), display = wvgraph)
-wvfax = curve(color = color.cyan)
+wvgraph = vp.display(x=340,y=150,width=500,height=300, title="Ground State")
+wvplot = vp.curve(x = range(0, 100), vp.display = wvgraph)
+wvfax = vp.curve(color = color.cyan)
 
 def wvfaxs() :     
     """
     Axis for probability plot.
     """
-    wvfax = curve(pos =[(−600,−155),(800,−155)], display=wvgraph,color=color.cyan)
-    curve(pos = [(0,−150), (0,400)], display=wvgraph, color=color.cyan)
-    label(pos = (−80,450), text="Probability", box = 0, display = wvgraph)
-    label(pos = (600,−220) , text="x", box=0, display=wvgraph)
-    label(pos = (0, -220), text="0", box=0, display=wvgraph)
+    wvfax = vp.curve(pos =[(−600,−155),(800,−155)], vp.display=wvgraph,color=color.cyan)
+    vp.curve(pos = [(0,−150), (0,400)], vp.display=wvgraph, color=color.cyan)
+    vp.label(pos = (−80,450), text="Probability", box = 0, vp.display = wvgraph)
+    vp.label(pos = (600,−220) , text="x", box=0, vp.display=wvgraph)
+    vp.label(pos = (0, -220), text="0", box=0, vp.display=wvgraph)
 
 # plot axes
 trjaxs()
@@ -106,32 +105,32 @@ path = np.zeros([101], float)
 arr = path
 prob = zeros([201], float)
 
-trajec = display(width=300, height=500, title="Spacetime Trajectory")
-trplot = curve(y=range(0, 100), color=color.magenta, display=trajec)
+trajec = vp.display(width=300, height=500, title="Spacetime Trajectory")
+trplot = vp.curve(y=range(0, 100), color=color.magenta, vp.display=trajec)
 
 def trjaxs(): 
     """
     Plot trajectory axes.
     """
-    trax = curve(pos=[(-97, 100), (100, -100)], color=color.cyan, display=trajec)
-    curve(pos=[(-65, -100), (-65, 100)], color=color.cyan, display=trajec)
-    label(pos=(-65, 110), text="t", box = 0, display=trajec)
-    label(pos=(-85, -100), text="0", box = 0, display=trajec)
-    label(pos=(60, -110), text="x", box = 0, display=trajec)
+    trax = vp.curve(pos=[(-97, 100), (100, -100)], color=color.cyan, vp.display=trajec)
+    vp.curve(pos=[(-65, -100), (-65, 100)], color=color.cyan, vp.display=trajec)
+    vp.label(pos=(-65, 110), text="t", box = 0, vp.display=trajec)
+    vp.label(pos=(-85, -100), text="0", box = 0, vp.display=trajec)
+    vp.label(pos=(60, -110), text="x", box = 0, vp.display=trajec)
 
-wvgraph = display(x=350, y=80, width=500, height=300, title="GS Prob")
-wvplot = curve(x=range(0, 50), display=wvgraph)
-wvfax = curve(color=color.cyan)
+wvgraph = vp.display(x=350, y=80, width=500, height=300, title="GS Prob")
+wvplot = vp.curve(x=range(0, 50), vp.display=wvgraph)
+wvfax = vp.curve(color=color.cyan)
 
 def wvfaxs(): 
     """
     Plot axis for wavefunction.
     """
-    wvfax = curve(pos = [(-200, -155), (800, -155)], display = wvgraph, color=color.cyan)
-    curve(pos=[(-200, -150), (-200, 400)], color=color.cyan, display=wvgraph)
-    label(pos=(-70, 420), text="Probability", box = 0, display=wvgraph)
-    label(pos=(-200, -220), text="0", box = 0, display=wvgraph)
-    label(pos=(600, -220), text="x", box = 0, display=wvgraph)
+    wvfax = vp.curve(pos = [(-200, -155), (800, -155)], vp.display = wvgraph, color=color.cyan)
+    vp.curve(pos=[(-200, -150), (-200, 400)], color=color.cyan, vp.display=wvgraph)
+    vp.label(pos=(-70, 420), text="Probability", box = 0, vp.display=wvgraph)
+    vp.label(pos=(-200, -220), text="0", box = 0, vp.display=wvgraph)
+    vp.label(pos=(600, -220), text="x", box = 0, vp.display=wvgraph)
 
 trjaxs() # plot the axes
 wvfaxs()
