@@ -15,8 +15,11 @@ For an input MOLPRO file and Cartesian coordinates, form a Huckel Hamiltonian ma
 and return the eigenvalues that we plot against the normalized eigenvalues ordinal numbers.
 """
 
+# Initialize variables
 a = 0 # number of carbon atoms to be deleted or removed from the list
 inter = range(10) # interval distances
+
+# Create coordinates file
 with open("molproout.csv") as file:
     copy = False
     for line in file:
@@ -25,6 +28,7 @@ with open("molproout.csv") as file:
         elif line.strip() == "Bond lengths in Bohr (Angstrom)":
             copy = False
         elif copy:
-            open("coord", "w").write(line)
+            open("coord.csv", "w").write((",".join(line.strip().split()) + "\n"))
 
 open("coord", "w").close()
+
