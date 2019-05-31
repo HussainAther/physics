@@ -1,6 +1,5 @@
 import random
-
-from vpython.graph import *
+import vpython.graph as vp
 
 """
 Spontaneous decay simulation using "sys.stdout.write("\a")" so that we hear an alert each time there is a decay.
@@ -13,10 +12,10 @@ time_max = 500
 seed = random.seed(18203)
 number = nloop = max
 
-graph1 = gdisplay(width=1000, height=1000, title="Spontaneous Decay", xtitle="Time",
+graph1 = vp.gdisplay(width=1000, height=1000, title="Spontaneous Decay", xtitle="Time",
             ytitle="Number left", xmax=500, xmin=0, ymax=300, ymin=0)
 
-decayfunction = gcurve(color=color.green)
+decayfunction = vp.gcurve(color=color.green)
 
 # decay that atom yo
 for time in range(0, time_max+1):
