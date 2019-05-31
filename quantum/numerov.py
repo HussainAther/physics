@@ -1,4 +1,4 @@
-import vpython.graph as vp
+import vpython as vp
 import numpy as np
 
 """
