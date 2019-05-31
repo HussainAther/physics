@@ -1,6 +1,5 @@
 import numpy as np
-
-from vpython import *
+import vpython as vp
 
 """
 Runge-Kutta method (rk4 algorithm) for determining solutions to the 1-Dimensional Schrödinger equation
@@ -10,9 +9,9 @@ Now I ain't sayin she a Schrodinger,
 but she ain't messin with no old thinker,
 """
 
-psigr = display(x=0, y=0, width=600, height=300, title="R and L Wavefunction")
-Lwf = curve(x=list(range(502)), color=color.red)
-Rwf = curve(x=list(range(997)), color=color.yellow)
+psigr = vp.display(x=0, y=0, width=600, height=300, title="R and L Wavefunction")
+Lwf = vp.curve(x=list(range(502)), color=color.red)
+Rwf = vp.curve(x=list(range(997)), color=color.yellow)
 eps = 1e-3
 n_steps = 501
 E = -17 # Idk I'm just guessing this energy.
@@ -22,16 +21,26 @@ Emax = 1.1*E
 Emin = E/1.1
 
 def f(x, y, F, E):
+    """
+    Bound state energy function.
+    """
     F[0] = y[1]
     F[1] = -(.4829)*(E-V(x))*y[0]
 
-def V(x): # Well potential
+def V(x):
+    """
+    Well potential
+    """
     if abs(x)< 10:
         return -16
     else:
         return 0
 
 def rk4(t, y, h, Neqs, E):
+    """
+    RK-4 algorithm with time t, distance y, constant h, number of equations Neqs,
+    and energy E.
+    """
     F = np.zeros((Neqs), float)
     ydumb = np.zeros((Neqs), float)
     k1 = np.zeros((Neqs), float)
@@ -73,8 +82,11 @@ def diff(E, h):
     right = y[1]/y[0] # log derivative
     return((left - right)/(left + right))
 
-
 def plot(E, h):
+    """
+    Calculate and plot usng the Runge-Kutta algorithm with energy E and
+    constant h.
+    """
     x = 0
     n_steps = 1501
     y= np.zeros((2), float)
@@ -122,14 +134,14 @@ for count in range(0, count_max+1):
     if count > 3:
         rate(4)
         plot(E, h)
-    elabel = label(pos=(700, 400), text="E=", box=0)
+    elabel = vp.lbael(pos=(700, 400), text="E=", box=0)
     elabel.text = "E=%13.10f" %E
-    ilabel = label(pos=(700, 600), text="istep=" box=0)
+    ilabel = vp.lbael(pos=(700, 600), text="istep=" box=0)
     ilabel.text = "istep=%4s" % count
 
-elabel = label(pos=(700, 400), text="E=" box=0)
+elabel = vp.lbael(pos=(700, 400), text="E=" box=0)
 elabel.text = "E=%13.10f" %E
-ilabel = label(pos=(700, 600), text="istep=", box=0)
+ilabel = vp.lbael(pos=(700, 600), text="istep=", box=0)
 ilabel.text = "istep%4s" %count
 
 print("Final eigenvalue E = ", E)
