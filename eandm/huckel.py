@@ -15,5 +15,16 @@ For an input MOLPRO file and Cartesian coordinates, form a Huckel Hamiltonian ma
 and return the eigenvalues that we plot against the normalized eigenvalues ordinal numbers.
 """
 
-a = 10 # number of carbon atoms to be deleted or removed from the list
-inter = False # boolean whether the molecule has different inter atomic carbon atom distances
+a = 0 # number of carbon atoms to be deleted or removed from the list
+inter = range(10) # interval distances
+with open("molproout.csv") as file:
+    copy = False
+    for line in file:
+        if line.strip() == "NR  ATOM    CHARGE       X              Y              Z":
+            copy = True
+        elif line.strip() == "Bond lengths in Bohr (Angstrom)":
+            copy = False
+        elif copy:
+            open("coord", "w").write(line)
+
+open("coord", "w").close()
