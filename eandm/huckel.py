@@ -56,3 +56,5 @@ else:
     distances[distances > float(inter)] = 0
     distances[np.isclose(distances, float(inter))]  = -1
 
+# Calculate eigenvalues and eigenvectors
+evals, evecs = sp.linalg.LA.eigh(dist)
