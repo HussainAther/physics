@@ -7,4 +7,7 @@ the Hückel's rule. The extended Hückel method developed by Roald Hoffmann is c
 and three-dimensional and was used to test the Woodward–Hoffmann rules. It was later extended 
 to conjugated molecules such as pyridine, pyrrole and furan that contain atoms other than carbon, 
 known in this context as heteroatoms.
+
+For an input MOLPRO file and Cartesian coordinates, form a Huckel Hamiltonian matrix
+and return the eigenvalues that we plot against the normalized eigenvalues ordinal numbers.
 """
