@@ -1,7 +1,7 @@
 import numpy as np
+import vpython as vp
 
 from numpy.linalg import solve
-from vpython.graph import *
 
 """
 Use the Newton-Rhaphson search to solve the two-mass-on-a-string problem.
@@ -14,9 +14,9 @@ Check out the mathematics repositories for the algebra and calculus folder for m
 on solving linear equations and the Newton-Rhaphson search, respectively.
 """
 
-scene = display(x=0, y=0, width=500, height=500, title="String and masses configuration")
+scene = vp.graph.display(x=0, y=0, width=500, height=500, title="String and masses configuration")
 
-tempe = curve(x=range(0, 500), color=color.black)
+tempe = vp.graph.curve(x=range(0, 500), color=color.black)
 
 n = 9 # number of columns of the matrix x minus 1
 eps = 1e-6 # precision
@@ -25,35 +25,38 @@ f = np.zeros(n, float)
 x = array([.5, .5, .5, .5, .5, .5, .5, 1, 1, 1])
 
 def plotconfig():
+    """
+    Plot the current configuration of the two-mass-on-a-string.
+    """
     for obj in scene.objects:
         obj.visible = 0 # erase the previous configuration
     L1 = 3
     L2 = 4
     L3 = 4
-    xa = L1*x[3]
-    ya = L1*x[0]
-    xb = xa+L2*x[4]
-    yb = ya+L2*x[1]
-    xc = xb+L3*x[5]
-    yx = yb-L3*x[2]
+    xa = L1 * x[3]
+    ya = L1 * x[0]
+    xb = xa + L2 * x[4]
+    yb = ya + L2 * x[1]
+    xc = xb + L3 * x[5]
+    yx = yb - L3 * x[2]
     mx = 100
     bx = -500
     my = -100
     by = 400
-    xap = mx*xa+bx
-    yap = my*ya+by
-    ball1 = sphere(pos=(xap, yap))
-    xbp = mx*xb+bx
-    ybp = my*yb+by
-    ball2 = sphere(pos=(xbp, ybp))
-    xbp = mx*xc+bx
-    ycp = my*yc+by
-    x0 = mx*0+bx
-    y0 = my*0+by
-    line1 = curve(pos=[(x0, y0), (xap, yap)], color=color.yellow, radius=4)
-    line2 = curve(pos=[(xap, yap), (xbp, ybp)], color=color.yellow, radius=4)
-    line3 = curve(pos=[(xbp, ybp), (xcp, ycp)], color=color.yellow, radius=4)
-    topline = curve(pos=[(x0, y0), (xcp, yp)], color=color.red, radius=4)
+    xap = mx * xa + bx
+    yap = my * ya + by
+    ball1 = vp.graph.sphere(pos=(xap, yap))
+    xbp = mx * xb + bx
+    ybp = my * yb + by
+    ball2 = vp.graph.sphere(pos=(xbp, ybp))
+    xbp = mx * xc + bx
+    ycp = my * yc + by
+    x0 = mx * 0 + bx
+    y0 = my * 0 + by
+    line1 = vp.graph.curve(pos=[(x0, y0), (xap, yap)], color=color.yellow, radius=4)
+    line2 = vp.graph.curve(pos=[(xap, yap), (xbp, ybp)], color=color.yellow, radius=4)
+    line3 = vp.graph.curve(pos=[(xbp, ybp), (xcp, ycp)], color=color.yellow, radius=4)
+    topline = vp.graph.curve(pos=[(x0, y0), (xcp, yp)], color=color.red, radius=4)
 
 def F(x, f): # F function we use
     f[0] = 3*x[3] + 4*x[4] + 4*x[5] - 8
@@ -94,7 +97,6 @@ for i in range(1, 100):
         x[i] = x[i] + dx[i]
     plotconfig()
     errX = errF = errXi = 0
-
     for i in range(0, n):
         if x[i] != 0:
             errXi = abs(dx[i]/x[i])
@@ -106,7 +108,6 @@ for i in range(1, 100):
             errF = abs(f[i])
         if errX <= eps and errF <= eps:
             break
+
 for i in range(0, n):
     print("x[", i, "] = ", x[i])
-
-
