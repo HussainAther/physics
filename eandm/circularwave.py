@@ -1,13 +1,12 @@
 import numpy as np
+import vpython as vp
 
-from vpython import *
- 
 """
 Solve Maxwell's equations with FDTD time-stepping for circularly polarized wave propogations
 in the z-direction in free space.
 """
 
-scene = display(x=0, y=0, width=600, height=400, range=200, title="Circular polarization: E field \
+scene = vp.display(x=0, y=0, width=600, height=400, range=200, title="Circular polarization: E field \
     in white. H field in yellow")
 global phy, pyx
 max = 201
@@ -29,6 +28,9 @@ for i in range(0, max, 10):
     Harrows.append(arrow(pos=(0, i-100), axis=(0,0,0), color=color.yellow))
 
 def plotfields(Ex, Ey, Hx, Hy):
+    """
+    Plot the fields along each axis.
+    """
     for n, arr in enumerate(Earrows):
         arr.axis = (35*Ey[10*n, 1],0,35*Ex[10*n,1])
     for n, arr in enumerate(Harrows):
@@ -45,7 +47,7 @@ def inifields(): # initialize the fields
 
 def newfields():
     while True:
-        rate(1000)
+        vp.rate(1000)
         Ex[1:max-1, 1] = Ex[1:max-1, 0] + c*(Hy[:max-2, 0]-Hy[2:max,0])
         Ey[1:max-1, 1] = Ey[1:max-1, 0] + c*(Hx[2:max, 0]-Hx[:max-2,0])
         Hx[1:max-1, 1] = Hx[1:max-1, 0] + c*(Ey[2:max, 0]-Ey[:max-2,0])
@@ -58,7 +60,7 @@ def newfields():
         Hx[200, 1] = Hx[200,0] + c*(Ey[1,0] - Ey[200-1,0])
         Hy[0,1] = Hy[0,0] + c*(Ex[200-1,0] - Ex[1,0])
         Hy[200, 1] = Hy[200,0] + c*(Ex[200-1,0] - Ex[1,0])
-        plotfields(Ex, Ey, Hx, Hy)
+        vp.plotfields(Ex, Ey, Hx, Hy)
 
         Ex[:max, 0] = Ex[:max, 1]
         Ey[:max, 0] = Ey[:max, 1]
