@@ -2,9 +2,6 @@ import qutip as qt
 import scipy as sp
 import numpy as np
 
-from qutip import *
-from scipy import *
-
 """
 The code for calculating the expectation values for the Pauli spin operators of a qubit decay is given below.
 This code is common to both animation examples.
