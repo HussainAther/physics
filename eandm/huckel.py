@@ -58,3 +58,10 @@ else:
 
 # Calculate eigenvalues and eigenvectors
 evals, evecs = sp.linalg.LA.eigh(dist)
+
+# Normalize
+with open("huckel.dat", "w") as hout:
+    for i in range(len(evals)):
+        norm = i + 1
+        norma = norm/float(hshape[0])
+        hout.write(str(norma)+ "  " +  str(evals[i]) + "\n")
