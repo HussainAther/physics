@@ -1,6 +1,5 @@
 import re
-
-from pylab import *
+import pylab as p
 
 """
 Find the equilibrium states undergoing the lammps simulator 
@@ -21,13 +20,15 @@ for ivol in range(0,size(myvolumes)):
     sintext = infile.read()
     infile.close()
     replacestring = "%f" % (myvolumes[ivol])
-    intext2=intext.replace("mydensity",replacestring)
+    intext2=intext.replace("mydensity", replacestring)
+    
     # Change the word myvelocity to myvelocities[ivel]
     replacestring = "%f" % (myvelocities[ivel])
-    intext3=intext2.replace("myvelocity",replacestring)
+    intext3=intext2.replace("myvelocity", replacestring)
     infile = open("in.tmp","w")
     infile.write(intext3)
     infile.close()
+    
     # Run the simulator
     print("Executing lammps < in.tmp")
     os.system("lammps < in.tmp") # Run lammps
@@ -47,10 +48,10 @@ for ivol in range(0,size(myvolumes)):
     press = average(l.get("Press"))
 
     # Store calculated values in arrays
-    pressarr = append(pressarr,press)
-    volarr = append(volarr,vol)
-    Karr = append(Karr,K)
+    pressarr.append(pressarr, press)
+    volarr.append(volarr, vol)
+    Karr.append(Karr, K)
 
 # Plot the results
 pvarr = pressarr*volarr
-plot(Karr,pvarr,’o’),xlabel("K"),ylabel("PV"),show()
+p.plot(Karr,pvarr,"o"),xlabel("K"),ylabel("PV"),show()
