@@ -1,5 +1,6 @@
 import re
-import pylab as p
+import pylab as pl
+import pickle as pk
 
 """
 Find the equilibrium states undergoing the lammps simulator 
@@ -16,15 +17,15 @@ myvolumes = array([0.010, 0.020, 0.040, 0.080]) for ivel in range(0,size(myveloc
 
 for ivol in range(0,size(myvolumes)):
     # Change the word mydensity to myvolumes[ivol] 
-    infile = open("in.gasstatistics30",’r’)
+    infile = open("in.gasstatistics30","r")
     sintext = infile.read()
     infile.close()
     replacestring = "%f" % (myvolumes[ivol])
-    intext2=intext.replace("mydensity", replacestring)
+    intext2 = intext.replace("mydensity", replacestring)
     
     # Change the word myvelocity to myvelocities[ivel]
     replacestring = "%f" % (myvelocities[ivel])
-    intext3=intext2.replace("myvelocity", replacestring)
+    intext3 = intext2.replace("myvelocity", replacestring)
     infile = open("in.tmp","w")
     infile.write(intext3)
     infile.close()
@@ -34,7 +35,7 @@ for ivol in range(0,size(myvolumes)):
     os.system("lammps < in.tmp") # Run lammps
 
     # Extract data from trajectory of simulation
-    d = dump("tmpdump.lammpstrj") # Read sim states tmp_time,simbox,atoms,bonds,tris,lines = d.viz(0) dx = simbox[3]-simbox[0]
+    d = pk.dump("tmpdump.lammpstrj") # Read sim states tmp_time,simbox,atoms,bonds,tris,lines = d.viz(0) dx = simbox[3]-simbox[0]
     dy = simbox[4]-simbox[1]
     vol = dx*dy # Volume of box
     t = d.time(), n = size(t)
@@ -54,4 +55,4 @@ for ivol in range(0,size(myvolumes)):
 
 # Plot the results
 pvarr = pressarr*volarr
-p.plot(Karr,pvarr,"o"),xlabel("K"),ylabel("PV"),show()
+pl.plot(Karr,pvarr,"o"),xlabel("K"),ylabel("PV"),show()
