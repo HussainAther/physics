@@ -17,7 +17,8 @@ and return the eigenvalues that we plot against the normalized eigenvalues ordin
 """
 
 # Initialize variables
-a = 0 # number of carbon atoms to be deleted or removed from the list
+rmatom = [] # atoms to be removed
+a = len(rmatom) # number of carbon atoms to be deleted or removed from the list
 inter = range(10) # interval distances
 
 # Create coordinates file
@@ -34,4 +35,7 @@ with open("molproout.csv") as file:
 open("coord", "w").close()
 
 # Load csv into matrix
-np.loadtxt(open("coord.csv", "rb"), delimiter=",", skiprows=1)
+coordmat = np.loadtxt(open("coord.csv", "rb"), delimiter=",", skiprows=1)
+
+# Erase atoms
+coordmat = np.delete(coordmat, (rmat), axis=0)  
