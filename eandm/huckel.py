@@ -1,5 +1,6 @@
 import csv
 import numpy as np
+import scipy as sp
 
 """
 The (Huckel) Hückel method or Hückel molecular orbital method (HMO), proposed by Erich Hückel 
@@ -32,3 +33,5 @@ with open("molproout.csv") as file:
 
 open("coord", "w").close()
 
+# Load csv into matrix
+np.loadtxt(open("coord.csv", "rb"), delimiter=",", skiprows=1)
