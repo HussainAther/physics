@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
 import matplotlib.pylab as plt
+import numpy as np
 
 from mpl_toolkits.mplot3d import Axes3D
-from vpython import *
 
 """
 Solve the Korteweg–de Vries (KdeV) equation for a soliton. It's a mathematical model
@@ -20,7 +20,7 @@ mx = 131
 
 # initial wave
 for i in range(0, 131):
-    u[i, 0] = .5*(1-((math.exp(2*(.2*ds*i-5))-1)/(math.exp(2*(.2*ds*i-5))+1)))
+    u[i, 0] = .5*(1-((np.exp(2*(.2*ds*i-5))-1)/(np.exp(2*(.2*ds*i-5))+1)))
 
 # end points
 u[0,1] = 1
