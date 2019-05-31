@@ -19,7 +19,9 @@ and return the eigenvalues that we plot against the normalized eigenvalues ordin
 # Initialize variables
 rmatom = [] # atoms to be removed
 a = len(rmatom) # number of carbon atoms to be deleted or removed from the list
-inter = range(10) # interval distances
+interv = range(10) # interval distances manually selected. If the molecule
+                   # doesn't have different interval distances for the carbon atoms,
+                   # leave this as an empty array []
 
 # Create coordinates file
 with open("molproout.csv") as file:
@@ -40,5 +42,17 @@ coordmat = np.loadtxt(open("coord.csv", "rb"), delimiter=",", skiprows=1)
 # Erase atoms
 coordmat = np.delete(coordmat, (rmat), axis=0)  
 
-# Calculate edistances between points
+# Calculate distances between points
 dist = sp.distance.cdist(coordmat, coordmat, "euclidean")
+
+# Get the shape
+hshape = dist.shape
+
+# Bin the distances 
+if inter: # if we're adding our own distances manually
+    distances[distances > float(intervalo[1])] = 0
+    distances[(distances > float(intervalo[0])) * (distances < float(intervalo[1]))] = -1
+else:     
+    distances[distances > float(inter)] = 0
+    distances[np.isclose(distances, float(inter))]  = -1
+
