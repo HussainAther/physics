@@ -1,6 +1,5 @@
-import math
-
-from vpython.graph import *
+import numpy as np
+import vpython as vp
 
 """
 Model a baton using a ball attached to a stick. Compute mechanical properties.
@@ -31,14 +30,20 @@ class Path:
             self.g = 9.8 # acceleration due to gravity
             self.v0 = v0 # initail velocity
             self.theta = theta # intial angle of trajectory
-            self.v0x = self.v0*math.cos(self.theta*math.pi/180) # velocity in x direction
-            self.v0y = self.v0*math.sin(self.theta*math.pi/180) # velocity in y direction
+            self.v0x = self.v0*np.cos(self.theta*np.pi/180) # velocity in x direction
+            self.v0y = self.v0*np..sin(self.theta*np.pi/180) # velocity in y direction
 
-        def getX(self, t): # x position at time t
+        def getX(self, t):
+            """
+            X position as time t
+            """
             self.t = t
             return self.v0x*self.t
 
-        def getY(self, t): # y position at time t
+        def getY(self, t):
+            """
+            Y position as time t
+            """
             self.t = t
             return self.v0y*self.t - .5*self.g*t**2
 
@@ -54,31 +59,55 @@ class Baton(Ball.Bll, Path,Path):
             self.w = w1 # Baton angular velocity
 
         def getM(self):
+            """
+            Mass
+            """
             return 2.0*self.getM1() 
 
         def getI(self):
+            """
+            Inertia
+            """
             return (2*self.getI1() + .5*self.getM()*self.L**2)
 
         def getXa(self, t):
+            """
+            Baton X position at t
+            """
             xa = self.getX(t) + .5*self.L*cos(self.w*t)
             return xa
 
-        def getYz(self, t):
-            return self.getY(t)+.5*self.L.*sin(self.w*t)
+        def getYa(self, t):
+            """
+            Baton Y position at t
+            """
+            return self.getY(t)+.5*self.L.*np.sin(self.w*t)
 
         def getXb(self, t):
+            """
+            Ball X position at t
+            """
             return self.getX(t) -.5*self.L*cos(self.w*t)
 
         def getYb(self, t):
+            """
+            Ball Y position at t
+            """
             return self.getY(t)-.5*self.L*sin(self.w*t)
 
         def scenario(sel,f mytitle, myxtitle, myytitle, xma, xmi, yma, ymi):
-            graph = gdisplay(x=0, y=0, width=500, height=500, xmin=xmi, ymax=yma, ymin=ymi, foreground=color.black,
+            """
+            Plot a secnario
+            """
+            graph = vp.graph.gdisplay(x=0, y=0, width=500, height=500, xmin=xmi, ymax=yma, ymin=ymi, foreground=color.black,
             background=color.white)
 
         def position(self):
-            batonmassa = gcurve(color=color.blue) # blue trajectory a
-            batonmassb = gcurve(color=color.red) # red trajectory b
+            """
+            Return the position
+            """
+            batonmassa = vp.graph.gcurve(color=color.blue) # blue trajectory a
+            batonmassb = vp.graph.gcurve(color=color.red) # red trajectory b
             batoncm = # center of mass
 
             t = 0.0
@@ -90,7 +119,7 @@ class Baton(Ball.Bll, Path,Path):
                 xb = self.getXb(t)
                 yv = self.getYb(t)
                 points = [(xa, ya), (xb, yb)]
-                gcurve(color=(0.8, 0.8, 0.8), pos=points)
+                vp.graph.gcurve(color=(0.8, 0.8, 0.8), pos=points)
                 batonmassa.plot(pos=(xa, ya))
                 batonmassb.plot(pos=(xb, yb))
 
@@ -102,13 +131,19 @@ class Baton(Ball.Bll, Path,Path):
                 count += 1
         
         def getKEcm(Self,t):
+            """
+            Return the kinetic energy of the center of mass.
+            """
             return self.getM()*((self.getVx(t))**2 + (self.getVy(t))**2)/2
 
         def energies(self):
-            batonKEr = gcurve(color=color.blue) # rotational kinetic energy
-            batonPE = gcurve(color=color.green) # potential energy
-            batonKEcm = gcurve(color=color.magenta) # center of mass kinetic energy
-            batonEtotal = gcurve(color=color.red) # total energy
+            """
+            Return the energies of the system.
+            """
+            batonKEr = vp.graph.gcurve(color=color.blue) # rotational kinetic energy
+            batonPE = vp.graph.gcurve(color=color.green) # potential energy
+            batonKEcm = vp.graph.gcurve(color=color.magenta) # center of mass kinetic energy
+            batonEtotal = vp.graph.gcurve(color=color.red) # total energy
             t = 0 # start at time = 0
             yy = self.getYa(t) # intial y coordinate
             while (self.getYa(t)>=0.0):
