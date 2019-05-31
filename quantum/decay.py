@@ -1,3 +1,7 @@
+import qutip as qt
+import scipy as sp
+import numpy as np
+
 from qutip import *
 from scipy import *
 
@@ -8,25 +12,27 @@ This code is common to both animation examples.
 
 def qubit_integrate(w, theta, gamma1, gamma2, psi0, tlist):
     """
-    Operators and the hamiltonian (Hamiltonian)
+    Operators and the hamiltonian (Hamiltonian) for omega w, angle theta,
+    gamma1 and gamma2 for the two tangent vectors, psi0 for the base energy value,
+    and tlist the times.
     """
-    sx = sigmax()
-    sy = sigmay()
-    sz = sigmaz()
-    sm = sigmam()
-    H = w * (cos(theta) * sz + sin(theta) * sx)
+    sx = qt.sigmax()
+    sy = qt.sigmay()
+    sz = qt.sigmaz()
+    sm = qt.sigmam()
+    H = w * (np.cos(theta) * sz + np.sin(theta) * sx)
     # collapse operators
     c_op_list = []
     n_th = 0.5 # temperature
     rate = gamma1 * (n_th + 1)
-    if rate > 0.0: c_op_list.append(sqrt(rate) * sm):
+    if rate > 0.0: c_op_list.append(np.sqrt(rate) * sm):
         rate = gamma1 * n_th
-    if rate > 0.0: c_op_list.append(sqrt(rate) * sm.dag()):
+    if rate > 0.0: c_op_list.append(np.sqrt(rate) * sm.dag()):
         rate = gamma2
-    if rate > 0.0: c_op_list.append(sqrt(rate) * sz):
+    if rate > 0.0: c_op_list.append(np.sqrt(rate) * sz):
 
     # evolve and calculate expectation values
-    output = mesolve(H, psi0, tlist, c_op_list, [sx, sy, sz])
+    output = qt.mesolve(H, psi0, tlist, c_op_list, [sx, sy, sz])
     return output.expect[0], output.expect[1], output.expect[2]
 
 ## calculate the dynamics
@@ -37,8 +43,8 @@ gamma2 = 0.2 # qubit dephasing rate
 
 # initial state
 a = 1.0
-psi0 = (a* basis(2,0) + (1-a)*basis(2,1))/(sqrt(a**2 + (1-a)**2))
-tlist = linspace(0,4,250)
+psi0 = (a* basis(2,0) + (1-a)*basis(2,1))/(np.sqrt(a**2 + (1-a)**2))
+tlist = np.linalg.linspace(0,4,250)
 
 #expectation values for ploting
 sx, sy, sz = qubit_integrate(w, theta, gamma1, gamma2, psi0, tlist)
