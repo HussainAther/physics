@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*- 
-from pylab import *
-
+# -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
+import pickle as pk
 import numpy as np
+import pylab as pl
 
 """
 We can also use the molecular dynamics simulations to learn about the ideal gas. We can, for example,
@@ -29,13 +29,13 @@ K=summation from i=1 to N of (1/2)m(v_x^2 +v_y^2).
 # Before running this script, you must run the lammps file by using
 # `lammps < in.gasstatistics01`
 
-data = dump("gasstat01.lammpstrj")
+data = pk.dump("gasstat01.lammpstrj")
 # Simulate a 2-D Lennard-Jones gas (lennard jones)
 t = data.time() # pylab's time function for the input data.
-nt = size(t) 
+nt = np.size(t) 
 nleft = np.zeros(nt,float) # Store number of particles
 
-tmp_time,box,atoms,bonds,tris,lines = data.viz(0)
+tmp_time, box, atoms, bonds, tris, lines = data.viz(0)
 
 halfsize = 0.5*box[3]
 # Box size in x-dir
