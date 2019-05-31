@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*- 
 import numpy as np
 import pylab as plt
-
-from qutip import *
+import qutip as qt
 
 """
 This example demonstrates how to calculate a correlation function on the form ⟨𝐴(𝜏 )𝐵(0)⟩ for a non-steady initial
@@ -27,18 +26,19 @@ G1 = 0.75
 n_th = 2.00 # bath temperature in terms of excitation number
 c_ops = [np.sqrt(G1 * (1 + n_th)) * a, np.sqrt(G1 * n_th) * a.dag()]
 
-rho0 = coherent_dm(N, 2.0)
+rho0 = qt.coherent_dm(N, 2.0)
+
 # first calculate the occupation number as a function of time
-n = mesolve(H, rho0, taus, c_ops, [a.dag() * a]).expect[0]
+n = qt.mesolve(H, rho0, taus, c_ops, [a.dag() * a]).expect[0]
+
 # calculate the correlation function G1 and normalize with n to obtain g1
-G1 = correlation_2op_2t(H, rho0, None, taus, c_ops, a.dag(), a)
+G1 = qt.correlation_2op_2t(H, rho0, None, taus, c_ops, a.dag(), a)
 g1 = G1 / np.sqrt(n[0] * n)
-plt.plot(taus, g1, 'b')
-plt.plot(taus, n, 'r')
-plt.title('Decay of a coherent state to an incoherent (thermal) state')
-plt.xlabel(r'$\tau$')
-plt.legend((r'First-order coherence function $g^{(1)}(\tau)$',
-r'occupation number $n(\tau)$'))
+plt.plot(taus, g1, "b")
+plt.plot(taus, n, "r")
+plt.title("Decay of a coherent state to an incoherent (thermal) state")
+plt.xlabel(r"$\tau$")
+plt.legend((r"First-order coherence function $g^{(1)}(\tau)$", r"occupation number $n(\tau)$"))
 plt.show()
 
 """
@@ -56,20 +56,20 @@ The following code calculates and plots 𝑔(2)(𝜏) as a function of 𝜏 for 
 
 N = 25
 taus = np.linspace(0, 25.0, 200)
-a = destroy(N)
+a = qt.destroy(N)
 H = 2 * np.pi * a.dag() * a
 
 kappa = 0.25
 n_th = 2.0 # bath temperature in terms of excitation number
 c_ops = [np.sqrt(kappa * (1 + n_th)) * a, np.sqrt(kappa * n_th) * a.dag()]
-states = [{'state': coherent_dm(N, np.sqrt(2)), 'label': "coherent state"},
-            {'state': thermal_dm(N, 2), 'label': "thermal state"},
-            {'state': fock_dm(N, 2), 'label': "Fock state"}]
+states = [{"state": coherent_dm(N, np.sqrt(2)), "label": "coherent state"},
+            {"state": thermal_dm(N, 2), "label": "thermal state"},
+            {"state": fock_dm(N, 2), "label": "Fock state"}]
 
 fig, ax = plt.subplots(1, 1)
 
 for state in states:
-    rho0 = state['state']
+    rho0 = state["state"]
     # first calculate the occupation number as a function of time
     n = mesolve(H, rho0, taus, c_ops, [a.dag() * a]).expect[0]
 
@@ -77,10 +77,9 @@ for state in states:
     # obtain g2
     G2 = correlation_4op_1t(H, rho0, taus, c_ops, a.dag(), a.dag(), a, a)
     g2 = G2 / (n[0] * n)
-    
-    ax.plot(taus, np.real(g2), label=state['label'], lw=2)
+    ax.plot(taus, np.real(g2), label=state["label"], lw=2)
 
 ax.legend(loc=0)
-ax.set_xlabel(r'$\tau$')
-ax.set_ylabel(r'$g^{(2)}(\tau)$')
+ax.set_xlabel(r"$\tau$")
+ax.set_ylabel(r"$g^{(2)}(\tau)$")
 plt.show()
