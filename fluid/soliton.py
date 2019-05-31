@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
-import matplotlib.pylab as p
+import matplotlib.pylab as plt
 
 from mpl_toolkits.mplot3d import Axes3D
 from vpython import *
@@ -62,12 +62,12 @@ for j in range(1, max+1):
 
 x = list(range(0, mx, 2))
 y = list(range(0, 21))
-X, Y = p.meshgrid(x, y)
+X, Y = plt.meshgrid(x, y)
 
-fig = p.figure()
+fig = plt.figure()
 ax = Axes3D(fig)
 ax.plot_wireframe(X, Y, spl[X, Y], color="r")
 ax.set_xlabel("Position")
 ax.set_ylabel("Time")
 ax.set_zlabel("Disturbance")
-p.show()
+plt.show()
