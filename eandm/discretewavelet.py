@@ -1,6 +1,5 @@
 import numpy np
-
-from vpython.graph import *
+import vpython as vp
 
 """
 Compute the discrete wavelet transform using the pyramid algorithm for the second signal values
@@ -20,11 +19,17 @@ c3 = (1-sq3) / fsq2
 transfgr1 = None  # displays haven't been made yet
 transfgr2 = None
 
-def chirp(xi): # chirp signal lol
+def chirp(xi):
+    """
+    Chirp signal lol.
+    """
     y = np.sin(60*xi**2)
     return y
 
 def daube4(f, n, sign):
+    """
+    Daub4 digital wavelets.
+    """
     global transfgr1, transfgr2
 
     tr = np.zeros((n+1), float) # temp variable
@@ -55,12 +60,12 @@ def daube4(f, n, sign):
             del transfgr1
             del transfgr2
         # create displays
-        transfgr1 = gdisplay(x=0, y=0, width=600, height=400, title = "Wavelet TF, down sample + low pass",
+        transfgr1 = vp.graph.gdisplay(x=0, y=0, width=600, height=400, title = "Wavelet TF, down sample + low pass",
                             xmax = maxx, xmin = 0, ymax = maxy, ymin=miny)
-        transf = gvbars(delta=2*n/N, color=color.cyan, display=transfgr1)
-        transfgr2 = gdisplay(x=0, y=400, width=600, height=400, title= "Wavelet TF, down sample + high pass",
+        transf = vp.graph.gvbars(delta=2*n/N, color=color.cyan, display=transfgr1)
+        transfgr2 = vp.graph.gdisplay(x=0, y=400, width=600, height=400, title= "Wavelet TF, down sample + high pass",
                             xmax = 2*maxx, xmin = 0, ymax = Maxy, ymin = Miny)
-        transf2 = gvbars(delta=2*n/N, color=color.cyan, display=transfgr2)
+        transf2 = vp.graph.gvbars(delta=2*n/N, color=color.cyan, display=transfgr2)
 
         while j <= n - 3:
             rate(speed)
