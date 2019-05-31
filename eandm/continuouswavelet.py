@@ -133,7 +133,7 @@ for rs in range(0, len(recSig)):
 
 x = list(range(1, noS +1))
 y = list(range(1, noTau + 1))
-X, Y = p.meshgrid(x, y)
+X, Y = plt.meshgrid(x, y)
 
 def functz(Yn):
     """
