@@ -1,9 +1,8 @@
-from numpy import *
-from numpy.linagl import *
+import numpy as np
 
 """
 Solve the Lippmann-Schwinger integral equation for bound states within a delta-shell
-potential. The integral equatison are converted to matrix equations using Gaussian grid points,
+potential. The integral equations are converted to matrix equations using Gaussian grid points,
 and they're solve with LINALG.
 """
 
@@ -13,11 +12,15 @@ u = .5
 b = 10
 
 def gauss(npts, a, b, x, w):
+    """
+    Guaissan curve gridpoints for number of points npts, minimum a,
+    maximum b, center x, and width w. 
+    """
     pp = 0
     m = (npts+1)//2
     eps = 3e-10
     for i in range(1, m+1):
-        t = cos(math.pi*float(i)-.25)/(float(npts)+.5)
+        t = np.cos(np.pi*float(i)-.25)/(float(npts)+.5)
         t1 = 1
         while ((abs(t-t1)) >= eps):
             p1 = 1
@@ -48,11 +51,11 @@ for M in range(16,32,8):
         for i in range(0, M):
             # Set Hamiltonian
             for j in range(0, M):
-                VR = lmbda/2/u*sin(k[i]*b)/k[i]*sin(k[j]*b)/k[j]
-                A[i, j] 2/math.pi*VR*k[j]*k[j]*w[j]
+                VR = lmbda/2/u*np.sin(k[i]*b)/k[i]*sin(k[j]*b)/k[j]
+                A[i, j] 2/np.pi*VR*k[j]*k[j]*w[j]
                 if i == j:
                     A[i, j] += k[i]*k[i]/2/u
-        Es, evectors = eig(A)
+        Es, evectors = np.linalg.eig(A)
         realev = Es.real
         for j in range(0, M):
             if realev[j]<0:
