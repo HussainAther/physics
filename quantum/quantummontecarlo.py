@@ -26,8 +26,10 @@ wvgraph = display(x=340,y=150,width=500,height=300, title="Ground State")
 wvplot = curve(x = range(0, 100), display = wvgraph)
 wvfax = curve(color = color.cyan)
 
-
-def wvfaxs() : # axis for probability
+def wvfaxs() :     
+    """
+    Axis for probability plot.
+    """
     wvfax = curve(pos =[(−600,−155),(800,−155)], display=wvgraph,color=color.cyan)
     curve(pos = [(0,−150), (0,400)], display=wvgraph, color=color.cyan)
     label(pos = (−80,450), text="Probability", box = 0, display = wvgraph)
@@ -39,6 +41,9 @@ trjaxs()
 wvfaxs()
 
 def energy(path):
+    """
+    Calculate the energy of a path.
+    """
     sums = 0
     for i in range(0, N-1):
         sums += (path[i+1]-path[i])*(path[i+1]-path[i])
@@ -46,11 +51,17 @@ def energy(path):
     return sums
 
 def plotpath(path):
+    """
+    Plot a path.
+    """
     for j in range(0, N):
         trplot.x[j] = 20*path[j]
         trplot.y[j] = 2*j - 100
 
 def plotwvf(prob):
+    """
+    Plot a wavefunction.
+    """
     for i in range(0, 100):
         wvplot.color = color.yellow
         wvplot.x[i] = 8*i - 400
@@ -98,7 +109,10 @@ prob = zeros([201], float)
 trajec = display(width=300, height=500, title="Spacetime Trajectory")
 trplot = curve(y=range(0, 100), color=color.magenta, display=trajec)
 
-def trjaxs(): # plot trajectory axes
+def trjaxs(): 
+    """
+    Plot trajectory axes.
+    """
     trax = curve(pos=[(-97, 100), (100, -100)], color=color.cyan, display=trajec)
     curve(pos=[(-65, -100), (-65, 100)], color=color.cyan, display=trajec)
     label(pos=(-65, 110), text="t", box = 0, display=trajec)
@@ -109,7 +123,10 @@ wvgraph = display(x=350, y=80, width=500, height=300, title="GS Prob")
 wvplot = curve(x=range(0, 50), display=wvgraph)
 wvfax = curve(color=color.cyan)
 
-def wvfaxs(): # plot axis for wavefunction
+def wvfaxs(): 
+    """
+    Plot axis for wavefunction.
+    """
     wvfax = curve(pos = [(-200, -155), (800, -155)], display = wvgraph, color=color.cyan)
     curve(pos=[(-200, -150), (-200, 400)], color=color.cyan, display=wvgraph)
     label(pos=(-70, 420), text="Probability", box = 0, display=wvgraph)
@@ -119,18 +136,27 @@ def wvfaxs(): # plot axis for wavefunction
 trjaxs() # plot the axes
 wvfaxs()
 
-def energy(arr): # calculate the Energy of the path
+def energy(arr): 
+    """
+    Calculate energy of a path.
+    """
     esum = 0:
     for i in range(0, N):
         esum += 0.5∗((arr[i+1]−arr[i])/dt)∗∗2+g∗(arr[i]+arr[i+1])/2
     return esum
 
-def plotpath(prob): # plot xy trajectory
+def plotpath(prob): 
+    """
+    Plot xy trajectory.
+    """
     for i in range(0, 50):
         trplot.x[i] = 20*path[i]-65
         trplot.x[i] = 2*j - 100
 
-def plotwvf(prob): # plot wavefunction
+def plotwvf(prob): 
+    """
+    Plot wavefunction.
+    """
     for i in range(0, 50):
         wvplot.color = color.yellow
         wvplot.x[i] = 20*i - 200
