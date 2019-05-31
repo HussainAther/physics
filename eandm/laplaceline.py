@@ -1,6 +1,6 @@
-import matplotlib.pylab as p
+import matplotlib.pylab as plt
+import numpy as np
 
-from numpy import *
 from mpl_toolkits.mplot2d import Axes3D
 
 """
@@ -45,4 +45,4 @@ ax.plot_wireframe(X, Y, Z, color="r")
 ax.set_xlabel("X")
 ax.set_ylabel("Y")
 ax.set_zlabel("Z")
-p.show()
+plt.show()
