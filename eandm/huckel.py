@@ -39,3 +39,6 @@ coordmat = np.loadtxt(open("coord.csv", "rb"), delimiter=",", skiprows=1)
 
 # Erase atoms
 coordmat = np.delete(coordmat, (rmat), axis=0)  
+
+# Calculate edistances between points
+dist = sp.distance.cdist(coordmat, coordmat, "euclidean")
