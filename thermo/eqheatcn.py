@@ -1,11 +1,10 @@
-import matplotlib.pylab as p
+import matplotlib.pylab as plt
 import numpy as np
 
 from mpl_toolkits.mplot3d import Axe3D
-from vpython import *
 
 """
-Solve the heat equation in one dimension and time using the Crank-Nicolson method.
+Solve the heat equation in one dimension and time using the Crank-Nicolson method. (crank nicolson)
 Then solve the resulting matrices using a tridiagonal matrix technique.
 """
 
@@ -74,17 +73,20 @@ for j in range(1, m+1):
 
 x = list(range(1, m+1))
 y = list(range(1, n+1))
-X, Y = p.meshgrid(x, y)
+X, Y = plt.meshgrid(x, y)
 
-def functz(t): # potential
+def functz(t):
+    """
+    Potential
+    """
     z = t[X, Y]
     return z
 
 Z = functz(t)
-fig = p.figure()
+fig = plt.figure()
 ax = Axes3D(fig)
 ax.plot_wireframe(X, Y, Z, color="r")
 ax.set_xlabel("t")
 ax.set_ylabel("x")
 ax.set_zlabel("T")
-p.show()
+plt.show()
