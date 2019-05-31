@@ -1,5 +1,5 @@
 import random
-import vpython.graph as vp
+import vpython as vp
 
 """
 Spontaneous decay simulation using "sys.stdout.write("\a")" so that we hear an alert each time there is a decay.
