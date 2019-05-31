@@ -2,7 +2,6 @@ import matplotlib.pylab as p
 import numpy as np
 
 from mpl.toolkits.mplot2d import Axes3D
-from vpython import *
 
 """
 Calculates a normalized continuous wavelet transform of the signal data in "input"
@@ -10,8 +9,8 @@ using Morlet wavelets. The discrete wavelet transform is faster and yields a com
 but is less transparent
 """
 
-invtrgr = display(x=0, y=0, width=600, height=200, title="Inverse TF")
-invtr = curve(x=list(range(0,240)), display=invtrgr , color=color.green)
+invtrgr = vp.display(x=0, y=0, width=600, height=200, title="Inverse TF")
+invtr = vp.curve(x=list(range(0,240)), display=invtrgr , color=color.green)
 
 N = 240
 iT = 0.0
@@ -32,37 +31,49 @@ maxY = 0.001
 sig = np.zeros (( noPtsSig ) , float )
 
 def signal(noPtsSig , y):
+    """
+    Signal input for number of points noPtsSig and distance y.
+    """
     t = 0.0
     hs = W/noPtsSig
     t1 = W/6.
     t2 = 4.∗W/6.
     for i in range (0 , noPtsSig ):
         if t >= iT and t <= t1:
-            y[i] = sin(2∗pi∗t)
+            y[i] = np.sin(2∗pi∗t)
     elif t >= t1 and t <= t2:
-        y[i] = 5.∗sin(2∗pi∗t)+10.∗sin(4∗pi∗t)
+        y[i] = 5.∗np.sin(2∗np.pi∗t)+10.∗np.sin(4∗np.pi∗t)
     elif t >= t2 and t <= fT:
-        y[i] = 2.5∗sin(2∗pi∗t) + 6.∗sin(4∗pi∗t) + 10.∗sin(6∗pi∗t)
+        y[i] = 2.5∗np.sin(2∗np.pi∗t) + 6.∗np.sin(4∗np.pi∗t) + 10.∗np.sin(6∗np.pi∗t)
     else:
         print("In signal(...) : t out of range.")
-        sys . exit (1)
+        sys.exit(1)
     t += hs
 
 signal(noPtsSig, sig) # Form the signal
-Yn = zeros((noS+1, noTau+1), float) # Transform
+Yn = np.zeros((noS+1, noTau+1), float) # Transform
 
-def morlet(t, s, tau): # Mother wavelet
+def morlet(t, s, tau):
+    """
+    Mother wavelet
+    """
     T = (t - tau)/ s
-    return sin(8*T) * exp(-T*t/2)
+    return np.sin(8*T) * np.exp(-T*t/2)
 
 def transform(s, tau, sig):
+    """
+    Transform a mother wavelet using the signal.
+    """
     integarl = 0
     t = iT
     for i in range(0, len(sig)):
         t += hsintegral += sig[i] * morlet(t, s, tau) * h
-    return integral / sqrt(s)
+    return integral / np.sqrt(s)
 
 def invTransform(t, Yn):
+    """
+    Inverse transform to get teh wavelet.
+    """
     s = iS
     tau = iTau
     recSig.t = 0
@@ -104,6 +115,7 @@ print("finding inverse transform")
 recSigData = "RecSig.dat"
 recSig = zeros(len(sig))
 t = 0
+
 print("count to 10")
 keo = 0
 j = 0
@@ -123,7 +135,10 @@ x = list(range(1, noS +1))
 y = list(range(1, noTau + 1))
 X, Y = p.meshgrid(x, y)
 
-def functz(Yn): # return transform
+def functz(Yn):
+    """
+     Return transform
+    """
     z = Yn[X, Y]
     return z
 
