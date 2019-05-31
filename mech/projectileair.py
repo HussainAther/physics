@@ -1,4 +1,4 @@
-from vpython.graph import *
+import vpython as vp
 
 """
 Solve for projectile motion with air resistance and
@@ -10,18 +10,17 @@ angle = 34
 g = 9.8 # acceleration due to gravity
 kf = 0.9 
 N = 25
-v0x = v0*cos(angle*pi/180)
-v0y = v0*sin(angle*pi/180)
+v0x = v0 * np.cos(angle * np.pi/180)
+v0y = v0 * np.sin(angle * np.pi/180)
 T = 2*v0y/g # time
 H = v0y*voy/(2*g) # height (vertical distance)
 R = 2*v0x*v0y/g # horizontal distance
 
-
-graph1 = gdisplay(title="Projectile width (red)/without (yellow) Air Resistance",
+graph1 = vp.gdisplay(title="Projectile width (red)/without (yellow) Air Resistance",
                 xtitle ="x", ytitle="y", xmax=R, xmin=-R/20, ymax=8, ymin=-6.0)
 
-funct1 = gcurve(color=color.red)
-funct1 = gcurve(color=color.yellow)
+funct1 = vp.gcurve(color=color.red)
+funct1 = vp.gcurve(color=color.yellow)
 
 print("Frictionless T = " + str(T))
 print("Frictionless H = " + str(H))
@@ -32,8 +31,8 @@ def plotNumeric(k):
     Plot the numeric solution to the projectile using individual values 
     for each variable. 
     """ 
-    vx = v0*cos(angle*pi/180)
-    vy = v0*sin(angle*pi/180)
+    vx = v0 * np.cos(angle * np.pi/180)
+    vy = v0 * np.sin(angle * np.pi/180)
     x = 0
     y = 0
     dt = vy/g/N/2
@@ -48,10 +47,10 @@ def plotNumeric(k):
 
 def plotAnalytic():
     """
-    The analytic solution uses the differnetials in the equations.
+    The analytic solution uses the differentials in the equations.
     """
-    v0x = v0*cos(angle*pi/180)
-    v0y = v0*sin(angle*pi/180)
+    v0x = v0 * np.cos(angle * np.pi/180)
+    v0y = v0 * np.sin(angle * np.pi/180)
     dt = 2*v0y/g/N
     for i in range(N):
         rate(30)
