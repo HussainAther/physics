@@ -1,5 +1,5 @@
-from vpython import *
-from numpy import zeros
+import vpython.graph as vp
+import numpy as np
 
 """
 Use the Numerov method to solve the 1-D time-independent Schrödinger equation
@@ -10,19 +10,19 @@ Schrödinger equation). IT's not as general as rk4, but it's of O(h^6) so it's f
 with more precision.
 """
 
-psigr = display(x=0, y=0, width=600, height=300, title="R and L Wave Functions")
-psi = curve(x=list(range(0, 1000)), display=psigr, color=color.yellow)
-psi2gr = display(x=0, y=300, width=600, height=300, title="Wave func^2")
-psio = curve(x=list(range(0, 1000)), color=color.magenta, display=psi2gr)
-energr = display(x=0, y=500, width=600, height=200, title="Potential and E")
-poten = curve(x=list(range(0, 1000)), color=color.cyan, display=energr)
-autoen = curve(x=list(range0, 1000)), display=energr)
+psigr = vp.display(x=0, y=0, width=600, height=300, title="R and L Wave Functions")
+psi = vp.curve(x=list(range(0, 1000)), display=psigr, color=color.yellow)
+psi2gr = vp.display(x=0, y=300, width=600, height=300, title="Wave func^2")
+psio = vp.curve(x=list(range(0, 1000)), color=color.magenta, display=psi2gr)
+energr = vp.display(x=0, y=500, width=600, height=200, title="Potential and E")
+poten = vp.curve(x=list(range(0, 1000)), color=color.cyan, display=energr)
+autoen = vp.curve(x=list(range0, 1000)), display=energr)
 
 dl = 1e-6 # interval to stop bisection
-ul = zeros([1501], float) # u value for left side
-ur = zeros([1501], float) # and the right side
-k2l = zeros([1501], float) # k**2 Schrodinger equation left wavefunction
-k2r = zeros([1501], float) # k**2 S. E. right wavefunction
+ul = np.zeros([1501], float) # u value for left side
+ur = np.zeros([1501], float) # and the right side
+k2l = np.zeros([1501], float) # k**2 Schrodinger equation left wavefunction
+k2r = np.zeros([1501], float) # k**2 S. E. right wavefunction
 n = 1501
 m = 5 # plot every 5 points
 imax = 100 # number of iterations
@@ -42,7 +42,10 @@ nl = im + 2 # match point left and right wavefunction
 nr = n - im + 1
 istep = 0
 
-def V(x): # Finite square well from particle-in-a-box
+def V(x):
+    """
+    Finite square well from particle-in-a-box.
+    """
     if abs(x) <= 500:
         v = -.001
     else:
@@ -50,13 +53,19 @@ def V(x): # Finite square well from particle-in-a-box
     return v
 
 def setk2():
+    """
+    Sets k2L=(sqrt(e-V))^2 and k2R.
+    """
     for i in range(0, n):
         xl = xl0 + i*h
         xr = xr0 - i*h
         k2l[i] = e-V(xl)
         k2r[i] = e-V(xr)
 
-def numerov(n, h, k2, u): # Numerov algorithm for left and right wavefunctions
+def numerov(n, h, k2, u):
+    """
+    Numerov algorithm for left and right wavefunctions.
+    """"
     b = (h**2)/12.0
     for i in range(1, n-1): # shown from integration of both sides
         u[i+1] = (2*u[i]*(1-5*b*k2[i])-(1+b*k2[i-1])*u[i-1])/(1+b*k2[i+1])
@@ -69,25 +78,28 @@ for i in range(0, nl):
     ul[i] = fact*ul[i]
 f0 = (ur[nr-1]+ul[nl-1]-ur[nr-3]-ul[nl-3])/(s*h*ur[nr-2]) # log derivative
 
-def normalize(): # normalize the wavefunction
+def normalize():
+    """
+    Normalize the wavefunction.
+    """
     asum = 0
     for i in range(0, n):
         if i > im:
             ul[i] = ur[n-i-1]
             asum = asum+ul[i]*ul[i]
-    asum = sqrt(h*asum)
-    elabel = label(pos=(700, 500), text="e=", box=0, display=psigr)
-    elabel.text = "e=%10.8f" %e
-    ilabel = label(pos=(700, 400), text="istep=", box=0, display=psigr)
-    ilabel. text = "istep=%4s" %istep
+    asum = np.sqrt(h*asum)
+    evp.label = vp.label(pos=(700, 500), text="e=", box=0, display=psigr)
+    evp.label.text = "e=%10.8f" %e
+    ivp.label = vp.label(pos=(700, 400), text="istep=", box=0, display=psigr)
+    ivp.label. text = "istep=%4s" %istep
     proten.pos = [(-1500,,200), (-1000,200), (-1000, -200), (0, -200), (0, 200), (1000,200)]
     autoen.pos = [(-1000,e*400000+200), (0, e*400000+200)]
-    label(pos=(-1150, -240), text=".001", box=0, display=energr)
-    label(pos=(-1000, 300), text="0", box=0, display=energr)
-    label(pos=(-900, 180), text="-500", box=0, display=energr)
-    label(pos=(-100, 180), text="500", box=0, display=energr)
-    label(pos=(-500, 180), text="0", box=0, display=energr)
-    label(pos=(900, 120), text="r", box=0, display=energr)
+    vp.label(pos=(-1150, -240), text=".001", box=0, display=energr)
+    vp.label(pos=(-1000, 300), text="0", box=0, display=energr)
+    vp.label(pos=(-900, 180), text="-500", box=0, display=energr)
+    vp.label(pos=(-100, 180), text="500", box=0, display=energr)
+    vp.label(pos=(-500, 180), text="0", box=0, display=energr)
+    vp.label(pos=(900, 120), text="r", box=0, display=energr)
 
     j = 0
     for i in range(0, n, m):
@@ -95,7 +107,7 @@ def normalize(): # normalize the wavefunction
         ul[i] = ul[i]/asum
         psi.x[j] = xl - 500
         psi.y[j] = 10000.0*ul[i]
-        line = curve(pos=[(-830, -500), (-830, 500)], color=color.red, display=psigr)
+        line = vp.curve(pos=[(-830, -500), (-830, 500)], color=color.red, display=psigr)
         psio.x[j] = xl - 500
         psio.y[j] = 1e5*ul[i]**2
         j += 1
