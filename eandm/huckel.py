@@ -14,3 +14,6 @@ known in this context as heteroatoms.
 For an input MOLPRO file and Cartesian coordinates, form a Huckel Hamiltonian matrix
 and return the eigenvalues that we plot against the normalized eigenvalues ordinal numbers.
 """
+
+a = 10 # number of carbon atoms to be deleted or removed from the list
+inter = False # boolean whether the molecule has different inter atomic carbon atom distances
