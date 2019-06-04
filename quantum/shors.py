@@ -1,4 +1,5 @@
 import math
+import numpy as np
 import random
 import argparse
 
@@ -7,17 +8,34 @@ Shor's algorithm for quantum integer factorization
 """
 
 class Mapping:
+    """
+    Initialize a state and amplitude to map inputs to outputs. 
+    """
     def __init__(self, state, amplitude):
+        """
+        The state and amplitude let us identify nodes or units on the various
+        mappings between one another.
+        """
         self.state = state
         self.amplitude = amplitude
 
 class QuantumState:
+    """
+    Identify a quantum state with the corresponding entanglements.
+    """
     def __init__(self, amplitude, register):
+        """
+        Quantum states should account for this entanglement we observe.
+        """
         self.amplitude = amplitude
         self.register = register
         self.entangled = {}
 
     def entangle(self, fromState, amplitude):
+        """
+        Entangle with the state the particle is in with a corresponding
+        amplitude.
+        """
         register = fromState.register
         entanglement = Mapping(fromState, amplitude)
         try:
@@ -65,9 +83,11 @@ class QubitRegister:
 
     # Map will convert any mapping to a unitary tensor given each element v
     # returned by the mapping has the property v * v.conjugate() = 1
-    #
 
     def map(self, toRegister, mapping, propagate = True):
+        """
+        Map the tensor using the appropriate mapping.
+        """
         self.entangled.append(toRegister)
         toRegister.entangled.append(self)
 
@@ -86,16 +106,17 @@ class QubitRegister:
                 except KeyError:
                     mapTensorY[y] = { x: element }
 
-        # Normalize the mapping:
         def normalize(tensor, p = False):
-            lSqrt = math.sqrt
+            """
+            Normalize the tensor mapping with the sum of the probabilities.
+            """
             for vectors in tensor.values():
                 sumProb = 0.0
                 for element in vectors.values():
                     amplitude = element.amplitude
                     sumProb += (amplitude * amplitude.conjugate()).real
 
-                normalized = lSqrt(sumProb)
+                normalized = np.sqrt(sumProb)
                 for element in vectors.values():
                     element.amplitude = element.amplitude / normalized
 
