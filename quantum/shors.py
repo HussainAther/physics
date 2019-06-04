@@ -61,8 +61,11 @@ class QubitRegister:
     Register input and output.  
     """
     def __init__(self, numBits):
+        """
+        Initialize hte variables we need.
+        """
         self.numBits = numBits
-        self.numStates = 1 << numBits
+        self.numStates = 1 << numBit # bitwise operator for easy access
         self.entangled = []
         self.states = [QuantumState(complex(0.0), self) for x in range(self.numStates)]
         self.states[0].amplitude = complex(1.0)
