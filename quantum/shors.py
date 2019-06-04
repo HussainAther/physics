@@ -82,11 +82,11 @@ class QubitRegister:
             if register is fromRegister:
                 continue
             register.propagate(self)
-    # Map will convert any mapping to a unitary tensor given each element v
-    # returned by the mapping has the property v * v.conjugate() = 1
+    
     def map(self, toRegister, mapping, propagate = True):
         """
-        Map the tensor using the appropriate mapping.
+        Map the tensor using the appropriate mapping. This converts any mapping to a unitary
+        tensor given each element v returned by the mapping has the property v * v.conjugate() = 1.
         """
         self.entangled.append(toRegister)
         toRegister.entangled.append(self)
