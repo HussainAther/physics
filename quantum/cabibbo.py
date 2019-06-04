@@ -31,7 +31,7 @@ c = np.arctan(abs(V_ud)/abs(V_us))
 We can determine the Cabibbo-Kobayashi-Maskawa matrix to keep track of the weak decays of three
 generations of quarks. This allows for CP-violation.
 """
-V_ub = .00351 # bottom to up
+V_ub = .00351 # bottom to top
 
 V_cd = .22520 # down to charm
 V_cs = .97344 # spin to charm
