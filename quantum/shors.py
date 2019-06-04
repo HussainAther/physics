@@ -219,60 +219,40 @@ def findPeriod(a, N):
     inputNumBits = (2 * nNumBits) - 1
     inputNumBits += 1 if ((1 << inputNumBits) < (N * N)) else 0
     Q = 1 << inputNumBits
-
     printInfo("Finding the period...")
     printInfo("Q = " + str(Q) + "\ta = " + str(a))
-    
     inputRegister = QubitRegister(inputNumBits)
     hmdInputRegister = QubitRegister(inputNumBits)
     qftInputRegister = QubitRegister(inputNumBits)
     outputRegister = QubitRegister(inputNumBits)
-
     printInfo("Registers generated")
     printInfo("Performing Hadamard on input register")
-
     inputRegister.map(hmdInputRegister, lambda x: hadamard(x, Q), False)
     # inputRegister.hadamard(False)
-
     printInfo("Hadamard complete")
     printInfo("Mapping input register to output register, where f(x) is a^x mod N")
-
     hmdInputRegister.map(outputRegister, lambda x: qModExp(a, x, N), False)
-
     printInfo("Modular exponentiation complete")
     printInfo("Performing quantum Fourier transform on output register")
-
     hmdInputRegister.map(qftInputRegister, lambda x: qft(x, Q), False)
     inputRegister.propagate()
-
     printInfo("Quantum Fourier transform complete")
     printInfo("Performing a measurement on the output register")
-
     y = outputRegister.measure()
-
     printInfo("Output register measured\ty = " + str(y))
-
     # Interesting to watch - simply uncomment
     # printAmplitudes(inputRegister)
     # printAmplitudes(qftInputRegister)
     # printAmplitudes(outputRegister)
     # printEntangles(inputRegister)
-
     printInfo("Performing a measurement on the periodicity register")
-
     x = qftInputRegister.measure()
-
     printInfo("QFT register measured\tx = " + str(x))
-
     if x is None:
         return None
-
     printInfo("Finding the period via continued fractions")
-
     r = cf(x, Q, N)
-
     printInfo("Candidate period\tr = " + str(r))
-
     return r
 
 """
