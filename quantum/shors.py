@@ -389,66 +389,51 @@ def checkCandidates(a, r, N, neighborhood):
     return None
 
 def shors(N, attempts = 1, neighborhood = 0.0, numPeriods = 1):
+    """
+    Carry out the steps of the algorithm.
+    """
     if(N.bit_length() > BIT_LIMIT or N < 3):
         return False
-
     periods = []
     neighborhood = np.floor(N * neighborhood) + 1
-
     printInfo("N = " + str(N))
     printInfo("Neighborhood = " + str(neighborhood))
     printInfo("Number of periods = " + str(numPeriods))
-
     for attempt in range(attempts):
         printInfo("\nAttempt #" + str(attempt))
-
         a = pick(N)
         while a < 2:
             a = pick(N)
-
         d = gcd(a, N)
         if d > 1:
             printInfo("Found factors classically, re-attempt")
             continue
-
         r = findPeriod(a, N)
-
         printInfo("Checking candidate period, nearby values, and multiples")
-
         r = checkCandidates(a, r, N, neighborhood)
-
         if r is None:
             printInfo("Period was not found, re-attempt")
             continue
-
         if (r % 2) > 0:
             printInfo("Period was odd, re-attempt")
             continue
-
         d = modExp(a, (r // 2), N)
         if r == 0 or d == (N - 1):
             printInfo("Period was trivial, re-attempt")
             continue
-
         printInfo("Period found\tr = " + str(r))
-
         periods.append(r)
         if(len(periods) < numPeriods):
             continue
-
         printInfo("\nFinding least common multiple of all periods")
-
         r = 1
         for period in periods:
             d = gcd(period, r)
             r = (r * period) // d
-
         b = modExp(a, (r // 2), N)
         f1 = gcd(N, b + 1)
         f2 = gcd(N, b - 1)
-
         return [f1, f2]
-
     return None
 
 """
