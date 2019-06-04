@@ -4,7 +4,7 @@ import argparse
 from random import random
 
 """
-Shor's algorithm for quantum integer factorization
+Shor's algorithm for quantum integer factorization.
 """
 
 class Mapping:
@@ -34,7 +34,7 @@ class QuantumState:
     def entangle(self, fromState, amplitude):
         """
         Entangle with the state the particle is in with a corresponding
-        amplitude.
+        amplitude. This function keeps track of the entanglements.
         """
         register = fromState.register
         entanglement = Mapping(fromState, amplitude)
@@ -45,6 +45,8 @@ class QuantumState:
 
     def entangles(self, register = None):
         """
+        Perform the entanglement process while checking with the appropriate
+        registers. 
         """
         entangles = 0
         if register is None:
@@ -52,10 +54,12 @@ class QuantumState:
                 entangles += len(states)
         else:
             entangles = len(self.entangled[register])
-
         return entangles
 
 class QubitRegister:
+    """
+    Register input and output.  
+    """
     def __init__(self, numBits):
         self.numBits = numBits
         self.numStates = 1 << numBits
@@ -67,25 +71,19 @@ class QubitRegister:
         if fromRegister is not None:
             for state in self.states:
                 amplitude = complex(0.0)
-
                 try:
                     entangles = state.entangled[fromRegister]
                     for entangle in entangles:
                         amplitude += entangle.state.amplitude * entangle.amplitude
-
                     state.amplitude = amplitude
                 except KeyError:
                     state.amplitude = amplitude
-
         for register in self.entangled:
             if register is fromRegister:
                 continue
-
             register.propagate(self)
-
     # Map will convert any mapping to a unitary tensor given each element v
     # returned by the mapping has the property v * v.conjugate() = 1
-
     def map(self, toRegister, mapping, propagate = True):
         """
         Map the tensor using the appropriate mapping.
