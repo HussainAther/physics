@@ -1,7 +1,7 @@
-import math
 import numpy as np
-import random
 import argparse
+
+from random import random
 
 """
 Shor's algorithm for quantum integer factorization
@@ -44,6 +44,8 @@ class QuantumState:
             self.entangled[register] = [entanglement]
 
     def entangles(self, register = None):
+        """
+        """
         entangles = 0
         if register is None:
             for states in self.entangled.values():
@@ -136,7 +138,7 @@ class QubitRegister:
             toRegister.propagate(self)
 
     def measure(self):
-        measure = random.random()
+        measure = random()
         sumProb = 0.0
 
         # Pick a state
@@ -204,12 +206,12 @@ def qft(x, Q):
     Quantum Fourier transform (QFT quantum Transform)
     """
     fQ = float(Q)
-    k = -2.0 * math.pi
+    k = -2.0 * np.pi
     codomain = []
 
     for y in range(Q):
         theta = (k * float((x * y) % Q)) / fQ
-        amplitude = complex(math.cos(theta), math.sin(theta))
+        amplitude = complex(np.cos(theta), np.sin(theta))
         codomain.append(Mapping(y, amplitude))
 
     return codomain
@@ -363,7 +365,7 @@ def pick(N):
     """
     Pick a number at random.
     """
-    a = math.floor((random.random() * (N - 1)) + 0.5)
+    a = np.floor((random() * (N - 1)) + 0.5)
     return a
 
 def checkCandidates(a, r, N, neighborhood):
@@ -393,7 +395,7 @@ def shors(N, attempts = 1, neighborhood = 0.0, numPeriods = 1):
         return False
 
     periods = []
-    neighborhood = math.floor(N * neighborhood) + 1
+    neighborhood = np.floor(N * neighborhood) + 1
 
     printInfo("N = " + str(N))
     printInfo("Neighborhood = " + str(neighborhood))
