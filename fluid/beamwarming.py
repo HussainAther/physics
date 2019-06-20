@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 """
-We use the Beam-Warming method for solutions of the linear advection equation (used to
+We use the Beam-Warming (beam warming beamwarming) method for solutions of the linear advection equation (used to
 describe the transport of a substance or quantity by bulk motion. This method is second-order
 accurate.
 
