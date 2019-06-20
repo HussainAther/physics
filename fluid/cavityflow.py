@@ -42,6 +42,9 @@ def build_up_b(b, rho, dt, u, v, dx, dy):
     return b
 
 def pressure_poisson(p, dx, dy, b):
+    """
+    Poisson's pressure equation.
+    """
     pn = np.empty_like(p)
     pn = p.copy()
     
