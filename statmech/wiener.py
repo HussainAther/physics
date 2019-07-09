@@ -381,3 +381,86 @@ def glm_run(Xr, Yr, X_range):
         print("\nWARNING: LinAlgError")
         Y_range = np.mean(Yr)*np.ones([X_range.shape[0],1])
     return Y_range
+
+class NaiveBayesDecoder(object):
+
+    """
+    Class for the Naive Bayes Decoder.
+    encoding_model is a string, default='quadratic' of which encoding model to use.
+    res is the number of bins to divide the outputs into (going from minimum to maximum).
+    """
+    def __init__(self,encoding_model='quadratic',res=100):
+        self.encoding_model = encoding_model
+        self.res = res
+        return
+
+    def fit(self,X_b_train,y_train):
+        """
+        Train Naive Bayes Decoder.
+        """
+        # Fit tuning curve
+        input_x_range=np.arange(np.min(y_train[:,0]),np.max(y_train[:,0])+.01,np.round((np.max(y_train[:,0])-np.min(y_train[:,0]))/self.res))
+        input_y_range=np.arange(np.min(y_train[:,1]),np.max(y_train[:,1])+.01,np.round((np.max(y_train[:,1])-np.min(y_train[:,1]))/self.res))
+        # Get all combinations of x/y values
+        input_mat = np.meshgrid(input_x_range,input_y_range)
+        xs = np.reshape(input_mat[0],[input_x_range.shape[0]*input_y_range.shape[0],1])
+        ys = np.reshape(input_mat[1],[input_x_range.shape[0]*input_y_range.shape[0],1])
+        input_xy=np.concatenate((xs,ys),axis=1)
+        if self.encoding_model=='quadratic':
+            input_xy_modified = np.empty([input_xy.shape[0],5])
+            input_xy_modified[:,0] = input_xy[:,0]**2
+            input_xy_modified[:,1] = input_xy[:,0]
+            input_xy_modified[:,2] = input_xy[:,1]**2
+            input_xy_modified[:,3] = input_xy[:,1]
+            input_xy_modified[:,4] = input_xy[:,0]*input_xy[:,1]
+            y_train_modified = np.empty([y_train.shape[0],5])
+            y_train_modified[:,0] = y_train[:,0]**2
+            y_train_modified[:,1] = y_train[:,0]
+            y_train_modified[:,2] = y_train[:,1]**2
+            y_train_modified[:,3] = y_train[:,1]
+            y_train_modified[:,4] = y_train[:,0]*y_train[:,1]
+        # Create tuning curves
+        num_nrns=X_b_train.shape[1] # Number of neurons to fit tuning curves for
+        tuning_all=np.zeros([num_nrns,input_xy.shape[0]]) # Matrix that stores tuning curves for all neurons
+        # Loop through neurons and fit tuning curves
+        for j in range(num_nrns): #Neuron number
+            if self.encoding_model == "linear":
+                tuning=glm_run(y_train,X_b_train[:,j:j+1],input_xy)
+            if self.encoding_model == "quadratic":
+                tuning=glm_run(y_train_modified,X_b_train[:,j:j+1],input_xy_modified)
+            tuning_all[j,:] = np.squeeze(tuning)
+        # Save tuning curves to be used in "predict" function
+        self.tuning_all = tuning_all
+        self.input_xy = input_xy
+        n = y_train.shape[0]
+        dx = np.zeros([n-1,1])
+        for i in range(n-1):
+            dx[i] = np.sqrt((y_train[i+1,0]-y_train[i,0])**2+(y_train[i+1,1]-y_train[i,1])**2) #Change in state across time steps
+        std = np.sqrt(np.mean(dx**2)) #dx is only positive. this gets approximate stdev of distribution (if it was positive and negative)
+        self.std = std #Save for use in "predict" function
+
+    def predict(self,X_b_test,y_test):
+        """
+        Predict outcomes using trained tuning curves.
+        """
+        tuning_all=self.tuning_all
+        input_xy=self.input_xy
+        std=self.std
+        dists = squareform(pdist(input_xy, "euclidean")) 
+        prob_dists = norm.pdf(dists,0,std)
+        loc_idx = np.argmin(cdist(y_test[0:1,:],input_xy)) 
+        num_nrns = tuning_all.shape[0]
+        y_test_predicted = np.empty([X_b_test.shape[0],2]) 
+        num_ts = X_b_test.shape[0] 
+        for t in range(num_ts):
+            rs=X_b_test[t,:] 
+            probs_total=np.ones([tuning_all[0,:].shape[0]])
+            for j in range(num_nrns):
+                lam = np.copy(tuning_all[j,:]) 
+                probs = np.exp(-lam)*lam**r/math.factorial(r) 
+                probs_total = np.copy(probs_total*probs)
+            prob_dists_vec = np.copy(prob_dists[loc_idx,:]) 
+            probs_final = probs_total*prob_dists_vec 
+            loc_idx = np.argmax(probs_final)
+            y_test_predicted[t,:] = input_xy[loc_idx,:]
+        return y_test_predicted 
