@@ -289,3 +289,49 @@ class LSTMDecoder(object):
         """
         y_test_predicted = self.model.predict(X_test) # Make predictions
         return y_test_predicted
+
+class XGBoostDecoder(object):
+    """
+    Class for the XGBoost Decoder.
+    """
+    def __init__(self,max_depth=3,num_round=300,eta=0.3,gpu=-1):
+        self.max_depth = max_depth
+        self.num_round = num_round
+        self.eta = eta
+        self.gpu = gpu
+
+    def fit(self,X_flat_train,y_train):
+        """
+        Train XGBoost Decoder.
+        """
+        num_outputs = y_train.shape[1] # Number of outputs
+        # Set parameters for XGBoost
+        param = {"objective": "reg:linear", # for linear output
+            "eval_metric": "logloss", # loglikelihood loss
+            "max_depth": self.max_depth, # this is the only parameter we have set, it's one of the way or regularizing
+            "eta": self.eta,
+            "seed": 2925, # for reproducibility
+            "silent": 1}
+        if self.gpu<0:
+            param["nthread"] = -1 # with -1 it will use all available threads
+        else:
+            param["gpu_id"] = self.gpu
+            param["updater"] = "grow_gpu"
+        models=[] # Initialize list of models (there will be a separate model for each output)
+        for y_idx in range(num_outputs): #Loop through outputs
+            dtrain = xgb.DMatrix(X_flat_train, label=y_train[:,y_idx]) # Put in correct format for XGB
+            bst = xgb.train(param, dtrain, self.num_round) # Train model
+            models.append(bst) # Add fit model to list of models
+        self.model=models
+
+    def predict(self,X_flat_test):
+        """
+        Predict outcomes using trained XGBoost Decoder.
+        """
+        dtest = xgb.DMatrix(X_flat_test) # Put in XGB format
+        num_outputs=len(self.model) # Number of outputs
+        y_test_predicted=np.empty([X_flat_test.shape[0],num_outputs])# Initialize matrix of predicted outputs
+        for y_idx in range(num_outputs): # Loop through outputs
+            bst=self.model[y_idx] # Get fit model for this output
+            y_test_predicted[:,y_idx] = bst.predict(dtest) # Make prediction
+        return y_test_predicted
