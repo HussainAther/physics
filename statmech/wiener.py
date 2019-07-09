@@ -335,3 +335,35 @@ class XGBoostDecoder(object):
             bst=self.model[y_idx] # Get fit model for this output
             y_test_predicted[:,y_idx] = bst.predict(dtest) # Make prediction
         return y_test_predicted
+
+class SVRDecoder(object):
+    """
+    Class for the Support Vector Regression (SVR) Decoder.
+    """
+    def __init__(self,max_iter=-1,C=3.0):
+        self.max_iter = max_iter
+        self.C = C
+        return
+
+    def fit(self,X_flat_train,y_train):
+        """
+        Train SVR Decoder.
+        """
+        num_outputs = y_train.shape[1] # Number of outputs
+        models=[] # Initialize list of models (there will be a separate model for each output)
+        for y_idx in range(num_outputs): # Loop through outputs
+            model = SVR(C=self.C, max_iter=self.max_iter) # Initialize SVR model
+            model.fit(X_flat_train, y_train[:,y_idx]) # Train the model
+            models.append(model) # Add fit model to list of models
+        self.model = models
+
+    def predict(self,X_flat_test):
+        """
+        Predict outcomes using trained Wiener Cascade Decoder.
+        """
+        num_outputs = len(self.model) # Number of outputs
+        y_test_predicted = np.empty([X_flat_test.shape[0],num_outputs]) # Initialize matrix of predicted outputs
+        for y_idx in range(num_outputs): # Loop through outputs
+            model = self.model[y_idx] # Get fit model for that output
+            y_test_predicted[:,y_idx] = model.predict(X_flat_test) # Make predictions
+        return y_test_predicted
