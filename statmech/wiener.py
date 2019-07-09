@@ -169,13 +169,13 @@ class DenseNNDecoder(object):
         model = Sequential() # Declare model
         # Add first hidden layer
         model.add(Dense(self.units[0],input_dim = X_flat_train.shape[1])) # Add dense layer
-        model.add(Activation("Relu"))) # Add nonlinear (tanh) activation
+        model.add(Activation("relu"))) # Add nonlinear (tanh) activation
         # if self.dropout!=0:
         if self.dropout! = 0: model.add(Dropout(self.dropout))  # Dropout some units if proportion of dropout != 0
         # Add any additional hidden layers (beyond the 1st)
         for layer in range(self.num_layers-1): # Loop through additional layers
             model.add(Dense(self.units[layer+1])) # Add dense layer
-            model.add(Activation("Relu")) # Add nonlinear (tanh) activation
+            model.add(Activation("relu")) # Add nonlinear (tanh) activation
             if self.dropout! = 0: model.add(Dropout(self.dropout)) # Dropout some units if proportion of dropout != 0
         # Add dense connections to all outputs
         model.add(Dense(y_train.shape[1])) # Add final dense layer (connected to outputs)
@@ -189,4 +189,38 @@ class DenseNNDecoder(object):
         Predict outcomes using trained DenseNN Decoder.
         """
         y_test_predicted = self.model.predict(X_flat_test) # Make predictions
+        return y_test_predicted
+
+class SimpleRNNDecoder(object):
+    """
+    Simple recurrent neural network decoder.
+    """
+    def __init__(self,units=400,dropout=0,num_epochs=10,verbose=0):
+         self.units = units
+         self.dropout = dropout
+         self.num_epochs = num_epochs
+         self.verbose = verbose
+
+    def fit(self,X_train,y_train):
+        """
+        Train SimpleRNN Decoder.
+        """
+        model = Sequential() #Declare model
+        # Add recurrent layer
+        model.add(SimpleRNN(self.units,input_shape=(X_train.shape[1],X_train.shape[2]), dropout_W=self.dropout, dropout_U=self.dropout,activation="relu")) # Within recurrent layer, include dropout
+        if self.dropout!=0: model.add(Dropout(self.dropout)) # Dropout some units (recurrent layer output units)
+        # Add dense connections to output layer
+        model.add(Dense(y_train.shape[1]))
+        # Fit model (and set fitting parameters)
+        model.compile(loss="mse", optimizer="rmsprop", metrics=["accuracy"]) # Set loss function and optimizer
+        model.fit(X_train,y_train,nb_epoch=self.num_epochs,verbose=self.verbose) # Fit the model
+        self.model=model
+
+    def predict(self,X_test):
+
+        """
+        Predict outcomes using trained SimpleRNN Decoder/
+        """
+
+        y_test_predicted = self.model.predict(X_test) #Make predictions
         return y_test_predicted
