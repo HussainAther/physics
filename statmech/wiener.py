@@ -367,3 +367,17 @@ class SVRDecoder(object):
             model = self.model[y_idx] # Get fit model for that output
             y_test_predicted[:,y_idx] = model.predict(X_flat_test) # Make predictions
         return y_test_predicted
+
+def glm_run(Xr, Yr, X_range):
+    """
+    GLM helper function for the NaiveBayesDecoder.
+    """
+    X2 = sm.add_constant(Xr)
+    poiss_model = sm.GLM(Yr, X2, family=sm.families.Poisson())
+    try:
+        glm_results = poiss_model.fit()
+        Y_range= glm_results.predict(sm.add_constant(X_range))
+    except np.linalg.LinAlgError:
+        print("\nWARNING: LinAlgError")
+        Y_range = np.mean(Yr)*np.ones([X_range.shape[0],1])
+    return Y_range
