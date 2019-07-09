@@ -16,3 +16,30 @@ from sklearn.svm import SVR #For support vector regression (SVR)
 """
 Wiener filter used in signal processing for decoding.
 """
+
+class WienerFilterDecoder(object):
+    """
+    Class for the Wiener Filter Decoder.
+    """
+    def __init__(self):
+        return
+
+    def fit(self,X_flat_train,y_train):
+        """
+        Train Wiener Filter Decoder.
+        X_flat_train is a numpy 2d array of shape [n_samples,n_features] of the neural data.
+        y_train is a numpy 2d array of shape [n_samples, n_outputs] that are the outputs to
+        predict.
+        """
+        self.model=linear_model.LinearRegression() # Initialize linear regression model
+        self.model.fit(X_flat_train, y_train) # Train the model
+
+    def predict(self,X_flat_test):
+        """
+        Predict outcomes using trained Wiener Cascade Decoder.
+        X_flat_test is a numpy 2d array of shape [n_samples,n_features] of data used to predict.
+        Return y_test_predicted is a numpy 2d array of shape [n_samples,n_outputs] of the 
+        predicted output.
+        """
+        y_test_predicted=self.model.predict(X_flat_test) # Make predictions
+        return y_test_predicted
