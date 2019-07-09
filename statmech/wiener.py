@@ -435,8 +435,8 @@ class NaiveBayesDecoder(object):
         n = y_train.shape[0]
         dx = np.zeros([n-1,1])
         for i in range(n-1):
-            dx[i] = np.sqrt((y_train[i+1,0]-y_train[i,0])**2+(y_train[i+1,1]-y_train[i,1])**2) #Change in state across time steps
-        std = np.sqrt(np.mean(dx**2)) #dx is only positive. this gets approximate stdev of distribution (if it was positive and negative)
+            dx[i] = np.sqrt((y_train[i+1,0]-y_train[i,0])**2+(y_train[i+1,1]-y_train[i,1])**2) # Change in state across time steps
+        std = np.sqrt(np.mean(dx**2)) # dx is only positive. this gets approximate stdev of distribution (if it was positive and negative)
         self.std = std #Save for use in "predict" function
 
     def predict(self,X_b_test,y_test):
