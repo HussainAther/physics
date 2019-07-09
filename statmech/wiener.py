@@ -140,3 +140,53 @@ class KalmanFilterDecoder(object):
             states[:,t+1] = np.squeeze(state) # Record state at the timestep
         y_test_predicted = states.T
         return y_test_predicted
+
+class DenseNNDecoder(object):
+    """
+    Class for the dense (fully-connected) neural network decoder.
+    units is the number of hidden units in each layer.
+    dropout is the proportion of units that get dropped out.
+    num_epochs is the number of epochs used for training.
+    verbose is whether to show progress of the fit after each epoch.
+    """
+    def __init__(self,units=400,dropout=0,num_epochs=10,verbose=0):
+         self.dropout = dropout
+         self.num_epochs = num_epochs
+         self.verbose = verbose
+         # If "units" is an integer, put it in the form of a vector
+         try: #Check if it's a vector
+             units[0]
+         except: #If it's not a vector, create a vector of the number of units for each layer
+             units = [units]
+         self.units = units
+         # Determine the number of hidden layers (based on "units" that the user entered)
+         self.num_layers = len(units)
+
+    def fit(self,X_flat_train,y_train):
+        """
+        Train DenseNN Decoder.
+        """
+        model = Sequential() # Declare model
+        # Add first hidden layer
+        model.add(Dense(self.units[0],input_dim = X_flat_train.shape[1])) # Add dense layer
+        model.add(Activation("Relu"))) # Add nonlinear (tanh) activation
+        # if self.dropout!=0:
+        if self.dropout! = 0: model.add(Dropout(self.dropout))  # Dropout some units if proportion of dropout != 0
+        # Add any additional hidden layers (beyond the 1st)
+        for layer in range(self.num_layers-1): # Loop through additional layers
+            model.add(Dense(self.units[layer+1])) # Add dense layer
+            model.add(Activation("Relu")) # Add nonlinear (tanh) activation
+            if self.dropout! = 0: model.add(Dropout(self.dropout)) # Dropout some units if proportion of dropout != 0
+        # Add dense connections to all outputs
+        model.add(Dense(y_train.shape[1])) # Add final dense layer (connected to outputs)
+        # Fit model (and set fitting parameters)
+        model.compile(loss="mse", optimizer="adam", metrics=["accuracy"]) # Set loss function and optimizer
+        model.fit(X_flat_train, y_train, nb_epoch=self.num_epochs, verbose=self.verbose) #F it the model
+        self.model = model
+
+    def predict(self,X_flat_test):
+        """
+        Predict outcomes using trained DenseNN Decoder.
+        """
+        y_test_predicted = self.model.predict(X_flat_test) # Make predictions
+        return y_test_predicted
