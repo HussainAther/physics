@@ -67,4 +67,10 @@ plt.xlabel("time (s)", fontsize = 18)
 plt.ylabel("velocity (m/s)", fontsize = 18)
 plt.title("Vertically Dropped Ball", fontsize = 18)
 plt.ylim(0, .21)
-if savePlot
+
+# Save.
+if savePlot == ".pdf":
+    now = datetime.datetime.now()
+    fname = str(now.year) + str(now.month) + str(now.day) + "-" + str(now.hour) + str(now.minute) + str(now.second) + ".pdf"
+    plt.savefig(fname, dpi=600)
+elif savePlot = ".png":
