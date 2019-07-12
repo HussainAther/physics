@@ -74,3 +74,12 @@ if savePlot == ".pdf":
     fname = str(now.year) + str(now.month) + str(now.day) + "-" + str(now.hour) + str(now.minute) + str(now.second) + ".pdf"
     plt.savefig(fname, dpi=600)
 elif savePlot = ".png":
+    now = datetime.datetime.now()
+    fname = str(now.year) + str(now.month) + str(now.day) + "-" + str(now.hour) + str(now.minute) + str(now.second) + ".png"
+    plt.savefig(fname, dpi=600)
+
+# Analytic function for comparison
+a = np.arange(0, tmax, dt)
+c = vterminal*(1-np.exp(-g*a/vterminal))
+plt.plot(a, c, "l--")
+plt.show()
