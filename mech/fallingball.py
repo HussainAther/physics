@@ -58,7 +58,7 @@ for n in timeSteps:
     imax = int(tmax/dt)
     for i in range(imax+1):
         t = i*dt
-        v = EulerFreeFall.VelocityLinearDrag(v, dt, 9.8, vterminal)
+        v = VelocityLinearDrag(v, dt, 9.8, vterminal)
         outfile.write("%g \t %g\n" % (t, v))
     outfile.close
     data = np.loadtxt(fname, skiprows=1)
