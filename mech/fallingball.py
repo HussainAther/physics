@@ -11,9 +11,11 @@ program depends on the function VelocityLinearDrag to execute
 the Euler method.
 """
 
+# Initialize variables.
 t = 0
 g = 9.8
 
+# Parse arguments.
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--filename", dest="filename", action="store", help="output filename", default=junk.dat")
@@ -23,6 +25,7 @@ parser.add_argument("--tmax", dest="tmax", type=float, default=.2, hel="maximum 
 parser.add_argument("--df", dest="dt", help="time steps", action="append")
 parser.add_argument("--savePlot", dest="savePlot", action="store", default="none", help="Save a hardcopy of plot? (specifify .pdf or .png)")
 
+# Read parsed arguments.
 input = parser.parse_args()
 filename = input.filename
 v = input.v
@@ -32,6 +35,7 @@ tmax = input.tmax
 savePlot = input.savePlot
 timeSteps = input.dt
 
+# Simulate.
 for n in timeSteps:
     dt = float(n)
     fname = filename + str(n) + ".dat"
@@ -52,8 +56,15 @@ for n in timeSteps:
     i = 0
     v = vinitial
 
+# Plot.
 legendstr = []
 for timestep in timeSteps:
     legendstr.append("dt = " + timestep)
 legendstring = str(legendstr[:])
 legendstring = legendstring.strip("[ ]") + ", Analytic Solution"
+plt.legend(legendstring.split(", "), loc="best")
+plt.xlabel("time (s)", fontsize = 18)
+plt.ylabel("velocity (m/s)", fontsize = 18)
+plt.title("Vertically Dropped Ball", fontsize = 18)
+plt.ylim(0, .21)
+if savePlot
