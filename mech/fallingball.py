@@ -51,3 +51,9 @@ for n in timeSteps:
     t = 0
     i = 0
     v = vinitial
+
+legendstr = []
+for timestep in timeSteps:
+    legendstr.append("dt = " + timestep)
+legendstring = str(legendstr[:])
+legendstring = legendstring.strip("[ ]") + ", Analytic Solution"
