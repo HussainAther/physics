@@ -22,3 +22,12 @@ parser_add_argument("--v_terminal", dest="vterminal", type=float, default=2, hel
 parser.add_argument("--tmax", dest="tmax", type=float, default=.2, hel="maximum simulation time")
 parser.add_argument("--df", dest="dt", help="time steps", action="append")
 parser.add_argument("--savePlot", dest="savePlot", action="store", default="none", help="Save a hardcopy of plot? (specifify .pdf or .png)")
+
+input = parser.parse_args()
+filename = input.filename
+v = input.v
+vinitial = v
+vterminal = input.vterminal
+tmax = input.tmax
+savePlot = input.savePlot
+timeSteps = input.dt
