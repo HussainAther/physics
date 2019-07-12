@@ -1,4 +1,4 @@
-import sys, EulerFreeFall
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
@@ -10,6 +10,19 @@ ball dropped from rest close to the surface of Earth . The
 program depends on the function VelocityLinearDrag to execute
 the Euler method.
 """
+
+# Helper functions
+def VelocityLinearDrag(v, dt, g=9.8, vt=30):
+    return v + g*(1-v/vt)*dt)
+
+def PositionLinearDrag(x, v, dt):
+    return x + v*dt
+
+def newVelocityNoDrag(v, dt=.01, g=9.8):
+    return v - g*dt
+
+def newPositionNoDrag(y, v, dt):
+    return y + v*dt
 
 # Initialize variables.
 t = 0
