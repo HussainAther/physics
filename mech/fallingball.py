@@ -31,3 +31,23 @@ vterminal = input.vterminal
 tmax = input.tmax
 savePlot = input.savePlot
 timeSteps = input.dt
+
+for n in timeSteps:
+    dt = float(n)
+    fname = filename + str(n) + ".dat"
+    outfile = open(fname, "w")
+    outfile.write("time (s) \t speed \n")
+    outfile.write("%g \t %g\n" % (t, v))
+    imax = int(tmax/dt)
+    for i in range(imax+1):
+        t = i*dt
+        v = EulerFreeFall.VelocityLinearDrag(v, dt, 9.8, vterminal)
+        outfile.write("%g \t %g\n" % (t, v))
+    outfile.close
+    data = np.loadtxt(fname, skiprows=1)
+    xaxis = data[:, 0]
+    yaxis = data[:, 1]
+    plt.plot(xaxis, yaxis, marker=".", markersize=7, linestyle="None")
+    t = 0
+    i = 0
+    v = vinitial
