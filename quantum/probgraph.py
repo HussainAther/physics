@@ -25,6 +25,7 @@ for solution in response.aggregate().data():
         g[solution.energy] += 1
     else:
         g[solution.energy] = 1
+
 print("Degeneracy", g)
 probabilities = np.array([g[E] * np.exp(-E/temperature) for E in g.keys()])
 Z = probabilities.sum()
