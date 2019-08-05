@@ -1,5 +1,7 @@
 import numpy as np
 import dimod
+import matplotlib.pyplot as plt
+import dwave_networkx as dnx
 
 """
 Adiabatic quantum computing and adiabatic theorem
@@ -23,3 +25,8 @@ sampler = dimod.SimulatedAnnealingSampler()
 response = sampler.sample(model, num_reads=10)
 print("Energy of samples:")
 print([solution.energy for solution in response.data()])
+
+# Chimera graph
+connectivity_structure = dnx.chimera_graph(2, 2)
+dnx.draw_chimera(connectivity_structure)
+plt.show()
