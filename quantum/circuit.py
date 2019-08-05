@@ -21,3 +21,11 @@ Hc = []
 for i in range(n_qubits):
     for j in range(n_qubits):
         Hc.append(PauliTerm("Z", i, -J[i, j]) * PauliTerm("Z", j, 1.0))
+
+# Iterate to compute exponential functions.
+exp_Hm = []
+exp_Hc = []
+for term in Hm:
+    exp_Hm.append(exponential_map(term))
+for term in Hc:
+    exp_Hc.append(exponential_map(term))
