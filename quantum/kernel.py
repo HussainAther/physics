@@ -1,5 +1,5 @@
 from pyquil import Program, get_qc
-from pyquil gates import CCNOT, CNOT, H, RZ, X
+from pyquil gates import CCNOT, CNOT, H, MEASURE, RZ, X
 from foresttools import init_qvm_and_quilc
 
 """
@@ -67,3 +67,11 @@ def prepare_state(angles):
 angles = [test_angles[0], training_angle]
 state_preparation_0 = prepare_state(angles)
 plot_circuit(state_preparation_0)
+
+# Natural kernel on a shallow circuit 
+def interfere_data_and_test_instances(circuit, angles):
+    ro = circuit.declare(name="ro", memory_type="BIT", memory_size=4)
+    circuit += H(0)
+    for q in range(4):
+        circuit += MEASURE(q, ro[q])
+    return circuit
