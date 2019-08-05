@@ -59,3 +59,8 @@ qvm = api.QVMConnection(endpoint=fc.sync_endpoint, compiler_endpoint=fc.compiler
 result = minimize(evaluate_circuit, np.concatenate([β, γ]), method="L-BFGS-B")
 
 circuit = create_circuit(result["x"][:p], result["x"][p:])
+wf_sim = api.WavefunctionSimulator(connection=fc)
+state = wf_sim.wavefunction(circuit)
+print(state)
+print(qvm.pauli_expectation(circuit, PauliSum([sZ(0)])))
+print(qvm.pauli_expectation(circuit, PauliSum([sZ(1)])))
