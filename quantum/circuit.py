@@ -12,3 +12,6 @@ Quantum approximate optimization algorithm for a circuit.
 
 np.set_printoptions(precision=3, suppress=True)
 qvm_server, quilc_server, fc = init_qvm_and_quilc("")
+n_qubits = 2
+# Hamiltonian
+Hm = [PauliTerm("X", i, -1.0) for i in range(n_qubits)]
