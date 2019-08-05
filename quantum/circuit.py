@@ -56,5 +56,6 @@ def evaluate_circuit(beta_gamma):
 
 qvm = api.QVMConnection(endpoint=fc.sync_endpoint, compiler_endpoint=fc.compiler_endpoint)
 
-result = minimize(evaluate_circuit, np.concatenate([β, γ]), method='L-BFGS-B')
-result
+result = minimize(evaluate_circuit, np.concatenate([β, γ]), method="L-BFGS-B")
+
+circuit = create_circuit(result["x"][:p], result["x"][p:])
