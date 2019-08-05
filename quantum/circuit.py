@@ -29,3 +29,8 @@ for term in Hm:
     exp_Hm.append(exponential_map(term))
 for term in Hc:
     exp_Hc.append(exponential_map(term))
+
+n_iter = 10 # number of iterations of the optimization procedure
+p = 1
+β = np.random.uniform(0, np.pi*2, p)
+γ = np.random.uniform(0, np.pi*2, p)
