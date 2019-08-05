@@ -81,3 +81,15 @@ def get_psuccess(counts):
     except ZeroDivisionError:
         prob_swap_test_success = 0
     return prob_swap_test_success
+
+# Run the circuit.
+hhl.wrap_in_numshots_loop(100)
+executable = qc.compile(hhl)
+result = qc.run(executable)
+classical_bits = result.shape[1]
+stats = {}
+for bits in itertools.product("01", repeat=classical_bits):
+    stats["".join(str(bit) for bit in bits)] = 0
+for i in range(100):
+    stats["".join(str(bit) for bit in result[i])] += 1
+print(get_psuccess(stats))
