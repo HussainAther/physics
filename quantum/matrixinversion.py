@@ -62,3 +62,22 @@ hhl += H(5)
 c = hhl.declare("ro", "BIT", 2)
 hhl += MEASURE(0, c[0])
 hhl += MEASURE(5, c[1])
+
+def get_psuccess(counts):
+    """
+    Compute the success probability of the HHL protocol from the statistics.
+    """
+    try:
+        succ_rotation_fail_swap = counts["11"]
+    except KeyError:
+        succ_rotation_fail_swap = 0
+    try:
+        succ_rotation_succ_swap = counts["01"]
+    except KeyError:
+        succ_rotation_succ_swap = 0
+    succ_rotation = succ_rotation_succ_swap + succ_rotation_fail_swap
+    try:
+        prob_swap_test_success = succ_rotation_succ_swap / succ_rotation
+    except ZeroDivisionError:
+        prob_swap_test_success = 0
+    return prob_swap_test_success
