@@ -19,3 +19,6 @@ def get_angle(amplitude_0):
     Solve quantum equation to get angle.
     """
     return 2*np.arccos(amplitude_0)
+
+test_angles = [get_angle(test_set[0][0])/2, get_angle(test_set[1][0])/2]
+training_angle = get_angle(training_set[1][0])/4
