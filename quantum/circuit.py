@@ -32,5 +32,8 @@ for term in Hc:
 
 n_iter = 10 # number of iterations of the optimization procedure
 p = 1
-β = np.random.uniform(0, np.pi*2, p)
-γ = np.random.uniform(0, np.pi*2, p)
+beta = np.random.uniform(0, np.pi*2, p)
+gamma = np.random.uniform(0, np.pi*2, p)
+initial_state = Program()
+for i in range(n_qubits):
+    initial_state += H(i)
