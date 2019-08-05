@@ -72,3 +72,4 @@ for beta in betas:
             logp = np.log(np.random.uniform(0, 1))
             if logp < -1. * beta * (energy_diff_h[v] + energy_diff_J[v]):
                 spins[v] *= -1
+spins
