@@ -2,6 +2,7 @@ from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
 from qiskit import execute
 from qiskit import BasicAer as Aer
 from qiskit.tools.visualization import circuit_drawer, plot_histogram
+from foresttools import plot_histogram
 
 """
 Noisy quantum computers.
