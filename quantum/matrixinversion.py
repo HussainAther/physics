@@ -3,7 +3,7 @@ import scipy.linalg
 
 from foresttools import init_qvm_and_quilc
 from grove.alpha.phaseestimation.phase_estimation import controlled
-from pyquil.gates import H
+from pyquil.gates import H, SWAP
 from pyquil import Program, get_qc
 
 """
@@ -27,3 +27,10 @@ hhl += ("CONTROLLED-U0", 2, 3)
 # Controlled-U1
 hhl.defgate("CONTROLLED-U1", controlled(scipy.linalg.expm(2j*π*A/2)))
 hhl += ("CONTROLLED-U1", 1, 3)
+
+# Inverse quantum inverse Fourier transformation
+hhl += SWAP(1, 2)
+hhl += H(2)
+hhl.defgate("CSdag", controlled(np.array([[1, 0], [0, -1j]])))
+hhl += ("CSdag", 1, 2)
+hhl += H(1)
