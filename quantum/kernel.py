@@ -5,3 +5,7 @@ from foresttools import init_qvm_and_quilc
 """
 Kernel method for spatial mapping.
 """
+
+qvm_server, quilc_server, fc = init_qvm_and_quilc("")
+qc == get_qc("4q-qvm", connection=fc)
+
