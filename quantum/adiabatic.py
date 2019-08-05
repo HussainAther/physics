@@ -37,3 +37,10 @@ G = nx.complete_graph(9)
 plt.axis("off")
 nx.draw_networkx(G, with_labels=False)
 embedded_graph = minorminer.find_embedding(G.edges(), connectivity_structure.edges())
+dnx.draw_chimera_embedding(connectivity_structure, embedded_graph)
+plt.show()
+max_chain_length = 0
+for _, chain in embedded_graph.items():
+    if len(chain) > max_chain_length:
+        max_chain_length = len(chain)
+print(max_chain_length)
