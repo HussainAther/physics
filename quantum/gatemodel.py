@@ -10,7 +10,7 @@ Gate-model in quantum computing.
 """
 
 np.set_printoptions(precision=3, suppress=True)
-qvm_server, quilc_server, fc = init_qvm_and_quilc("/")
+qvm_server, quilc_server, fc = init_qvm_and_quilc("")
 qc = get_qc("2q-qvm", connection=fc)
 
 wf_sim = WavefunctionSimulator(connection=fc)
