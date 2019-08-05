@@ -62,3 +62,8 @@ def prepare_state(angles):
     # Flip the class label for training vector #2
     circuit += CNOT(index_qubit, class_qubit)
     return circuit
+
+# from qiskit.tools.visualization import circuit_drawer
+angles = [test_angles[0], training_angle]
+state_preparation_0 = prepare_state(angles)
+plot_circuit(state_preparation_0)
