@@ -47,3 +47,9 @@ def create_circuit(beta, gamma):
         for term_exp_Hm in exp_Hm:
             circuit += term_exp_Hm(-gamma[i])
     return circuit
+
+def evaluate_circuit(beta_gamma):
+    beta = beta_gamma[:p]
+    gamma = beta_gamma[p:]
+    circuit = create_circuit(beta, gamma)
+    return qvm.pauli_expectation(circuit, sum(Hc))
