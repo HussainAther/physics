@@ -37,3 +37,13 @@ gamma = np.random.uniform(0, np.pi*2, p)
 initial_state = Program()
 for i in range(n_qubits):
     initial_state += H(i)
+
+def create_circuit(beta, gamma):
+    circuit = Program()
+    circuit += initial_state
+    for i in range(p):
+        for term_exp_Hc in exp_Hc:
+            circuit += term_exp_Hc(-beta[i])
+        for term_exp_Hm in exp_Hm:
+            circuit += term_exp_Hm(-gamma[i])
+    return circuit
