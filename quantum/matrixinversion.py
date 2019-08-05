@@ -36,3 +36,16 @@ hhl += ("CSdag", 1, 2)
 hhl += H(1)
 hhl += SWAP(1, 2)
 uncomputation = hhl.dagger()
+
+def rY(angle):
+    """
+    Generate a rotation matrix over the Y axis in the Bloch sphere.
+    angle is the angle of rotation. 
+    """
+    return np.array([[np.cos(angle/2), -np.sin(angle/2)],
+                     [np.sin(angle/2), np.cos(angle/2)]])
+
+hhl.defgate("CRy0", controlled(rY(2pi/2**4)))
+hhl += ("CRy0", 1, 0)
+hhl.defgate("CRy1", controlled(rY(pi/2**4)))
+hhl += ("CRy1", 2, 0)
