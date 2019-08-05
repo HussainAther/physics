@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
 from pyquil import Program, get_qc
 from pyquil gates import CCNOT, CNOT, H, MEASURE, RZ, X
 from foresttools import init_qvm_and_quilc
@@ -75,3 +78,22 @@ def interfere_data_and_test_instances(circuit, angles):
     for q in range(4):
         circuit += MEASURE(q, ro[q])
     return circuit
+
+x = np.linspace(-2, 2, 100)
+plt.xlim(-2, 2)
+plt.ylim(0, 1.1)
+plt.plot(x, 1-x**2/4)
+
+def postselect(result_counts):
+    total_samples = sum(result_counts.values())
+    # define lambda function that retrieves only results where the ancilla is in the |0> state
+    post_select = lambda counts: [(state, occurences) for state, occurences in counts.items() if state[-1] == '0']
+    # perform the postselection
+    postselection = dict(post_select(result_counts))
+    postselected_samples = sum(postselection.values())
+    print(f"Ancilla post-selection probability was found to be {postselected_samples/total_samples}")
+    retrieve_class = lambda binary_class: [occurences for state, occurences in postselection.items() if state[0] == str(binary_class)]
+    prob_class0 = sum(retrieve_class(0))/postselected_samples
+    prob_class1 = sum(retrieve_class(1))/postselected_samples
+    print("Probability for class 0 is", prob_class0)
+    print("Probability for class 1 is", prob_class1)
