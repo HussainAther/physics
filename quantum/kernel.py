@@ -106,3 +106,19 @@ count = np.unique(measures, return_counts=True, axis=0)
 count = dict(zip(list(map(lambda l: "".join(list(map(str, l))), count[0].tolist())), count[1]))
 print(count)
 postselect(count)
+
+angles = [test_angles[1], training_angle]
+state_preparation_1 = prepare_state(angles)
+
+circuit_1 = interfere_data_and_test_instances(state_preparation_1, angles)
+executable = qc.compile(circuit_1)
+measures = qc.run(executable)
+
+count = np.unique(measures, return_counts=True, axis=0)
+count = dict(zip(list(map(lambda l: ''.join(list(map(str, l))), count[0].tolist())), count[1]))
+print(count)
+
+postselect(count)
+
+qvm_server.termninate()
+quilc_server.terminate()
