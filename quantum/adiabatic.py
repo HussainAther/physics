@@ -1,6 +1,7 @@
 import numpy as np
 import dimod
 import matplotlib.pyplot as plt
+import minorminer
 import networkx as nx
 import dwave_networkx as dnx
 
@@ -35,3 +36,4 @@ plt.show()
 G = nx.complete_graph(9)
 plt.axis("off")
 nx.draw_networkx(G, with_labels=False)
+embedded_graph = minorminer.find_embedding(G.edges(), connectivity_structure.edges())
