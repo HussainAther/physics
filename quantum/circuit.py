@@ -15,3 +15,9 @@ qvm_server, quilc_server, fc = init_qvm_and_quilc("")
 n_qubits = 2
 # Hamiltonian
 Hm = [PauliTerm("X", i, -1.0) for i in range(n_qubits)]
+J = np.array([[0,1],[0,0]]) # weight matrix of the Ising model. Only the coefficient (0,1) is non-zero.
+
+Hc = []
+for i in range(n_qubits):
+    for j in range(n_qubits):
+        Hc.append(PauliTerm("Z", i, -J[i, j]) * PauliTerm("Z", j, 1.0))
