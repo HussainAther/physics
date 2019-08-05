@@ -3,6 +3,7 @@ import scipy.linalg
 
 from foresttools import init_qvm_and_quilc
 from grove.alpha.phaseestimation.phase_estimation import controlled
+from grove.alpha.arbitrary_state.arbitrary_state import create_arbitrary_state
 from pyquil.gates import H, SWAP
 from pyquil import Program, get_qc
 
@@ -49,3 +50,4 @@ hhl.defgate("CRy0", controlled(rY(2pi/2**4)))
 hhl += ("CRy0", 1, 0)
 hhl.defgate("CRy1", controlled(rY(pi/2**4)))
 hhl += ("CRy1", 2, 0)
+hhl += uncomputation
