@@ -1,6 +1,7 @@
 import numpy as np
 import dimod
 import matplotlib.pyplot as plt
+import networkx as nx
 import dwave_networkx as dnx
 
 """
@@ -26,7 +27,11 @@ response = sampler.sample(model, num_reads=10)
 print("Energy of samples:")
 print([solution.energy for solution in response.data()])
 
-# Chimera graph
+# Chimera graph for connectivity structure
 connectivity_structure = dnx.chimera_graph(2, 2)
 dnx.draw_chimera(connectivity_structure)
 plt.show()
+
+G = nx.complete_graph(9)
+plt.axis("off")
+nx.draw_networkx(G, with_labels=False)
