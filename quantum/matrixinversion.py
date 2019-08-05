@@ -4,7 +4,7 @@ import scipy.linalg
 from foresttools import init_qvm_and_quilc
 from grove.alpha.phaseestimation.phase_estimation import controlled
 from grove.alpha.arbitrary_state.arbitrary_state import create_arbitrary_state
-from pyquil.gates import H, SWAP
+from pyquil.gates import CSWAP, H, MEASURE, SWAP
 from pyquil import Program, get_qc
 
 """
@@ -51,3 +51,14 @@ hhl += ("CRy0", 1, 0)
 hhl.defgate("CRy1", controlled(rY(pi/2**4)))
 hhl += ("CRy1", 2, 0)
 hhl += uncomputation
+
+reference_amplitudes = [0.9492929682, 0.3143928443]
+# Target state preparation
+hhl += create_arbitrary_state(reference_amplitudes, [4])
+# Swap test
+hhl += H(5)
+hhl += CSWAP(5, 4, 3)
+hhl += H(5)
+c = hhl.declare("ro", "BIT", 2)
+hhl += MEASURE(0, c[0])
+hhl += MEASURE(5, c[1])
