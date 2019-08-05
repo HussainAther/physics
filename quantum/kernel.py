@@ -97,3 +97,12 @@ def postselect(result_counts):
     prob_class1 = sum(retrieve_class(1))/postselected_samples
     print("Probability for class 0 is", prob_class0)
     print("Probability for class 1 is", prob_class1)
+
+circuit_0 = interfere_data_and_test_instances(state_preparation_0, angles)
+circuit_0.wrap_in_numshots_loop(1024)
+executable = qc.compile(circuit_0)
+measures = qc.run(executable)
+count = np.unique(measures, return_counts=True, axis=0)
+count = dict(zip(list(map(lambda l: "".join(list(map(str, l))), count[0].tolist())), count[1]))
+print(count)
+postselect(count)
