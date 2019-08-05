@@ -53,3 +53,8 @@ def evaluate_circuit(beta_gamma):
     gamma = beta_gamma[p:]
     circuit = create_circuit(beta, gamma)
     return qvm.pauli_expectation(circuit, sum(Hc))
+
+qvm = api.QVMConnection(endpoint=fc.sync_endpoint, compiler_endpoint=fc.compiler_endpoint)
+
+result = minimize(evaluate_circuit, np.concatenate([β, γ]), method='L-BFGS-B')
+result
