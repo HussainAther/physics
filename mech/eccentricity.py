@@ -6,4 +6,6 @@ Use the argument of input after running this program to
 give the list of radii.
 """
 
-distlist = sys.argv[1]
+distlist = sys.argv[1] # list of radii
+apoapsis = max(distlist) # apoapsis definition
+
