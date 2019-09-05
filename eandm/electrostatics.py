@@ -25,3 +25,12 @@ def arrayargs(func):
         return func(*[array(a) for a in args], **kwargs)
     return wrapper
 
+def init(xmin, xmax, ymin, ymax, zoom=1, xoffset=0):
+    """
+    Initializes the domain.
+    """
+    # pylint: disable=global-statement
+    global XMIN, XMAX, YMIN, YMAX, ZOOM, XOFFSET
+    XMIN, XMAX, YMIN, YMAX, ZOOM, XOFFSET = \
+      xmin, xmax, ymin, ymax, zoom, xoffset
+
