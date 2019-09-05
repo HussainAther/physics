@@ -9,3 +9,7 @@ from scipy.interpolate import splrep, splev
 """
 Electrostatics (electrostatic) functionality
 """
+
+xmin, xmax, ymin, ymax = None, None, None, None
+zoom = None
+xoffset = None
