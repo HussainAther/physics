@@ -210,3 +210,36 @@ class LineCharge:
         x, y = zip(self.x1, self.x2)
         width = 5*(np.sqrt(np.fabs(self.lam))/2 + 1)
         plt.plot(x, y, color, linewidth=width)
+
+class FieldLine:
+    """
+    A Field Line.
+    """
+    def __init__(self, x):
+        """
+        Initialize the field line points 'x'.
+        """
+        self.x = x
+
+    def plot(self, linewidth=None, startarrows=True, endarrows=True):
+        """
+        Plot the field line and arrows.
+        """
+        if linewidth == None:
+            linewidth = rcParams["lines.linewidth"]
+        
+        x, y = zip(*self.x)
+        plt.plot(x, y, "-k", linewidth=linewidth)
+        n = int(len(x)/2) if len(x) < 225 else 75
+        if startarrows:
+            plt.arrow(x[n], y[n], (x[n+1]-x[n])/100., (y[n+1]-y[n])/100.,
+                         fc="k", ec="k",
+                         head_width=0.1*linewidth, head_length=0.1*linewidth)
+
+        if len(x) < 225 or not endarrows:
+            return
+        plt.arrow(x[-n], y[-n],
+                     (x[-n+1]-x[-n])/100., (y[-n+1]-y[-n])/100.,
+                     fc="k", ec="k",
+                     head_width=0.1*linewidth, head_length=0.1*linewidth)
+
