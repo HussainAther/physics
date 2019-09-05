@@ -37,7 +37,7 @@ def norm(x):
     """
     Return the magnitude of the vector x.
     """
-    return sqrt(numpy.sum(array(x)**2, axis=-1))
+    return np.sqrt(np.sum(array(x)**2, axis=-1))
 
 @arrayargs
 def point_line_distance(x0, x1, x2):
@@ -46,7 +46,7 @@ def point_line_distance(x0, x1, x2):
     point line distance pointlinedistance 
     """
     assert x1.shape == x2.shape == (2,)
-    return fabs(cross(x0-x1, x0-x2))/norm(x2-x1)
+    return fabs(np.cross(x0-x1, x0-x2))/np.norm(x2-x1)
 
 @arrayargs
 def angle(x0, x1, x2):
@@ -55,7 +55,7 @@ def angle(x0, x1, x2):
     """
     assert x1.shape == x2.shape == (2,)
     a, b = x1 - x0, x1 - x2
-    return arccos(dot(a, b)/(norm(a)*norm(b)))
+    return np.arccos(np.dot(a, b)/(np.norm(a)*np.norm(b)))
 
 @arrayargs
 def is_left(x0, x1, x2):
