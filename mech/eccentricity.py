@@ -11,7 +11,3 @@ apoapsis = max(distlist) # apoapsis definition
 periapsis = min(distlist) # perapsis
 eccentricity = (apoapsis - periapsis) / (apoapsis + periapsis)
 print(eccentricity)
-
-"""
-Map it.
-"""
