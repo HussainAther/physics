@@ -143,3 +143,70 @@ class PointChargeFlatland(PointCharge):
 
     def V(self, x):
         raise RuntimeError("Not implemented")
+
+class LineCharge:
+    """
+    A line charge.
+    """
+    R = 0.01  # The effective radius of the charge
+    def __init__(self, q, x1, x2):
+        """
+        Initialize the quantity of charge 'q' and end point vectors
+        'x1' and 'x2'.
+        """
+        self.q, self.x1, self.x2 = q, np.array(x1), np.array(x2)
+
+    def get_lam(self):
+        """
+        Return the total charge on the line.
+        """
+        return self.q / np.norm(self.x2 - self.x1)
+
+    def E(self, x):  # pylint: disable=invalid-name
+        """
+        Electric field vector.
+        """
+        x = np.array(x)
+        x1, x2, lam = self.x1, self.x2, self.lam
+
+        # Get lengths and angles for the different triangles
+        theta1, theta2 = angle(x, x1, x2), pi - angle(x, x2, x1)
+        a = point_line_distance(x, x1, x2)
+        r1, r2 = np.norm(x - x1), norm(x - x2)
+
+        # Calculate the parallel and perpendicular components
+        sign = where(is_left(x, x1, x2), 1, -1)
+
+        # pylint: disable=invalid-name
+        Epara = lam*(1/r2-1/r1)
+        Eperp = -sign*lam*(np.cos(theta2)-np.cos(theta1))/where(a == 0, infty, a)
+
+        # Transform into the coordinate space and return
+        dx = x2 - x1
+
+        if len(x.shape) == 2:
+            Epara = Epara[::, newaxis]
+            Eperp = Eperp[::, newaxis]
+
+        return Eperp * (np.array([-dx[1], dx[0]])/np.norm(dx)) + Epara * (dx/np.norm(dx))
+
+    def is_close(self, x):
+        """
+        Return True if x is close to the charge.
+        """
+        theta1 = angle(x, self.x1, self.x2)
+        theta2 = angle(x, self.x2, self.x1)
+        if theta1 < radians(90) and theta2 < radians(90):
+            return point_line_distance(x, self.x1, self.x2) < self.R
+        else:
+            return np.min([np.norm(self.x1-x), np.norm(self.x2-x)], axis=0) < \
+              self.R
+
+    def plot(self):
+        """
+        Plot the charge.
+        """
+        color = "b" if self.q < 0 else "r" if self.q > 0 else "k"
+        x, y = zip(self.x1, self.x2)
+        width = 5*(np.sqrt(np.fabs(self.lam))/2 + 1)
+        plt.plot(x, y, color, linewidth=width)
