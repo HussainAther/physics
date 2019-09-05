@@ -129,3 +129,17 @@ class PointCharge:
         r = 0.1*(np.sqrt(np.fabs(self.q))/2 + 1)
         circle = plt.Circle(self.x, r, color=color, zorder=10)
         plt.gca().add_artist(circle)
+
+class PointChargeFlatland(PointCharge):
+    """
+    A point charge in Flatland.
+    """
+    def E(self, x):  # pylint: disable=invalid-name
+        """
+        Electric field vector.
+        """
+        dx = x-self.x
+        return (self.q*dx.T/np.sum(dx**2, axis=-1)).T
+
+    def V(self, x):
+        raise RuntimeError("Not implemented")
