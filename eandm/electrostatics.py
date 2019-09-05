@@ -13,3 +13,15 @@ Electrostatics (electrostatic) functionality
 xmin, xmax, ymin, ymax = None, None, None, None
 zoom = None
 xoffset = None
+
+def arrayargs(func):
+    """
+    Ensure all args are arrays.
+    """
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        """Ensures all args are arrays."""
+        # pylint: disable=star-args
+        return func(*[array(a) for a in args], **kwargs)
+    return wrapper
+
