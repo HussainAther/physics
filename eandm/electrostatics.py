@@ -274,9 +274,11 @@ class ElectricField:
         return np.arctan2(*(self.vector(x).T[::-1])) # arctan2 gets quadrant right
 
     def direction(self, x):
-        """Returns a unit vector pointing in the direction of the field."""
+        """
+        Return a unit vector pointing in the direction of the field.
+        """
         v = self.vector(x)
-        return (v.T/norm(v)).T
+        return (v.T/np.norm(v)).T
 
     def projection(self, x, a):
         """
@@ -330,11 +332,11 @@ class ElectricField:
         x, y = meshgrid(
             np.linspace(xmin/zoom+xoffset, xmax/zoom+xoffset, 200),
             np.linspace(ymin/zoom, ymax/zoom, 200))
-        z = zeros_like(x)
+        z = np.zeros_like(x)
         for i in range(x.shape[0]):
             for j in range(x.shape[1]):
                 z[i, j] = np.log10(self.magnitude([x[i, j], y[i, j]]))
         levels = np.arange(nmin, nmax+0.2, 0.2)
-        cmap = plt.cm.get_cmap('plasma')
+        cmap = plt.cm.get_cmap("plasma")
         plt.contourf(x, y, numpy.clip(z, nmin, nmax),
                         10, cmap=cmap, levels=levels, extend="both")
