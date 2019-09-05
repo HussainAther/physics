@@ -30,7 +30,6 @@ def init(xmin, xmax, ymin, ymax, zoom=1, xoffset=0):
     Initializes the domain.
     """
     # pylint: disable=global-statement
-    global XMIN, XMAX, YMIN, YMAX, ZOOM, XOFFSET
-    XMIN, XMAX, YMIN, YMAX, ZOOM, XOFFSET = \
-      xmin, xmax, ymin, ymax, zoom, xoffset
+    global xmin, xmax, ymin, ymax, zoom, xoffset
+    xmin, xmax, ymin, ymax, zoom, xoffset = xmin, xmax, ymin, ymax, zoom, xoffset
 
