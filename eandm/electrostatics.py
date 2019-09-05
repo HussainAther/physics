@@ -48,3 +48,22 @@ def point_line_distance(x0, x1, x2):
     assert x1.shape == x2.shape == (2,)
     return fabs(cross(x0-x1, x0-x2))/norm(x2-x1)
 
+@arrayargs
+def angle(x0, x1, x2):
+    """
+    Return angle between three points.
+    """
+    assert x1.shape == x2.shape == (2,)
+    a, b = x1 - x0, x1 - x2
+    return arccos(dot(a, b)/(norm(a)*norm(b)))
+
+@arrayargs
+def is_left(x0, x1, x2):
+    """
+    Return True if x0 is left of the line between x1 and x2. False otherwise.
+    """
+    assert x1.shape == x2.shape == (2,)
+    matrix = array([x1-x0, x2-x0])
+    if len(x0.shape) == 2:
+        matrix = matrix.transpose((1, 2, 0))
+    return det(matrix) > 0
