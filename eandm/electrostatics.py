@@ -39,3 +39,12 @@ def norm(x):
     """
     return sqrt(numpy.sum(array(x)**2, axis=-1))
 
+@arrayargs
+def point_line_distance(x0, x1, x2):
+    """
+    Find the shortest distance between the point x0 and the line x1 to x2.
+    point line distance pointlinedistance 
+    """
+    assert x1.shape == x2.shape == (2,)
+    return fabs(cross(x0-x1, x0-x2))/norm(x2-x1)
+
