@@ -8,4 +8,5 @@ give the list of radii.
 
 distlist = sys.argv[1] # list of radii
 apoapsis = max(distlist) # apoapsis definition
+periapsis = min(distlist) # perapsis
 
