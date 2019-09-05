@@ -67,3 +67,23 @@ def is_left(x0, x1, x2):
     if len(x0.shape) == 2:
         matrix = matrix.transpose((1, 2, 0))
     return det(matrix) > 0
+
+def lininterp2(x1, y1, x):
+    """Linear interpolation at points x between numpy arrays (x1, y1).
+    Only y1 is allowed to be two-dimensional.  The x1 values should be sorted
+    from low to high.  Returns a numpy.array of y values corresponding to
+    points x.
+    """
+    return splev(x, splrep(x1, y1, s=0, k=1))
+
+def finalize_plot():
+    """
+    Finalize the plot.
+    """
+    ax = pyplot.axes()
+    ax.set_xticks([])
+    ax.set_yticks([])
+    pyplot.xlim(xmin/zoom+xoffset, xmax/zoom+xoffset)
+    pyplot.ylim(ymin/zoom, ymax/zoom)
+    pyplot.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
+
