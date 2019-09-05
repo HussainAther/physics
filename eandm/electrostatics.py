@@ -243,3 +243,98 @@ class FieldLine:
                      fc="k", ec="k",
                      head_width=0.1*linewidth, head_length=0.1*linewidth)
 
+class ElectricField:
+    """
+    The electric field owing to a collection of charges.
+    """
+    dt0 = 0.01  # The time step for integrations
+
+    def __init__(self, charges):
+        """
+        Initialize the field given 'charges'.
+        """
+        self.charges = charges
+
+    def vector(self, x):
+        """
+        Return the field vector.
+        """
+        return np.sum([charge.E(x) for charge in self.charges], axis=0)
+
+    def magnitude(self, x):
+        """
+        Return the magnitude of the field vector.
+        """
+        return np.norm(self.vector(x))
+
+    def angle(self, x):
+        """
+        Return the field vector's angle from the x-axis (in radians).
+        """
+        return np.arctan2(*(self.vector(x).T[::-1])) # arctan2 gets quadrant right
+
+    def direction(self, x):
+        """Returns a unit vector pointing in the direction of the field."""
+        v = self.vector(x)
+        return (v.T/norm(v)).T
+
+    def projection(self, x, a):
+        """
+        Return the projection of the field vector on a line at given angle
+        from x-axis.
+        """
+        return self.magnitude(x) * np.cos(a - self.angle(x))
+
+    def line(self, x0):
+        """
+        Return the field line passing through x0.
+        """
+        if None in [xmin, xmax, ymin, ymax]:
+            raise ValueError("Domain must be set using init().")
+        # Set up integrator for the field line
+        streamline = lambda t, y: list(self.direction(y))
+        solver = ode(streamline).set_integrator("vode")
+        # Initialize the coordinate lists
+        x = [x0]
+        # Integrate in both the forward and backward directions
+        dt = 0.008
+        # Solve in both the forward and reverse directions
+        for sign in [1, -1]:
+            # Set the starting coordinates and time
+            solver.set_initial_value(x0, 0)
+            # Integrate field line over successive time steps
+            while solver.successful():
+                # Find the next step
+                solver.integrate(solver.t + sign*dt)
+                # Save the coordinates
+                if sign > 0:
+                    x.append(solver.y)
+                else:
+                    x.insert(0, solver.y)
+                # Check if line connects to a charge
+                flag = False
+                for c in self.charges:
+                    if c.is_close(solver.y):
+                        flag = True
+                        break
+                # Terminate line at charge or if it leaves the area of interest
+                if flag or not (xmin < solver.y[0] < xmax) or \
+                  not ymin < solver.y[1] < ymax:
+                    break
+        return FieldLine(x)
+
+    def plot(self, nmin=-3.5, nmax=1.5):
+        """
+        Plot the field magnitude.
+        """
+        x, y = meshgrid(
+            np.linspace(xmin/zoom+xoffset, xmax/zoom+xoffset, 200),
+            np.linspace(ymin/zoom, ymax/zoom, 200))
+        z = zeros_like(x)
+        for i in range(x.shape[0]):
+            for j in range(x.shape[1]):
+                z[i, j] = np.log10(self.magnitude([x[i, j], y[i, j]]))
+        levels = np.arange(nmin, nmax+0.2, 0.2)
+        cmap = plt.cm.get_cmap('plasma')
+        plt.contourf(x, y, numpy.clip(z, nmin, nmax),
+                        10, cmap=cmap, levels=levels, extend="both")
