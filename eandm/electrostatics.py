@@ -22,7 +22,7 @@ def arrayargs(func):
     def wrapper(*args, **kwargs):
         """Ensures all args are arrays."""
         # pylint: disable=star-args
-        return func(*[array(a) for a in args], **kwargs)
+        return func(*[np.array(a) for a in args], **kwargs)
     return wrapper
 
 def init(xmin, xmax, ymin, ymax, zoom=1, xoffset=0):
@@ -63,10 +63,10 @@ def is_left(x0, x1, x2):
     Return True if x0 is left of the line between x1 and x2. False otherwise.
     """
     assert x1.shape == x2.shape == (2,)
-    matrix = array([x1-x0, x2-x0])
+    matrix = np.array([x1-x0, x2-x0])
     if len(x0.shape) == 2:
         matrix = matrix.transpose((1, 2, 0))
-    return det(matrix) > 0
+    return np.det(matrix) > 0
 
 def lininterp2(x1, y1, x):
     """Linear interpolation at points x between numpy arrays (x1, y1).
@@ -83,7 +83,7 @@ def finalize_plot():
     ax = pyplot.axes()
     ax.set_xticks([])
     ax.set_yticks([])
-    pyplot.xlim(xmin/zoom+xoffset, xmax/zoom+xoffset)
-    pyplot.ylim(ymin/zoom, ymax/zoom)
-    pyplot.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
+    plt.xlim(xmin/zoom+xoffset, xmax/zoom+xoffset)
+    plt.ylim(ymin/zoom, ymax/zoom)
+    plt.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
 
