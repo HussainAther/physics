@@ -27,9 +27,15 @@ def arrayargs(func):
 
 def init(xmin, xmax, ymin, ymax, zoom=1, xoffset=0):
     """
-    Initializes the domain.
+    Initialize the domain.
     """
     # pylint: disable=global-statement
     global xmin, xmax, ymin, ymax, zoom, xoffset
     xmin, xmax, ymin, ymax, zoom, xoffset = xmin, xmax, ymin, ymax, zoom, xoffset
+
+def norm(x):
+    """
+    Return the magnitude of the vector x.
+    """
+    return sqrt(numpy.sum(array(x)**2, axis=-1))
 
