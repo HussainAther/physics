@@ -46,7 +46,7 @@ def point_line_distance(x0, x1, x2):
     point line distance pointlinedistance 
     """
     assert x1.shape == x2.shape == (2,)
-    return fabs(np.cross(x0-x1, x0-x2))/np.norm(x2-x1)
+    return np.fabs(np.cross(x0-x1, x0-x2))/np.norm(x2-x1)
 
 @arrayargs
 def angle(x0, x1, x2):
@@ -87,3 +87,45 @@ def finalize_plot():
     plt.ylim(ymin/zoom, ymax/zoom)
     plt.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
 
+class PointCharge:
+    """
+    A point charge.
+    """
+    R = 0.01  # The effective radius of the charge
+
+    def __init__(self, q, x):
+        """
+        Initialize the quantity of charge 'q' and position vector 'x'.
+        """
+        self.q, self.x = q, np.array(x)
+
+    def E(self, x):  # pylint: disable=invalid-name
+        """
+        Electric field vector.
+        """
+        if self.q == 0:
+            return 0
+        else:
+            dx = x-self.x
+            return (self.q*dx.T/np.sum(dx**2, axis=-1)**1.5).T
+
+    def V(self, x):  # pylint: disable=invalid-name
+        """
+        Potential.
+        """
+        return self.q/np.norm(x-self.x)
+
+    def is_close(self, x):
+        """
+        Return True if x is close to the charge; false otherwise.
+        """
+        return np.norm(x-self.x) < self.R
+
+    def plot(self):
+        """
+        Plot the charge.
+        """
+        color = "b" if self.q < 0 else "r" if self.q > 0 else "k"
+        r = 0.1*(np.sqrt(np.fabs(self.q))/2 + 1)
+        circle = plt.Circle(self.x, r, color=color, zorder=10)
+        plt.gca().add_artist(circle)
