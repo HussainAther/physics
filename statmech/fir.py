@@ -31,6 +31,19 @@ for ntaps in ntaps_list:
     b = firwin(ntaps, [0.05, 0.95], width=0.05, pass_zero=False)
     # Signal convolve.
     tstart = time.time()
-    conv_result = sig_convolve(x, b[np.newaxis, :], mode='valid')
+    conv_result = sig_convolve(x, b[np.newaxis, :], mode="valid")
     conv_time.append(time.time() - tstart)
-
+    # --- numpy.convolve ---
+    tstart = time.time()
+    npconv_result = np.array([np_convolve(xi, b, mode="valid") for xi in x])
+    npconv_time.append(time.time() - tstart)
+    # fft convolve (fast fourier transform) convolution.
+    tstart = time.time()
+    fftconv_result = fftconvolve(x, b[np.newaxis, :], mode="valid")
+    fftconv_time.append(time.time() - tstart)
+    # 1-dimensional (one-dimensional) convolution.
+    tstart = time.time()
+    # convolve1d doesn't have a "valid" mode, so we expliclity slice out
+    # the valid part of the result.
+    conv1d_result = convolve1d(x, b)[:, (len(b)-1)//2 : -(len(b)//2)]
+    conv1d_time.append(time.time() - tstart)
