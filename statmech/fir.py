@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 from numpy import convolve as np_convolve
 from scipy.signal import fftconvolve, lfilter, firwin
@@ -56,6 +57,18 @@ for ntaps in ntaps_list:
     diff2_list.append(diff2)
     diff3 = np.abs(npconv_result - lfilt_result).max()
     diff3_list.append(diff3)
+
+def timeit(fn, shape, lfilter=False, n_x=2e4, repeats=3):
+    x = np.random.rand(int(n_x))
+    y = np.random.rand(*shape)
+    args = [x, y] if not lfilter else [x, x, y]
+    times = []
+    for _ in range(int(repeats)):
+        start = time.time()
+        c = fn(*args)
+        times += [time.time() - start]
+    return min(times)
+
 npconv_time2, conv_time2, conv1d_time2 = [], [], []
 fftconv_time2, sig_conv_time2, lconv_time2 = [], [], []
 Ns_1d = 2*np.logspace(0, 4, num=11, dtype=int)
