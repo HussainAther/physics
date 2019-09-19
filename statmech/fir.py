@@ -43,7 +43,7 @@ for ntaps in ntaps_list:
     fftconv_time.append(time.time() - tstart)
     # 1-dimensional (one-dimensional) convolution.
     tstart = time.time()
-    # convolve1d doesn't have a "valid" mode, so we expliclity slice out
+    # convolve1d doesn"t have a "valid" mode, so we expliclity slice out
     # the valid part of the result.
     conv1d_result = convolve1d(x, b)[:, (len(b)-1)//2 : -(len(b)//2)]
     conv1d_time.append(time.time() - tstart)
@@ -65,3 +65,29 @@ for n in Ns_1d:
     fftconv_time2 += [timeit(fftconvolve, shape=(n,))]
     sig_conv_time2 += [timeit(sig_convolve, shape=(n,))]
     lconv_time2 += [timeit(lfilter, shape=(n,), lfilter=True)]
+
+fig = plt.figure(1, figsize=(16, 5.5))
+plt.subplot(1, 2, 1)
+plt.loglog(ntaps_list, conv1d_time, "k-p", label="ndimage.convolve1d")
+plt.loglog(ntaps_list, lfilt_time, "c-o", label="signal.lfilter")
+plt.loglog(ntaps_list, fftconv_time, "m-*", markersize=8, label="signal.fftconvolve")
+plt.loglog(ntaps_list[:len(conv_time)], conv_time, "g-d", label="signal.convolve")
+plt.loglog(ntaps_list, npconv_time, "b-s", label="numpy.convolve")
+plt.legend(loc="best", numpoints=1)
+plt.grid(True)
+plt.xlabel("Number of taps")
+plt.ylabel("Time to filter (seconds)")
+plt.title("Multidimensional timing")
+
+plt.subplot(1, 2, 2)
+plt.loglog(Ns_1d, conv1d_time2, "k-p", label="ndimage.convolve1d")
+plt.loglog(Ns_1d, lconv_time2, "c-o", label="signal.lfilter")
+plt.loglog(Ns_1d, fftconv_time2, "m-*", markersize=8, label="signal.fftconvolve")
+plt.loglog(Ns_1d, sig_conv_time2, "g-d", label="signal.convolve")
+plt.loglog(Ns_1d, npconv_time2, "b-s", label="np.convolve")
+plt.grid()
+plt.xlabel("Number of taps")
+plt.ylabel("Time to filter (seconds)")
+plt.title("One dimensional timing")
+plt.legend(loc="best")
+plt.show()
