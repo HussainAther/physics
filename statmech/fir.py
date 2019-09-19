@@ -47,3 +47,13 @@ for ntaps in ntaps_list:
     # the valid part of the result.
     conv1d_result = convolve1d(x, b)[:, (len(b)-1)//2 : -(len(b)//2)]
     conv1d_time.append(time.time() - tstart)
+    tstart = time.time()
+    lfilt_result = lfilter(b, [1.0], x)[:, len(b) - 1:]
+    lfilt_time.append(time.time() - tstart)
+    diff = np.abs(fftconv_result - lfilt_result).max()
+    diff_list.append(diff)
+    diff2 = np.abs(conv1d_result - lfilt_result).max()
+    diff2_list.append(diff2)
+    diff3 = np.abs(npconv_result - lfilt_result).max()
+    diff3_list.append(diff3)
+
