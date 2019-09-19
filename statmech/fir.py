@@ -25,3 +25,12 @@ diff2_list = []
 diff3_list = []
 
 ntaps_list = 2 ** np.arange(2, 14)
+
+for ntaps in ntaps_list:
+    # Create a FIR filter.
+    b = firwin(ntaps, [0.05, 0.95], width=0.05, pass_zero=False)
+    # Signal convolve.
+    tstart = time.time()
+    conv_result = sig_convolve(x, b[np.newaxis, :], mode='valid')
+    conv_time.append(time.time() - tstart)
+
