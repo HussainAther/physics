@@ -56,4 +56,12 @@ for ntaps in ntaps_list:
     diff2_list.append(diff2)
     diff3 = np.abs(npconv_result - lfilt_result).max()
     diff3_list.append(diff3)
-
+npconv_time2, conv_time2, conv1d_time2 = [], [], []
+fftconv_time2, sig_conv_time2, lconv_time2 = [], [], []
+Ns_1d = 2*np.logspace(0, 4, num=11, dtype=int)
+for n in Ns_1d:
+    npconv_time2 += [timeit(np_convolve, shape=(n,))]
+    conv1d_time2 += [timeit(convolve1d, shape=(n,))]
+    fftconv_time2 += [timeit(fftconvolve, shape=(n,))]
+    sig_conv_time2 += [timeit(sig_convolve, shape=(n,))]
+    lconv_time2 += [timeit(lfilter, shape=(n,), lfilter=True)]
