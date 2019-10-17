@@ -47,7 +47,7 @@ def animate(i, a):
     im.set_array(a[i % 2, 0]) # image
     return [im]
 
-# animate the image over 200 frames at intervals of 5
-anim = animation.FuncAnimation(fig, animate, frames=200, interval=5, blit=False, fargs=(a,))
+# animate the image over 200 frames at intervals of 4
+anim = animation.FuncAnimation(fig, animate, frames=200, interval=4, blit=False, fargs=(a,))
 
 plt.show()
