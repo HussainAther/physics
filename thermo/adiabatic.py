@@ -1,9 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# helper functions
 from constants import constants
-from new_thermo import findTdwv, thetaep, tinvert_thetae, wsat, convertTempToSkew
 from convecSkew import convecSkew
+from new_thermo import findTdwv, thetaep, tinvert_thetae, wsat, convertTempToSkew
 
 """
 Keep track of equilibrium values as a heat engine expands
@@ -36,7 +37,7 @@ thetae_sf = thetaep(sfTd_bot,sfT_bot,pbot)
 fig1 = plt.figure(1)
 skew, ax1 = convecSkew(1)
 
-# initialize vector arrays
+# Initialize vector arrays.
 pvec = np.arange(ptop, pbot, 1000)
 Tvec_eq = np.zeros(pvec.size)
 Tvec_sf = np.zeros(pvec.size)
@@ -50,7 +51,6 @@ for i in range(0, len(pvec)):
     xcoord_eq[i] = convertTempToSkew(Tvec_eq[i] - c.Tc, pvec[i]*0.01, skew)
     Tvec_sf[i], wv[i], wl[i] = tinvert_thetae(thetae_sf, sfwv_bot, pvec[i])
     xcoord_sf[i] = convertTempToSkew(Tvec_sf[i] - c.Tc, pvec[i]*0.01, skew)
-
     
 tempA = Tvec_sf[len(Tvec_sf)-1]
 pressA = pbot
