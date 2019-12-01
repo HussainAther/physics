@@ -1,4 +1,3 @@
-import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -126,4 +125,24 @@ class Simulation:
         fig, ax = plt.subplots()
         ax.imshow(self.norm(), cmap=plt.cm.hot)
         plt.show()
+
+def animate(simulation, time, interval=100):
+    """
+    Display an animation of the simulation.
+    """
+    fig, ax = plt.subplots()
+    L = simulation.xmax
+    norm = ax.imshow(simulation.norm(), extent=(-L, L, -L, L), cmap=plt.cm.hot)
+
+    def update(i):
+        """
+        Update each step of the animation.
+        """
+        simulation.evolve(time / interval)
+        N = simulation.norm()
+        norm.set_data(N)
+        ax.set_title('T = {:3.2f}, N = {:1.6f}'.format(simulation.time, N.sum()*simulation.dx**2))
+
+    anim = animation.FuncAnimation(fig, update, interval=10)
+    plt.show()
 
