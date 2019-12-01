@@ -68,3 +68,21 @@ class Simulation:
         self.T = np.exp(-1j * self.loss * (kx**2 + ky**2) * self.dt / 2)
         self.V = np.exp(-1j * self.loss * (self.x**2 + self.y**2) * self.dt / 2)
         self.eta = parameters["nonlinearity"]
+
+    def evolve(self, time):
+        """
+        Evolve the wavefunction to the given time in the future.
+        """
+        steps = int(time / self.dt)
+        if steps == 0:
+            steps = 1 # Guarantee at least 1 step.
+
+        for _ in range(steps):
+            #self.linear_step()
+            self.nonlinear_step()
+            if self.loss:
+                N = self.norm().sum()*self.dx**2
+                self.wf /= N
+
+        self.update_time(steps)
+
