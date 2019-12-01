@@ -112,3 +112,9 @@ class Simulation:
         """
         self.steps += steps
         self.time = self.steps * self.dt
+
+    def norm(self):
+         """
+         Return the norm to the vector.
+         """
+        return abs(self.wf)**2
