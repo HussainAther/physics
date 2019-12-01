@@ -58,3 +58,13 @@ class Simulation:
         self.time = 0
         self.dt = self.dx**2 / 4
 
+        # Wavefunction
+        init_func = parameters["initial"]
+        self.wf = init_func(self.x, self.y, 0)
+        self.wf /= np.sqrt(self.norm().sum() * self.dx**2) # Normalize
+
+        # Hamiltonian operators
+        self.loss = 1 - 1j*parameters["loss"]
+        self.T = np.exp(-1j * self.loss * (kx**2 + ky**2) * self.dt / 2)
+        self.V = np.exp(-1j * self.loss * (self.x**2 + self.y**2) * self.dt / 2)
+        self.eta = parameters["nonlinearity"]
