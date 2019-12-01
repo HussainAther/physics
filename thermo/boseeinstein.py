@@ -105,3 +105,10 @@ class Simulation:
 
         # Nonlinear
         self.wf *= np.exp(-1j * self.loss * self.eta * abs(self.wf)**2 * self.dt)
+
+    def update_time(self, steps):
+        """ 
+        Increment time by steps taken.
+        """
+        self.steps += steps
+        self.time = self.steps * self.dt
