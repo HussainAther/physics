@@ -47,8 +47,14 @@ class Simulation:
         self.dx = v[1] - v[0]
         self.x, self.y = np.meshgrid(v, v)
 
-        # Spectral space.
+        # Spectral space
         kmax = 2*np.pi / self.dx
         dk = kmax / N
         self.k = np.fft.fftshift((arange(N)-N/2) * dk)
         kx, ky = np.meshgrid(self.k, self.k)
+
+        # Time
+        self.steps = 0
+        self.time = 0
+        self.dt = self.dx**2 / 4
+
