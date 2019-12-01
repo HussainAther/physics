@@ -45,4 +45,10 @@ class Simulation:
         N = parameters["N"]
         v = linspace(-xmax, xmax, N)
         self.dx = v[1] - v[0]
-        self.x, self.y = meshgrid(v, v)
+        self.x, self.y = np.meshgrid(v, v)
+
+        # Spectral space.
+        kmax = 2*np.pi / self.dx
+        dk = kmax / N
+        self.k = np.fft.fftshift((arange(N)-N/2) * dk)
+        kx, ky = np.meshgrid(self.k, self.k)
