@@ -95,3 +95,13 @@ class Simulation:
 
         # Potential
         self.wf *= self.V
+
+    def nonlinear_step(self):
+        """
+        Make one nonlinear step dt forward in time.
+        """
+        # Linear step
+        self.linear_step()
+
+        # Nonlinear
+        self.wf *= np.exp(-1j * self.loss * self.eta * abs(self.wf)**2 * self.dt)
