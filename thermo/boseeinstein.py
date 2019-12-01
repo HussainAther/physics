@@ -38,3 +38,11 @@ class Simulation:
     """
     def __init__(self, parameters):
         self.parameters = parameters
+        
+        # Set up spatial dimensions.
+        xmax = parameters["xmax"]
+        self.xmax = xmax
+        N = parameters["N"]
+        v = linspace(-xmax, xmax, N)
+        self.dx = v[1] - v[0]
+        self.x, self.y = meshgrid(v, v)
