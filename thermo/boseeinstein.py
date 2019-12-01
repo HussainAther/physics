@@ -117,4 +117,13 @@ class Simulation:
          """
          Return the norm to the vector.
          """
-        return abs(self.wf)**2
+         return abs(self.wf)**2
+
+    def show(self):
+        """
+        Show the current norm of the wavefunction.
+        """
+        fig, ax = plt.subplots()
+        ax.imshow(self.norm(), cmap=plt.cm.hot)
+        plt.show()
+
