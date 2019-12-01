@@ -86,3 +86,12 @@ class Simulation:
 
         self.update_time(steps)
 
+     def linear_step(self):
+        """
+        Make one linear step dt forward in time.
+        """
+        # Kinetic
+        self.wf[:] = np.fft.fft2(np.fft.ifft2(self.wf) * self.T)
+
+        # Potential
+        self.wf *= self.V
