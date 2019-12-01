@@ -27,3 +27,14 @@ class QHO:
         xs = x - self.xshift
         ys = y - self.yshift
         return self.coef * np.exp(-(xs**2 + ys**2) / 2 - 1j*self.E*t) * self.hermite(x) * self.hermite(y)
+
+class Simulation:
+    """
+    Simulation to step wavefunction forward in time from the given parameters
+    xmax : maximum extent of boundary
+    N    : number of spatial points
+    init : initial wavefunction
+    nonlinearity : factor in front of |psi^2| term
+    """
+    def __init__(self, parameters):
+        self.parameters = parameters
