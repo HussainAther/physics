@@ -11,10 +11,10 @@ the unit to be flipped is not a single spin, as in the heat bath or
 Metropolis (metropolis-hastings hastings) algorithms, but a cluster of them.
 """
 
-N = 64 #inputs
+N = 64 # number of molecules 
 T = 2.3
 maxsteps = 200
-N2 = N*N #setup
+N2 = N*N # setup matrix
 print("maxsteps=", maxsteps, "T=", T)
 s = ones( (N,N), dtype=int )
 acount = 0
@@ -86,7 +86,7 @@ for steps in arange(maxsteps): # computation starts
     pm.plot(pos=(steps,cn))
     if steps> maxsteps/4:
         acount = acount+1
-        cnave  =cnave+cn
+        cnave  = cnave+cn
         Mave = Mave+M # end of computation
 Mave = Mave/acount
 cnave = cnave/acount
