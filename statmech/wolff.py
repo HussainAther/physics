@@ -1,7 +1,6 @@
 import numpy as np
 
 from random import random
-from visual import mod, rate 
 from visual.graph import box, color, gdots 
 
 """
@@ -29,7 +28,7 @@ pm = gdots(size=10)
 Mave = 0
 cnave = 0
 for steps in arange(maxsteps): # computation starts
-    rate(10000)
+    np.rate(10000)
     clist = [] #start a new cluster
     nlist = []
     nn = 0
