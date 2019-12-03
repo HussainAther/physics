@@ -1,7 +1,7 @@
+import matplotlib.pyplot as plt
 import numpy as np
 
 from random import random
-from visual.graph import box, color, gdots 
 
 """
 Wolff algorithm for Monte Carlo simulation of the Ising model in which 
@@ -20,11 +20,13 @@ M = N2
 print("N=", N, "M(0) =", M)
 p = 1-np.exp(-2/T)
 spins = []  # graphics
+y = dict(markerfacecolor="y") # yellow color
+b = dict(markerfacecolor="b") # blue color
+
+plt.figure()
 for ij in np.arange(N2):
-    i,j = divmod(ij,N)
-    c = color.yellow
-    spins = spins+[box(pos=(i-N/2+0.5,j-N/2+0.5,0), length=0.8, height=0.8, width=0.1, color=c)]
-pm = gdots(size=10)
+    i, j = divmod(ij, N)
+    plt.boxplot((i-N/2+.5, j-N/2+.5, 0, flierprops=y)
 Mave = 0
 cnave = 0
 for steps in arange(maxsteps): # computation starts
@@ -77,9 +79,9 @@ for steps in arange(maxsteps): # computation starts
                 s[i,jm] =- s0
     for ij in arange(N2):
         i,j = divmod(ij,N)
-        c = color.yellow
-        if s[i,j] <0 : c = color.blue
-        spins[ij].color = c
+        c = y # yellow on graph
+        if s[i,j] <0 : c = b # blue on graph
+        plt.boxplot((i-N/2+.5, j-N/2+.5, 0, flierprops=c)
     M = M-2*cn*s0
     pm.plot(pos=(steps,cn))
     if steps> maxsteps/4:
