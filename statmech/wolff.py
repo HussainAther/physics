@@ -1,8 +1,7 @@
 import numpy as np
 
-from __future__ import division, print_function
 from random import random
-from visual import divmod, mod, rate 
+from visual import mod, rate 
 from visual.graph import box, color, gdots 
 
 """
@@ -49,10 +48,10 @@ for steps in arange(maxsteps): # computation starts
         clist.append([i,j])
         cn = cn+1
         # s[i,j]=-s0
-        ip = mod(i+1,N) # periodic boundary conditions
-        im = mod(i-1,N)
-        jp = mod(j+1,N)
-        jm = mod(j-1,N)
+        ip = i+1 % N # periodic boundary conditions
+        im = i-1 % N 
+        jp = j+1 % N
+        jm = j-1 % N
         if s[ip,j]==s0:
             u = random()
             if u<p:
