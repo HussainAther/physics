@@ -41,4 +41,15 @@ class wienerprocess():
             return self.startPosition + self.mu*delta1 + (self.endPosition-self.startPosition-self.mu*delta2)*delta1/delta2
         else:
             return self.startPosition+self.mu*(t-self.startTime)
- 
+
+    def _var(self,
+             t):
+        """
+        Compute variance.
+        """
+        if self.conditional:
+            delta1 = self.sigma**2*(t-self.startTime)*(self.endTime-t)
+            delta2 = self.endTime-self.startTime
+            return delta1/delta2
+        else:
+            return self.sigma**2*(t-self.startTime) 
