@@ -1,5 +1,5 @@
 import numpy as np
-
+import scipy.stats as stats
 
 class gbm():
     """
@@ -23,3 +23,9 @@ class gbm():
         self.mu = mu
         self.sigma = sigma
         self.Nor = stats.norm(0,1)
+
+    def drift(self, x, t):
+        return self.mu*x
+        
+    def diffusion(self, x, t):
+        return self.sigma*x
