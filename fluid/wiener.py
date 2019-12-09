@@ -28,4 +28,17 @@ class wienerprocess():
         Transition occurs between states.
         """
         return np.exp(-(y-x-self.mu*(t-self.startTime))**2/(2*self.sigma**2*(t-self.startTime)))\
-            /np.sqrt(2*pi*self.sigma*(t-self.startTime))    
+            /np.sqrt(2*pi*self.sigma*(t-self.startTime))   
+
+    def _mean(self,
+              t):
+        """
+        Compute the mean position given the start and end times.        
+        """
+        if self.conditional:
+            delta1 = t - self.startTime
+            delta2 = self.endTime - self.startTime
+            return self.startPosition + self.mu*delta1 + (self.endPosition-self.startPosition-self.mu*delta2)*delta1/delta2
+        else:
+            return self.startPosition+self.mu*(t-self.startTime)
+ 
