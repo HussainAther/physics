@@ -1,9 +1,10 @@
-
+import numpy as np
 
 class wienerprocess():
     """
-    Wiener process implementation as a special case of brownian motion
-    with 0 drift and variance of t.
+    Wiener process implementation as a special case of Brownian motion
+    with 0 drift and variance of t. Homogenous Markov process with a transition
+    function.
     dW_t = mu*dt + sigma*dB_t
     W_t ~ N*(mu*t, sigma**2t)
     """
@@ -18,3 +19,13 @@ class wienerprocess():
         self.mu = mu
         self.sigma = sigma
         self.Nor = stats.norm()
+
+    def _transition_pdf(self, 
+                        x, 
+                        t, 
+                        y):
+        """
+        Transition occurs between states.
+        """
+        return np.exp(-(y-x-self.mu*(t-self.startTime))**2/(2*self.sigma**2*(t-self.startTime)))\
+            /np.sqrt(2*pi*self.sigma*(t-self.startTime))    
