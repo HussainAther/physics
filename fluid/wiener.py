@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.stats as stats
 
 class wienerprocess():
     """
@@ -52,4 +53,10 @@ class wienerprocess():
             delta2 = self.endTime-self.startTime
             return delta1/delta2
         else:
-            return self.sigma**2*(t-self.startTime) 
+            return self.sigma**2*(t-self.startTime)
+
+    def _sample_position(self,t, n=1):
+        """
+        This incorporates both conditional and unconditional
+        """
+        return self.mean(t) + np.sqrt(self.var(t))*self.Nor.rvs(n) 
