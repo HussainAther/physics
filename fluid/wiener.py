@@ -1,0 +1,3 @@
+"""
+Wiener process implementation
+"""
