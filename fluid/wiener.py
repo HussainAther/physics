@@ -55,8 +55,11 @@ class wienerprocess():
         else:
             return self.sigma**2*(t-self.startTime)
 
-    def _sample_position(self,t, n=1):
+    def _sample_position(self,
+                         t, 
+                         n=1):
         """
-        This incorporates both conditional and unconditional
+        Use both the conditional and unconditional for generaitng the position
+        of the process at t with n number of samples.
         """
         return self.mean(t) + np.sqrt(self.var(t))*self.Nor.rvs(n) 
