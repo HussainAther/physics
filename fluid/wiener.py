@@ -62,4 +62,24 @@ class wienerprocess():
         Use both the conditional and unconditional for generaitng the position
         of the process at t with n number of samples.
         """
-        return self.mean(t) + np.sqrt(self.var(t))*self.Nor.rvs(n) 
+        return self.mean(t) + np.sqrt(self.var(t))*self.Nor.rvs(n)
+
+    def drift(t, x):
+        """
+        Drift of the process.
+        """
+        return self.mu
+
+    def diffusion(t,
+                  x):
+        """
+        Diffusion constant.
+        """
+        return self.sigma
+
+    def diffusion_prime(t,
+                        x):
+        """
+        Derivative of diffusion.
+        """
+        return 0 
