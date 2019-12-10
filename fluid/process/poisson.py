@@ -26,4 +26,15 @@ class poissonprocess()
             self.Bin = stats.binom
        elif  ( endTime != None ) != ( endPosition != None ):
             raise Exception( "invalid parameter:", "Must include both endTime AND endPosition or neither" )
-   
+  
+    def _mean(self,
+              t):
+        """
+        Return the mean at a given time.
+        Recall that a conditional poisson process N_t | N_T=n ~ Bin(n, t/T).
+        """
+        if not self.conditional:  
+            return self.startPosition + self.rate*(t-self.startTime)
+        else:
+            return self.endPosition*float(t)/self.endTime
+     
