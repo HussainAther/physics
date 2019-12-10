@@ -40,3 +40,15 @@ class SqBessel_process(p):
             return self._generate_sample_path_with_absorption(times)
         else:
             return self._generate_sample_path_no_absorption(times)
+
+    def _transition_pdf(self,
+                        x,
+                        t,
+                        y):
+        """ 
+        Transition from x to y.
+        """
+        try:
+            return (y/x)**(0.5*self.mu)*np.exp(-0.5*(x+y)/self.nu**2/t)/(0.5*self.nu**2*t)*iv(abs(self.mu),4*np.sqrt(x*y)/(self.nu**2*t))
+        except AttributeError:
+            print("Attn: nu must be known and defined to calculate the transition pdf.")
