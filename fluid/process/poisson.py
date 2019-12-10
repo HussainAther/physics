@@ -37,4 +37,15 @@ class poissonprocess()
             return self.startPosition + self.rate*(t-self.startTime)
         else:
             return self.endPosition*float(t)/self.endTime
-     
+    
+    def _var(self,
+             t):
+        """
+        Variance at the time point. 
+        Recall that a conditional poisson process N_t | N_T=n ~ Bin(n, t/T)
+        """
+        if self.conditional:
+            return self.endPosition*(1-float(t)/self.endTime)*float(t)/self.endTime
+        else:
+            return self.rate*(t-self.startTime) 
+        
