@@ -8,5 +8,4 @@ class ouprocess(p):
     It uses the stochastic differential equation:
     
     dOU_t = theta * (m - OU_t) * dt + sigma * dB_t 
-    
     """
