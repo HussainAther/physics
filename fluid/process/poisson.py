@@ -73,3 +73,8 @@ class mpp(p):
         times = self.startTime + (T - self.startTime) * np.random.random(p)
         path = self.L + (self.U - self.L) * np.random.random(p)
         return (path, times) 
+
+def cpp(p):
+    """
+    Compound poisson process.
+    """
