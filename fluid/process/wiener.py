@@ -1,7 +1,7 @@
 import numpy as np
 import scipy.stats as stats
 
-class wienerprocess():
+class wienerprocess(p):
     """
     Wiener process implementation as a special case of Brownian motion
     with 0 drift and variance of t. Homogenous Markov process with a transition

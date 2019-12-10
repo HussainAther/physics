@@ -1,8 +1,7 @@
 import numpy as np
+import scipy.stats as stats
 
-from scipy.stats import stats
-
-class poissonprocess()
+class poissonprocess(p)
     """
     Poisson process with rate parameter
     """

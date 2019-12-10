@@ -3,7 +3,7 @@ import scipy.stats as stats
 
 from wiener import wienerprocess 
 
-class gbm():
+class gbm(p):
     """
     Geometric Brownian motion process by stochastic 
     differential equation (SDE)
