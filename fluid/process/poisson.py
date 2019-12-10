@@ -76,5 +76,7 @@ class mpp(p):
 
 def cpp(p):
     """
-    Compound poisson process.
+    Compound poisson process with exponentiall distributed inter-arrival times 
+    (i.e. "rate"-poisson distributed number of jumps at any time),
+    and has jump distribution J.
     """
