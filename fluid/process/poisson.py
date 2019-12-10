@@ -1,5 +1,7 @@
 import numpy as np
 
-"""
-Poisson process with rate parameter
-"""
+
+class poissonprocess()
+    """
+    Poisson process with rate parameter
+    """
