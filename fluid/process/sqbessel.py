@@ -52,3 +52,32 @@ class SqBessel_process(p):
             return (y/x)**(0.5*self.mu)*np.exp(-0.5*(x+y)/self.nu**2/t)/(0.5*self.nu**2*t)*iv(abs(self.mu),4*np.sqrt(x*y)/(self.nu**2*t))
         except AttributeError:
             print("Attn: nu must be known and defined to calculate the transition pdf.")
+
+    def _generate_sample_path_no_absorption(self, 
+                                            times):
+        """
+        Create a smple path without absorption.
+        mu must be greater than -1. The parameter times is a list of times to sample at.
+        """
+        if self.mu<=-1:
+            print("Attn: mu must be greater than -1. It is currently %f."%self.mu)
+            return
+        else:
+            if not self.conditional:
+                x=self.startPosition
+                t=self.startTime
+                path=[]
+                for time in times:
+                    delta=float(time-t)
+                    try:
+                        y=self.Poi.rvs(0.5*x/delta)
+                        x=self.Gamma.rvs(y+self.mu+1)*2*delta
+                    except:
+                        pass
+                    path.append((time,x))
+                    t=time
+            else:
+                path = bridge_creation(self, times, 0)
+                return path
+            return [(p[0],self.rescalePath(p[1])) for p in path]
+         
