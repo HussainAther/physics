@@ -80,4 +80,34 @@ class SqBessel_process(p):
                 path = bridge_creation(self, times, 0)
                 return path
             return [(p[0],self.rescalePath(p[1])) for p in path]
-         
+        
+def bridge_creation(process, times, *args):
+    """
+    Create a bridge between processes.
+    """
+    # this algorithm relies on the fact that 1-dim diffusion are time reversible.
+    print("Attn: using an AR method...")
+    process.conditional = False
+    temp = process.startPosition
+    while True:
+        sample_path=[]
+        forward = process.generate_sample_path(times, *args)
+        process.startPosition = process.endPosition
+        backward = process.generate_sample_path(reverse_times(process, times), *args)
+        process.startPosition = temp
+        check = (forward[0][1]-backward[-1][1]>0)
+        i=1
+        N = len(times)
+        sample_path.append(forward[0])
+        while (i<N-1) and (check == (forward[i][1]-backward[-1-i][1]>0) ):
+            sample_path.append(forward[i])
+            i+=1
+        
+        if i != N-1: #an intersection was found
+            k=0
+            while(N-1-i-k>=0):
+                sample_path.append((times[i+k],backward[N-1-i-k][1]))
+                k+=1
+            process.conditional = True
+            return sample_path
+                 
