@@ -23,3 +23,34 @@ class ouprocess(p):
         self.mu = mu
         self.sigma = sigma
         self.Normal = stats.norm()
+
+    def _mean(self,
+              t):
+        """
+        Average at time t
+        """
+        if self.conditional:
+            return super(OU_process,self)._mean(t) 
+        else:
+            return self.startPosition*np.exp(-self.theta*(t-self.startTime))+self.mu*(1-np.exp(-self.theta*(t-self.startTime)))
+                                                                
+    def _var(self,
+             t):
+        """
+        Variance
+        """
+        if self.conditional:
+            return super(OU_process,self)._get_variance_at(t)
+        else:
+            return self.sigma**2*(1-np.exp(-2*self.theta*t))/(2*self.theta)
+    
+    def _transition_pdf(self,
+                        x,
+                        t,
+                        y):
+        """
+        Transition from x to y
+        '""
+            mu = x*np.exp(-self.theta*t)+self.mu*(1-np.exp(-self.theta*t))
+            sigmaSq = self.sigma**2*(1-np.exp(-self.theta*2*t))/(2*self.theta)
+            return np.exp(-(y-mu)**2/(2*sigmaSq))/np.sqrt(2*pi*sigmaSq)            
