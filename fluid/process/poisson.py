@@ -92,3 +92,16 @@ def cpp(p):
         super(Compound_poisson_process, self).__init__(J = J, T= T, startTime = startTime, startPosition = startPosition)
         self.Poi = stats.poisson
 
+    def _mean(self,
+              t):
+        """
+        Mean of the distribution at time t
+        """
+        return self.startPosition + self.rate*(t-self.startTime)*self.J.mean()
+    
+    def _var(self,
+             t):
+        """
+        Variance
+        """
+        return self.rate*(t-self.startTime)*(self.J.var()-self.J.mean()**2)
