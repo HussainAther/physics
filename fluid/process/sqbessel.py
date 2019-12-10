@@ -29,3 +29,14 @@ class SqBessel_process(p):
             self.Gamma = stats.gamma
             self.Nor = stats.norm
             self.InGamma = IncompleteGamma
+
+    def generate_sample_path(self,
+                             times,
+                             absb=0):
+        """
+        absb is a boolean for the square bessel function, true if absorbtion at 0, false else. 
+        """
+        if absb:
+            return self._generate_sample_path_with_absorption(times)
+        else:
+            return self._generate_sample_path_no_absorption(times)
