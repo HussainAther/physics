@@ -80,3 +80,15 @@ def cpp(p):
     (i.e. "rate"-poisson distributed number of jumps at any time),
     and has jump distribution J.
     """
+    def __init__(self, 
+                 J, 
+                 rate = 1,
+                 startTime = 0, 
+                 startPosition = 0):      
+        assert rate > 0, "Choose rate to be greater than 0."
+        self.J = J
+        self.rate = rate
+        self.Exp = stats.expon(1./self.rate)
+        super(Compound_poisson_process, self).__init__(J = J, T= T, startTime = startTime, startPosition = startPosition)
+        self.Poi = stats.poisson
+
