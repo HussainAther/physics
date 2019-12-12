@@ -32,6 +32,12 @@ class resistor:
         if self.b: 
             self.b.report(level + "| ")
 
-class Serial(Resistor) :
+class Serial(Resistor):
+    """
+    Resistors in series.
+    """
     def __init__(self, a, b):
-        super().__init__(0, b, a, '+')
+        super().__init__(0, b, a, "+")
+    def res(self): 
+        return self.a.res() + self.b.res()
+
