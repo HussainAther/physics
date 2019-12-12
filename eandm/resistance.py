@@ -9,6 +9,10 @@ class resistor:
                  a=None,
                  b=None,
                  symbol="r"):
+        """
+        For two resistors, a and b, calculate
+        the total resistance.
+        """
         self.resistance = resistance
         self.a = a
         self.b = b
@@ -21,3 +25,9 @@ class resistor:
         return self.voltage / self.res()
     def effect(self): 
         return self.current() * self.voltage
+    def report(self,level=""):
+        print(f"{self.res():8.3f} {self.voltage:8.3f} {self.current():8.3f} {self.effect():8.3f}  {level}{self.symbol}")
+        if self.a: 
+            self.a.report(level + "| ")
+        if self.b: 
+            self.b.report(level + "| ")
