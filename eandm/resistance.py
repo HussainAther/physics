@@ -31,3 +31,7 @@ class resistor:
             self.a.report(level + "| ")
         if self.b: 
             self.b.report(level + "| ")
+
+class Serial(Resistor) :
+    def __init__(self, a, b):
+        super().__init__(0, b, a, '+')
