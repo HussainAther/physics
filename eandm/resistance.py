@@ -55,3 +55,25 @@ class Serial(Resistor):
         self.a.setVoltage(ra/(ra+rb) * voltage)
         self.b.setVoltage(rb/(ra+rb) * voltage)
         self.voltage = voltage
+
+class Parallel(Resistor):
+    """
+    Add the resistors in parallel.
+    """
+    def __init__(self,a, b):
+        """
+        Initialize resistors a and b.
+        """ 
+        super().__init__(0, b, a, '*')
+    def res(self):
+        """
+        Add them in quadrature.
+        """ 
+        return 1 / (1 / self.a.res() + 1 / self.b.res())
+    def setVoltage(self, voltage):
+        """
+        Add the voltages in linear.
+        """
+        self.a.setVoltage(voltage)
+        self.b.setVoltage(voltage)
+        self.voltage = voltage
