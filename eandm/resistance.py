@@ -37,7 +37,21 @@ class Serial(Resistor):
     Resistors in series.
     """
     def __init__(self, a, b):
+        """
+        Variables to add, initialize.
+        """
         super().__init__(0, b, a, "+")
     def res(self): 
+        """
+        Add them in linear.
+        """
         return self.a.res() + self.b.res()
-
+    def setVoltage(self, voltage):
+        """
+        Calculate voltage drop.
+        """
+        ra = self.a.res()
+        rb = self.b.res()
+        self.a.setVoltage(ra/(ra+rb) * voltage)
+        self.b.setVoltage(rb/(ra+rb) * voltage)
+        self.voltage = voltage
