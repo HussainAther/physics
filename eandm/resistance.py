@@ -9,3 +9,7 @@ class resistor:
                  a=None,
                  b=None,
                  symbol="r"):
+        self.resistance = resistance
+        self.a = a
+        self.b = b
+        self.symbol = symbol
