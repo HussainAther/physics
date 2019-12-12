@@ -13,3 +13,11 @@ class resistor:
         self.a = a
         self.b = b
         self.symbol = symbol
+    def res(self): 
+        return self.resistance
+    def setVoltage(self, voltage): 
+        self.voltage = voltage
+    def current(self): 
+        return self.voltage / self.res()
+    def effect(self): 
+        return self.current() * self.voltage
