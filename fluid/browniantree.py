@@ -2,7 +2,7 @@ import os
 import pygame
 import sys
 
-from pygame.locals import
+from pygame.locals import USEREVENT
 from random import randint
 
 """
@@ -122,3 +122,13 @@ class Particle(pygame.sprite.Sprite):
         Accelerate the particle by changing the vector for velocity.
         """
         self.vector = vector
+
+# Take whatever the USEREVENT time currently is
+# and add one more so we can begin the game.
+new = USEREVENT + 1
+tick = USEREVENT + 2
+ 
+pygame.time.set_timer(, 50)
+pygame.time.set_timer(tick, timetick)
+
+
