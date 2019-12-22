@@ -2,7 +2,7 @@ import os
 import pygame
 import sys
 
-from pygame.locals import USEREVENT
+from pygame.locals import USEREVENT, QUIT
 from random import randint
 
 """
@@ -75,7 +75,7 @@ class Particle(pygame.sprite.Sprite):
         Update each particle's velocity and location.
         """
         if freeParticles in self.groups():
-            self.surface.fill((0,0,0), self.rect)
+            self.surface.fill((0, 0, 0), self.rect)
             """
             Fill the particles with white color when they're 
             free.
@@ -129,7 +129,7 @@ class Particle(pygame.sprite.Sprite):
 new = USEREVENT + 1
 tick = USEREVENT + 2
  
-pygame.time.set_timer(, 50)
+pygame.time.set_timer(new, 50)
 pygame.time.set_timer(tick, timetick)
 
 def input(events):
@@ -142,7 +142,7 @@ def input(events):
             If we need to quit the game.
             """ 
             sys.exit(0)
-        elif event.type == new and (len(freeParticles) < maxpart:
+        elif event.type == new and (len(freeParticles)) < maxpart:
             """
             Start it up.
             """
@@ -155,3 +155,16 @@ def input(events):
             For each subsequent time mark.
             """
             freeParticles.update()
+ 
+half = windowsize/2
+tenth = windowsize/10
+
+# the beginning particles
+root = Particle((0, 0),
+                (randint(half-tenth, half+tenth), 
+                 randint(half-tenth, half+tenth)), screen)
+root.stop()
+
+while True:
+    input(pygame.event.get())
+    pygame.display.flip()
