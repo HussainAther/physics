@@ -1,3 +1,4 @@
+import imageio
 import os
 import pygame
 import sys
@@ -16,9 +17,9 @@ maxspeed = 15 # speed at which particles begin but also when to
               # remove them after that
 size = 3      # particle size 
 color = (45, 90, 45) # color of the particles
-windowsize = 400
-timetick = 1
-maxpart = 50
+windowsize = 400 # window size in pixels
+timetick = 1 # beginning time 
+maxpart = 50 # max number of particles
 
 # Get the sprites.
 freeParticles = pygame.sprite.Group()
@@ -77,14 +78,14 @@ class Particle(pygame.sprite.Sprite):
         if freeParticles in self.groups():
             self.surface.fill((0, 0, 0), self.rect)
             """
-            Fill the particles with white color when they're 
+            Fill the particles with color when they're 
             free.
             """
             self.remove(freeParticles)
             if pygame.sprite.spritecollideany(self, freeParticles):
                 """
-                When a collision occurs, ecah particle experiences
-                an acceleration.
+                When a collision occurs between two free particles, 
+                each particle experiences an acceleration.
                 """
                 self.accelerate((randint(-maxspeed, maxspeed), 
                                  randint(-maxspeed, maxspeed)))
@@ -129,7 +130,7 @@ class Particle(pygame.sprite.Sprite):
 new = USEREVENT + 1
 tick = USEREVENT + 2
  
-pygame.time.set_timer(new, 50)
+pygame.time.set_timer(new, 500)
 pygame.time.set_timer(tick, timetick)
 
 def input(events):
