@@ -99,3 +99,10 @@ class Particle(pygame.sprite.Sprite):
                 still free particles.
                 """
                 self.add(freeParticles)
+            self.onEdge()
+ 
+            if (self.vector == (0,0)) and tree not in self.groups():
+                self.accelerate((randint(-maxspeed, maxspeed), 
+                                 randint(-maxspeed, maxspeed)))
+            self.rect.move_ip(self.vector[0], self.vector[1])
+        self.surface.fill(color, self.rect)
