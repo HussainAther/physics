@@ -27,3 +27,20 @@ window = pygame.display.set_mode((windowsize, windowsize))
 pygame.display.set_caption("Brownian Tree")
  
 screen = pygame.display.get_surface()
+
+class Particle(pygame.sprite.Sprite):
+    """
+    Define each particle.
+    """
+    def __init__(self, vector, location, surface):
+        """
+        Initialize each vector and where its located along with
+        how it appears on the surface. 
+        """
+        pygame.sprite.Sprite.__init__(self)
+        self.vector = vector
+        self.surface = surface
+        self.accelerate(vector)
+        self.add(freeParticles)
+        self.rect = pygame.Rect(location[0], location[1], SIZE, SIZE)
+        self.surface.fill(color, self.rect)
