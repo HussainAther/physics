@@ -44,3 +44,16 @@ class Particle(pygame.sprite.Sprite):
         self.add(freeParticles)
         self.rect = pygame.Rect(location[0], location[1], SIZE, SIZE)
         self.surface.fill(color, self.rect)
+
+    def onEdge(self):
+        """
+        The edge where the vectors meet.
+        """
+        if self.rect.left <= 0:
+            self.vector = (abs(self.vector[0]), self.vector[1])
+        elif self.rect.top <= 0:
+            self.vector = (self.vector[0], abs(self.vector[1]))
+        elif self.rect.right >= windowsize:
+            self.vector = (-abs(self.vector[0]), self.vector[1])
+        elif self.rect.bottom >= WINDOWSIZE:
+            self.vector = (self.vector[0], -abs(self.vector[1]))
