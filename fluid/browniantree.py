@@ -12,9 +12,10 @@ of how random walk particles aggregate to form tree-like structures.
 Make it beautiful.
 """
 
-maxspeed = 15
-size = 3
-color = (45, 90, 45)
+maxspeed = 15 # speed at which particles begin but also when to
+              # remove them after that
+size = 3      # particle size 
+color = (45, 90, 45) # color of the particles
 windowsize = 400
 timetick = 1
 maxpart = 50
@@ -131,4 +132,26 @@ tick = USEREVENT + 2
 pygame.time.set_timer(, 50)
 pygame.time.set_timer(tick, timetick)
 
-
+def input(events):
+    """
+    Manage the game depending on the events of the current moment. 
+    """
+    for event in events:
+        if event.type == QUIT:
+            """
+            If we need to quit the game.
+            """ 
+            sys.exit(0)
+        elif event.type == new and (len(freeParticles) < maxpart:
+            """
+            Start it up.
+            """
+            Particle((randint(-maxspeed, maxspeed),
+                      randint(-maxspeed, maxspeed)),
+                     (randint(0, windowsize), randint(0, windowsize)), 
+                     screen)
+        elif event.type == tick:
+            """
+            For each subsequent time mark.
+            """
+            freeParticles.update()
