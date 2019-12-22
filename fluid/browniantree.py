@@ -106,3 +106,18 @@ class Particle(pygame.sprite.Sprite):
                                  randint(-maxspeed, maxspeed)))
             self.rect.move_ip(self.vector[0], self.vector[1])
         self.surface.fill(color, self.rect)
+
+    def stop(self):
+        """
+        If a particle stops, it's no longer a free particle, and it is
+        added to the tree.
+        """
+        self.vector = (0, 0)
+        self.remove(freeParticles)
+        self.add(tree)
+ 
+    def accelerate(self, vector):
+        """
+        Accelerate the particle by changing the vector for velocity.
+        """
+        self.vector = vector
