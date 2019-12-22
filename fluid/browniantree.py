@@ -6,7 +6,8 @@ from pygame.locals import
 from random import randint
 
 """
-Brownian tree with pygame
+Brownian tree with pygame to represent diffusion-limited aggregation
+of how random walk particles aggregate to form tree-like structures.
 
 Make it beautiful.
 """
