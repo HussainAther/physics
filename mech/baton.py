@@ -8,7 +8,7 @@ Model a baton using a ball attached to a stick. Compute mechanical properties.
 class Ball:
     """
     It's ball, yo.
-    """"
+    """
     def __init__(self, mass, radius):
         self.m = mass
         self.r = radius
