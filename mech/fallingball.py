@@ -13,7 +13,7 @@ the Euler method.
 
 # Helper functions
 def VelocityLinearDrag(v, dt, g=9.8, vt=30):
-    return v + g*(1-v/vt)*dt)
+    return v + g*(1-v/vt)*dt
 
 def PositionLinearDrag(x, v, dt):
     return x + v*dt
