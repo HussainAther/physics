@@ -15,3 +15,10 @@ class Node:
     def __init__(self, v=0.0, f=Fixed.FREE):
         self.voltage = v
         self.fixed = f
+
+def setboundary(m):
+    """
+    Don't cross the boundaries of the mesh.
+    """
+    m[1][1] = Node(1.0, Fixed.A)
+    m[6][7] = Node(-1.0, Fixed.B)
