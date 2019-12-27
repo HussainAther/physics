@@ -63,8 +63,17 @@ def iter(m):
     diff = [[Node() for j in range(w)] for i in range(h)]
     while True:
         setboundary(m) # Set the boundary conditions.
-        if calcdiff(m, diff) < tol:
+        if calcdiff(m, diff) < tol: # Check if we've hit our limit.
             break
-        for i, di in enumerate(diff):
-            for j, dij in enumeratea(di):
-                m[i][j].voltage -= dij.voltage 
+        for i, di in enumerate(diff): 
+            for j, dij in enumerate(di):
+                m[i][j].voltage -= dij.voltage
+    cur = [0.0]*3
+    for i, di in enumerate(diff):
+        for j, dij in enumerate(di):
+            cur[m[i][j].fixed] += (dij.voltage * (bool(i) + bool(j) + (i <h-1) + (j < w-1)))
+    return (cur[Fixed.A] - cur[Fixed.B])/2.0
+
+w = h = 10
+mesh = [[Node() for j in range(w)] for i in range(h)]
+print("R = %.16f" % (2/iter(mesh))) 
