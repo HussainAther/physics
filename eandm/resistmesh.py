@@ -6,11 +6,18 @@ between two resistors separated by distance (from here: https://xkcd.com/356/).
 tol = 1e-40 # tolerance for the difference between the two points
 
 class Fixed:
+   """
+   Set the fixed resistances of the nodes.
+   """
    free = 0
    a = 1
    b = 2
 
 class Node:
+    """
+    Get the voltage for the positions where
+    the nodes could be.
+    """
     __slots__ = ["voltage", "fixed"]
     def __init__(self, v=0.0, f=Fixed.FREE):
         self.voltage = v
@@ -19,6 +26,7 @@ class Node:
 def setboundary(m):
     """
     Don't cross the boundaries of the mesh.
+    Set the location of the two nodes A and B.
     """
     m[1][1] = Node(1.0, Fixed.A)
     m[6][7] = Node(-1.0, Fixed.B)
@@ -49,4 +57,14 @@ def iter(m):
     """
     Iterate through the meshgrid and calculate the resistances
     at each point.
-    """ 
+    """
+    h = len(m)
+    w = len(m[0])
+    diff = [[Node() for j in range(w)] for i in range(h)]
+    while True:
+        setboundary(m) # Set the boundary conditions.
+        if calcdiff(m, diff) < tol:
+            break
+        for i, di in enumerate(diff):
+            for j, dij in enumeratea(di):
+                m[i][j].voltage -= dij.voltage 
