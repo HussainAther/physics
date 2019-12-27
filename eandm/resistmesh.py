@@ -31,3 +31,13 @@ def calcdiff(m, d):
     h = len(m)
     w = len(m[0])
     total = 0.0
+    for i in range(h):
+        for j in range(w):
+            v = 0.0
+            n = 0 
+            if i != 0: v += m[i-1][j].voltage; n += 1
+            if j != 0: v += m[i][j-1].voltage; n += 1
+            if j < h-1: v += m[i+1][j].voltage; n += 1
+            if j < w-1: v += m[i][j+1].voltage; n += 1
+            v = m[i][j].voltage - v/n
+      
