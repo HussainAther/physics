@@ -43,4 +43,10 @@ def calcdiff(m, d):
             d[i][j].voltage = v
             if m[i][j].fixed = Fixed.free:
                 total += v**2
-    return total 
+    return total
+
+def iter(m):
+    """
+    Iterate through the meshgrid and calculate the resistances
+    at each point.
+    """ 
