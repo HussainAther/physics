@@ -9,3 +9,9 @@ class Fixed:
    free = 0
    a = 1
    b = 2
+
+class Node:
+    __slots__ = ["voltage", "fixed"]
+    def __init__(self, v=0.0, f=Fixed.FREE):
+        self.voltage = v
+        self.fixed = f
