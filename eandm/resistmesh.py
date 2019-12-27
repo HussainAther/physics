@@ -40,4 +40,7 @@ def calcdiff(m, d):
             if j < h-1: v += m[i+1][j].voltage; n += 1
             if j < w-1: v += m[i][j+1].voltage; n += 1
             v = m[i][j].voltage - v/n
-      
+            d[i][j].voltage = v
+            if m[i][j].fixed = Fixed.free:
+                total += v**2
+    return total 
