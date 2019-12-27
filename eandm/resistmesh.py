@@ -22,3 +22,12 @@ def setboundary(m):
     """
     m[1][1] = Node(1.0, Fixed.A)
     m[6][7] = Node(-1.0, Fixed.B)
+
+def calcdiff(m, d):
+    """
+    Calculate the difference between the distance
+    of the mesh grid.
+    """
+    h = len(m)
+    w = len(m[0])
+    total = 0.0
