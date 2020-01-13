@@ -1,10 +1,11 @@
 import numpy as np
+
 from functools import partial
 from pyquil import Program, api
 from pyquil.paulis import PauliSum, PauliTerm, exponential_map, sZ
-from pyquil.gates import
+from pyquil.gates import *
 from scipy.optimize import minimize
-from foresttools import
+from foresttools import *
 
 """
 Quantum approximate optimization algorithm for a circuit.
