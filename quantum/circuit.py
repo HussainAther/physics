@@ -1,11 +1,10 @@
+import foresttols as fc
 import numpy as np
 
-from functools import partial
 from pyquil import Program, api
 from pyquil.paulis import PauliSum, PauliTerm, exponential_map, sZ
-from pyquil.gates import *
+from pyquil.gates import init_qvm_and_quilc, H
 from scipy.optimize import minimize
-from foresttools import *
 
 """
 Quantum approximate optimization algorithm for a circuit.
@@ -14,6 +13,7 @@ Quantum approximate optimization algorithm for a circuit.
 np.set_printoptions(precision=3, suppress=True)
 qvm_server, quilc_server, fc = init_qvm_and_quilc("")
 n_qubits = 2
+
 # Hamiltonian
 Hm = [PauliTerm("X", i, -1.0) for i in range(n_qubits)]
 J = np.array([[0,1],[0,0]]) # weight matrix of the Ising model. Only the coefficient (0,1) is non-zero.
@@ -39,7 +39,7 @@ initial_state = Program()
 for i in range(n_qubits):
     initial_state += H(i)
 
-def create_circuit(beta, gamma):
+def createcircuit(beta, gamma):
     circuit = Program()
     circuit += initial_state
     for i in range(p):
@@ -50,16 +50,19 @@ def create_circuit(beta, gamma):
     return circuit
 
 def evaluate_circuit(beta_gamma):
+    """
+    Evaluate both sides of the circuit around beta_gamma.
+    """
     beta = beta_gamma[:p]
     gamma = beta_gamma[p:]
-    circuit = create_circuit(beta, gamma)
+    circuit = createcircuit(beta, gamma)
     return qvm.pauli_expectation(circuit, sum(Hc))
 
 qvm = api.QVMConnection(endpoint=fc.sync_endpoint, compiler_endpoint=fc.compiler_endpoint)
 
 result = minimize(evaluate_circuit, np.concatenate([β, γ]), method="L-BFGS-B")
 
-circuit = create_circuit(result["x"][:p], result["x"][p:])
+circuit = createcircuit(result["x"][:p], result["x"][p:])
 wf_sim = api.WavefunctionSimulator(connection=fc)
 state = wf_sim.wavefunction(circuit)
 print(state)
