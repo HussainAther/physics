@@ -221,3 +221,12 @@ def evaluate_model(neurons, lr, Ising_Data, verbose):
     Ising_Data: Ising data set
     verbose (bool): toggles output during the calculation 
     """
+    training_epochs=100
+    batch_size=100
+
+    # SGD learning params
+    opt_params=dict(learning_rate=lr)
+
+    # create DNN
+    DNN=model(neurons,opt_params)
+
