@@ -383,3 +383,18 @@ class model(object):
             self.X=tf.placeholder(tf.float32, shape=(None,self.n_feats), name="X_data")
             self.Y=tf.placeholder(tf.float32, shape=(None,self.n_categories), name="Y_data")
             self.dropout_keepprob=tf.placeholder(tf.float32, name="keep_probability")
+
+    def create_CNN(self, N_filters=10):
+        with tf.name_scope("CNN"):
+            # conv layer 1, 5x5 kernel, 1 input 10 output channels
+            W_conv1 = self.weight_variable([5, 5, 1, N_filters],name="conv1",dtype=tf.float32) 
+            b_conv1 = self.bias_variable([N_filters],name="conv1",dtype=tf.float32)
+            X_reshaped = tf.reshape(self.X, [-1, self.L, self.L, 1])
+            h_conv1 = tf.nn.relu(self.conv2d(X_reshaped, W_conv1, name="conv1") + b_conv1)
+
+            # Pooling layer - downsamples by 2X.
+            h_pool1 = self.max_pool_2x2(h_conv1,name="pool1")
+            # conv layer 2, 5x5 kernel, 10 input 20 output channels
+            W_conv2 = self.weight_variable([5, 5, 10, 20],name="conv2",dtype=tf.float32)
+            b_conv2 = self.bias_variable([20],name="conv2",dtype=tf.float32)
+            h_conv2 = tf.nn.relu(self.conv2d(h_pool1, W_conv2, name="conv2") + b_conv2)
