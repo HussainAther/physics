@@ -229,4 +229,21 @@ def evaluate_model(neurons, lr, Ising_Data, verbose):
 
     # create DNN
     DNN=model(neurons,opt_params)
+    with tf.Session() as sess:
 
+        # Initialize the necessary variables, in this case, w and b.
+        sess.run(tf.global_variables_initializer())
+
+        # Train the DNN.
+        for epoch in range(training_epochs): 
+
+            batch_X, batch_Y = Ising_Data['train'].next_batch(batch_size,seed=seed)
+
+            loss_batch, _ = sess.run([DNN.loss,DNN.optimizer], 
+                                    feed_dict={DNN.X: batch_X,
+                                               DNN.Y: batch_Y, 
+                                               DNN.dropout_keepprob: 0.5} )
+            accuracy = sess.run(DNN.accuracy, 
+                                feed_dict={DNN.X: batch_X,
+                                           DNN.Y: batch_Y, 
+                                           DNN.dropout_keepprob: 1.0} )
