@@ -201,3 +201,7 @@ class model(object):
             self.loss = tf.reduce_mean(
                             tf.nn.softmax_cross_entropy_with_logits_v2(labels=self.Y, logits=self.Y_predicted)
                         )
+
+    def create_optimiser(self,opt_kwargs):
+        with tf.name_scope("optimiser"):
+            self.optimizer = tf.train.GradientDescentOptimizer(**opt_kwargs).minimize(self.loss,global_step=self.global_step) 
