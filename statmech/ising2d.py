@@ -126,3 +126,7 @@ def prepare_data(data, labels, dtype=dtypes.float32, test_size=0.2, validation_s
     }
 
     return dataset
+
+def prepare_Ising_DNN():
+    data, labels = load_data()
+    return prepare_data(data, labels, test_size=0.2, validation_size=5000)
