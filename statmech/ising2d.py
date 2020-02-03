@@ -57,3 +57,26 @@ class DataSet(object):
         end = self.index_in_epoch
 
         return self.data_X[start:end], self.data_Y[start:end]
+
+def load_data():
+
+    # path to data directory (for testing)
+
+    url_main = "https://physics.bu.edu/~pankajm/ML-Review-Datasets/isingMC/"
+
+    ######### LOAD DATA
+    # The data consists of 16*10000 samples taken in T=np.arange(0.25,4.0001,0.25):
+    data_file_name = "Ising2DFM_reSample_L40_T=All.pkl" 
+    # The labels are obtained from the following file:
+    label_file_name = "Ising2DFM_reSample_L40_T=All_labels.pkl"
+
+    data = pickle.load(urlopen(url_main + data_file_name)) # pickle reads the file and returns the Python object (1D array, compressed bits)
+    data = np.unpackbits(data).reshape(-1, 1600) # Decompress array and reshape for convenience
+    data=data.astype('int')
+    data[np.where(data==0)]=-1 # map 0 state to -1 (Ising variable can take values +/-1)
+
+    # labels (convention is 1 for ordered states and 0 for disordered states)
+    labels = pickle.load(urlopen(url_main + label_file_name)) # pickle reads the file and returns the Python object (here just a 1D array with the binary labels)
+    
+    print("Finished loading data")
+    return data, labels
