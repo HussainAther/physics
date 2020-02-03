@@ -61,12 +61,11 @@ class DataSet(object):
         return self.data_X[start:end], self.data_Y[start:end]
 
 def load_data():
-
-    # path to data directory (for testing)
-
+    """
+    Load the data.
+    """
     url_main = "https://physics.bu.edu/~pankajm/ML-Review-Datasets/isingMC/"
 
-    ######### LOAD DATA
     # The data consists of 16*10000 samples taken in T=np.arange(0.25,4.0001,0.25):
     data_file_name = "Ising2DFM_reSample_L40_T=All.pkl" 
     # The labels are obtained from the following file:
@@ -130,3 +129,30 @@ def prepare_data(data, labels, dtype=dtypes.float32, test_size=0.2, validation_s
 def prepare_Ising_DNN():
     data, labels = load_data()
     return prepare_data(data, labels, test_size=0.2, validation_size=5000)
+
+class model(object):
+    def __init__(self, N_neurons, opt_kwargs):
+        """
+        Builds the TFlow graph for the DNN.
+
+        N_neurons: number of neurons in the hidden layer
+        opt_kwargs: optimizer's arguments
+        """ 
+        # Define global step for checkpointing.
+        self.global_step=tf.Variable(0, dtype=tf.int32, trainable=False, name="global_step")
+
+        self.L=40 # system linear size
+        self.n_feats=self.L**2 # 40x40 square lattice
+        self.n_categories=2 # 2 Ising phases: ordered and disordered
+
+        # Create placeholders for input X and label Y.
+        self.create_placeholders()
+        # Create weight and bias, initialized to 0 and construct DNN to predict Y from X.
+        self.deep_layer_neurons=N_neurons
+        self.create_DNN()
+        # Define loss function.
+        self.create_loss()
+        # Use gradient descent to minimize loss.
+        self.create_optimiser(opt_kwargs)
+        # Create accuracy.
+        self.create_accuracy()
