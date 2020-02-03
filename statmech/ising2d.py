@@ -346,3 +346,7 @@ def plot_data(x,y,data,title=None):
     plt.tight_layout()
 
     plt.show()
+
+# Run it.
+verbose=False
+grid_search(verbose)
