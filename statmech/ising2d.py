@@ -210,3 +210,13 @@ class model(object):
             correct_prediction = tf.equal(tf.argmax(self.Y, 1), tf.argmax(self.Y_predicted, 1))
             correct_prediction = tf.cast(correct_prediction, tf.float64) # change data type
             self.accuracy = tf.reduce_mean(correct_prediction)
+
+def evaluate_model(neurons, lr, Ising_Data, verbose):
+    """
+    This function trains a DNN to solve the Ising classification problem
+
+    neurons: number of hidden neurons
+    lr: SGD learning rate
+    Ising_Data: Ising data set
+    verbose (bool): toggles output during the calculation 
+    """
