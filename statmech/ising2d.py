@@ -378,3 +378,8 @@ class model(object):
 
         print("finished creating CNN")
 
+    def create_placeholders(self):
+        with tf.name_scope("data"):
+            self.X=tf.placeholder(tf.float32, shape=(None,self.n_feats), name="X_data")
+            self.Y=tf.placeholder(tf.float32, shape=(None,self.n_categories), name="Y_data")
+            self.dropout_keepprob=tf.placeholder(tf.float32, name="keep_probability")
