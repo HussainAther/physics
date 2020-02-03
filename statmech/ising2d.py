@@ -436,3 +436,19 @@ class model(object):
         """
         initial = tf.constant(0.1, shape=shape)
         return tf.Variable(initial,dtype=dtype,name=name)
+
+    def conv2d(self, x, W, name=""):
+        """
+        Return a 2d convolution layer with full stride.
+        """
+        return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding="VALID", name=name)
+
+    def max_pool_2x2(self, x,name=""):
+        """
+        Downsample a feature map by 2X.
+        """
+        return tf.nn.max_pool(x, ksize=[1, 2, 2, 1],
+                                strides=[1, 2, 2, 1], 
+                                padding="VALID",
+                                name=name
+                                )
