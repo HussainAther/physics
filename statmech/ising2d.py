@@ -350,3 +350,31 @@ def plot_data(x,y,data,title=None):
 # Run it.
 verbose=False
 grid_search(verbose)
+
+"""
+Create convolutional neural network.
+"""
+class model(object):
+    # Build the graph for the CNN.
+    def __init__(self,opt_kwargs):
+
+        # Define global step for checkpointing.
+        self.global_step=tf.Variable(0, dtype=tf.int32, trainable=False, name="global_step")
+
+        self.L=40
+        self.n_feats= self.L**2 
+        self.n_categories=2
+
+        # Create placeholders for input X and label Y.
+        self.create_placeholders()
+        # Create weight and bias, initialized to 0 and construct CNN to predict Y from X.
+        self.create_CNN()
+        # Define loss function.
+        self.create_loss()
+        # Use gradient descent to minimize loss.
+        self.create_optimiser(opt_kwargs)
+        # Create accuracy.
+        self.create_accuracy()
+
+        print("finished creating CNN")
+
