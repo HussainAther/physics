@@ -32,3 +32,28 @@ class DataSet(object):
 
         self.epochs_completed = 0
         self.index_in_epoch = 0
+
+    def next_batch(self, batch_size, seed=None):
+        """
+        Return the next `batch_size` examples from this data set.
+        """
+        if seed:
+            np.random.seed(seed)
+
+        start = self.index_in_epoch
+        self.index_in_epoch += batch_size
+        if self.index_in_epoch > self.num_examples:
+            # Finished epoch
+            self.epochs_completed += 1
+            # Shuffle the data
+            perm = np.arange(self.num_examples)
+            np.random.shuffle(perm)
+            self.data_X = self.data_X[perm]
+            self.data_Y = self.data_Y[perm]
+            # Start next epoch
+            start = 0
+            self.index_in_epoch = batch_size
+            assert batch_size <= self.num_examples
+        end = self.index_in_epoch
+
+        return self.data_X[start:end], self.data_Y[start:end]
