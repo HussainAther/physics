@@ -5,6 +5,8 @@ import pickle
 import sys
 import tensorflow as atf
 
+from keras.utils import to_categorical
+from sklearn.model_selection import train_test_split
 from tensorflow.python.framework import dtypes
 from urllib.request import urlopen 
 
