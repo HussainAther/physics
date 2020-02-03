@@ -304,3 +304,7 @@ def grid_search(verbose):
             train_loss[i,j],train_accuracy[i,j],\
             test_loss[i,j],test_accuracy[i,j],\
             critical_loss[i,j],critical_accuracy[i,j] = evaluate_model(neurons,lr,Ising_Data,verbose)
+
+    plot_data(learning_rates,N_neurons,train_accuracy, "training")
+    plot_data(learning_rates,N_neurons,test_accuracy, "testing")
+    plot_data(learning_rates,N_neurons,critical_accuracy, "critical")
