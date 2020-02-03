@@ -282,3 +282,15 @@ def grid_search(verbose):
 
     # Load Ising data.
     Ising_Data = prepare_Ising_DNN()
+
+    # Perform grid search over learning rate and number of hidden neurons.
+    N_neurons=np.logspace(0,3,4).astype("int") # Check number of neurons over multiple decades.
+    learning_rates=np.logspace(-6,-1,6)
+
+    # Pre-allocate variables to store accuracy and loss data.
+    train_loss=np.zeros((len(N_neurons),len(learning_rates)),dtype=np.float64)
+    train_accuracy=np.zeros_like(train_loss)
+    test_loss=np.zeros_like(train_loss)
+    test_accuracy=np.zeros_like(train_loss)
+    critical_loss=np.zeros_like(train_loss)
+    critical_accuracy=np.zeros_like(train_loss)
