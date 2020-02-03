@@ -273,3 +273,12 @@ def evaluate_model(neurons, lr, Ising_Data, verbose):
         if verbose: print("crtitical loss/accuracy:", critical_loss, critical_accuracy)
 
         return train_loss,train_accuracy,test_loss,test_accuracy,critical_loss,critical_accuracy 
+
+def grid_search(verbose):
+    """
+    This function performs a grid search over a set of different learning rates 
+    and a number of hidden layer neurons.
+    """
+
+    # Load Ising data.
+    Ising_Data = prepare_Ising_DNN()
