@@ -12,6 +12,7 @@ from urllib.request import urlopen
 
 """
 Identifying Phases in the 2D Ising Model with TensorFlow
+Deep neural network
 """
 
 tf.set_random_seed(seed)
