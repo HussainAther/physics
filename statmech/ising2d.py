@@ -82,3 +82,29 @@ def load_data():
     
     print("Finished loading data")
     return data, labels
+
+def prepare_data(data, labels, dtype=dtypes.float32, test_size=0.2, validation_size=5000):
+    
+    L=40 # linear system size
+
+    # divide data into ordered, critical and disordered
+    X_ordered=data[:70000,:]
+    Y_ordered=labels[:70000]
+
+    X_critical=data[70000:100000,:]
+    Y_critical=labels[70000:100000]
+
+    X_disordered=data[100000:,:]
+    Y_disordered=labels[100000:]
+
+    # define training and test data sets
+    X=np.concatenate((X_ordered,X_disordered)) #np.concatenate((X_ordered,X_critical,X_disordered))
+    Y=np.concatenate((Y_ordered,Y_disordered)) #np.concatenate((Y_ordered,Y_critical,Y_disordered))
+
+    # pick random data points from ordered and disordered states to create the training and test sets
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=test_size, train_size=1.0-test_size)
+
+    # make data categorical (i.e [0,1] or [1,0])
+    Y_train=to_categorical(Y_train)
+    Y_test=to_categorical(Y_test)
+    Y_critical=to_categorical(Y_critical)
