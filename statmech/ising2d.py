@@ -238,7 +238,7 @@ def evaluate_model(neurons, lr, Ising_Data, verbose):
         # Train the DNN.
         for epoch in range(training_epochs): 
 
-            batch_X, batch_Y = Ising_Data['train'].next_batch(batch_size,seed=seed)
+            batch_X, batch_Y = Ising_Data["train"].next_batch(batch_size,seed=seed)
 
             loss_batch, _ = sess.run([DNN.loss,DNN.optimizer], 
                                     feed_dict={DNN.X: batch_X,
@@ -309,3 +309,40 @@ def grid_search(verbose):
     plot_data(learning_rates,N_neurons,train_accuracy, "training")
     plot_data(learning_rates,N_neurons,test_accuracy, "testing")
     plot_data(learning_rates,N_neurons,critical_accuracy, "critical")
+
+def plot_data(x,y,data,title=None):
+
+    # Plot results.
+    fontsize=16
+
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    cax = ax.matshow(data, interpolation="nearest", vmin=0, vmax=1)
+    
+    cbar=fig.colorbar(cax)
+    cbar.ax.set_ylabel("accuracy (%)",rotation=90,fontsize=fontsize)
+    cbar.set_ticks([0,.2,.4,0.6,0.8,1.0])
+    cbar.set_ticklabels(["0%","20%","40%","60%","80%","100%"])
+
+    # Put text on matrix elements.
+    for i, x_val in enumerate(np.arange(len(x))):
+        for j, y_val in enumerate(np.arange(len(y))):
+            c = "${0:.1f}\\%$".format( 100*data[j,i])  
+            ax.text(x_val, y_val, c, va="center", ha="center")
+
+    # Convert axis vaues to to string labels.
+    x=[str(i) for i in x]
+    y=[str(i) for i in y]
+
+    ax.set_xticklabels([""]+x)
+    ax.set_yticklabels([""]+y)
+
+    ax.set_xlabel("$\\mathrm{learning\\ rate}$",fontsize=fontsize)
+    ax.set_ylabel("$\\mathrm{hidden\\ neurons}$",fontsize=fontsize)
+    if title is not None:
+        ax.set_title(title)
+
+    plt.tight_layout()
+
+    plt.show()
