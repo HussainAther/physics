@@ -74,7 +74,7 @@ def load_data():
 
     data = pickle.load(urlopen(url_main + data_file_name)) # pickle reads the file and returns the Python object (1D array, compressed bits)
     data = np.unpackbits(data).reshape(-1, 1600) # Decompress array and reshape for convenience
-    data=data.astype('int')
+    data=data.astype("int")
     data[np.where(data==0)]=-1 # map 0 state to -1 (Ising variable can take values +/-1)
 
     # labels (convention is 1 for ordered states and 0 for disordered states)
@@ -97,14 +97,32 @@ def prepare_data(data, labels, dtype=dtypes.float32, test_size=0.2, validation_s
     X_disordered=data[100000:,:]
     Y_disordered=labels[100000:]
 
-    # define training and test data sets
+    # Define training and test data sets.
     X=np.concatenate((X_ordered,X_disordered)) #np.concatenate((X_ordered,X_critical,X_disordered))
     Y=np.concatenate((Y_ordered,Y_disordered)) #np.concatenate((Y_ordered,Y_critical,Y_disordered))
 
-    # pick random data points from ordered and disordered states to create the training and test sets
+    # Pick random data points from ordered and disordered states to create the training and test sets.
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=test_size, train_size=1.0-test_size)
 
-    # make data categorical (i.e [0,1] or [1,0])
+    # Make data categorical (i.e [0,1] or [1,0]).
     Y_train=to_categorical(Y_train)
     Y_test=to_categorical(Y_test)
     Y_critical=to_categorical(Y_critical)
+
+    if not 0 <= validation_size <= len(X_train):
+        raise ValueError("Validation size should be between 0 and {}. Received: {}.".format(len(X_train), validation_size))
+
+    X_validation = X_train[:validation_size]
+    Y_validation = Y_train[:validation_size]
+    X_train = X_train[validation_size:]
+    Y_train = Y_train[validation_size:]
+
+    # Create data sets.
+    dataset = {
+        "train" : DataSet(X_train, Y_train),
+        "test" : DataSet(X_test, Y_test),
+        "critical" : DataSet(X_critical, Y_critical),
+        "validation" : DataSet(X_validation, Y_validation)
+    }
+
+    return dataset
