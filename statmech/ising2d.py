@@ -398,3 +398,27 @@ class model(object):
             W_conv2 = self.weight_variable([5, 5, 10, 20],name="conv2",dtype=tf.float32)
             b_conv2 = self.bias_variable([20],name="conv2",dtype=tf.float32)
             h_conv2 = tf.nn.relu(self.conv2d(h_pool1, W_conv2, name="conv2") + b_conv2)
+
+            # Dropout controls the complexity of the CNN, prevents co-adaptation of features.
+            h_conv2_drop = tf.nn.dropout(h_conv2, self.dropout_keepprob,name='conv2_dropout')
+
+            # Second pooling layer
+            h_pool2 = self.max_pool_2x2(h_conv2_drop,name='pool2')
+
+            # Fully connected layer 1 -- after second round of downsampling, our 40x40 image
+            # is down to 7x7x20 feature maps -- maps this to 50 features.
+            h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*20])
+
+            W_fc1 = self.weight_variable([7*7*20, 50],name='fc1',dtype=tf.float32)
+            b_fc1 = self.bias_variable([50],name='fc1',dtype=tf.float32)
+
+            h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+
+            # Dropout controls the complexity of the CNN, prevents co-adaptation of features.
+            h_fc1_drop = tf.nn.dropout(h_fc1, self.dropout_keepprob,name='fc1_dropout')
+
+            # Map the 50 features to 2 classes, one for each phase.
+            W_fc2 = self.weight_variable([50, self.n_categories],name='fc12',dtype=tf.float32)
+            b_fc2 = self.bias_variable([self.n_categories],name='fc12',dtype=tf.float32)
+
+            self.Y_predicted = tf.matmul(h_fc1_drop, W_fc2) + b_fc2
