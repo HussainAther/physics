@@ -1,10 +1,12 @@
 import argparse
 import numpy as np
 import os
+import pickle
 import sys
 import tensorflow as atf
 
 from tensorflow.python.framework import dtypes
+from urllib.request import urlopen 
 
 """
 Identifying Phases in the 2D Ising Model with TensorFlow
