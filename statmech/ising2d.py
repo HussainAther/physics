@@ -136,7 +136,7 @@ class model(object):
         Builds the TFlow graph for the DNN.
 
         N_neurons: number of neurons in the hidden layer
-        opt_kwargs: optimizer's arguments
+        opt_kwargs: optimizer"s arguments
         """ 
         # Define global step for checkpointing.
         self.global_step=tf.Variable(0, dtype=tf.int32, trainable=False, name="global_step")
@@ -180,3 +180,18 @@ class model(object):
         """
         initial = tf.constant(0.1, shape=shape) 
         return tf.Variable(initial, dtype=dtype, name=name)
+
+    def create_DNN(self):
+        with tf.name_scope("DNN"):
+
+            # Fully connected layer
+            W_fc1 = self._weight_variable([self.n_feats, self.deep_layer_neurons],name="fc1",dtype=tf.float32)
+            b_fc1 = self._bias_variable([self.deep_layer_neurons],name="fc1",dtype=tf.float32)
+
+            a_fc1 = tf.nn.relu(tf.matmul(self.X, W_fc1) + b_fc1)
+
+            # Softmax layer (see loss function)
+            W_fc2 = self._weight_variable([self.deep_layer_neurons, self.n_categories],name="fc2",dtype=tf.float32)
+            b_fc2 = self._bias_variable([self.n_categories],name="fc2",dtype=tf.float32)
+        
+            self.Y_predicted = tf.matmul(a_fc1, W_fc2) + b_fc2
