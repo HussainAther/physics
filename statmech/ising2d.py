@@ -156,3 +156,12 @@ class model(object):
         self.create_optimiser(opt_kwargs)
         # Create accuracy.
         self.create_accuracy()
+
+    def create_placeholders(self):
+        with tf.name_scope("data"):
+            # input layer
+            self.X=tf.placeholder(tf.float32, shape=(None, self.n_feats), name="X_data")
+            # target
+            self.Y=tf.placeholder(tf.float32, shape=(None, self.n_categories), name="Y_data")
+            # p
+            self.dropout_keepprob=tf.placeholder(tf.float32, name="keep_probability")
