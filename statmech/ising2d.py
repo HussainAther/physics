@@ -452,3 +452,20 @@ class model(object):
                                 padding="VALID",
                                 name=name
                                 )
+
+    def create_loss(self):
+        with tf.name_scope("loss"):
+            self.loss = tf.reduce_mean(
+                            tf.nn.softmax_cross_entropy_with_logits(labels=self.Y,logits=self.Y_predicted)
+                        ) 
+
+    def create_optimiser(self,kwargs):
+        with tf.name_scope("optimiser"):
+            self.optimizer = tf.train.GradientDescentOptimizer(**kwargs).minimize(self.loss,global_step=self.global_step) 
+            #self.optimizer = tf.train.AdamOptimizer(**kwargs).minimize(self.loss,global_step=self.global_step)
+
+    def create_accuracy(self):
+        with tf.name_scope("accuracy"):
+            correct_prediction = tf.equal(tf.argmax(self.Y, 1), tf.argmax(self.Y_predicted, 1))
+            correct_prediction = tf.cast(correct_prediction, tf.float64)
+            self.accuracy = tf.reduce_mean(correct_prediction)
