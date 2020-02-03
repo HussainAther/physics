@@ -263,4 +263,13 @@ def evaluate_model(neurons, lr, Ising_Data, verbose):
                                                                DNN.dropout_keepprob: 1.0}
                                                                )
 
- 
+        if verbose: print("test loss/accuracy:", test_loss, test_accuracy)
+
+        critical_loss, critical_accuracy = sess.run([DNN.loss, DNN.accuracy], 
+                                                    feed_dict={DNN.X: Ising_Data["critical"].data_X,
+                                                               DNN.Y: Ising_Data["critical"].data_Y,
+                                                               DNN.dropout_keepprob: 1.0}
+                                                               )
+        if verbose: print("crtitical loss/accuracy:", critical_loss, critical_accuracy)
+
+        return train_loss,train_accuracy,test_loss,test_accuracy,critical_loss,critical_accuracy 
