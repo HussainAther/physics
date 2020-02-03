@@ -247,3 +247,5 @@ def evaluate_model(neurons, lr, Ising_Data, verbose):
                                 feed_dict={DNN.X: batch_X,
                                            DNN.Y: batch_Y, 
                                            DNN.dropout_keepprob: 1.0} )
+            # Count training step.
+            step = sess.run(DNN.global_step)
