@@ -205,3 +205,8 @@ class model(object):
     def create_optimiser(self,opt_kwargs):
         with tf.name_scope("optimiser"):
             self.optimizer = tf.train.GradientDescentOptimizer(**opt_kwargs).minimize(self.loss,global_step=self.global_step) 
+    def create_accuracy(self):
+        with tf.name_scope("accuracy"):
+            correct_prediction = tf.equal(tf.argmax(self.Y, 1), tf.argmax(self.Y_predicted, 1))
+            correct_prediction = tf.cast(correct_prediction, tf.float64) # change data type
+            self.accuracy = tf.reduce_mean(correct_prediction)
