@@ -165,3 +165,18 @@ class model(object):
             self.Y=tf.placeholder(tf.float32, shape=(None, self.n_categories), name="Y_data")
             # p
             self.dropout_keepprob=tf.placeholder(tf.float32, name="keep_probability")
+
+    def _weight_variable(self, shape, name="", dtype=tf.float32):
+        """
+         Generate a weight variable of a given shape.
+         """
+        # weights are drawn from a normal distribution with std 0.1 and mean 0.
+        initial = tf.truncated_normal(shape, stddev=0.1)
+        return tf.Variable(initial, dtype=dtype, name=name)
+
+    def _bias_variable(self, shape, name="", dtype=tf.float32):
+        """
+        Generate a bias variable of a given shape.
+        """
+        initial = tf.constant(0.1, shape=shape) 
+        return tf.Variable(initial, dtype=dtype, name=name)
