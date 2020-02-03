@@ -195,3 +195,9 @@ class model(object):
             b_fc2 = self._bias_variable([self.n_categories],name="fc2",dtype=tf.float32)
         
             self.Y_predicted = tf.matmul(a_fc1, W_fc2) + b_fc2
+
+    def create_loss(self):
+        with tf.name_scope("loss"):
+            self.loss = tf.reduce_mean(
+                            tf.nn.softmax_cross_entropy_with_logits_v2(labels=self.Y, logits=self.Y_predicted)
+                        )
