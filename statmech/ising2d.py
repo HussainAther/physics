@@ -294,3 +294,13 @@ def grid_search(verbose):
     test_accuracy=np.zeros_like(train_loss)
     critical_loss=np.zeros_like(train_loss)
     critical_accuracy=np.zeros_like(train_loss)
+
+    # Grid search.
+    for i, neurons in enumerate(N_neurons):
+        for j, lr in enumerate(learning_rates):
+
+            print("training DNN with %4d neurons and SGD lr=%0.6f." %(neurons,lr) )
+
+            train_loss[i,j],train_accuracy[i,j],\
+            test_loss[i,j],test_accuracy[i,j],\
+            critical_loss[i,j],critical_accuracy[i,j] = evaluate_model(neurons,lr,Ising_Data,verbose)
