@@ -249,3 +249,18 @@ def evaluate_model(neurons, lr, Ising_Data, verbose):
                                            DNN.dropout_keepprob: 1.0} )
             # Count training step.
             step = sess.run(DNN.global_step)
+        # Test DNN performance on entire train test and critical data sets.
+        train_loss, train_accuracy = sess.run([DNN.loss, DNN.accuracy], 
+                                                    feed_dict={DNN.X: Ising_Data["train"].data_X,
+                                                               DNN.Y: Ising_Data["train"].data_Y,
+                                                               DNN.dropout_keepprob: 0.5}
+                                                                )
+        if verbose: print("train loss/accuracy:", train_loss, train_accuracy)
+
+        test_loss, test_accuracy = sess.run([DNN.loss, DNN.accuracy], 
+                                                    feed_dict={DNN.X: Ising_Data["test"].data_X,
+                                                               DNN.Y: Ising_Data["test"].data_Y,
+                                                               DNN.dropout_keepprob: 1.0}
+                                                               )
+
+ 
