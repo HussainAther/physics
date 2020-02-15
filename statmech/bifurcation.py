@@ -160,7 +160,7 @@ plt.annotate("", xy=(-7, -4), xytext=(-7, -3), arrowprops=dict(arrowstyle="->",c
 Combined bifurcations use the system dx/dt = r+x-x^3 such that, when you solve dx/dt = 0 in terms of r, you get
 r = -x+x^3 to draw the bifurcation diagram.
 
-You can use the Jacobian matrix to get the stability information.
+You can use the Jacobian matrix to get the stability information. This system shows hysteresis.
 """
 
 def xeq1(r):
@@ -196,3 +196,17 @@ plt.annotate("", xy=(-0.25, 0.9), xytext=(-0.25, 1.4), arrowprops=dict(arrowstyl
 plt.annotate("", xy=(-0.25, 0.8), xytext=(-0.25, 0.3), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
 plt.annotate("", xy=(-0.25, -1), xytext=(-0.25, 0.1), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
 plt.annotate("", xy=(-0.25, -1.15), xytext=(-0.25, -1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+
+"""
+The Hopf bifurcation lets the limit cycle appear around the equilibiurm point. It makes a cyclic, closed trajectory
+in the phase space. The van der Pol oscillator shows this with the second-order differential equation
+d^2x/dt^2 + r(x^2-1)dx/dt + x = 0
+in which we introduce y = dx/dt to make the system first-order
+dx/dt = y
+dy/dt = -r(x^2-1)y-x with (0, 0) as the only equilibrium point of hte system.
+The Jacobian matrix is 
+[0 1 -1 r] and you can calculate the eigenvalues as 
+|0-λ 1 -1 r-λ| = 0 
+such that λ = r+/-sqrt(r^2-4)/2
+and the critical condition is Re(λ) = 0
+"""
