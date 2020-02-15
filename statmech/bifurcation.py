@@ -32,7 +32,7 @@ domain = linspace(0, 10)
 ax1.plot(domain, xeq1(domain), "b-", label = "stable equilibrium", linewidth = 3)
 ax1.plot(domain, xeq2(domain), "r--", label = "unstable equilibrium", linewidth = 3)
 ax1.legend(loc="upper left")
-#neutral equilibrium point
+# Neutral equilibrium point
 ax1.plot([0], [0], "go")
 ax1.axis([-10, 10, -5, 5])
 ax1.set_xlabel("r")
@@ -62,3 +62,21 @@ ax1.annotate("", xy=(7, 3), xytext=(7, 4), arrowprops=dict(arrowstyle="->",conne
 A transcritical bifurcation happens when the equilibrium point "passes through" another one that exchanges their
 stabilities.
 """
+
+def xeq1(r):
+    """
+    First equilibrium point
+    """
+    return 0
+
+def xeq2(r):
+    """
+    Second
+    """
+    return np.sqrt(r)
+
+def xeq3(r):
+    """
+    Third
+    """
+    return -np.sqrt(r)
