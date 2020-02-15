@@ -155,3 +155,10 @@ plt.annotate("", xy=(-7, 0.5), xytext=(-7, 2), arrowprops=dict(arrowstyle="->",c
 plt.annotate("", xy=(-7, -0.5), xytext=(-7, -2), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
 plt.annotate("", xy=(-7, 4), xytext=(-7, 3), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
 plt.annotate("", xy=(-7, -4), xytext=(-7, -3), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+
+"""
+Combined bifurcations use the system dx/dt = r+x-x^3 such that, when you solve dx/dt = 0 in terms of r, you get
+r = -x+x^3 to draw the bifurcation diagram.
+
+You can use the Jacobian matrix to get the stability information.
+"""
