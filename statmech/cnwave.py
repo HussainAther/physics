@@ -48,3 +48,12 @@ class cnwaveeq:
        self._max_iter=50
        self._dt=0.5*self._dx
        self._eps = 0 
+
+    def set_phi_n(self, phi_init, args):
+       """
+       Set the initial data phi(x,t=0) to a lsit of parameters args with the initial
+       condition phi_init.
+       """
+       self._phi_n = phi_init(self.x(),args)
+       # Enforce periodicity.
+       self._phi_n[self._N-1] = self._phi_n[0]
