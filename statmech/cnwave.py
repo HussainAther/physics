@@ -184,3 +184,15 @@ class cnwaveeq:
  
         # d pi(xi,t)/dt - d^2 phi(x,t)/dx^2 + F(phi) = 0
         self._pi_res = (pi_np1-pi_n)/dt - 0.5*(phi_xx_np1+phi_xx_n) + 0.5*(F_np1+F_n)
+
+def d2f_dx2_per(f,dx):
+    """
+    Return d^2f/dx^2, assuming f is periodic : f[0]=f[N-1]
+    """
+    N = np.size(f)
+    d2f = np.zeros(N)
+    d2f[0] = (f[1]-2*f[0]+f[N-2])/dx**2
+    for i in range(1, N-1):
+        d2f[i] = (f[i+1]-2*f[i]+f[i-1])/dx**2
+    d2f[N-1] = d2f[0]
+    return d2f
