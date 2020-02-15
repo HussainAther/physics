@@ -109,3 +109,8 @@ plt.annotate("", xy=(7, 2), xytext=(7, 0.5), arrowprops=dict(arrowstyle="->",con
 plt.annotate("", xy=(7, -2), xytext=(7, -0.5), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
 plt.annotate("", xy=(7, 3), xytext=(7, 4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
 plt.annotate("", xy=(7, -3), xytext=(7, -4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+
+"""
+A subcritical pitchfork bifurcation causes the unstable equilibrium point to split into two unstable
+and one stable equilibriums. 
+"""
