@@ -3,6 +3,14 @@ import numpy as np
 
 """
 Bifurcations are transitions between dynamical states used in nonlinear dynamics.
+This is a saddle-node bifurcation defined by
+dx/dt = r-x^2 
+It has equilibrium points at x_eq = +/- sqrt(r)
+and critical condition found by taking the derivative of dx/dt = F(x)
+so we get
+dF/dx = -2x
+so the bifurcation occurs at x=x_eq, which is
+dF/dx = 0
 """
 
 def xeq1(r):
