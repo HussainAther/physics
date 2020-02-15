@@ -57,3 +57,8 @@ ax1.annotate("", xy=(5, 2.5), xytext=(5, 4), arrowprops=dict(arrowstyle="->",con
 ax1.annotate("", xy=(7, -4), xytext=(7, -3), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
 ax1.annotate("", xy=(7, 2.3), xytext=(7, -2.3), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
 ax1.annotate("", xy=(7, 3), xytext=(7, 4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+
+"""
+A transcritical bifurcation happens when the equilibrium point "passes through" another one that exchanges their
+stabilities.
+"""
