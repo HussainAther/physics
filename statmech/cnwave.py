@@ -23,3 +23,28 @@ class cnwaveeq:
        Nx = is the number of points, so dx=(xmax-xmin)/(N-1)
        All initial data set to zero, t set to 0.
        """
+       self._F = F
+       self._dF = dF
+       self._args = args
+       self._xmin = xmin
+       self._xmax = xmax
+       if (Nx <= 1):
+          print("Error ... Nx must be greater than 1")
+          raise "invalid arguments"
+       self._N = Nx
+       self._dx = (xmax-xmin)/(Nx-1)
+       self._phi_n = np.zeros(Nx)
+       self._phi_np1 = np.zeros(Nx)
+       self._pi_n = np.zeros(Nx)
+       self._pi_np1 = np.zeros(Nx)
+       self._phi_res = np.zeros(Nx)
+       self._pi_res = np.zeros(Nx)
+       self._F_n = np.zeros(Nx)
+       self._F_np1 = np.zeros(Nx)
+       self._dF_n = np.zeros(Nx)
+       self._dF_np1 = np.zeros(Nx)
+       self._t=0
+       self._tol=1.0e-4
+       self._max_iter=50
+       self._dt=0.5*self._dx
+       self._eps = 0 
