@@ -16,3 +16,7 @@ def xeq2(r):
     Unstable equilibrium
     """
     return np.sqrt(r)
+
+# Plot.
+fig = plt.figure(figsize=(9,6))
+ax1 = fig.add_subplot(1, 1, 1)
