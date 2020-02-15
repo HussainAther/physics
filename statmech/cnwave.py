@@ -196,3 +196,39 @@ def d2f_dx2_per(f,dx):
         d2f[i] = (f[i+1]-2*f[i]+f[i-1])/dx**2
     d2f[N-1] = d2f[0]
     return d2f
+
+def KO_filter(f,eps):
+    """
+    Return a Kreiss-Oliger filtered version of f, assumed to be periodic : : f[0]=f[N-1]
+    """
+    N = np.size(f)
+    KO_f = f[:]
+    for i in range(0,N):
+       im1 = i-1
+       im2 = i-2
+       ip1 = i+1
+       ip2 = i+2
+       if (im1<0): im1 += (N-1)
+       if (im2<0): im2 += (N-1)
+       if (ip1>(N-1)): ip1 -= (N-1)
+       if (ip2>(N-1)): ip2 -= (N-1)
+       KO_f[i] -= eps/16.0*(f[im2]-4*f[im1]+16*f[i]-4*f[ip1]+f[ip2])
+    return KO_f
+
+def gaussian(x,args):
+    """
+    Return A*exp(-(x-x0)^2/sigma^2), where args=[A,x0,sigma]
+    """
+    A = args[0]
+    x0 = args[1]
+    sigma = args[2]
+    return A*np.exp(-(x-x0)**2/sigma**2)
+
+def d_gaussian(x,args):
+    """
+    Return d/dx[A*exp(-(x-x0)^2/sigma^2)], where args=[A,x0,sigma]
+    """
+    A = args[0]
+    x0 = args[1]
+    sigma = args[2]
+    return (-2*(x-x0)/sigma**2)*A*np.exp(-(x-x0)**2/sigma**2)
