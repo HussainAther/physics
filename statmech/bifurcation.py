@@ -209,4 +209,32 @@ The Jacobian matrix is
 |0-λ 1 -1 r-λ| = 0 
 such that λ = r+/-sqrt(r^2-4)/2
 and the critical condition is Re(λ) = 0
+
+This code will iterate through five values of r and show the appearance of the limit cycle at r = 0.
 """
+
+dt = 0.01
+
+# prepare plots
+fig = plt.figure(figsize=(18,6))
+
+def plot_phase_space():
+    x = y = 0.1
+    xresult = [x]
+    yresult = [y]
+    for t in range(10000):
+        nextx = x + y * dt
+        nexty = y + (-r * (x**2 - 1) * y - x) * dt
+        x, y = nextx, nexty
+        xresult.append(x)
+        yresult.append(y)
+    plt.plot(xresult, yresult)
+    plt.axis("image")
+    plt.axis([-3, 3, -3, 3])
+    plt.title("r = " + str(r))
+
+rs = [-1, -0.1, 0, .1, 1]
+for i in range(len(rs)):
+    fig.add_subplot(1, len(rs), i + 1)
+    r = rs[i]
+    plot_phase_space()
