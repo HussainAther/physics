@@ -137,3 +137,10 @@ class cnwaveeq:
         tmp = self._phi_np1; self._phi_np1 = self._phi_n; self._phi_n = tmp
         tmp = self._pi_np1; self._pi_np1 = self._pi_n; self._pi_n = tmp
         return [iter,tol]
+
+     def phi_n(self):
+         """
+         Return phi of the data.
+         """
+         return self._phi_n[:]
+
