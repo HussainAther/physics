@@ -162,3 +162,37 @@ r = -x+x^3 to draw the bifurcation diagram.
 
 You can use the Jacobian matrix to get the stability information.
 """
+
+def xeq1(r):
+    return -r + r**3
+
+# Plot.
+domain1 = linspace(-1.3, -sqrt(1/3.))
+domain2 = linspace(-sqrt(1/3.), sqrt(1/3.))
+domain3 = linspace(sqrt(1/3.), 1.3)
+plt.plot(xeq1(domain1), domain1, "b-", linewidth = 3)
+plt.plot(xeq1(domain2), domain2, "r--", linewidth = 3)
+plt.plot(xeq1(domain3), domain3, "b-", linewidth = 3)
+plt.axis([-1, 1, -1.5, 1.5])
+plt.xlabel("r")
+plt.ylabel("x_eq")
+plt.title("Combination of two saddle-node bifurcations")
+
+plt.annotate("", xy=(0.75, 1.2), xytext=(0.75, -1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(0.5, 1.1), xytext=(0.5, -1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(0.5, 1.25), xytext=(0.5, 1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(0.25, -0.9), xytext=(0.25, -1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(0.25, -0.8), xytext=(0.25, -0.3), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(0.25, 1), xytext=(0.25, -0.1), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(0.25, 1.15), xytext=(0.25, 1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(0, -1.05), xytext=(0, -1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(0, -0.9), xytext=(0, -0.1), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(0, 0.9), xytext=(0, 0.1), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(0, 1.05), xytext=(0, 1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-0.75, -1.2), xytext=(-0.75, 1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-0.5, -1.1), xytext=(-0.5, 1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-0.5, -1.25), xytext=(-0.5, -1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-0.25, 0.9), xytext=(-0.25, 1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-0.25, 0.8), xytext=(-0.25, 0.3), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-0.25, -1), xytext=(-0.25, 0.1), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-0.25, -1.15), xytext=(-0.25, -1.4), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
