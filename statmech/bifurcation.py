@@ -60,7 +60,8 @@ ax1.annotate("", xy=(7, 3), xytext=(7, 4), arrowprops=dict(arrowstyle="->",conne
 
 """
 A transcritical bifurcation happens when the equilibrium point "passes through" another one that exchanges their
-stabilities.
+stabilities. A supercritical pitchfork bifurcation can make a stable equilibrium point split into two stable
+and one stable equilibriums.
 """
 
 def xeq1(r):
@@ -80,3 +81,17 @@ def xeq3(r):
     Third
     """
     return -np.sqrt(r)
+
+# Plot.
+domain1 = linspace(-10, 0)
+domain2 = linspace(0, 10)
+plt.plot(domain1, xeq1(domain1), "b-", linewidth = 3)
+plt.plot(domain2, xeq1(domain2), "r--", linewidth = 3)
+plt.plot(domain2, xeq2(domain2), "b-", linewidth = 3)
+plt.plot(domain2, xeq3(domain2), "b-", linewidth = 3)
+# Neutral equilibrium point
+plt.plot([0], [0], "go")
+plt.axis([-10, 10, -5, 5])
+plt.xlabel("r")
+plt.ylabel("x_eq")
+plt.title("Supercritical pitchfork bifurcation")
