@@ -111,3 +111,22 @@ class cnwaveeq:
         # initial guess ... copy N to N+1
         self._phi_np1 = self._phi_n[:]
         self._pi_np1 = self._pi_n[:]
+        iter = 0
+        tol = self._tol+1.0
+        while (iter < self._max_iter and tol > self._tol):
+            self._comp_all_F_dF()
+            self._comp_residual()
+            tol = np.max(np.abs(self._phi_res))+np.max(np.abs(self._pi_res))
+            # elements of the inverse-Jacobian, iJ_11=iJ_22, iJ_12 & iJ_21
+            dFh = self._dF_np1
+            T0 = (2.0+dFh*dx**2)
+            idet = 2.0/(4.0+CFL**2*T0)
+            iJ_11 = 2*dt*idet
+            iJ_22 = iJ_11
+            iJ_12 = dt**2*idet
+            iJ_21 =- T0*CFL**2*idet
+            # 1 Newton iteration : compute next guess
+            self._phi_np1 = self._phi_np1 - (iJ_11*self._phi_res + iJ_12*self._pi_res)
+            self._pi_np1 = self._pi_np1   - (iJ_21*self._phi_res + iJ_22*self._pi_res)
+            iter = iter+1
+ 
