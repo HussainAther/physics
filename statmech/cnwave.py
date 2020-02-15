@@ -133,3 +133,7 @@ class cnwaveeq:
         if (tol > self._tol): 
             print("WARNING: failed to solve equations to within", self._tol, " in ",self._max_iter," iterations")
             print("         t=",self._t," tol=", tol)
+        # Swap time levels for phi and pi.
+        tmp = self._phi_np1; self._phi_np1 = self._phi_n; self._phi_n = tmp
+        tmp = self._pi_np1; self._pi_np1 = self._pi_n; self._pi_n = tmp
+        return [iter,tol]
