@@ -57,3 +57,11 @@ class cnwaveeq:
        self._phi_n = phi_init(self.x(),args)
        # Enforce periodicity.
        self._phi_n[self._N-1] = self._phi_n[0]
+
+    def set_pi_n(self, pi_init, args):
+       """
+       Same but for pi.
+       """
+       self._pi_n = pi_init(self.x(),args)
+       # Enforce periodicity.
+       self._pi_n[self._N-1] = self._pi_n[0]
