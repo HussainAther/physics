@@ -154,3 +154,33 @@ class cnwaveeq:
  
      def x(self):
          return np.arange(self._xmin,self._xmax+self._dx,self._dx)
+
+    def _comp_all_F_dF(self):
+        """
+        Compute F, the original 2D equations.
+        """
+        for i in range(self._N):
+            self._F_n[i] = self._F(self._phi_n[i],self._args)
+            self._F_np1[i] = self._F(self._phi_np1[i],self._args)
+            self._dF_n[i] = self._dF(self._phi_n[i],self._args)
+            self._dF_np1[i] = self._dF(self._phi_np1[i],self._args)
+
+    def _comp_residual(self):
+        """
+        Compute the residual, how much is gained.
+        """
+        # Note: assumes F_n, F_np1, dF_n, dF_np1 valid
+        dx  =self._dx
+        dt = self._dt
+        phi_np1 = self._phi_np1; phi_n=self._phi_n
+        pi_np1 = self._pi_np1; pi_n=self._pi_n
+        F_np1 = self._F_np1; F_n=self._F_n
+ 
+        phi_xx_n = d2f_dx2_per(phi_n,dx)
+        phi_xx_np1 = d2f_dx2_per(phi_np1,dx)
+ 
+        # d phi(x,t)/dt - pi(xi,t) = 0 
+        self._phi_res = (phi_np1-phi_n)/dt - 0.5*(pi_np1+pi_n)
+ 
+        # d pi(xi,t)/dt - d^2 phi(x,t)/dx^2 + F(phi) = 0
+        self._pi_res = (pi_np1-pi_n)/dt - 0.5*(phi_xx_np1+phi_xx_n) + 0.5*(F_np1+F_n)
