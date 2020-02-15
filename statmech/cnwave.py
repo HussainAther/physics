@@ -29,8 +29,8 @@ class cnwaveeq:
         self._xmin = xmin
         self._xmax = xmax
         if (Nx <= 1):
-           print("Error ... Nx must be greater than 1")
-           raise "invalid arguments"
+            print("Error ... Nx must be greater than 1")
+            raise("invalid arguments")
         self._N = Nx
         self._dx = (xmax-xmin)/(Nx-1)
         self._phi_n = np.zeros(Nx)
@@ -43,10 +43,10 @@ class cnwaveeq:
         self._F_np1 = np.zeros(Nx)
         self._dF_n = np.zeros(Nx)
         self._dF_np1 = np.zeros(Nx)
-        self._t=0
-        self._tol=1.0e-4
-        self._max_iter=50
-        self._dt=0.5*self._dx
+        self._t = 0
+        self._tol = 1.0e-4
+        self._max_iter = 50
+        self._dt = 0.5*self._dx
         self._eps = 0 
 
     def set_phi_n(self, phi_init, args):
@@ -80,4 +80,12 @@ class cnwaveeq:
         """
         self._tol = tol
         self._max_iter = max_iter
+
+    def set_KO_filter(self,eps):
+        """
+        Set Kreiss-Oliger dissipation parameter eps (<1). 
+        """
+        if (eps < 0 or eps > 1):
+            raise("set_KO_filter: error: eps out of range")
+        self._eps = eps
 
