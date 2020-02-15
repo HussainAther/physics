@@ -138,9 +138,19 @@ class cnwaveeq:
         tmp = self._pi_np1; self._pi_np1 = self._pi_n; self._pi_n = tmp
         return [iter,tol]
 
+     # Return values
      def phi_n(self):
-         """
-         Return phi of the data.
-         """
          return self._phi_n[:]
 
+     def pi_n(self):
+        
+         return self._pi_n[:]
+ 
+     def t(self):
+         return self._t
+ 
+     def dt(self):
+         return self._dt
+ 
+     def x(self):
+         return np.arange(self._xmin,self._xmax+self._dx,self._dx)
