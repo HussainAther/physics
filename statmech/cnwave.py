@@ -66,8 +66,18 @@ class cnwaveeq:
         # Enforce periodicity.
         self._pi_n[self._N-1] = self._pi_n[0]
 
-   def set_CFL(self,CFL):
-       """
-       Set the convergence condition by Courant–Friedrichs–Lewy. 
-       """
-       self._dt=CFL*self._dx
+    def set_CFL(self,CFL):
+        """
+        Set the convergence condition by Courant–Friedrichs–Lewy. 
+        """
+        self._dt = CFL*self._dx
+
+    def set_iter(self,tol,max_iter):
+        """
+        Set the parameters the interative solution method will iterate
+        until a norm of the residual is below tol, up to a maximum of max_iter 
+        iterations
+        """
+        self._tol = tol
+        self._max_iter = max_iter
+
