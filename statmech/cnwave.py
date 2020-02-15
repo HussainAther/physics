@@ -89,3 +89,25 @@ class cnwaveeq:
             raise("set_KO_filter: error: eps out of range")
         self._eps = eps
 
+    def step(self):
+        """
+        Take 1 time step of size dt. The equations are solved iteratively,
+        and the iterativion proceeds until the residual is below tol,
+        unless max_iter is exceeded. After the time step, time levels
+        np1 and n are swapped, so level n becomes the current (latest)
+        time, and np1 holds the past time level data.
+        
+        Return  [iter,tol], the number of iterations required, and pre-last step
+        residual
+        """
+        N = self._N
+        dx = self._dx
+        dt = self._dt
+        CFL = dt/dx
+        # filter if desired
+        if (self._eps >= 0):
+            self._phi_n = KO_filter(self._phi_n,self._eps)
+            self._pi_n = KO_filter(self._pi_n,self._eps)
+        # initial guess ... copy N to N+1
+        self._phi_np1 = self._phi_n[:]
+        self._pi_np1 = self._pi_n[:]
