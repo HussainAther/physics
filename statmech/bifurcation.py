@@ -62,6 +62,9 @@ ax1.annotate("", xy=(7, 3), xytext=(7, 4), arrowprops=dict(arrowstyle="->",conne
 A transcritical bifurcation happens when the equilibrium point "passes through" another one that exchanges their
 stabilities. A supercritical pitchfork bifurcation can make a stable equilibrium point split into two stable
 and one stable equilibriums.
+
+In this case, we use equation dx/dt = rx - x^3 which has three equilibrium points x_eq = 0, +/- sqrt(r) with
+the latter two points existiing only for r >= 0.
 """
 
 def xeq1(r):
@@ -112,5 +115,15 @@ plt.annotate("", xy=(7, -3), xytext=(7, -4), arrowprops=dict(arrowstyle="->",con
 
 """
 A subcritical pitchfork bifurcation causes the unstable equilibrium point to split into two unstable
-and one stable equilibriums. 
+and one stable equilibriums.
+The equation dx/dt = rx+x^3 has three equilibrium points x_eq = 0 and x_eq = +/- sqrt(r). 
 """
+
+def xeq1(r):
+    return 0
+
+def xeq2(r):
+    return np.sqrt(-r)
+
+def xeq3(r):
+    return -np.sqrt(-r)
