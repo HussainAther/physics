@@ -127,3 +127,31 @@ def xeq2(r):
 
 def xeq3(r):
     return -np.sqrt(-r)
+
+# Plot.
+domain1 = linspace(-10, 0)
+domain2 = linspace(0, 10)
+plt.plot(domain1, xeq1(domain1), "b-", linewidth = 3)
+plt.plot(domain1, xeq2(domain1), "r--", linewidth = 3)
+plt.plot(domain1, xeq3(domain1), "r--", linewidth = 3)
+plt.plot(domain2, xeq1(domain2), "r--", linewidth = 3)
+# Neutral equilibrium point
+plt.plot([0], [0], "go")
+plt.axis([-10, 10, -5, 5])
+plt.xlabel("r")
+plt.ylabel("x_eq")
+plt.title("Subcritical pitchfork bifurcation")
+
+# Black arrows
+plt.annotate("", xy=(1, -4), xytext=(1, -1), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(1, 4), xytext=(1, 1), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(5, -4), xytext=(5, -0.5), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(5, 4), xytext=(5, 0.5), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-3, 0.5), xytext=(-3, 1.5), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-3, -0.5), xytext=(-3, -1.5), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-3, 4), xytext=(-3, 2.2), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-3, -4), xytext=(-3, -2.2), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-7, 0.5), xytext=(-7, 2), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-7, -0.5), xytext=(-7, -2), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-7, 4), xytext=(-7, 3), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
+plt.annotate("", xy=(-7, -4), xytext=(-7, -3), arrowprops=dict(arrowstyle="->",connectionstyle="arc3",lw=1),)
