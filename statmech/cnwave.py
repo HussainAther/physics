@@ -129,4 +129,7 @@ class cnwaveeq:
             self._phi_np1 = self._phi_np1 - (iJ_11*self._phi_res + iJ_12*self._pi_res)
             self._pi_np1 = self._pi_np1   - (iJ_21*self._phi_res + iJ_22*self._pi_res)
             iter = iter+1
- 
+        self._t += dt
+        if (tol > self._tol): 
+            print("WARNING: failed to solve equations to within", self._tol, " in ",self._max_iter," iterations")
+            print("         t=",self._t," tol=", tol)
