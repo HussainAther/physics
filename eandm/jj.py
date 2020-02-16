@@ -17,7 +17,7 @@ def jj_ode(x, t):
     return [x[1], kappa - bj*x[1] - np.sin(x[0])]
 
 time = np.arange(0, tmax, 0.1)
-x0=[0.1,0.1]
+x0 = [0.1,0.1]
 xs = odeint(jj_ode, x0, time)
 imgplot = plt.plot(np.sin(xs[:, 0]), xs[:, 1], "r-")
 
