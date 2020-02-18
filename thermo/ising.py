@@ -73,7 +73,7 @@ class IsingLattice:
     def spins(self):
         """
         The following is a "trick" to help maintain the privacy of _spins.
-        _spins is mutable, and the 'return' without the ()*1 will simply
+        _spins is mutable, and the "return" without the ()*1 will simply
         return a pointer to _spins, and so could be changed external to the
         class. By multiplying by 1, a new array is created, and that is returned.
         """
@@ -84,3 +84,11 @@ class IsingLattice:
         Return spin of a specific point (i, j).
         """
         return self._spins[i%self._N, j%self._N]
+
+    def __str__(self):
+        """
+        Query and return the lattice properties.
+        """
+        return "\nLattice properties: %d^2 cells, E=%f, M=%d, <E>=%f, <M>=%f\n"%\
+               (self._N,self._E,self._M,self._E/self._N**2,self._M/self._N**2)
+
