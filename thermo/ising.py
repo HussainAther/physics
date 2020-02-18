@@ -130,3 +130,10 @@ class IsingLattice:
         """
         Compute the lattice energy E and net magnetization M of the lattice. 
         """ 
+        self._M = np.sum(self._spins)*1.0
+        self._E = 0.0
+        for i in range(self._N):
+            for j in range(self._N):
+                self._E -= self._spins[i, j]*(self._spins[i, (j+1)%self._N]+self._spins[(i+1)%self._N, j])
+        self._E *= self._J
+        self._E -= self._M*self._H
