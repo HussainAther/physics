@@ -165,3 +165,10 @@ class IsingLattice:
         values from performing the Metropolis-Hastings (metropolis hastings) method
         on the data of the Ising model.
         """
+        x = pinit 
+        acc = [] # output accepted values
+        rej = [] # rejected values
+
+
+
+
