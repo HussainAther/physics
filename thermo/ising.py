@@ -158,17 +158,23 @@ class IsingLattice:
             # less likely xnew are less likely to be accepted
             return (accept < (np.exp(xnew-x)))
 
-    def MH(l, tm, pinit, data, arule):
+    def methas(l, tm, pinit, data, it, arule):
         """
         For the likelihood model l, transition model tm, initial parameter pinit,
-        data data, and acceptance rule arule, return the accepted and rejected
+        data data, iterations it, and acceptance rule arule, return the accepted and rejected
         values from performing the Metropolis-Hastings (metropolis hastings) method
         on the data of the Ising model.
         """
         x = pinit 
         acc = [] # output accepted values
         rej = [] # rejected values
-
-
-
-
+        for i in range(it):
+            xnew = tm(x)
+            xlik = l(x, data)
+            xnewlik = l(xnew, data)
+            if arule(xlik+np.log(prior(x)), xnewlik+np.log(prior(xnew))):
+                x = xnew
+                acc.append(xnew)
+            else:
+                rej.append(xnew)
+        return [np.array(acc), np.array(rej)]
