@@ -138,7 +138,7 @@ class IsingLattice:
         self._E *= self._J
         self._E -= self._M*self._H
 
-    def mlln(x, data):
+    def mlln(self, x, data):
         """
         Compute the manual log likelihood normal, the likelihood the data given a new value,
         can compute that value. x is the tuple (mu, sigma) with mu the current value
@@ -146,7 +146,7 @@ class IsingLattice:
         """
         return np.sum(-np.log(x[1] * np.sqrt(2* np.pi) )-((data-x[0])**2) / (2*x[1]**2))
 
-    def acceptance(x, xnew):
+    def acceptance(self, x, xnew):
         """
         Do we accept the new value?
         """
@@ -158,12 +158,12 @@ class IsingLattice:
             # less likely xnew are less likely to be accepted
             return (accept < (np.exp(xnew-x)))
 
-    def methas(l, tm, pinit, data, it, arule):
+    def methas(self, l, p, tm, pinit, data, it, arule):
         """
-        For the likelihood model l, transition model tm, initial parameter pinit,
-        data data, iterations it, and acceptance rule arule, return the accepted and rejected
-        values from performing the Metropolis-Hastings (metropolis hastings) method
-        on the data of the Ising model.
+        For the likelihood model l, prior distribution p, transition model tm, 
+        initial parameter pinit, data data, iterations it, and acceptance rule arule, 
+        return the accepted and rejected values from performing the Metropolis-Hastings 
+        (metropolis hastings) method on the data of the Ising model.
         """
         x = pinit 
         acc = [] # output accepted values
@@ -178,3 +178,10 @@ class IsingLattice:
             else:
                 rej.append(xnew)
         return [np.array(acc), np.array(rej)]
+
+    def runmethas(self):
+        """
+        Run the Metropolis-Hastings algorithm.
+        """
+        tmodel = lambda x: [x[0], np.random.normal(x[1],0.5,(1,))]
+        [acc, rej] = methas(self, mlln, self.spins, tmodel,   
