@@ -146,4 +146,18 @@ class IsingLattice:
         """
         return np.sum(-np.log(x[1] * np.sqrt(2* np.pi) )-((data-x[0])**2) / (2*x[1]**2))
 
-    def MH(
+    def acceptance(x, xnew):
+        """
+        Do we accept the new value?
+        """
+        if xnew>x:
+            return True
+        else:
+            accept=np.random.uniform(0,1)
+            # Since we did a log likelihood, we need to exponentiate in order to compare to the random number
+            # less likely xnew are less likely to be accepted
+            return (accept < (np.exp(xnew-x)))
+
+    def MH(l, tm, pinit, data, arule):
+        """
+        """
