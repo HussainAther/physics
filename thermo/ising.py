@@ -137,3 +137,13 @@ class IsingLattice:
                 self._E -= self._spins[i, j]*(self._spins[i, (j+1)%self._N]+self._spins[(i+1)%self._N, j])
         self._E *= self._J
         self._E -= self._M*self._H
+
+    def mlln(x, data):
+        """
+        Compute the manual log likelihood normal, the likelihood the data given a new value,
+        can compute that value. x is the tuple (mu, sigma) with mu the current value
+        or sigma the new one. data is the observation of data so far.
+        """
+        return np.sum(-np.log(x[1] * np.sqrt(2* np.pi) )-((data-x[0])**2) / (2*x[1]**2))
+
+    def MH(
