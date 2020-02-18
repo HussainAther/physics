@@ -105,3 +105,6 @@ class IsingLattice:
         """
         N = self._N # lattice dimension number
         s = self._spins # spins
+        dM = -2.0*s[i%N, j%N]
+        dE = 2.0*s[i%N, j%N]*self._H
+        
