@@ -12,5 +12,6 @@ class IsingLattice:
     energy of the system as 
     E = -J Sum_{i,j} [S_{i,j}*(S_{I+1,j}+S_{i,j+1})]
         -H Sum_{i,j} [S_{i,j}]
-    
+    The periodic identification is the  site [i,j] = site [i+m*N,j+l*N] 
+    for integers m,l. 
     """
