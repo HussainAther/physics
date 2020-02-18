@@ -39,3 +39,33 @@ class IsingLattice:
         """
         self._spins = np.where(np.random.random((self._N, self._N)) > .5, 1, -1)
         self._computeEM()
+
+   def N(self):
+       """
+       Return lattice dimension.
+       """
+       return self._N
+    
+   def M(self):
+       """
+       Return net magnetization.
+       """
+       return self._M
+     
+   def H(self):
+       """
+       Return exeternal magnetic field.
+       """
+       return self._H
+    
+   def J(self):
+       """
+       Return the interaction energy.
+       """
+       return self._J
+    
+   def E(self):
+       """
+       Return lattice energy.
+       """
+       return self._E
