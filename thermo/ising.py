@@ -160,4 +160,8 @@ class IsingLattice:
 
     def MH(l, tm, pinit, data, arule):
         """
+        For the likelihood model l, transition model tm, initial parameter pinit,
+        data data, and acceptance rule arule, return the accepted and rejected
+        values from performing the Metropolis-Hastings (metropolis hastings) method
+        on the data of the Ising model.
         """
