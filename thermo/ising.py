@@ -98,3 +98,8 @@ class IsingLattice:
         """
         print(self)
         print(np.where(self._spins>0, "@"," "))
+
+    def spinflip(self, i, j):
+        """
+        Flip the spins based on the interactions between them.
+        """
