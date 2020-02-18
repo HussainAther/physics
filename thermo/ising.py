@@ -183,5 +183,6 @@ class IsingLattice:
         """
         Run the Metropolis-Hastings algorithm.
         """
-        tmodel = lambda x: [x[0], np.random.normal(x[1],0.5,(1,))]
-        [acc, rej] = methas(self, mlln, self.spins, tmodel,   
+        tmodel = lambda x: [x[0], np.random.normal(x[1], 0.5, (1,))]
+        
+        [acc, rej] = methas(self, mlln, self.spins, tmodel, self.spins[0], 50000, self.randomspins, acceptance) 
