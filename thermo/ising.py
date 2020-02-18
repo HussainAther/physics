@@ -103,3 +103,5 @@ class IsingLattice:
         """
         Flip the spins based on the interactions between them.
         """
+        N = self._N # lattice dimension number
+        s = self._spins # spins
