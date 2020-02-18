@@ -1,0 +1,3 @@
+"""
+Ising model lattice encapsulation
+"""
