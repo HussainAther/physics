@@ -92,3 +92,9 @@ class IsingLattice:
         return "\nLattice properties: %d^2 cells, E=%f, M=%d, <E>=%f, <M>=%f\n"%\
                (self._N,self._E,self._M,self._E/self._N**2,self._M/self._N**2)
 
+    def diagram(self):
+        """
+        Create a text diagram of the Ising model.
+        """
+        print(self)
+        print(np.where(self._spins>0, "@"," "))
