@@ -22,3 +22,13 @@ class IsingLattice:
         self._H = H # external magnetic field
         self.alignedspins() # set all spins to S (+/- 1)
         self._computeEM() # compute E and M over the lattice
+
+    def alignedspins(self, S=1):
+        """
+        Set all spins to S (+/- 1)
+        """
+        if not(S==1 or S==-1):
+            print("Error: spin must be +/-1")
+            raise(AttributeError)
+        self._spins = np.ones((self._N, self._N), dtype=int)*S
+        self_computeEM()  
