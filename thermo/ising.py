@@ -81,3 +81,6 @@ class IsingLattice:
  
     def spinij(self, i, j):
         """
+        Return spin of a specific point (i, j).
+        """
+        return self._spins[i%self._N, j%self._N]
