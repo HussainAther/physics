@@ -111,3 +111,7 @@ class IsingLattice:
         # spins flip. The self-interaction E doesn't change. 
         if N>1:
             dE += 2*s[i%N, j%N]*self._J*(s[i%N, (j+1)%N]+s[(i+1)%N, j%N]+s[i%N, (j-1)%N]+s[(i-1)%N, j%N])
+        self._spins[i%N, j%N] *= -1
+        self._E += dE
+        self._M += dM
+        return dE
