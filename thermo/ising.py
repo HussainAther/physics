@@ -15,3 +15,10 @@ class IsingLattice:
     The periodic identification is the  site [i,j] = site [i+m*N,j+l*N] 
     for integers m,l. 
     """
+    
+    def __init__(self,N,J=1.0,H=0.0):
+        self._N = N # lattice dimension
+        self._J = J # interaction energy
+        self._H = H # external magnetic field
+        self.alignedspins() # set all spins to S (+/- 1)
+        self._computeEM() # compute E and M over the lattice
