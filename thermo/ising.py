@@ -69,3 +69,12 @@ class IsingLattice:
        Return lattice energy.
        """
        return self._E
+
+   def spins(self):
+      """
+      The following is a "trick" to help maintain the privacy of _spins.
+      _spins is mutable, and the 'return' without the ()*1 will simply
+      return a pointer to _spins, and so could be changed external to the
+      class. By multiplying by 1, a new array is created, and that is returned.
+      """
+      return (self._spins)*1
