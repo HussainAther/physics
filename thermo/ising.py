@@ -125,3 +125,8 @@ class IsingLattice:
             return dE
         self.spinflip(i, j)
         return 0
+    
+    def _computeEM(self):
+        """
+        Compute the lattice energy E and net magnetization M of the lattice. 
+        """ 
