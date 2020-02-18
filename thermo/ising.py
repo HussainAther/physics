@@ -32,3 +32,10 @@ class IsingLattice:
             raise(AttributeError)
         self._spins = np.ones((self._N, self._N), dtype=int)*S
         self_computeEM()  
+
+    def randomspins(self):
+        """
+        Randomize the spins.
+        """
+        self._spins = np.where(np.random.random((self._N, self._N)) > .5, 1, -1)
+        self._computeEM()
