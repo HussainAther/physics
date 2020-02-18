@@ -115,3 +115,13 @@ class IsingLattice:
         self._E += dE
         self._M += dM
         return dE
+
+    def condspinflip(self, i, j, T): 
+        """
+        Spin flip at temperature T.
+        """
+        dE = self.spin_flip(i,j)
+        if (dE<0.0 or (T>0.0 and (np.random.random()<np.exp(-dE/T)))): 
+            return dE
+        self.spinflip(i, j)
+        return 0
