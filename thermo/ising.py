@@ -109,3 +109,5 @@ class IsingLattice:
         dE = 2.0*s[i%N, j%N]*self._H
         # For the case of N=1, the particle is its own neighbor so all the 
         # spins flip. The self-interaction E doesn't change. 
+        if N>1:
+            dE += 2*s[i%N, j%N]*self._J*(s[i%N, (j+1)%N]+s[(i+1)%N, j%N]+s[i%N, (j-1)%N]+s[(i-1)%N, j%N])
