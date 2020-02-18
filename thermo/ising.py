@@ -40,41 +40,44 @@ class IsingLattice:
         self._spins = np.where(np.random.random((self._N, self._N)) > .5, 1, -1)
         self._computeEM()
 
-   def N(self):
-       """
-       Return lattice dimension.
-       """
-       return self._N
+    def N(self):
+        """
+        Return lattice dimension.
+        """
+        return self._N
     
-   def M(self):
-       """
-       Return net magnetization.
-       """
-       return self._M
+    def M(self):
+        """
+        Return net magnetization.
+        """
+        return self._M
      
-   def H(self):
-       """
-       Return exeternal magnetic field.
-       """
-       return self._H
+    def H(self):
+        """
+        Return exeternal magnetic field.
+        """
+        return self._H
     
-   def J(self):
-       """
-       Return the interaction energy.
-       """
-       return self._J
+    def J(self):
+        """
+        Return the interaction energy.
+        """
+        return self._J
     
-   def E(self):
-       """
-       Return lattice energy.
-       """
-       return self._E
+    def E(self):
+        """
+        Return lattice energy.
+        """
+        return self._E
 
-   def spins(self):
-      """
-      The following is a "trick" to help maintain the privacy of _spins.
-      _spins is mutable, and the 'return' without the ()*1 will simply
-      return a pointer to _spins, and so could be changed external to the
-      class. By multiplying by 1, a new array is created, and that is returned.
-      """
-      return (self._spins)*1
+    def spins(self):
+        """
+        The following is a "trick" to help maintain the privacy of _spins.
+        _spins is mutable, and the 'return' without the ()*1 will simply
+        return a pointer to _spins, and so could be changed external to the
+        class. By multiplying by 1, a new array is created, and that is returned.
+        """
+        return (self._spins)*1
+ 
+    def spinij(self, i, j):
+        """
